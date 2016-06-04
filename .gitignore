@@ -1,6 +1,7 @@
 /vendor
 /node_modules
 /public/storage
+/public/semantic
 Homestead.yaml
 Homestead.json
 .env

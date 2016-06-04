@@ -1,4 +1,6 @@
 {
+  "name": "iris-crm",
+  "version": "0.0.1",
   "private": true,
   "scripts": {
     "prod": "gulp --production",
