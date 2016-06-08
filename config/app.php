@@ -156,6 +156,11 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
 
+
+        /*
+         * Added
+         */
+        AdamWathan\EloquentOAuthL5\EloquentOAuthServiceProvider::class,
     ],
 
     /*
@@ -201,6 +206,11 @@ return [
         'URL' => Illuminate\Support\Facades\URL::class,
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
+
+        /*
+         * Added
+         */
+        'SocialAuth' => AdamWathan\EloquentOAuth\Facades\OAuth::class,
 
     ],
 
