@@ -8,9 +8,7 @@ use SocialNorm\Providers\OAuth2Provider;
 
 class KeycloakProvider extends OAuth2Provider
 {
-    protected $authorizeUrl = "http://c64.ovh/auth/realms/irispass/protocol/openid-connect/auth";
-    protected $accessTokenUrl = "http://c64.ovh/auth/realms/irispass/protocol/openid-connect/token";
-    protected $userDataUrl = "http://c64.ovh/auth/realms/irispass/protocol/openid-connect/userinfo";
+
 
     protected $scope = [
         'view-profile',
@@ -32,17 +30,17 @@ class KeycloakProvider extends OAuth2Provider
 
     protected function getAuthorizeUrl()
     {
-        return $this->authorizeUrl;
+        return env('AUTH_SERVER') . "/realms/" . env('AUTH_REALM') . "/protocol/openid-connect/auth";
     }
 
     protected function getAccessTokenBaseUrl()
     {
-        return $this->accessTokenUrl;
+        return env('AUTH_SERVER') . "/realms/" . env('AUTH_REALM') . "/protocol/openid-connect/token";
     }
 
     protected function getUserDataUrl()
     {
-        return $this->userDataUrl;
+        return env('AUTH_SERVER') . "/realms/" . env('AUTH_REALM') . "/protocol/openid-connect/userinfo";
     }
 
     protected function parseTokenResponse($response)

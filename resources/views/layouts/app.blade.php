@@ -3,20 +3,23 @@
 <head>
     @include('elements.head')
 </head>
-<body>
+<body class="hold-transition skin-blue sidebar-mini" id="app">
+<div class="wrapper">
 
 
-@include('elements.sidebar')
+    @include('elements.sidebar')
 
-@include('elements.header')
+    @include('elements.header')
+
+    <div class="content-wrapper">
+        @yield('content')
+    </div>
 
 
-@yield('content')
+    @include('elements.footer')
 
+    @include('elements.scripts')
 
-@include('elements.footer')
-
-@include('elements.scripts')
-
+</div>
 </body>
 </html>

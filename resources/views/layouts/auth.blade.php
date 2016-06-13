@@ -3,13 +3,20 @@
 <head>
     @include('elements.head')
 </head>
-<body>
 
-<!-- Login Content -->
+<body class="hold-transition login-page" id="app">
 
-<!-- END Login Content -->
+<div class="login-box">
 
-@include('elements.footer')
+    <div class="login-logo">
+        <a href="#"><b>Iris</b>pass</a>
+    </div>
+
+    <div class="login-box-body">
+        @yield('content')
+    </div>
+
+</div>
 
 @include('elements.scripts')
 

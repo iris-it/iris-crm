@@ -1,7 +1,9 @@
 {
-  "name": "flow-webapp",
+  "name": "iris-crm",
   "private": true,
   "dependencies": {
-    "semantic": "semantic-ui#^2.1.8"
+    "AdminLTE": "admin-lte#^2.3.3",
+    "bootstrap": "^3.3.6",
+    "font-awesome": "^4.6.3"
   }
 }
