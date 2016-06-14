@@ -162,6 +162,17 @@ return [
          */
         AdamWathan\EloquentOAuthL5\EloquentOAuthServiceProvider::class,
         Philo\Translate\TranslateServiceProvider::class,
+
+        /*
+         * Crud
+         */
+        Collective\Html\HtmlServiceProvider::class,
+        Laracasts\Flash\FlashServiceProvider::class,
+        Prettus\Repository\Providers\RepositoryServiceProvider::class,
+        InfyOm\Generator\InfyOmGeneratorServiceProvider::class,
+        InfyOm\CoreTemplates\CoreTemplatesServiceProvider::class,
+        InfyOm\GeneratorBuilder\GeneratorBuilderServiceProvider::class,
+        InfyOm\AdminLTETemplates\AdminLTETemplatesServiceProvider::class,
         
     ],
 
@@ -214,6 +225,13 @@ return [
          */
         'SocialAuth' => AdamWathan\EloquentOAuth\Facades\OAuth::class,
 
+        /*
+         * CRUD
+         */
+        'Form' => Collective\Html\FormFacade::class,
+        'Html' => Collective\Html\HtmlFacade::class,
+        'Flash' => Laracasts\Flash\Flash::class,
+        
     ],
 
 ];
