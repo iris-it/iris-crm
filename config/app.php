@@ -172,8 +172,7 @@ return [
         InfyOm\Generator\InfyOmGeneratorServiceProvider::class,
         InfyOm\CoreTemplates\CoreTemplatesServiceProvider::class,
         InfyOm\GeneratorBuilder\GeneratorBuilderServiceProvider::class,
-        Yajra\Datatables\DatatablesServiceProvider::class
-
+        
     ],
 
     /*
@@ -231,8 +230,7 @@ return [
         'Form' => Collective\Html\FormFacade::class,
         'Html' => Collective\Html\HtmlFacade::class,
         'Flash' => Laracasts\Flash\Flash::class,
-        'Datatables' => Yajra\Datatables\Facades\Datatables::class
-
+        
     ],
 
 ];
