@@ -2,8 +2,8 @@
 
 @section('content')
 
-    <p class="login-box-msg">Sign in to start your session</p>
-
+    <p class="text-center" style="font-size:2em;">{{ trans('app.login:welcome') }}</p>
+    <br><br>
     <div class="col-md-8 col-md-offset-2">
         <login action="{{action('AuthController@authorizeUser')}}"></login>
     </div>
