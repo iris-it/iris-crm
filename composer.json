@@ -15,7 +15,14 @@
         "laravel/framework": "5.2.*",
         "adamwathan/eloquent-oauth-l5": "dev-master",
         "predis/predis": "^1.1",
-        "philo/laravel-translate": "^2.0"
+        "philo/laravel-translate": "^2.0",
+
+        "infyomlabs/laravel-generator": "dev-master",
+        "laravelcollective/html": "5.2.*",
+        "infyomlabs/core-templates": "dev-master",
+        "infyomlabs/generator-builder": "dev-master",
+        "infyomlabs/adminlte-templates": "dev-master"
+
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",
