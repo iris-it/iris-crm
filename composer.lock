@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "a63047e8a26a6f460307bc2e6ff4fdb1",
-    "content-hash": "a1c1ec9bf0d391d860165964251f7c7f",
+    "hash": "a71c17254f9e21ff6777e084b41e1c5b",
+    "content-hash": "d7d6004366c140f3246cd5b32a4d8317",
     "packages": [
         {
             "name": "adamwathan/eloquent-oauth",
@@ -1055,6 +1055,49 @@
                 "random"
             ],
             "time": "2016-03-18 20:34:03"
+        },
+        {
+            "name": "philo/laravel-translate",
+            "version": "v2.0.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/PhiloNL/laravel-translate.git",
+                "reference": "62fa20ccb2657a43df4c2426752083a4045419ba"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/PhiloNL/laravel-translate/zipball/62fa20ccb2657a43df4c2426752083a4045419ba",
+                "reference": "62fa20ccb2657a43df4c2426752083a4045419ba",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/support": "5.*",
+                "php": ">=5.3.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "Philo\\Translate\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Philo Hermans",
+                    "email": "me@philohermans.com"
+                }
+            ],
+            "description": "Translation manager for Laravel 5",
+            "keywords": [
+                "laravel",
+                "manager",
+                "translate",
+                "translation"
+            ],
+            "time": "2015-02-02 21:00:32"
         },
         {
             "name": "predis/predis",

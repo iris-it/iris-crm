@@ -14,7 +14,8 @@
         "php": ">=5.5.9",
         "laravel/framework": "5.2.*",
         "adamwathan/eloquent-oauth-l5": "dev-master",
-        "predis/predis": "^1.1"
+        "predis/predis": "^1.1",
+        "philo/laravel-translate": "^2.0"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",

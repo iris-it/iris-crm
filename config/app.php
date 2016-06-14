@@ -161,6 +161,8 @@ return [
          * Added
          */
         AdamWathan\EloquentOAuthL5\EloquentOAuthServiceProvider::class,
+        Philo\Translate\TranslateServiceProvider::class,
+        
     ],
 
     /*
