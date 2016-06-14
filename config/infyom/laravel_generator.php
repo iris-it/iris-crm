@@ -13,7 +13,7 @@ return [
 
         'migration'         => base_path('database/migrations/'),
 
-        'model'             => app_path('Models/'),
+        'model'             => app_path(),
 
         'datatables'        => app_path('DataTables/'),
 
@@ -37,7 +37,7 @@ return [
 
         'api_test'          => base_path('tests/'),
 
-        'views'             => base_path('resources/views/'),
+        'views'             => base_path('resources/views/pages/'),
 
         'schema_files'      => base_path('resources/model_schemas/'),
 
@@ -138,11 +138,11 @@ return [
 
     'add_on' => [
 
-        'swagger'       => true,
+        'swagger'       => false,
 
         'tests'         => true,
 
-        'datatables'    => false,
+        'datatables'    => true,
 
         'menu'          => [
 
