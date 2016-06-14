@@ -33,7 +33,7 @@ class AuthController extends Controller
 
     public function userProfile()
     {
-        return redirect(env('AUTH_SERVER') . "/realms/" . env('AUTH_REALM') . "/account/");
+        return redirect(env('AUTH_SERVER') . "/realms/" . env('AUTH_REALM') . "/account?referrer=" . env('AUTH_CLIENT_ID') . "&referrer_uri=" . urlencode(env('APP_URL')));
     }
 
     public function logout()
