@@ -29,3 +29,5 @@ Route::post('generator_builder/generate', '\InfyOm\GeneratorBuilder\Controllers\
 Route::resource('accounts', 'AccountController');
 
 Route::resource('prospects', 'ProspectController');
+
+Route::resource('contacts', 'ContactController');
