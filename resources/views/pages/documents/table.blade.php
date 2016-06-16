@@ -2,10 +2,8 @@
     <thead>
         <th>Document Name</th>
         <th>Version</th>
-        <th>Document Upload</th>
         <th>Authorizations</th>
         <th>Writers</th>
-        <th>Readers</th>
         <th>Document State</th>
         <th colspan="3">Action</th>
     </thead>
@@ -14,10 +12,8 @@
         <tr>
             <td>{!! $document->document_name !!}</td>
             <td>{!! $document->version !!}</td>
-            <td>{!! $document->document_upload !!}</td>
             <td>{!! $document->authorizations !!}</td>
             <td>{!! $document->writers !!}</td>
-            <td>{!! $document->readers !!}</td>
             <td>{!! $document->document_state !!}</td>
             <td>
                 {!! Form::open(['route' => ['documents.destroy', $document->id], 'method' => 'delete']) !!}

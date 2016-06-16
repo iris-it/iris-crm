@@ -1,6 +1,6 @@
 <?php
 
-# modified at 16-06-2016 06:07
+# modified at 16-06-2016 07:10
 
 return  array(
 	'contact:account-name'       => 'Account name',
@@ -21,6 +21,7 @@ return  array(
 	'general:country'            => 'Country',
 	'general:created-at'         => 'Created at',
 	'general:delivery-address'   => 'Delivery address',
+	'general:description'        => 'Description',
 	'general:free-input'         => 'Optional commentary',
 	'general:is-active'          => 'Active',
 	'general:name'               => 'Name',
@@ -34,5 +35,14 @@ return  array(
 	'general:workforce'          => 'Workforce',
 	'general:zipcode'            => 'Zipcode',
 	'login:welcome'              => 'Sign in to start your session',
+	'product:active-taxes'       => 'Active taxes',
+	'product:avatar'             => 'Product picture',
+	'product:category'           => 'Category',
+	'product:date-end'           => 'Sale end',
+	'product:date-start'         => 'Sale start',
+	'product:ht-price'           => 'Price without taxes',
+	'product:manu-officer'       => 'Manutention officer',
+	'product:notice'             => 'Product notice',
+	'product:stock-dispo'        => 'Stock disponibility',
 	'sidebar:main-title'         => 'MAIN NAVIGATION',
 );

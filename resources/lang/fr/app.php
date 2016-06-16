@@ -1,6 +1,6 @@
 <?php
 
-# modified at 16-06-2016 06:07
+# modified at 16-06-2016 07:10
 
 return  array(
 	'contact:account-name'       => 'Nom de compte',
@@ -21,6 +21,7 @@ return  array(
 	'general:country'            => 'Pays',
 	'general:created-at'         => 'Créé le',
 	'general:delivery-address'   => 'Adresse de livraison',
+	'general:description'        => 'Description',
 	'general:free-input'         => 'Commentaire libre',
 	'general:is-active'          => 'Actif',
 	'general:name'               => 'Nom',
@@ -34,5 +35,14 @@ return  array(
 	'general:workforce'          => 'Effectifs',
 	'general:zipcode'            => 'Code postal',
 	'login:welcome'              => 'Connectez vous pour accéder aux fonctionnalités',
+	'product:active-taxes'       => 'Taxes appliquées',
+	'product:avatar'             => 'Image de produit',
+	'product:category'           => 'Catégorie',
+	'product:date-end'           => 'Fin de vente',
+	'product:date-start'         => 'Début de vente',
+	'product:ht-price'           => 'Prix HT',
+	'product:manu-officer'       => 'Chargé de manutention',
+	'product:notice'             => 'Notice produit',
+	'product:stock-dispo'        => 'En stock',
 	'sidebar:main-title'         => 'MENU PRINCIPAL',
 );
