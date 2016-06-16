@@ -1,72 +1,72 @@
 <!-- Topic Field -->
 <div class="form-group col-sm-6">
-    {!! Form::label('topic', 'Topic:') !!}
+    {!! Form::label('topic', trans('app.general:topic') . " :" ) !!}
     {!! Form::text('topic', null, ['class' => 'form-control']) !!}
 </div>
 
 <!-- Account Name Field -->
 <div class="form-group col-sm-6">
-    {!! Form::label('account_name', 'Account Name:') !!}
+    {!! Form::label('account_name', trans('app.contact:account-name') . " :" ) !!}
     {!! Form::text('account_name', null, ['class' => 'form-control']) !!}
 </div>
 
 <!-- Phase Field -->
 <div class="form-group col-sm-6">
-    {!! Form::label('phase', 'Phase:') !!}
+    {!! Form::label('phase', trans('app.general:phase') . " :" ) !!}
     {!! Form::text('phase', null, ['class' => 'form-control']) !!}
 </div>
 
 <!-- Contact Name Field -->
 <div class="form-group col-sm-6">
-    {!! Form::label('contact_name', 'Contact Name:') !!}
+    {!! Form::label('contact_name', trans('app.contact:name') . " :" ) !!}
     {!! Form::text('contact_name', null, ['class' => 'form-control']) !!}
 </div>
 
 <!-- Deadline Field -->
 <div class="form-group col-sm-6">
-    {!! Form::label('deadline', 'Deadline:') !!}
+    {!! Form::label('deadline', trans('app.general:deadline') . " :" ) !!}
     {!! Form::text('deadline', null, ['class' => 'form-control']) !!}
 </div>
 
 <!-- Contact Owner Field -->
 <div class="form-group col-sm-6">
-    {!! Form::label('contact_owner', 'Contact Owner:') !!}
+    {!! Form::label('contact_owner', trans('app.contact:owner') . " :" ) !!}
     {!! Form::text('contact_owner', null, ['class' => 'form-control']) !!}
 </div>
 
 <!-- Description Field -->
 <div class="form-group col-sm-6">
-    {!! Form::label('description', 'Description:') !!}
+    {!! Form::label('description', trans('app.general:description') . " :" )!!}
     {!! Form::text('description', null, ['class' => 'form-control']) !!}
 </div>
 
 <!-- Special Conditions Field -->
 <div class="form-group col-sm-6">
-    {!! Form::label('special_conditions', 'Special Conditions:') !!}
+    {!! Form::label('special_conditions', trans('app.general:special-conditions') . " :" ) !!}
     {!! Form::text('special_conditions', null, ['class' => 'form-control']) !!}
 </div>
 
 <!-- Address Field -->
 <div class="form-group col-sm-6">
-    {!! Form::label('address', 'Address:') !!}
+    {!! Form::label('address', trans('app.general:address') . " :" ) !!}
     {!! Form::text('address', null, ['class' => 'form-control']) !!}
 </div>
 
 <!-- Zipcode Field -->
 <div class="form-group col-sm-6">
-    {!! Form::label('zipcode', 'Zipcode:') !!}
+    {!! Form::label('zipcode', trans('app.general:zipcode') . " :" ) !!}
     {!! Form::text('zipcode', null, ['class' => 'form-control']) !!}
 </div>
 
 <!-- City Field -->
 <div class="form-group col-sm-6">
-    {!! Form::label('city', 'City:') !!}
+    {!! Form::label('city', trans('app.general:city') . " :" ) !!}
     {!! Form::text('city', null, ['class' => 'form-control']) !!}
 </div>
 
 <!-- Country Field -->
 <div class="form-group col-sm-6">
-    {!! Form::label('country', 'Country:') !!}
+    {!! Form::label('country', trans('app.general:country') . " :" ) !!}
     {!! Form::text('country', null, ['class' => 'form-control']) !!}
 </div>
 

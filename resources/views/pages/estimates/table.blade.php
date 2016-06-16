@@ -1,17 +1,11 @@
 <table class="table table-responsive" id="estimates-table">
     <thead>
-        <th>Topic</th>
-        <th>Account Name</th>
-        <th>Phase</th>
-        <th>Contact Name</th>
-        <th>Deadline</th>
-        <th>Contact Owner</th>
-        <th>Description</th>
-        <th>Special Conditions</th>
-        <th>Address</th>
-        <th>Zipcode</th>
-        <th>City</th>
-        <th>Country</th>
+        <th>{{trans('app.general:topic')}}</th>
+        <th>{{trans('app.contact:account-name')}}</th>
+        <th>{{trans('app.general:phase')}}</th>
+        <th>{{trans('app.contact:name')}}</th>
+        <th>{{trans('app.general:deadline')}}</th>
+        <th>{{trans('app.contact:owner')}}</th>
         <th colspan="3">Action</th>
     </thead>
     <tbody>
@@ -23,12 +17,6 @@
             <td>{!! $estimate->contact_name !!}</td>
             <td>{!! $estimate->deadline !!}</td>
             <td>{!! $estimate->contact_owner !!}</td>
-            <td>{!! $estimate->description !!}</td>
-            <td>{!! $estimate->special_conditions !!}</td>
-            <td>{!! $estimate->address !!}</td>
-            <td>{!! $estimate->zipcode !!}</td>
-            <td>{!! $estimate->city !!}</td>
-            <td>{!! $estimate->country !!}</td>
             <td>
                 {!! Form::open(['route' => ['estimates.destroy', $estimate->id], 'method' => 'delete']) !!}
                 <div class='btn-group'>

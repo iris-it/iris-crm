@@ -1,10 +1,10 @@
 <table class="table table-responsive" id="documents-table">
     <thead>
-        <th>Document Name</th>
-        <th>Version</th>
-        <th>Authorizations</th>
-        <th>Writers</th>
-        <th>Document State</th>
+        <th>{{trans('app.general:name')}}</th>
+        <th>{{trans('app.document:version')}}</th>
+        <th>{{trans('app.document:authorizations')}}</th>
+        <th>{{trans('app.document:writers')}}</th>
+        <th>{{trans('app.document:state')}}</th>
         <th colspan="3">Action</th>
     </thead>
     <tbody>
