@@ -6,34 +6,32 @@ use Eloquent as Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
- * Class Contact
+ * Class Quote
  * @package App\Models
  */
-class Contact extends Model
+class Quote extends Model
 {
     use SoftDeletes;
 
-    public $table = 'contacts';
+    public $table = 'quotes';
     
 
     protected $dates = ['deleted_at'];
 
 
     public $fillable = [
-        'civility',
-        'lastname',
-        'firstname',
-        'post',
-        'email',
-        'phone_number',
+        'topic',
         'account_name',
+        'phase',
+        'contact_name',
+        'deadline',
         'contact_owner',
-        'avatar',
+        'description',
+        'special_conditions',
         'address',
         'zipcode',
         'city',
-        'country',
-        'free_label'
+        'country'
     ];
 
     /**
@@ -42,20 +40,18 @@ class Contact extends Model
      * @var array
      */
     protected $casts = [
-        'civility' => 'string',
-        'lastname' => 'string',
-        'firstname' => 'string',
-        'post' => 'string',
-        'email' => 'string',
-        'phone_number' => 'string',
+        'topic' => 'string',
         'account_name' => 'string',
+        'phase' => 'string',
+        'contact_name' => 'string',
+        'deadline' => 'string',
         'contact_owner' => 'string',
-        'avatar' => 'string',
+        'description' => 'string',
+        'special_conditions' => 'string',
         'address' => 'string',
         'zipcode' => 'string',
         'city' => 'string',
-        'country' => 'string',
-        'free_label' => 'string'
+        'country' => 'string'
     ];
 
     /**
@@ -67,25 +63,19 @@ class Contact extends Model
         
     ];
 
-
-    public function boundable()
-    {
-        return $this->morphTo();
-    }
-
     public function user()
     {
         return $this->belongsTo('App\User');
     }
 
-    public function products()
+    public function account()
     {
-        return $this->hasMany('App\Product');
+        return $this->belongsTo('App\Account');
     }
 
-    public function quotes()
+    public function contact()
     {
-        return $this->hasMany('App\Quote');
+        return $this->belongsTo('App\Contact');
     }
 
     public function invoices()

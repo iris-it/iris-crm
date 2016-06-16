@@ -10,7 +10,7 @@
         "inIndex": false
     },
     {
-        "fieldInput": "prospect_name:string",
+        "fieldInput": "lead_name:string",
         "htmlType": "text",
         "validations": "",
         "searchable": true,

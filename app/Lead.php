@@ -6,21 +6,21 @@ use Eloquent as Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
- * Class Account
+ * Class Lead
  * @package App\Models
  */
-class Account extends Model
+class Lead extends Model
 {
     use SoftDeletes;
 
-    public $table = 'accounts';
+    public $table = 'leads';
     
 
     protected $dates = ['deleted_at'];
 
 
     public $fillable = [
-        'account_name',
+        'lead_name',
         'website',
         'activity_sector',
         'workforce',
@@ -28,16 +28,12 @@ class Account extends Model
         'ape_number',
         'siret_number',
         'phone_number',
-        'is_active',
+        'status',
         'account_owner',
-        'billing_address',
-        'delivery_address',
-        'billing_zipcode',
-        'delivery_zipcode',
-        'billing_city',
-        'delivery_city',
-        'billing_country',
-        'delivery_country',
+        'address',
+        'zipcode',
+        'city',
+        'country',
         'free_label'
     ];
 
@@ -47,7 +43,7 @@ class Account extends Model
      * @var array
      */
     protected $casts = [
-        'account_name' => 'string',
+        'lead_name' => 'string',
         'website' => 'string',
         'activity_sector' => 'string',
         'workforce' => 'integer',
@@ -55,16 +51,12 @@ class Account extends Model
         'ape_number' => 'string',
         'siret_number' => 'string',
         'phone_number' => 'string',
-        'is_active' => 'boolean',
+        'status' => 'string',
         'account_owner' => 'string',
-        'billing_address' => 'string',
-        'delivery_address' => 'string',
-        'billing_zipcode' => 'string',
-        'delivery_zipcode' => 'string',
-        'billing_city' => 'string',
-        'delivery_city' => 'string',
-        'billing_country' => 'string',
-        'delivery_country' => 'string',
+        'address' => 'string',
+        'zipcode' => 'string',
+        'city' => 'string',
+        'country' => 'string',
         'free_label' => 'string'
     ];
 
@@ -77,19 +69,10 @@ class Account extends Model
         
     ];
 
+
     public function user()
     {
         return $this->belongsTo('App\User');
-    }
-
-    public function quotes()
-    {
-        return $this->hasMany('App\Quote');
-    }
-
-    public function invoices()
-    {
-        return $this->hasMany('App\Invoice');
     }
 
     public function contacts()

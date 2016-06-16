@@ -29,17 +29,17 @@ Route::post('generator_builder/generate', '\InfyOm\GeneratorBuilder\Controllers\
 
 Route::resource('accounts', 'AccountController');
 
-Route::resource('prospects', 'ProspectController');
+Route::resource('leads', 'LeadController');
 
 Route::resource('contacts', 'ContactController');
 
-Route::resource('estimates', 'EstimateController');
+Route::resource('quotes', 'QuoteController');
 
 Route::resource('orders', 'OrderController');
 
 Route::resource('invoices', 'InvoiceController');
 
-Route::resource('products', 'ProductsController');
+Route::resource('products', 'ProductController');
 
 Route::resource('services', 'ServiceController');
 

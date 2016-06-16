@@ -60,4 +60,19 @@ class Invoice extends Model
     public static $rules = [
         
     ];
+
+    public function account()
+    {
+        return $this->belongsTo('App\Account');
+    }
+
+    public function contact()
+    {
+        return $this->belongsTo('App\Contact');
+    }
+
+    public function quote()
+    {
+        return $this->belongsTo('App\Quote');
+    }
 }

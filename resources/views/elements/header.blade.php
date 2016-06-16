@@ -1,5 +1,5 @@
 <header class="main-header">
-    <a href="#" class="logo">
+    <a href="{{action('HomeController@index')}}" class="logo">
         <span class="logo-mini"><b>I</b>CRM</span>
         <span class="logo-lg"><b>Iris</b>CRM</span>
     </a>

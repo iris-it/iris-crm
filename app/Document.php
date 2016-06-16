@@ -52,4 +52,9 @@ class Document extends Model
     public static $rules = [
         
     ];
+
+    public function users()
+    {
+        return $this->belongsToMany('App\User');
+    }
 }
