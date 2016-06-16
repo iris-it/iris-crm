@@ -1,38 +1,18 @@
 <table class="table table-responsive" id="contacts-table">
     <thead>
-        <th>Civility</th>
-        <th>Lastname</th>
-        <th>Firstname</th>
-        <th>Post</th>
-        <th>Email</th>
-        <th>Phone Number</th>
-        <th>Account Name</th>
-        <th>Contact Owner</th>
-        <th>Avatar</th>
-        <th>Address</th>
-        <th>Zipcode</th>
-        <th>City</th>
-        <th>Country</th>
-        <th>Free Label</th>
-        <th colspan="3">Action</th>
+    <th>{{trans('app.general:name')}}</th>
+    <th>{{trans('app.contact:account-name')}}</th>
+    <th>{{trans('app.contact:post')}}</th>
+    <th>{{trans('app.contact:owner')}}</th>
+    <th colspan="3">Action</th>
     </thead>
     <tbody>
     @foreach($contacts as $contact)
         <tr>
-            <td>{!! $contact->civility !!}</td>
-            <td>{!! $contact->lastname !!}</td>
-            <td>{!! $contact->firstname !!}</td>
-            <td>{!! $contact->post !!}</td>
-            <td>{!! $contact->email !!}</td>
-            <td>{!! $contact->phone_number !!}</td>
+            <td>{!! $contact->firstname !!} {!! $contact->lastname !!}</td>
             <td>{!! $contact->account_name !!}</td>
+            <td>{!! $contact->post !!}</td>
             <td>{!! $contact->contact_owner !!}</td>
-            <td>{!! $contact->avatar !!}</td>
-            <td>{!! $contact->address !!}</td>
-            <td>{!! $contact->zipcode !!}</td>
-            <td>{!! $contact->city !!}</td>
-            <td>{!! $contact->country !!}</td>
-            <td>{!! $contact->free_label !!}</td>
             <td>
                 {!! Form::open(['route' => ['contacts.destroy', $contact->id], 'method' => 'delete']) !!}
                 <div class='btn-group'>

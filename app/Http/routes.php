@@ -31,3 +31,15 @@ Route::resource('accounts', 'AccountController');
 Route::resource('prospects', 'ProspectController');
 
 Route::resource('contacts', 'ContactController');
+
+Route::resource('estimates', 'EstimateController');
+
+Route::resource('orders', 'OrderController');
+
+Route::resource('invoices', 'InvoiceController');
+
+Route::resource('products', 'ProductsController');
+
+Route::resource('services', 'ServiceController');
+
+Route::resource('documents', 'DocumentController');

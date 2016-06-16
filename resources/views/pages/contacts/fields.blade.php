@@ -1,89 +1,89 @@
 <!-- Civility Field -->
 <div class="form-group col-sm-6">
-    {!! Form::label('civility', 'Civility:') !!}
+    {!! Form::label('civility', trans('app.contact:civility') . ' :') !!}
     {!! Form::text('civility', null, ['class' => 'form-control']) !!}
 </div>
 
 <!-- Lastname Field -->
 <div class="form-group col-sm-6">
-    {!! Form::label('lastname', 'Lastname:') !!}
+    {!! Form::label('lastname', trans('app.contact:lastname') . ' :') !!}
     {!! Form::text('lastname', null, ['class' => 'form-control']) !!}
 </div>
 
 <!-- Firstname Field -->
 <div class="form-group col-sm-6">
-    {!! Form::label('firstname', 'Firstname:') !!}
+    {!! Form::label('firstname', trans('app.contact:firstname') . ' :') !!}
     {!! Form::text('firstname', null, ['class' => 'form-control']) !!}
 </div>
 
 <!-- Post Field -->
 <div class="form-group col-sm-6">
-    {!! Form::label('post', 'Post:') !!}
+    {!! Form::label('post', trans('app.contact:post') . ' :') !!}
     {!! Form::text('post', null, ['class' => 'form-control']) !!}
 </div>
 
 <!-- Email Field -->
 <div class="form-group col-sm-6">
-    {!! Form::label('email', 'Email:') !!}
+    {!! Form::label('email', trans('app.contact:email') . ' :') !!}
     {!! Form::text('email', null, ['class' => 'form-control']) !!}
 </div>
 
 <!-- Phone Number Field -->
 <div class="form-group col-sm-6">
-    {!! Form::label('phone_number', 'Phone Number:') !!}
+    {!! Form::label('phone_number', trans('app.contact:phone') . ' :') !!}
     {!! Form::text('phone_number', null, ['class' => 'form-control']) !!}
 </div>
 
 <!-- Account Name Field -->
 <div class="form-group col-sm-6">
-    {!! Form::label('account_name', 'Account Name:') !!}
+    {!! Form::label('account_name', trans('app.contact:account-name') . ' :') !!}
     {!! Form::text('account_name', null, ['class' => 'form-control']) !!}
 </div>
 
 <!-- Contact Owner Field -->
 <div class="form-group col-sm-6">
-    {!! Form::label('contact_owner', 'Contact Owner:') !!}
+    {!! Form::label('contact_owner', trans('app.contact:owner') . ' :') !!}
     {!! Form::text('contact_owner', null, ['class' => 'form-control']) !!}
 </div>
 
 <!-- Avatar Field -->
 <div class="form-group col-sm-6">
-    {!! Form::label('avatar', 'Avatar:') !!}
+    {!! Form::label('avatar', trans('app.contact:avatar') . ' :') !!}
     {!! Form::text('avatar', null, ['class' => 'form-control']) !!}
 </div>
 
 <!-- Address Field -->
 <div class="form-group col-sm-6">
-    {!! Form::label('address', 'Address:') !!}
+    {!! Form::label('address', trans('app.general:address') . ' :') !!}
     {!! Form::text('address', null, ['class' => 'form-control']) !!}
 </div>
 
 <!-- Zipcode Field -->
 <div class="form-group col-sm-6">
-    {!! Form::label('zipcode', 'Zipcode:') !!}
+    {!! Form::label('zipcode', trans('app.general:zipcode') . ' :') !!}
     {!! Form::text('zipcode', null, ['class' => 'form-control']) !!}
 </div>
 
 <!-- City Field -->
 <div class="form-group col-sm-6">
-    {!! Form::label('city', 'City:') !!}
+    {!! Form::label('city', trans('app.general:city') . ' :') !!}
     {!! Form::text('city', null, ['class' => 'form-control']) !!}
 </div>
 
 <!-- Country Field -->
 <div class="form-group col-sm-6">
-    {!! Form::label('country', 'Country:') !!}
+    {!! Form::label('country', trans('app.general:country') . ' :') !!}
     {!! Form::text('country', null, ['class' => 'form-control']) !!}
 </div>
 
 <!-- Free Label Field -->
 <div class="form-group col-sm-6">
-    {!! Form::label('free_label', 'Free Label:') !!}
+    {!! Form::label('free_label', trans('app.general:free-input') . ' :') !!}
     {!! Form::text('free_label', null, ['class' => 'form-control']) !!}
 </div>
 
 <!-- Submit Field -->
 <div class="form-group col-sm-12">
-    {!! Form::submit('Save', ['class' => 'btn btn-primary']) !!}
+    {!! Form::submit( trans('app.general:save-changes'), ['class' => 'btn btn-primary']) !!}
     <a href="{!! route('contacts.index') !!}" class="btn btn-default">Cancel</a>
 </div>

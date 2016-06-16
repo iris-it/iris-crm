@@ -1,8 +1,38 @@
 <?php
 
-# modified at 14-06-2016 13:34
+# modified at 16-06-2016 06:07
 
 return  array(
-	'login:welcome'        => 'Sign in to start your session',
-	'sidebar:main-title'   => 'MAIN NAVIGATION',
+	'contact:account-name'       => 'Account name',
+	'contact:avatar'             => 'Profil picture',
+	'contact:civility'           => 'Civility',
+	'contact:email'              => 'E-mail address',
+	'contact:firstname'          => 'Firstname',
+	'contact:lastname'           => 'Lastname',
+	'contact:owner'              => 'Contact owner',
+	'contact:phone'              => 'Phone number',
+	'contact:post'               => 'Post',
+	'general:account-owner'      => 'Account owner',
+	'general:activity-sector'    => 'Activity sector',
+	'general:address'            => 'Address',
+	'general:ape-number'         => 'APE number',
+	'general:billing-address'    => 'Billing address',
+	'general:city'               => 'City',
+	'general:country'            => 'Country',
+	'general:created-at'         => 'Created at',
+	'general:delivery-address'   => 'Delivery address',
+	'general:free-input'         => 'Optional commentary',
+	'general:is-active'          => 'Active',
+	'general:name'               => 'Name',
+	'general:phone-number'       => 'Phone',
+	'general:save-changes'       => 'Save changes',
+	'general:siret-number'       => 'SIRET number',
+	'general:status'             => 'Status',
+	'general:type'               => 'Type',
+	'general:updated-at'         => 'Updated at',
+	'general:website'            => 'Website',
+	'general:workforce'          => 'Workforce',
+	'general:zipcode'            => 'Zipcode',
+	'login:welcome'              => 'Sign in to start your session',
+	'sidebar:main-title'         => 'MAIN NAVIGATION',
 );
