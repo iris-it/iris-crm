@@ -1,14 +1,14 @@
 <table class="table table-responsive" id="services-table">
     <thead>
-        <th>Service Name</th>
-        <th>Is Active</th>
-        <th>Category</th>
-        <th>Sale Unit</th>
-        <th>Ht Price</th>
-        <th>Ttc Price</th>
-        <th>Sale Datestart</th>
-        <th>Sale Dateend</th>
-        <th>Description</th>
+        <th>{{trans('app.general:name')}}</th>
+        <th>{{trans('app.general:is-active')}}</th>
+        <th>{{trans('app.product:category')}}</th>
+
+        <th>{{trans('app.product:ht-price')}}</th>
+
+        <th>{{trans('app.product:date-start')}}</th>
+        <th>{{trans('app.product:date-end')}}</th>
+
         <th colspan="3">Action</th>
     </thead>
     <tbody>
@@ -17,12 +17,10 @@
             <td>{!! $service->service_name !!}</td>
             <td>{!! $service->is_active !!}</td>
             <td>{!! $service->category !!}</td>
-            <td>{!! $service->sale_unit !!}</td>
+
             <td>{!! $service->ht_price !!}</td>
-            <td>{!! $service->ttc_price !!}</td>
             <td>{!! $service->sale_datestart !!}</td>
             <td>{!! $service->sale_dateend !!}</td>
-            <td>{!! $service->description !!}</td>
             <td>
                 {!! Form::open(['route' => ['services.destroy', $service->id], 'method' => 'delete']) !!}
                 <div class='btn-group'>

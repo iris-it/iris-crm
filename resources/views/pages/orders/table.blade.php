@@ -1,15 +1,9 @@
 <table class="table table-responsive" id="orders-table">
     <thead>
-        <th>Topic</th>
-        <th>Supplier</th>
-        <th>Order Date</th>
-        <th>Delivery Deadline</th>
-        <th>Description</th>
-        <th>Special Conditions</th>
-        <th>Address</th>
-        <th>Zipcode</th>
-        <th>City</th>
-        <th>Country</th>
+        <th>{{trans('app.general:topic')}}</th>
+        <th>{{ trans('app.order:supplier') }}</th>
+        <th>{{ trans('app.order:order-date') }}</th>
+        <th>{{ trans('app.order:deli-dead') }}</th>
         <th colspan="3">Action</th>
     </thead>
     <tbody>
@@ -19,12 +13,6 @@
             <td>{!! $order->supplier !!}</td>
             <td>{!! $order->order_date !!}</td>
             <td>{!! $order->delivery_deadline !!}</td>
-            <td>{!! $order->description !!}</td>
-            <td>{!! $order->special_conditions !!}</td>
-            <td>{!! $order->address !!}</td>
-            <td>{!! $order->zipcode !!}</td>
-            <td>{!! $order->city !!}</td>
-            <td>{!! $order->country !!}</td>
             <td>
                 {!! Form::open(['route' => ['orders.destroy', $order->id], 'method' => 'delete']) !!}
                 <div class='btn-group'>

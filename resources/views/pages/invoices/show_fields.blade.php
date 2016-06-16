@@ -1,84 +1,78 @@
-<!-- Id Field -->
-<div class="form-group">
-    {!! Form::label('id', 'Id:') !!}
-    <p>{!! $invoice->id !!}</p>
-</div>
-
 <!-- Topic Field -->
 <div class="form-group">
-    {!! Form::label('topic', 'Topic:') !!}
+    {!! Form::label('topic', trans('app.general:topic') . " :" ) !!}
     <p>{!! $invoice->topic !!}</p>
 </div>
 
 <!-- Account Name Field -->
 <div class="form-group">
-    {!! Form::label('account_name', 'Account Name:') !!}
+    {!! Form::label('account_name', trans('app.contact:account-name') . " :" ) !!}
     <p>{!! $invoice->account_name !!}</p>
 </div>
 
 <!-- Phase Field -->
 <div class="form-group">
-    {!! Form::label('phase', 'Phase:') !!}
+    {!! Form::label('phase', trans('app.general:phase') . " :" ) !!}
     <p>{!! $invoice->phase !!}</p>
 </div>
 
 <!-- Contact Name Field -->
 <div class="form-group">
-    {!! Form::label('contact_name', 'Contact Name:') !!}
+    {!! Form::label('contact_name', trans('app.contact:name') . " :" ) !!}
     <p>{!! $invoice->contact_name !!}</p>
 </div>
 
 <!-- Deadline Field -->
 <div class="form-group">
-    {!! Form::label('deadline', 'Deadline:') !!}
+    {!! Form::label('deadline', trans('app.general:deadline') . " :" ) !!}
     <p>{!! $invoice->deadline !!}</p>
 </div>
 
 <!-- Description Field -->
 <div class="form-group">
-    {!! Form::label('description', 'Description:') !!}
+    {!! Form::label('description', trans('app.general:description') . " :" ) !!}
     <p>{!! $invoice->description !!}</p>
 </div>
 
 <!-- Special Conditions Field -->
 <div class="form-group">
-    {!! Form::label('special_conditions', 'Special Conditions:') !!}
+    {!! Form::label('special_conditions', trans('app.general:special-conditions') . " :" ) !!}
     <p>{!! $invoice->special_conditions !!}</p>
 </div>
 
 <!-- Address Field -->
 <div class="form-group">
-    {!! Form::label('address', 'Address:') !!}
+    {!! Form::label('address', trans('app.general:address') . " :" ) !!}
     <p>{!! $invoice->address !!}</p>
 </div>
 
 <!-- Zipcode Field -->
 <div class="form-group">
-    {!! Form::label('zipcode', 'Zipcode:') !!}
+    {!! Form::label('zipcode', trans('app.general:zipcode') . " :" ) !!}
     <p>{!! $invoice->zipcode !!}</p>
 </div>
 
 <!-- City Field -->
 <div class="form-group">
-    {!! Form::label('city', 'City:') !!}
+    {!! Form::label('city', trans('app.general:city') . " :" )!!}
     <p>{!! $invoice->city !!}</p>
 </div>
 
 <!-- Country Field -->
 <div class="form-group">
-    {!! Form::label('country', 'Country:') !!}
+    {!! Form::label('country', trans('app.general:country') . " :" ) !!}
     <p>{!! $invoice->country !!}</p>
 </div>
 
 <!-- Created At Field -->
 <div class="form-group">
-    {!! Form::label('created_at', 'Created At:') !!}
+    {!! Form::label('created_at', trans('app.general:created-at') . " :" ) !!}
     <p>{!! $invoice->created_at !!}</p>
 </div>
 
 <!-- Updated At Field -->
 <div class="form-group">
-    {!! Form::label('updated_at', 'Updated At:') !!}
+    {!! Form::label('updated_at', trans('app.general:updated-at') . " :" ) !!}
     <p>{!! $invoice->updated_at !!}</p>
 </div>
 

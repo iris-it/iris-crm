@@ -1,6 +1,6 @@
 <?php
 
-# modified at 16-06-2016 07:34
+# modified at 16-06-2016 08:35
 
 return  array(
 	'contact:account-name'         => 'Nom de compte',
@@ -46,6 +46,10 @@ return  array(
 	'general:workforce'            => 'Effectifs',
 	'general:zipcode'              => 'Code postal',
 	'login:welcome'                => 'Connectez vous pour accéder aux fonctionnalités',
+	'order:deli-dead'              => 'Échéance livraison',
+	'order:order-date'             => 'Date de la commande',
+	'order:sale-unit'              => 'Unité de vente',
+	'order:supplier'               => 'Fournisseur',
 	'product:active-taxes'         => 'Taxes appliquées',
 	'product:avatar'               => 'Image de produit',
 	'product:category'             => 'Catégorie',

@@ -1,72 +1,66 @@
-<!-- Id Field -->
-<div class="form-group">
-    {!! Form::label('id', 'Id:') !!}
-    <p>{!! $service->id !!}</p>
-</div>
-
 <!-- Service Name Field -->
 <div class="form-group">
-    {!! Form::label('service_name', 'Service Name:') !!}
+    {!! Form::label('service_name', trans('app.general:name') . " :" ) !!}
     <p>{!! $service->service_name !!}</p>
 </div>
 
 <!-- Is Active Field -->
 <div class="form-group">
-    {!! Form::label('is_active', 'Is Active:') !!}
+    {!! Form::label('is_active', trans('app.general:is-active') . " :" ) !!}
     <p>{!! $service->is_active !!}</p>
 </div>
 
 <!-- Category Field -->
 <div class="form-group">
-    {!! Form::label('category', 'Category:') !!}
+    {!! Form::label('category',  trans('app.general:category') . " :" ) !!}
     <p>{!! $service->category !!}</p>
 </div>
 
 <!-- Sale Unit Field -->
 <div class="form-group">
-    {!! Form::label('sale_unit', 'Sale Unit:') !!}
+    {!! Form::label('sale_unit', trans('app.order:sale-unit') . " :" ) !!}
     <p>{!! $service->sale_unit !!}</p>
 </div>
 
 <!-- Ht Price Field -->
 <div class="form-group">
-    {!! Form::label('ht_price', 'Ht Price:') !!}
+    {!! Form::label('ht_price', trans('app.product:ht-price') . " :" ) !!}
     <p>{!! $service->ht_price !!}</p>
 </div>
 
 <!-- Ttc Price Field -->
 <div class="form-group">
-    {!! Form::label('ttc_price', 'Ttc Price:') !!}
+    {!! Form::label('ttc_price', trans('app.product:active-taxes') . " :" ) !!}
     <p>{!! $service->ttc_price !!}</p>
 </div>
 
 <!-- Sale Datestart Field -->
 <div class="form-group">
-    {!! Form::label('sale_datestart', 'Sale Datestart:') !!}
+    {!! Form::label('sale_datestart', trans('app.product:date-start') . " :" ) !!}
     <p>{!! $service->sale_datestart !!}</p>
 </div>
 
 <!-- Sale Dateend Field -->
 <div class="form-group">
-    {!! Form::label('sale_dateend', 'Sale Dateend:') !!}
+    {!! Form::label('sale_dateend', trans('app.product:date-end') . " :" ) !!}
     <p>{!! $service->sale_dateend !!}</p>
 </div>
 
 <!-- Description Field -->
 <div class="form-group">
-    {!! Form::label('description', 'Description:') !!}
+    {!! Form::label('description', trans('app.general:description') . " :" ) !!}
     <p>{!! $service->description !!}</p>
 </div>
 
 <!-- Created At Field -->
 <div class="form-group">
-    {!! Form::label('created_at', 'Created At:') !!}
+    {!! Form::label('created_at', trans('app.general:created-at') . " :" ) !!}
     <p>{!! $service->created_at !!}</p>
 </div>
 
 <!-- Updated At Field -->
 <div class="form-group">
-    {!! Form::label('updated_at', 'Updated At:') !!}
+    {!! Form::label('updated_at', trans('app.general:updated-at') . " :" ) !!}
     <p>{!! $service->updated_at !!}</p>
 </div>
 
