@@ -11,6 +11,7 @@
 |
 */
 
+
 Route::get('/', 'HomeController@index');
 
 Route::group(['prefix' => 'keycloak'], function () {
