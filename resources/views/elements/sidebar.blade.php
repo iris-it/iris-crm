@@ -10,7 +10,6 @@
             <li><a href="{{ action('InvoiceController@index') }}"><i class="fa fa-archive"></i> <span>Factures</span></a></li>
             <li><a href="{{ action('ProductController@index') }}"><i class="fa fa-cubes"></i> <span>Produits</span></a></li>
             <li><a href="{{ action('ServiceController@index') }}"><i class="fa fa-truck"></i> <span>Services</span></a></li>
-            <li><a href="{{ action('DocumentController@index') }}"><i class="fa fa-file-excel-o"></i> <span>Documents</span></a></li>
         </ul>
     </section>
 </aside>

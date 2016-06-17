@@ -43,11 +43,7 @@ class User extends Authenticatable
     {
         return $this->hasMany('App\Contact');
     }
-
-    public function documents()
-    {
-        return $this->hasMany('App\Document');
-    }
+    
 
 }
 

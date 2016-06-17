@@ -61,7 +61,7 @@ class Product extends Model
 
     public function taxes()
     {
-        return $this->hasMany('App\Tax');
+        return $this->belongsToMany('App\Tax', 'products_taxes_pivot', 'product_id', 'tax_id')->withTimestamps();
     }
 
     public function contact()

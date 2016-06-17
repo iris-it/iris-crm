@@ -42,5 +42,3 @@ Route::resource('invoices', 'InvoiceController');
 Route::resource('products', 'ProductController');
 
 Route::resource('services', 'ServiceController');
-
-Route::resource('documents', 'DocumentController');

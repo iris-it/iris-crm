@@ -19,8 +19,8 @@ class CreateproductsTable extends Migration
             $table->boolean('is_active');
             $table->string('category');
             $table->decimal('ht_price');
-            $table->decimal('ttc_price');
-            $table->string('manutention_officer');
+//            $table->decimal('ttc_price');
+//            $table->string('manutention_officer');
             $table->integer('stock_disponibility');
             $table->string('product_avatar');
             $table->timestamp('sale_datestart');

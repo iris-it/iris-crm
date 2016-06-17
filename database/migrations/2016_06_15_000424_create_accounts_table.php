@@ -24,7 +24,6 @@ class CreateaccountsTable extends Migration
             $table->string('siret_number');
             $table->string('phone_number');
             $table->boolean('is_active');
-            $table->string('account_owner');
             $table->string('billing_address');
             $table->string('delivery_address');
             $table->string('billing_zipcode');

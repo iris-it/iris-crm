@@ -24,7 +24,6 @@ class CreateleadsTable extends Migration
             $table->string('siret_number');
             $table->string('phone_number');
             $table->string('status');
-            $table->string('account_owner');
             $table->string('address');
             $table->string('zipcode');
             $table->string('city');
