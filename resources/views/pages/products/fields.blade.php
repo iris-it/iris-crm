@@ -25,13 +25,19 @@
 <!-- Ttc Price Field -->
 <div class="form-group col-sm-6">
     {!! Form::label('ttc_price', trans('app.product:active-taxes') . " :") !!}
-    {!! Form::text('ttc_price', null, ['class' => 'form-control']) !!}
+    @foreach($taxes as $tax)
+        <label for="applied_taxes" class="css-input switch switch-square switch-info">
+            {!! Form::checkbox('taxes['.$tax->id. ']', 0, false, ['class' => 'outletsCheckboxes', 'identifier' => $tax->id]) !!}
+            <span></span>
+            {{$tax->name}}
+        </label>
+    @endforeach
 </div>
 
 <!-- Manutention Officer Field -->
 <div class="form-group col-sm-6">
-    {!! Form::label('manutention_officer', trans('app.product:manu-officer') . " :") !!}
-    {!! Form::text('manutention_officer', null, ['class' => 'form-control']) !!}
+    <label for="manutention_officer">{{trans('app.product:manu-officer')}} :</label>
+    {!! Form::select('manutention_officer', $contacts, null, ['class' => 'form-control']) !!}
 </div>
 
 <!-- Stock Disponibility Field -->

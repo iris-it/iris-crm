@@ -7,7 +7,11 @@
 <!-- Account Name Field -->
 <div class="form-group">
     {!! Form::label('account_name', trans('app.contact:account-name') . " :" ) !!}
-    <p>{!! $quote->account_name !!}</p>
+    @if($quote->account)
+        <p>{!! $quote->account->name !!}</p>
+    @else
+        <p>{{trans('app.general:undefined')}}</p>
+    @endif
 </div>
 
 <!-- Phase Field -->
@@ -19,7 +23,12 @@
 <!-- Contact Name Field -->
 <div class="form-group">
     {!! Form::label('contact_name', trans('app.contact:name') . " :" ) !!}
-    <p>{!! $quote->contact_name !!}</p>
+
+    @if($quote->contact)
+        <p>{!! $quote->contact->firstname !!} {!! $quote->contact->lastname !!}</p>
+    @else
+        <p>{{trans('app.general:undefined')}}</p>
+    @endif
 </div>
 
 <!-- Deadline Field -->
@@ -31,7 +40,11 @@
 <!-- Contact Owner Field -->
 <div class="form-group">
     {!! Form::label('contact_owner', trans('app.contact:owner') . " :" ) !!}
-    <p>{!! $quote->contact_owner !!}</p>
+    @if($quote->user)
+        <p>{!! $quote->user->name !!}</p>
+    @else
+        <p>{{trans('app.general:undefined')}}</p>
+    @endif
 </div>
 
 <!-- Description Field -->

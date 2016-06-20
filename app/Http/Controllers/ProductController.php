@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Contact;
 use App\Http\Requests;
 use App\Http\Requests\CreateProductRequest;
 use App\Http\Requests\UpdateProductRequest;
 use App\Repositories\ProductRepository;
 use App\Http\Controllers\AppBaseController as InfyOmBaseController;
+use App\Tax;
 use Illuminate\Http\Request;
 use Flash;
 use Prettus\Repository\Criteria\RequestCriteria;
@@ -44,7 +46,10 @@ class ProductController extends InfyOmBaseController
      */
     public function create()
     {
-        return view('pages.products.create');
+        $contacts = Contact::all();
+        $taxes = Tax::all();
+
+        return view('pages.products.create')->with(compact('contacts', 'taxes'));
     }
 
     /**
@@ -95,6 +100,8 @@ class ProductController extends InfyOmBaseController
     public function edit($id)
     {
         $products = $this->productsRepository->findWithoutFail($id);
+        $contacts = Contact::all();
+        $taxes = Tax::all();
 
         if (empty($products)) {
             Flash::error('Product not found');
@@ -102,13 +109,13 @@ class ProductController extends InfyOmBaseController
             return redirect(route('products.index'));
         }
 
-        return view('pages.products.edit')->with('products', $products);
+        return view('pages.products.edit')->with(compact('products', 'contacts', 'taxes'));
     }
 
     /**
      * Update the specified Product in storage.
      *
-     * @param  int              $id
+     * @param  int $id
      * @param UpdateProductRequest $request
      *
      * @return Response

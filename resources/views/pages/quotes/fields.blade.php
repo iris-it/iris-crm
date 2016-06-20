@@ -7,7 +7,7 @@
 <!-- Account Name Field -->
 <div class="form-group col-sm-6">
     {!! Form::label('account_name', trans('app.contact:account-name') . " :" ) !!}
-    {!! Form::text('account_name', null, ['class' => 'form-control']) !!}
+    {!! Form::select('account_name', $accounts, null, ['class' => 'form-control']) !!}
 </div>
 
 <!-- Phase Field -->
@@ -19,7 +19,7 @@
 <!-- Contact Name Field -->
 <div class="form-group col-sm-6">
     {!! Form::label('contact_name', trans('app.contact:name') . " :" ) !!}
-    {!! Form::text('contact_name', null, ['class' => 'form-control']) !!}
+    {!! Form::select('contact_name', $contacts, null, ['class' => 'form-control']) !!}
 </div>
 
 <!-- Deadline Field -->
@@ -31,7 +31,7 @@
 <!-- Contact Owner Field -->
 <div class="form-group col-sm-6">
     {!! Form::label('contact_owner', trans('app.contact:owner') . " :" ) !!}
-    {!! Form::text('contact_owner', null, ['class' => 'form-control']) !!}
+    {!! Form::select('contact_owner', $users, null, ['class' => 'form-control']) !!}
 </div>
 
 <!-- Description Field -->

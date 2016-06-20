@@ -1,21 +1,25 @@
 <table class="table table-responsive" id="products-table">
     <thead>
-        <th>{{trans('app.general:name')}}</th>
-        <th>{{trans('app.product:category')}}</th>
-        <th>{{ trans('app.product:ht-price') }}</th>
-        <th>{{ trans('app.product:manu-officer') }}</th>
-        <th>{{ trans('app.product:stock-dispo') }}</th>
+    <th>{{trans('app.general:name')}}</th>
+    <th>{{trans('app.product:category')}}</th>
+    <th>{{ trans('app.product:ht-price') }}</th>
+    <th>{{ trans('app.product:manu-officer') }}</th>
+    <th>{{ trans('app.product:stock-dispo') }}</th>
 
-        <th colspan="3">Action</th>
+    <th colspan="3">Action</th>
     </thead>
     <tbody>
-    @foreach($products as $products)
+    @foreach($products as $product)
         <tr>
-            <td>{!! $products->product_name !!}</td>
-            <td>{!! $products->category !!}</td>
-            <td>{!! $products->ht_price !!}</td>
-            <td>{!! $products->manutention_officer !!}</td>
-            <td>{!! $products->stock_disponibility !!}</td>
+            <td>{!! $product->product_name !!}</td>
+            <td>{!! $product->category !!}</td>
+            <td>{!! $product->ht_price !!}</td>
+            @if($product->contact)
+                <td>{!! $product->contact->firstname !!} {!! $product->contact->lastname !!}</td>
+            @else
+                <td>{{trans('app.general:undefined')}}</td>
+            @endif
+            <td>{!! $product->stock_disponibility !!}</td>
 
             <td>
                 {!! Form::open(['route' => ['products.destroy', $products->id], 'method' => 'delete']) !!}

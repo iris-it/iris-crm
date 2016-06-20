@@ -44,7 +44,11 @@ class QuoteController extends InfyOmBaseController
      */
     public function create()
     {
-        return view('pages.quotes.create');
+        $contacts = Contact::all();
+        $accounts = Account::all();
+        $users = User::all();
+
+        return view('pages.quotes.create')->with(compact('contacts', 'accounts', 'users'));
     }
 
     /**
@@ -96,19 +100,23 @@ class QuoteController extends InfyOmBaseController
     {
         $quote = $this->quoteRepository->findWithoutFail($id);
 
+        $contacts = Contact::all();
+        $accounts = Account::all();
+        $users = User::all();
+
         if (empty($quote)) {
             Flash::error('Quote not found');
 
             return redirect(route('quotes.index'));
         }
 
-        return view('pages.quotes.edit')->with('quote', $quote);
+        return view('pages.quotes.edit')->with(compact('quote', 'contacts', 'accounts', 'users'));
     }
 
     /**
      * Update the specified Quote in storage.
      *
-     * @param  int              $id
+     * @param  int $id
      * @param UpdateQuoteRequest $request
      *
      * @return Response
