@@ -1,20 +1,34 @@
 <table class="table table-responsive" id="invoices-table">
     <thead>
-        <th>{{trans('app.general:topic')}}</th>
-        <th>{{trans('app.contact:account-name')}}</th>
-        <th>{{trans('app.general:phase')}}</th>
-        <th>{{trans('app.contact:name')}}</th>
-        <th>{{trans('app.general:deadline')}}</th>
-        <th colspan="3">Action</th>
+    <th>{{trans('app.general:topic')}}</th>
+    <th>{{trans('app.contact:account-name')}}</th>
+    <th>{{trans('app.general:phase')}}</th>
+    <th>{{trans('app.contact:name')}}</th>
+    <th>{{trans('app.general:deadline')}}</th>
+    <th>{{trans('app.general:quote')}}</th>
+    <th colspan="3">Action</th>
     </thead>
     <tbody>
     @foreach($invoices as $invoice)
         <tr>
             <td>{!! $invoice->topic !!}</td>
-            <td>{!! $invoice->account_name !!}</td>
+            @if($invoice->account)
+                <td>{!! $invoice->account->name !!}</td>
+            @else
+                <td>{{trans('app.general:undefined')}}</td>
+            @endif
             <td>{!! $invoice->phase !!}</td>
-            <td>{!! $invoice->contact_name !!}</td>
+            @if($invoice->contact)
+                <td>{!! $invoice->contact->name !!}</td>
+            @else
+                <td>{{trans('app.general:undefined')}}</td>
+            @endif
             <td>{!! $invoice->deadline !!}</td>
+            @if($invoice->quote)
+                <td> {!! $invoice->quote->name !!}</td>
+            @else
+                <td> {{trans('app.general:undefined')}}</td>
+            @endif
             <td>
                 {!! Form::open(['route' => ['invoices.destroy', $invoice->id], 'method' => 'delete']) !!}
                 <div class='btn-group'>

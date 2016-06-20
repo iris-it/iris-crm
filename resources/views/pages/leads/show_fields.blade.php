@@ -57,8 +57,14 @@
 <!-- Account Owner Field -->
 <div class="form-group">
     {!! Form::label('account_owner', trans('app.general:account-owner') . ' :') !!}
-    <p>{!! $lead->account_owner !!}</p>
+    @if($lead->user)
+        <p>{!! $lead->user->name !!}</p>
+    @else
+        <p>{{trans('app.general:undefined')}}</p>
+    @endif
 </div>
+
+
 
 <!-- Address Field -->
 <div class="form-group">

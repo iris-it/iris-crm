@@ -7,6 +7,7 @@ use App\Http\Requests\CreateLeadRequest;
 use App\Http\Requests\UpdateLeadRequest;
 use App\Repositories\LeadRepository;
 use App\Http\Controllers\AppBaseController as InfyOmBaseController;
+use App\User;
 use Illuminate\Http\Request;
 use Flash;
 use Prettus\Repository\Criteria\RequestCriteria;
@@ -44,7 +45,8 @@ class LeadController extends InfyOmBaseController
      */
     public function create()
     {
-        return view('pages.leads.create');
+        $users = User::all();
+        return view('pages.leads.create')->with(compact('users'));
     }
 
     /**
@@ -95,6 +97,7 @@ class LeadController extends InfyOmBaseController
     public function edit($id)
     {
         $lead = $this->leadRepository->findWithoutFail($id);
+        $users = User::all();
 
         if (empty($lead)) {
             Flash::error('Lead not found');
@@ -102,13 +105,13 @@ class LeadController extends InfyOmBaseController
             return redirect(route('leads.index'));
         }
 
-        return view('pages.leads.edit')->with('lead', $lead);
+        return view('pages.leads.edit')->with(compact('users', 'lead'));
     }
 
     /**
      * Update the specified Lead in storage.
      *
-     * @param  int              $id
+     * @param  int $id
      * @param UpdateLeadRequest $request
      *
      * @return Response

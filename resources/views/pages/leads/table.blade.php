@@ -18,7 +18,11 @@
             <td>{!! $lead->activity_sector !!}</td>
             <td>{!! $lead->type !!}</td>
             <td>{!! $lead->status !!}</td>
-            <td>{!! $lead->account_owner !!}</td>
+            @if($lead->user)
+                <td>{!! $lead->user->name !!}</td>
+            @else
+                <td>{{trans('app.general:undefined')}}</td>
+            @endif
 
             <td>
                 {!! Form::open(['route' => ['leads.destroy', $lead->id], 'method' => 'delete']) !!}

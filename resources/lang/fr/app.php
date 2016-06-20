@@ -1,6 +1,6 @@
 <?php
 
-# modified at 20-06-2016 05:42
+# modified at 20-06-2016 15:36
 
 return  array(
 	'contact:account-name'         => 'Nom de compte',
@@ -33,8 +33,10 @@ return  array(
 	'general:free-input'           => 'Commentaire libre',
 	'general:is-active'            => 'Actif',
 	'general:name'                 => 'Nom',
+	'general:owner'                => 'Propriétaire',
 	'general:phase'                => 'Phase',
 	'general:phone-number'         => 'Téléphone',
+	'general:quote'                => 'Devis',
 	'general:save-changes'         => 'Sauvegarder les changements',
 	'general:siret-number'         => 'Numéro SIRET',
 	'general:special-conditions'   => 'Conditions spéciales',

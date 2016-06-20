@@ -2,11 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\Account;
+use App\Contact;
 use App\Http\Requests;
 use App\Http\Requests\CreateInvoiceRequest;
 use App\Http\Requests\UpdateInvoiceRequest;
+use App\Quote;
 use App\Repositories\InvoiceRepository;
 use App\Http\Controllers\AppBaseController as InfyOmBaseController;
+use App\User;
 use Illuminate\Http\Request;
 use Flash;
 use Prettus\Repository\Criteria\RequestCriteria;
@@ -44,7 +48,12 @@ class InvoiceController extends InfyOmBaseController
      */
     public function create()
     {
-        return view('pages.invoices.create');
+        $contacts = Contact::all();
+        $accounts = Account::all();
+        $quotes = Quote::all();
+        $users = User::all();
+
+        return view('pages.invoices.create')->with(compact('contacts', 'accounts', 'quotes', 'users'));
     }
 
     /**
@@ -95,6 +104,10 @@ class InvoiceController extends InfyOmBaseController
     public function edit($id)
     {
         $invoice = $this->invoiceRepository->findWithoutFail($id);
+        $contacts = Contact::all();
+        $accounts = Account::all();
+        $quotes = Quote::all();
+        $users = User::all();
 
         if (empty($invoice)) {
             Flash::error('Invoice not found');
@@ -102,7 +115,7 @@ class InvoiceController extends InfyOmBaseController
             return redirect(route('invoices.index'));
         }
 
-        return view('pages.invoices.edit')->with('invoice', $invoice);
+        return view('pages.invoices.edit')->with(compact('invoice', 'contacts', 'accounts', 'quotes', 'users'));
     }
 
     /**

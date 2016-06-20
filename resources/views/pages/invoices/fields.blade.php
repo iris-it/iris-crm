@@ -6,8 +6,8 @@
 
 <!-- Account Name Field -->
 <div class="form-group col-sm-6">
-    {!! Form::label('account_name', trans('app.contact:account-name') . " :" )  !!}
-    {!! Form::text('account_name', null, ['class' => 'form-control']) !!}
+    <label for="account_name">{{trans('app.contact:account_name')}} :</label>
+    {!! Form::select('account_name', $accounts, null, ['class' => 'form-control']) !!}
 </div>
 
 <!-- Phase Field -->
@@ -18,8 +18,8 @@
 
 <!-- Contact Name Field -->
 <div class="form-group col-sm-6">
-    {!! Form::label('contact_name', trans('app.contact:name') . " :" ) !!}
-    {!! Form::text('contact_name', null, ['class' => 'form-control']) !!}
+    <label for="contact_name">{{trans('app.contact:name')}} :</label>
+    {!! Form::select('contact_name', $contacts, null, ['class' => 'form-control']) !!}
 </div>
 
 <!-- Deadline Field -->
@@ -64,8 +64,15 @@
     {!! Form::text('country', null, ['class' => 'form-control']) !!}
 </div>
 
+<!-- Quote Field -->
+<div class="form-group col-sm-6">
+    <label for="quote_name">{{trans('app.general:quote')}} :</label>
+    {!! Form::select('quote_name', $quotes, null, ['class' => 'form-control']) !!}
+</div>
+
 <!-- Submit Field -->
 <div class="form-group col-sm-12">
     {!! Form::submit( trans('app.general:save-changes'), ['class' => 'btn btn-primary']) !!}
     <a href="{!! route('invoices.index') !!}" class="btn btn-default">Cancel</a>
 </div>
+
