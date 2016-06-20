@@ -10,7 +10,7 @@
         "inIndex": false
     },
     {
-        "fieldInput": "account_name:string",
+        "fieldInput": "name:string",
         "htmlType": "text",
         "validations": "",
         "searchable": true,

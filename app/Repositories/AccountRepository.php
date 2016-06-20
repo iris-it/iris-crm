@@ -11,7 +11,7 @@ class AccountRepository extends BaseRepository
      * @var array
      */
     protected $fieldSearchable = [
-        'account_name',
+        'name',
         'website',
         'activity_sector',
         'workforce',

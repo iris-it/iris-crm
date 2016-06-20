@@ -1,7 +1,7 @@
 <!-- Lead Name Field -->
 <div class="form-group col-sm-6">
-    {!! Form::label('lead_name', trans('app.general:name') . ' :') !!}
-    {!! Form::text('lead_name', null, ['class' => 'form-control']) !!}
+    {!! Form::label('name', trans('app.general:name') . ' :') !!}
+    {!! Form::text('name', null, ['class' => 'form-control']) !!}
 </div>
 
 <!-- Website Field -->

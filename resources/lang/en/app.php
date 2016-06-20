@@ -1,6 +1,6 @@
 <?php
 
-# modified at 16-06-2016 08:35
+# modified at 20-06-2016 05:42
 
 return  array(
 	'contact:account-name'         => 'Account name',
@@ -41,6 +41,7 @@ return  array(
 	'general:status'               => 'Status',
 	'general:topic'                => 'Subject',
 	'general:type'                 => 'Type',
+	'general:undefined'            => 'Undefined',
 	'general:updated-at'           => 'Updated at',
 	'general:website'              => 'Website',
 	'general:workforce'            => 'Workforce',

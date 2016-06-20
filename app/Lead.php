@@ -20,7 +20,7 @@ class Lead extends Model
 
 
     public $fillable = [
-        'lead_name',
+        'name',
         'website',
         'activity_sector',
         'workforce',
@@ -42,7 +42,7 @@ class Lead extends Model
      * @var array
      */
     protected $casts = [
-        'lead_name' => 'string',
+        'name' => 'string',
         'website' => 'string',
         'activity_sector' => 'string',
         'workforce' => 'integer',

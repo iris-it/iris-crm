@@ -14,7 +14,7 @@
     <tbody>
     @foreach($leads as $lead)
         <tr>
-            <td>{!! $lead->lead_name !!}</td>
+            <td>{!! $lead->name !!}</td>
             <td>{!! $lead->activity_sector !!}</td>
             <td>{!! $lead->type !!}</td>
             <td>{!! $lead->status !!}</td>

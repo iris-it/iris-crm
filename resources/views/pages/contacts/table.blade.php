@@ -10,9 +10,17 @@
     @foreach($contacts as $contact)
         <tr>
             <td>{!! $contact->firstname !!} {!! $contact->lastname !!}</td>
-            <td>{!! $contact->account_name !!}</td>
+            @if($contact->boundable)
+                <td>{!! $contact->boundable->name !!}</td>
+            @else
+                {{trans('app.general:undefined')}}
+            @endif
             <td>{!! $contact->post !!}</td>
-            <td>{!! $contact->contact_owner !!}</td>
+            @if($contact->user)
+                <td>{!! $contact->user->name !!}</td>
+            @else
+                {{trans('app.general:undefined')}}
+            @endif
             <td>
                 {!! Form::open(['route' => ['contacts.destroy', $contact->id], 'method' => 'delete']) !!}
                 <div class='btn-group'>

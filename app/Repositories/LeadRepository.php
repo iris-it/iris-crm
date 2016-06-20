@@ -11,7 +11,7 @@ class LeadRepository extends BaseRepository
      * @var array
      */
     protected $fieldSearchable = [
-        'lead_name',
+        'name',
         'website',
         'activity_sector',
         'workforce',

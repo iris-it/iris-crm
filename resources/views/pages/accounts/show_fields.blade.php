@@ -1,7 +1,7 @@
 <!-- Account Name Field -->
 <div class="form-group">
-    {!! Form::label('account_name', trans('app.general:name') . ' :') !!}
-    <p>{!! $account->account_name !!}</p>
+    {!! Form::label('name', trans('app.general:name') . ' :') !!}
+    <p>{!! $account->name !!}</p>
 </div>
 
 <!-- Website Field -->
@@ -55,7 +55,11 @@
 <!-- Account Owner Field -->
 <div class="form-group">
     {!! Form::label('account_owner', trans('app.general:account-owner') . ' :') !!}
-    <p>{!! $account->account_owner !!}</p>
+    @if($account->user)
+        <p>{!! $account->user->name !!}</p>
+    @else
+        <p>{{trans('app.general:undefined')}}</p>
+    @endif
 </div>
 
 <!-- Billing Address Field -->

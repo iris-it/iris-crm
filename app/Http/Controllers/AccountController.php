@@ -7,6 +7,7 @@ use App\Http\Requests\CreateAccountRequest;
 use App\Http\Requests\UpdateAccountRequest;
 use App\Repositories\AccountRepository;
 use App\Http\Controllers\AppBaseController as InfyOmBaseController;
+use App\User;
 use Illuminate\Http\Request;
 use Flash;
 use Prettus\Repository\Criteria\RequestCriteria;
@@ -44,7 +45,9 @@ class AccountController extends InfyOmBaseController
      */
     public function create()
     {
-        return view('pages.accounts.create');
+        $users = User::all();
+
+        return view('pages.accounts.create')->with(compact('users'));
     }
 
     /**
@@ -95,6 +98,7 @@ class AccountController extends InfyOmBaseController
     public function edit($id)
     {
         $account = $this->accountRepository->findWithoutFail($id);
+        $users = User::all();
 
         if (empty($account)) {
             Flash::error('Account not found');
@@ -102,7 +106,7 @@ class AccountController extends InfyOmBaseController
             return redirect(route('accounts.index'));
         }
 
-        return view('pages.accounts.edit')->with('account', $account);
+        return view('pages.accounts.edit')->with(compact('account', 'users'));
     }
 
     /**

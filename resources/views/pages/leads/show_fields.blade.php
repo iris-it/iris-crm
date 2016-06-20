@@ -2,8 +2,8 @@
 
 <!-- Lead Name Field -->
 <div class="form-group">
-    {!! Form::label('lead_name',  trans('app.general:name') . ' :') !!}
-    <p>{!! $lead->lead_name !!}</p>
+    {!! Form::label('name',  trans('app.general:name') . ' :') !!}
+    <p>{!! $lead->name !!}</p>
 </div>
 
 <!-- Website Field -->

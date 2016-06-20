@@ -1,4 +1,3 @@
-
 <!-- Civility Field -->
 <div class="form-group">
     {!! Form::label('civility', trans('app.contact:civility') . ' :') !!}
@@ -38,13 +37,21 @@
 <!-- Account Name Field -->
 <div class="form-group">
     {!! Form::label('account_name', trans('app.contact:account-name') . ' :') !!}
-    <p>{!! $contact->account_name !!}</p>
+    @if($contact->boundable)
+        <p>{!! $contact->boundable->name !!}</p>
+    @else
+        <p>{{trans('app.general:undefined')}}</p>
+    @endif
 </div>
 
 <!-- Contact Owner Field -->
 <div class="form-group">
     {!! Form::label('contact_owner',  trans('app.contact:owner') . ' :') !!}
-    <p>{!! $contact->contact_owner !!}</p>
+    @if($contact->user)
+        <p>{!! $contact->user->name !!}</p>
+    @else
+        <p>{{trans('app.general:undefined')}}</p>
+    @endif
 </div>
 
 <!-- Avatar Field -->

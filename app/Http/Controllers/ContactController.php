@@ -2,11 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Account;
 use App\Http\Requests;
 use App\Http\Requests\CreateContactRequest;
 use App\Http\Requests\UpdateContactRequest;
+use App\Lead;
 use App\Repositories\ContactRepository;
 use App\Http\Controllers\AppBaseController as InfyOmBaseController;
+use App\User;
 use Illuminate\Http\Request;
 use Flash;
 use Prettus\Repository\Criteria\RequestCriteria;
@@ -44,7 +47,11 @@ class ContactController extends InfyOmBaseController
      */
     public function create()
     {
-        return view('pages.contacts.create');
+        $accounts = Account::all();
+        $leads = Lead::all();
+        $users = User::all();
+
+        return view('pages.contacts.create')->with(compact('accounts', 'leads', 'users'));
     }
 
     /**
@@ -95,6 +102,9 @@ class ContactController extends InfyOmBaseController
     public function edit($id)
     {
         $contact = $this->contactRepository->findWithoutFail($id);
+        $accounts = Account::all();
+        $leads = Lead::all();
+        $users = User::all();
 
         if (empty($contact)) {
             Flash::error('Contact not found');
@@ -102,7 +112,7 @@ class ContactController extends InfyOmBaseController
             return redirect(route('contacts.index'));
         }
 
-        return view('pages.contacts.edit')->with('contact', $contact);
+        return view('pages.contacts.edit')->with(compact('contact', 'accounts', 'leads', 'users'));
     }
 
     /**

@@ -35,17 +35,22 @@
 </div>
 
 <!-- Account Name Field -->
+
 <div class="form-group col-sm-6">
-    {!! Form::label('account_name', trans('app.contact:account-name') . ' :') !!}
-    {!! Form::text('account_name', null, ['class' => 'form-control']) !!}
+    <label for="account_name">{{trans('app.contact:account_name')}} :</label>
+    {!! Form::select('account_name', $accounts, null, ['class' => 'form-control']) !!}
+</div>
+
+<div class="form-group col-sm-6">
+    <label for="account_name">{{trans('app.contact:account_name')}} :</label>
+    {!! Form::select('account_name', $leads, null, ['class' => 'form-control']) !!}
 </div>
 
 <!-- Contact Owner Field -->
 <div class="form-group col-sm-6">
-    {!! Form::label('contact_owner', trans('app.contact:owner') . ' :') !!}
-    {!! Form::text('contact_owner', null, ['class' => 'form-control']) !!}
+    <label for="contact_owner">{{trans('app.contact:owner')}} :</label>
+    {!! Form::select('contact_owner', $users, null, ['class' => 'form-control']) !!}
 </div>
-
 <!-- Avatar Field -->
 <div class="form-group col-sm-6">
     {!! Form::label('avatar', trans('app.contact:avatar') . ' :') !!}

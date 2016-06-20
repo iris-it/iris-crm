@@ -20,7 +20,7 @@ class Account extends Model
 
 
     public $fillable = [
-        'account_name',
+        'name',
         'website',
         'activity_sector',
         'workforce',
@@ -46,7 +46,7 @@ class Account extends Model
      * @var array
      */
     protected $casts = [
-        'account_name' => 'string',
+        'name' => 'string',
         'website' => 'string',
         'activity_sector' => 'string',
         'workforce' => 'integer',

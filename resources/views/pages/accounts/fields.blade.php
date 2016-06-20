@@ -1,7 +1,7 @@
 <!-- Account Name Field -->
 <div class="form-group col-sm-6">
-    {!! Form::label('account_name',  trans('app.general:name') . ' :') !!}
-    {!! Form::text('account_name', null, ['class' => 'form-control']) !!}
+    {!! Form::label('name',  trans('app.general:name') . ' :') !!}
+    {!! Form::text('name', null, ['class' => 'form-control']) !!}
 </div>
 
 <!-- Website Field -->
@@ -54,8 +54,8 @@
 
 <!-- Account Owner Field -->
 <div class="form-group col-sm-6">
-    {!! Form::label('account_owner', trans('app.general:account-owner') . ' :') !!}
-    {!! Form::text('account_owner', null, ['class' => 'form-control']) !!}
+    <label for="account_owner">{{trans('app.general:account-owner')}} :</label>
+    {!! Form::select('account_owner', $users, null, ['class' => 'form-control']) !!}
 </div>
 
 <!-- Billing Address Field -->

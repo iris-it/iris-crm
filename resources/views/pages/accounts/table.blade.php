@@ -9,13 +9,13 @@
     <tbody>
     @foreach($accounts as $account)
         <tr>
-            <td>{!! $account->account_name !!}</td>
+            <td>{!! $account->name !!}</td>
             <td>{!! $account->workforce !!}</td>
             <td>{!! $account->type !!}</td>
             @if($account->user)
-                <td>{!! $account->user !!}</td>
+                <td>{!! $account->user->name !!}</td>
             @else
-                <td>Aucun</td>
+                <td>{{trans('app.general:undefined')}}</td>
             @endif
             <td>
                 {!! Form::open(['route' => ['accounts.destroy', $account->id], 'method' => 'delete']) !!}
