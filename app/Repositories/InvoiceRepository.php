@@ -2,7 +2,7 @@
 
 namespace App\Repositories;
 
-use App\Models\Invoice;
+use App\Invoice;
 use InfyOm\Generator\Common\BaseRepository;
 
 class InvoiceRepository extends BaseRepository
@@ -12,9 +12,7 @@ class InvoiceRepository extends BaseRepository
      */
     protected $fieldSearchable = [
         'topic',
-        'account_name',
         'phase',
-        'contact_name',
         'deadline',
         'description',
         'special_conditions',

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models;
+namespace App;
 
 use Eloquent as Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -21,9 +21,7 @@ class Invoice extends Model
 
     public $fillable = [
         'topic',
-        'account_name',
         'phase',
-        'contact_name',
         'deadline',
         'description',
         'special_conditions',
@@ -40,9 +38,7 @@ class Invoice extends Model
      */
     protected $casts = [
         'topic' => 'string',
-        'account_name' => 'string',
         'phase' => 'string',
-        'contact_name' => 'string',
         'deadline' => 'date',
         'description' => 'string',
         'special_conditions' => 'string',

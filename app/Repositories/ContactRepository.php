@@ -2,7 +2,7 @@
 
 namespace App\Repositories;
 
-use App\Models\Contact;
+use App\Contact;
 use InfyOm\Generator\Common\BaseRepository;
 
 class ContactRepository extends BaseRepository
@@ -17,8 +17,6 @@ class ContactRepository extends BaseRepository
         'post',
         'email',
         'phone_number',
-        'account_name',
-        'contact_owner',
         'avatar',
         'address',
         'zipcode',

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models;
+namespace App;
 
 use Eloquent as Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -24,8 +24,6 @@ class Product extends Model
         'is_active',
         'category',
         'ht_price',
-        'ttc_price',
-        'manutention_officer',
         'stock_disponibility',
         'product_avatar',
         'sale_datestart',
@@ -43,7 +41,6 @@ class Product extends Model
         'product_name' => 'string',
         'is_active' => 'boolean',
         'category' => 'string',
-        'manutention_officer' => 'string',
         'stock_disponibility' => 'integer',
         'product_avatar' => 'string',
         'product_notice' => 'string',

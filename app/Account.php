@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models;
+namespace App;
 
 use Eloquent as Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -29,7 +29,6 @@ class Account extends Model
         'siret_number',
         'phone_number',
         'is_active',
-        'account_owner',
         'billing_address',
         'delivery_address',
         'billing_zipcode',
@@ -56,7 +55,6 @@ class Account extends Model
         'siret_number' => 'string',
         'phone_number' => 'string',
         'is_active' => 'boolean',
-        'account_owner' => 'string',
         'billing_address' => 'string',
         'delivery_address' => 'string',
         'billing_zipcode' => 'string',

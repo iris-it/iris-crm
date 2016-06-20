@@ -2,7 +2,7 @@
 
 namespace App\Repositories;
 
-use App\Models\Service;
+use App\Service;
 use InfyOm\Generator\Common\BaseRepository;
 
 class ServiceRepository extends BaseRepository
@@ -16,7 +16,6 @@ class ServiceRepository extends BaseRepository
         'category',
         'sale_unit',
         'ht_price',
-        'ttc_price',
         'sale_datestart',
         'sale_dateend',
         'description'

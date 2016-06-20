@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models;
+namespace App;
 
 use Eloquent as Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -50,6 +50,11 @@ class Tax extends Model
     public function products()
     {
         return $this->belongsToMany('App\Product', 'products_taxes_pivot', 'tax_id', 'product_id')->withTimestamps();
+    }
+
+    public function taxes()
+    {
+        return $this->belongsToMany('App\Service', 'services_taxes_pivot', 'tax_id', 'service_id')->withTimestamps();
     }
     
 }

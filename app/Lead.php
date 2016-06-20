@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models;
+namespace App;
 
 use Eloquent as Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -29,7 +29,6 @@ class Lead extends Model
         'siret_number',
         'phone_number',
         'status',
-        'account_owner',
         'address',
         'zipcode',
         'city',
@@ -52,7 +51,6 @@ class Lead extends Model
         'siret_number' => 'string',
         'phone_number' => 'string',
         'status' => 'string',
-        'account_owner' => 'string',
         'address' => 'string',
         'zipcode' => 'string',
         'city' => 'string',

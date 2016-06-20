@@ -2,7 +2,7 @@
 
 namespace App\Repositories;
 
-use App\Models\Account;
+use App\Account;
 use InfyOm\Generator\Common\BaseRepository;
 
 class AccountRepository extends BaseRepository
@@ -20,7 +20,6 @@ class AccountRepository extends BaseRepository
         'siret_number',
         'phone_number',
         'is_active',
-        'account_owner',
         'billing_address',
         'delivery_address',
         'billing_zipcode',

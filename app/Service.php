@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models;
+namespace App;
 
 use Eloquent as Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -25,7 +25,6 @@ class Service extends Model
         'category',
         'sale_unit',
         'ht_price',
-        'ttc_price',
         'sale_datestart',
         'sale_dateend',
         'description'
@@ -52,4 +51,9 @@ class Service extends Model
     public static $rules = [
         
     ];
+
+    public function taxes()
+    {
+        return $this->belongsToMany('App\Tax', 'services_taxes_pivot', 'service_id', 'tax_id')->withTimestamps();
+    }
 }

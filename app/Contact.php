@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models;
+namespace App;
 
 use Eloquent as Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -26,8 +26,6 @@ class Contact extends Model
         'post',
         'email',
         'phone_number',
-        'account_name',
-        'contact_owner',
         'avatar',
         'address',
         'zipcode',
@@ -48,8 +46,6 @@ class Contact extends Model
         'post' => 'string',
         'email' => 'string',
         'phone_number' => 'string',
-        'account_name' => 'string',
-        'contact_owner' => 'string',
         'avatar' => 'string',
         'address' => 'string',
         'zipcode' => 'string',

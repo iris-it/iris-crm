@@ -2,7 +2,7 @@
 
 namespace App\Repositories;
 
-use App\Models\Lead;
+use App\Lead;
 use InfyOm\Generator\Common\BaseRepository;
 
 class LeadRepository extends BaseRepository
@@ -20,7 +20,6 @@ class LeadRepository extends BaseRepository
         'siret_number',
         'phone_number',
         'status',
-        'account_owner',
         'address',
         'zipcode',
         'city',

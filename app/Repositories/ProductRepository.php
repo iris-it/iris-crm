@@ -2,7 +2,7 @@
 
 namespace App\Repositories;
 
-use App\Models\Product;
+use App\Product;
 use InfyOm\Generator\Common\BaseRepository;
 
 class ProductRepository extends BaseRepository
@@ -15,8 +15,6 @@ class ProductRepository extends BaseRepository
         'is_active',
         'category',
         'ht_price',
-        'ttc_price',
-        'manutention_officer',
         'stock_disponibility',
         'product_avatar',
         'sale_datestart',

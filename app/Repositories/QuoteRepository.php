@@ -2,7 +2,7 @@
 
 namespace App\Repositories;
 
-use App\Models\Quote;
+use App\Quote;
 use InfyOm\Generator\Common\BaseRepository;
 
 class QuoteRepository extends BaseRepository
@@ -12,11 +12,8 @@ class QuoteRepository extends BaseRepository
      */
     protected $fieldSearchable = [
         'topic',
-        'account_name',
         'phase',
-        'contact_name',
         'deadline',
-        'contact_owner',
         'description',
         'special_conditions',
         'address',

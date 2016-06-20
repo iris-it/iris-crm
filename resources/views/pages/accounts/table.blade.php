@@ -1,10 +1,10 @@
 <table class="table table-responsive" id="accounts-table">
     <thead>
-        <th>{{trans('app.general:name')}}</th>
-        <th>{{trans('app.general:workforce')}}</th>
-        <th>{{trans('app.general:type')}}</th>
-        <th>{{trans('app.general:account-owner')}}</th>
-        <th colspan="3">Action</th>
+    <th>{{trans('app.general:name')}}</th>
+    <th>{{trans('app.general:workforce')}}</th>
+    <th>{{trans('app.general:type')}}</th>
+    <th>{{trans('app.general:account-owner')}}</th>
+    <th colspan="3">Action</th>
     </thead>
     <tbody>
     @foreach($accounts as $account)
@@ -12,7 +12,11 @@
             <td>{!! $account->account_name !!}</td>
             <td>{!! $account->workforce !!}</td>
             <td>{!! $account->type !!}</td>
-            <td>{!! $account->account_owner !!}</td>
+            @if($account->user)
+                <td>{!! $account->user !!}</td>
+            @else
+                <td>Aucun</td>
+            @endif
             <td>
                 {!! Form::open(['route' => ['accounts.destroy', $account->id], 'method' => 'delete']) !!}
                 <div class='btn-group'>
