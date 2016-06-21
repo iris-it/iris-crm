@@ -31,8 +31,10 @@
 <!-- Ttc Price Field -->
 <div class="form-group col-sm-6">
     {!! Form::label('ttc_price',  trans('app.product:active-taxes') . " :" ) !!}
-    {!! Form::text('ttc_price', null, ['class' => 'form-control']) !!}
-</div>
+
+    <div>
+        {!! Form::select('taxes[]', $taxes, null, ['multiple', 'id'=> 'taxes_list', 'style' => 'height: 306px'] ) !!}
+    </div></div>
 
 <!-- Sale Datestart Field -->
 <div class="form-group col-sm-6">

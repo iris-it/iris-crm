@@ -25,13 +25,10 @@
 <!-- Ttc Price Field -->
 <div class="form-group col-sm-6">
     {!! Form::label('ttc_price', trans('app.product:active-taxes') . " :") !!}
-    @foreach($taxes as $tax)
-        <label for="applied_taxes" class="css-input switch switch-square switch-info">
-            {!! Form::checkbox('taxes['.$tax->id. ']', 0, false, ['class' => 'outletsCheckboxes', 'identifier' => $tax->id]) !!}
-            <span></span>
-            {{$tax->name}}
-        </label>
-    @endforeach
+
+    <div>
+        {!! Form::select('taxes[]', $taxes, null, ['multiple', 'id'=> 'taxes_list', 'style' => 'height: 306px'] ) !!}
+    </div>
 </div>
 
 <!-- Manutention Officer Field -->

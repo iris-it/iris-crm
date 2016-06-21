@@ -10476,6 +10476,26 @@ new Vue({
     components: { Login: _Login2.default, Logout: _Logout2.default, UserProfile: _UserProfile2.default }
 });
 
+var IrisCrm = function IrisCrm() {
+
+    var initDualListBox = function initDualListBox(domId) {
+        var parameters = {
+            filterTextClear: "Tout montrer",
+            moveAllLabel: "Tout sélectionner",
+            filterPlaceHolder: "Tapez pour filtrer...",
+            moveSelectedLabel: "Sélectionner",
+            removeSelectedLabel: "Déselectionner",
+            removeAllLabel: "Tout déselectionner",
+            infoText: "Sélection : {0}",
+            infoTextFiltered: '<span class="label label-warning">Filtre actif</span> {0} sur {1}',
+            infoTextEmpty: "Liste vide"
+
+        };
+
+        $('#' + domId).bootstrapDualListbox(parameters);
+    };
+};
+
 },{"./components/Auth/Login.vue":6,"./components/Auth/Logout.vue":7,"./components/Auth/UserProfile.vue":8,"vue":3}],6:[function(require,module,exports){
 var __vueify_insert__ = require("vueify/lib/insert-css")
 var __vueify_style__ = __vueify_insert__.insert("\n\n")

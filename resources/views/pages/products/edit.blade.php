@@ -21,3 +21,9 @@
        </div>
    </div>
 @endsection
+
+@section('js-app-scope)
+
+    IrisCrm.initDualListBox('taxes_list');
+
+@endsection

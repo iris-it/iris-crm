@@ -14,11 +14,17 @@
                 <div class="row">
                     {!! Form::open(['route' => 'products.store']) !!}
 
-                        @include('pages.products.fields')
+                    @include('pages.products.fields')
 
                     {!! Form::close() !!}
                 </div>
             </div>
         </div>
     </div>
+@endsection
+
+@section('js-app-scope)
+
+    IrisCrm.initDualListBox('taxes_list');
+
 @endsection

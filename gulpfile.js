@@ -18,10 +18,12 @@ require('laravel-elixir-vueify');
 var paths = {
     "public": "./public/",
     "assets": "./resources/assets/",
-    "jquery": "./vendor/bower_components/jquery/dist/",
+    "jquery": "./vendor/bower_components/jquery/",
     "bootstrap": "./vendor/bower_components/bootstrap/dist/",
     "fontawesome": "./vendor/bower_components/font-awesome/",
-    "adminlte": "./vendor/bower_components/AdminLTE/dist/"
+    "adminlte": "./vendor/bower_components/AdminLTE/dist/",
+    "duallistbox": "./vendor/bower_components/bootstrap-duallistbox/"
+
 };
 
 // keep app.css at the end
@@ -30,7 +32,9 @@ var styles = [
     paths.bootstrap + "css/bootstrap.css",
     paths.adminlte + "css/AdminLTE.css",
     paths.adminlte + "css/skins/_all-skins.css",
+    paths.duallistbox + "src/bootstrap-duallistbox.css",
     paths.public + "css/app.css"
+
 ];
 
 // add a path for resolve a @import in a less file ( eg: bootstrap )
@@ -41,7 +45,9 @@ var less_paths = [];
 var libraries = [
     paths.jquery + "jquery.js",
     paths.bootstrap + "js/bootstrap.js",
-    paths.adminlte + "js/app.js"
+    paths.adminlte + "js/app.js",
+    paths.duallistbox + "dist/jquery.bootstrap-duallistbox.min.js"
+
 ];
 
 var fonts = [

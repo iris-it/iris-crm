@@ -31,7 +31,15 @@
 <!-- Ttc Price Field -->
 <div class="form-group">
     {!! Form::label('ttc_price', trans('app.product:active-taxes') . " :" ) !!}
-    <p>{!! $service->ttc_price !!}</p>
+    @if($service->taxes)
+        <ul>
+            @foreach($service->taxes as $tax)
+                <li>{{$tax->name}} : {{$tax->value}} %</li>
+            @endforeach
+        </ul>
+    @else
+        <p>{{trans('app.general:undefined')}}</p>
+    @endif
 </div>
 
 <!-- Sale Datestart Field -->
