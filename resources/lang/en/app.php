@@ -1,6 +1,6 @@
 <?php
 
-# modified at 20-06-2016 15:36
+# modified at 21-06-2016 12:54
 
 return  array(
 	'contact:account-name'         => 'Account name',
@@ -26,12 +26,15 @@ return  array(
 	'general:billing-address'      => 'Billing address',
 	'general:city'                 => 'City',
 	'general:country'              => 'Country',
+	'general:create-failure'       => 'Creation has failed',
+	'general:create-success'       => 'Creation complete',
 	'general:created-at'           => 'Created at',
 	'general:deadline'             => 'Deadline',
 	'general:delivery-address'     => 'Delivery address',
 	'general:description'          => 'Description',
 	'general:free-input'           => 'Optional commentary',
 	'general:is-active'            => 'Active',
+	'general:missing-model'        => 'Entity not found',
 	'general:name'                 => 'Name',
 	'general:owner'                => 'Owner',
 	'general:phase'                => 'Phase',
@@ -44,6 +47,8 @@ return  array(
 	'general:topic'                => 'Subject',
 	'general:type'                 => 'Type',
 	'general:undefined'            => 'Undefined',
+	'general:update-failure'       => 'Update has failed',
+	'general:update-success'       => 'Update successful',
 	'general:updated-at'           => 'Updated at',
 	'general:website'              => 'Website',
 	'general:workforce'            => 'Workforce',

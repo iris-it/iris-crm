@@ -3,7 +3,7 @@
 namespace App\Http\Requests;
 
 use App\Http\Requests\Request;
-use App\Models\Lead;
+use App\Lead;
 
 class UpdateLeadRequest extends Request
 {
@@ -25,6 +25,7 @@ class UpdateLeadRequest extends Request
      */
     public function rules()
     {
-        return Lead::$rules;
+        $lead = new Lead();
+        return $lead->rules();
     }
 }

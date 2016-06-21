@@ -14,7 +14,7 @@ class Account extends Model
     use SoftDeletes;
 
     public $table = 'accounts';
-    
+
 
     protected $dates = ['deleted_at'];
 
@@ -71,9 +71,34 @@ class Account extends Model
      *
      * @var array
      */
-    public static $rules = [
-        
-    ];
+    public function rules()
+    {
+        return [
+            'name' => 'required|max:255|unique:accounts,name,' . $this->id,
+            'website' => 'url|max:255',
+            'activity_sector' => 'string|max:255',
+            'workforce' => 'integer',
+            'type' => 'required|string|max:255',
+            'ape_number' => array('required', "regex:/(^[0-9]{1,2}\.[0-9]{1,2}[A-Z]$|^[0-9]{1,2}\.[0-9]{1,2})$/im"),
+            'siret_number' => array('required', "regex:/^[0-9]{3}[ \.\-]?[0-9]{3}[ \.\-]?[0-9]{3}[ \.\-]?[0-9]{5}$/im", 'unique:accounts,siret_number,' . $this->id,),
+            'phone_number' => array("regex:/^\+?[0-9]{10,20}$/im"),
+            'is_active' => 'required|boolean',
+            'billing_address' => 'required|string',
+            'delivery_address' => 'required|string',
+            'billing_zipcode' => 'required|string',
+            'delivery_zipcode' => 'required|string',
+            'billing_city' => 'required|string',
+            'delivery_city' => 'required|string',
+            'billing_country' => 'required|string',
+            'delivery_country' => 'required|string',
+            'free_label' => 'required|string',
+
+            /*Relations*/
+
+            'account_owner' => 'required'
+
+        ];
+    }
 
     public function user()
     {

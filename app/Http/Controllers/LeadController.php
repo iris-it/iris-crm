@@ -9,7 +9,8 @@ use App\Repositories\LeadRepository;
 use App\Http\Controllers\AppBaseController as InfyOmBaseController;
 use App\User;
 use Illuminate\Http\Request;
-use Flash;
+use Illuminate\Support\Facades\Lang;
+use Laracasts\Flash\Flash;
 use Prettus\Repository\Criteria\RequestCriteria;
 use Response;
 
@@ -60,7 +61,19 @@ class LeadController extends InfyOmBaseController
     {
         $input = $request->all();
 
-        $lead = $this->leadRepository->create($input);
+        if ($lead = $this->leadRepository->create($input)) {
+
+            $user = User::findOrFail($request->account_owner->id);
+            $lead->user()->associate($user);
+            $lead->save();
+            Flash::success(Lang::get('app.general:create-success'));
+
+        } else {
+
+            Flash::error(Lang::get('app.general:create-failed'));
+            return redirect(route('leads.create'));
+
+        }
 
         Flash::success('Lead saved successfully.');
 
@@ -121,14 +134,23 @@ class LeadController extends InfyOmBaseController
         $lead = $this->leadRepository->findWithoutFail($id);
 
         if (empty($lead)) {
-            Flash::error('Lead not found');
+            Flash::error(Lang::get('app.general:missing-model'));
 
             return redirect(route('leads.index'));
         }
 
-        $lead = $this->leadRepository->update($request->all(), $id);
+        if ($lead = $this->leadRepository->update($request->all(), $id)) {
 
-        Flash::success('Lead updated successfully.');
+            $user = User::findOrFail($request->account_owner->id);
+            $lead->user()->associate($user);
+            $lead->save();
+            Flash::success(Lang::get('app.general:update-success'));
+
+        } else {
+
+            Flash::error(Lang::get('app.general:update-failure'));
+            return redirect(route('leads.edit'));
+        }
 
         return redirect(route('leads.index'));
     }

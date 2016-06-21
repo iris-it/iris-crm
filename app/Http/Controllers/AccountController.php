@@ -9,7 +9,8 @@ use App\Repositories\AccountRepository;
 use App\Http\Controllers\AppBaseController as InfyOmBaseController;
 use App\User;
 use Illuminate\Http\Request;
-use Flash;
+use Illuminate\Support\Facades\Lang;
+use Laracasts\Flash\Flash;
 use Prettus\Repository\Criteria\RequestCriteria;
 use Response;
 
@@ -61,12 +62,24 @@ class AccountController extends InfyOmBaseController
     {
         $input = $request->all();
 
-        $account = $this->accountRepository->create($input);
 
-        Flash::success('Account saved successfully.');
+        if ($account = $this->accountRepository->create($input)) {
+
+            $user = User::findOrFail($request->account_owner->id);
+            $account->user()->associate($user);
+            $account->save();
+            Flash::success(Lang::get('app.general:create-success'));
+
+        } else {
+
+            Flash::error(Lang::get('app.general:create-failed'));
+            return redirect(route('accounts.create'));
+
+        }
 
         return redirect(route('accounts.index'));
     }
+
 
     /**
      * Display the specified Account.
@@ -101,7 +114,7 @@ class AccountController extends InfyOmBaseController
         $users = User::all();
 
         if (empty($account)) {
-            Flash::error('Account not found');
+            Flash::error(Lang::get('app.general:missing-model'));
 
             return redirect(route('accounts.index'));
         }
@@ -112,7 +125,7 @@ class AccountController extends InfyOmBaseController
     /**
      * Update the specified Account in storage.
      *
-     * @param  int              $id
+     * @param  int $id
      * @param UpdateAccountRequest $request
      *
      * @return Response
@@ -122,14 +135,23 @@ class AccountController extends InfyOmBaseController
         $account = $this->accountRepository->findWithoutFail($id);
 
         if (empty($account)) {
-            Flash::error('Account not found');
+            Flash::error(Lang::get('app.general:missing-model'));
 
             return redirect(route('accounts.index'));
         }
 
-        $account = $this->accountRepository->update($request->all(), $id);
+        if($account = $this->accountRepository->update($request->all(), $id)) {
 
-        Flash::success('Account updated successfully.');
+            $user = User::findOrFail($request->account_owner->id);
+            $account->user()->associate($user);
+            $account->save();
+            Flash::success(Lang::get('app.general:update-success'));
+
+        } else {
+
+            Flash::error(Lang::get('app.general:update-failure'));
+            return redirect(route('accounts.edit'));
+        }
 
         return redirect(route('accounts.index'));
     }

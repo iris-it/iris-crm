@@ -3,7 +3,7 @@
 namespace App\Http\Requests;
 
 use App\Http\Requests\Request;
-use App\Models\Account;
+use App\Account;
 
 class UpdateAccountRequest extends Request
 {
@@ -25,6 +25,7 @@ class UpdateAccountRequest extends Request
      */
     public function rules()
     {
-        return Account::$rules;
+        $account = new Account();
+        return $account->rules();
     }
 }

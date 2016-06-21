@@ -2,8 +2,8 @@
 
 namespace App\Http\Requests;
 
+use App\Account;
 use App\Http\Requests\Request;
-use App\Models\Account;
 
 class CreateAccountRequest extends Request
 {
@@ -25,6 +25,7 @@ class CreateAccountRequest extends Request
      */
     public function rules()
     {
-        return Account::$rules;
+        $account = new Account();
+        return $account->rules();
     }
 }
