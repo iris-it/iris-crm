@@ -25,6 +25,7 @@ class CreateInvoiceRequest extends Request
      */
     public function rules()
     {
-        return Invoice::$rules;
+        $invoice = new Invoice();
+        return $invoice->rules();
     }
 }

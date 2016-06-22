@@ -1,6 +1,6 @@
 <?php
 
-# modified at 22-06-2016 13:52
+# modified at 22-06-2016 15:23
 
 return  array(
 	'contact:account-name'         => 'Nom de compte',
@@ -69,5 +69,6 @@ return  array(
 	'product:manu-officer'         => 'Chargé de manutention',
 	'product:notice'               => 'Notice produit',
 	'product:stock-dispo'          => 'En stock',
+	'quote:owner'                  => 'Proprietaire du devis',
 	'sidebar:main-title'           => 'MENU PRINCIPAL',
 );

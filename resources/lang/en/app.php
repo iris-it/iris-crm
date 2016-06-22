@@ -1,6 +1,6 @@
 <?php
 
-# modified at 22-06-2016 13:52
+# modified at 22-06-2016 15:23
 
 return  array(
 	'contact:account-name'         => 'Account name',
@@ -69,5 +69,6 @@ return  array(
 	'product:manu-officer'         => 'Manutention officer',
 	'product:notice'               => 'Product notice',
 	'product:stock-dispo'          => 'Stock disponibility',
+	'quote:owner'                  => 'Quote owner',
 	'sidebar:main-title'           => 'MAIN NAVIGATION',
 );

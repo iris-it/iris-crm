@@ -27,14 +27,14 @@
     {!! Form::label('ttc_price', trans('app.product:active-taxes') . " :") !!}
 
     <div>
-        {!! Form::select('taxes[]', $taxes, null, ['multiple', 'id'=> 'taxes_list', 'style' => 'height: 306px'] ) !!}
+        {!! Form::select('taxes[]', $taxes, null, ['multiple', 'id'=> 'taxes_list', 'style' => 'height: 306px']) !!}
     </div>
 </div>
 
 <!-- Manutention Officer Field -->
 <div class="form-group col-sm-6">
-    <label for="manutention_officer">{{trans('app.product:manu-officer')}} :</label>
-    {!! Form::select('manutention_officer', $contacts, null, ['class' => 'form-control']) !!}
+    <label for="manutention_officer_id">{{trans('app.product:manu-officer')}} :</label>
+    {!! Form::select('manutention_officer_id', $contacts, null, ['class' => 'form-control']) !!}
 </div>
 
 <!-- Stock Disponibility Field -->

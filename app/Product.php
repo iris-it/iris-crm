@@ -52,9 +52,25 @@ class Product extends Model
      *
      * @var array
      */
-    public static $rules = [
-        
-    ];
+    public function rules()
+    {
+        return [
+
+            'product_name' => 'string|max:255|required',
+            'is_active' => 'boolean',
+            'category' => 'string|max:255|required',
+            'stock_disponibility' => 'integer|required',
+            'product_avatar' => 'string',
+            'product_notice' => 'string',
+            'description' => 'string|required',
+
+            /*Relations*/
+            
+            'taxes.*' => '',
+            'manutention_officer_id' => 'required|integer',
+
+        ];
+    }
 
     public function taxes()
     {

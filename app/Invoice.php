@@ -53,9 +53,29 @@ class Invoice extends Model
      *
      * @var array
      */
-    public static $rules = [
-        
-    ];
+    public function rules()
+    {
+        return [
+
+            'topic' => 'required|max:255|string',
+            'phase' => 'required|max:255|string',
+            'deadline' => 'required|date_format:d/m/Y',
+            'description' => 'string',
+            'special_conditions' => 'string',
+            'address' => 'required|string',
+            'zipcode' => 'required|string',
+            'city' => 'required|string',
+            'country' => 'required|string',
+
+            /*Relations*/
+
+            'account_name_id' => 'required|integer',
+            'contact_name_id' => 'required|integer',
+            'quote_id' => 'required|integer'
+
+
+        ];
+    }
 
     public function account()
     {

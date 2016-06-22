@@ -3,7 +3,7 @@
 namespace App\Http\Requests;
 
 use App\Http\Requests\Request;
-use App\Models\Quote;
+use App\Quote;
 
 class CreateQuoteRequest extends Request
 {
@@ -25,6 +25,7 @@ class CreateQuoteRequest extends Request
      */
     public function rules()
     {
-        return Quote::$rules;
+        $quote = new Quote();
+        return $quote->rules();
     }
 }

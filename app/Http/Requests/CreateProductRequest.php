@@ -25,6 +25,7 @@ class CreateProductRequest extends Request
      */
     public function rules()
     {
-        return Product::$rules;
+        $product = new Product();
+        return $product->rules();
     }
 }

@@ -44,9 +44,9 @@ class QuoteController extends InfyOmBaseController
      */
     public function create()
     {
-        $contacts = Contact::all();
-        $accounts = Account::all();
-        $users = User::all();
+        $contacts = Contact::lists('firstname' . 'lastname', 'id');
+        $accounts = Account::lists('name', 'id');
+        $users = User::lists('name', 'id');
 
         return view('pages.quotes.create')->with(compact('contacts', 'accounts', 'users'));
     }
@@ -62,9 +62,26 @@ class QuoteController extends InfyOmBaseController
     {
         $input = $request->all();
 
-        $quote = $this->quoteRepository->create($input);
+        if ($quote = $this->quoteRepository->create($input)) {
 
-        Flash::success('Quote saved successfully.');
+            $user = User::findOrFail($request->quote_owner_id);
+            $contact = Contact::findOrFail($request->contact_name_id);
+            $account = Account::findOrFail($request->account_name_id);
+
+            $quote->user()->associate($user);
+            $quote->contact()->associate($contact);
+            $quote->account()->associate($account);
+
+            $quote->save();
+
+            Flash::success(Lang::get('app.general:create-success'));
+
+        } else {
+
+            Flash::error(Lang::get('app.general:create-failed'));
+            return redirect(route('quote.create'));
+
+        }
 
         return redirect(route('quotes.index'));
     }
@@ -100,9 +117,9 @@ class QuoteController extends InfyOmBaseController
     {
         $quote = $this->quoteRepository->findWithoutFail($id);
 
-        $contacts = Contact::all();
-        $accounts = Account::all();
-        $users = User::all();
+        $contacts = Contact::lists('firstname' . 'lastname', 'id');
+        $accounts = Account::lists('name', 'id');
+        $users = User::lists('name', 'id');
 
         if (empty($quote)) {
             Flash::error('Quote not found');
@@ -131,9 +148,26 @@ class QuoteController extends InfyOmBaseController
             return redirect(route('quotes.index'));
         }
 
-        $quote = $this->quoteRepository->update($request->all(), $id);
+        if ($quote = $this->quoteRepository->update($request->all(), $id)) {
 
-        Flash::success('Quote updated successfully.');
+            $user = User::findOrFail($request->quote_owner_id);
+            $contact = Contact::findOrFail($request->contact_name_id);
+            $account = Account::findOrFail($request->account_name_id);
+
+            $quote->user()->associate($user);
+            $quote->contact()->associate($contact);
+            $quote->account()->associate($account);
+
+            $quote->save();
+
+            Flash::success(Lang::get('app.general:update-success'));
+
+        } else {
+
+            Flash::error(Lang::get('app.general:update-failed'));
+            return redirect(route('quote.edit'));
+
+        }
 
         return redirect(route('quotes.index'));
     }

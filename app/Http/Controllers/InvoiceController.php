@@ -48,12 +48,11 @@ class InvoiceController extends InfyOmBaseController
      */
     public function create()
     {
-        $contacts = Contact::all();
-        $accounts = Account::all();
-        $quotes = Quote::all();
-        $users = User::all();
+        $contacts = Contact::lists('firstname' . 'lastname', 'id');
+        $accounts = Account::lists('name', 'id');
+        $quotes = Quote::lists('name', 'id');
 
-        return view('pages.invoices.create')->with(compact('contacts', 'accounts', 'quotes', 'users'));
+        return view('pages.invoices.create')->with(compact('contacts', 'accounts', 'quotes'));
     }
 
     /**
@@ -67,9 +66,28 @@ class InvoiceController extends InfyOmBaseController
     {
         $input = $request->all();
 
-        $invoice = $this->invoiceRepository->create($input);
 
-        Flash::success('Invoice saved successfully.');
+        if ($invoice = $this->invoiceRepository->create($input)) {
+
+            $contact = Contact::findOrFail($request->contact_name_id);
+            $account = Account::findOrFail($request->account_name_id);
+            $quote = Quote::findOrFail($request->quote_id);
+
+            $invoice->contact()->associate($contact);
+            $invoice->account()->associate($account);
+            $invoice->quote()->associate($quote);
+
+            $invoice->save();
+
+            Flash::success(Lang::get('app.general:create-success'));
+
+        } else {
+
+            Flash::error(Lang::get('app.general:create-failed'));
+            return redirect(route('invoices.create'));
+
+        }
+
 
         return redirect(route('invoices.index'));
     }
@@ -104,10 +122,10 @@ class InvoiceController extends InfyOmBaseController
     public function edit($id)
     {
         $invoice = $this->invoiceRepository->findWithoutFail($id);
-        $contacts = Contact::all();
-        $accounts = Account::all();
-        $quotes = Quote::all();
-        $users = User::all();
+
+        $contacts = Contact::lists('firstname' . 'lastname', 'id');
+        $accounts = Account::lists('name', 'id');
+        $quotes = Quote::lists('name', 'id');
 
         if (empty($invoice)) {
             Flash::error('Invoice not found');
@@ -115,13 +133,13 @@ class InvoiceController extends InfyOmBaseController
             return redirect(route('invoices.index'));
         }
 
-        return view('pages.invoices.edit')->with(compact('invoice', 'contacts', 'accounts', 'quotes', 'users'));
+        return view('pages.invoices.edit')->with(compact('invoice', 'contacts', 'accounts', 'quotes'));
     }
 
     /**
      * Update the specified Invoice in storage.
      *
-     * @param  int              $id
+     * @param  int $id
      * @param UpdateInvoiceRequest $request
      *
      * @return Response
@@ -131,14 +149,31 @@ class InvoiceController extends InfyOmBaseController
         $invoice = $this->invoiceRepository->findWithoutFail($id);
 
         if (empty($invoice)) {
-            Flash::error('Invoice not found');
 
+            Flash::error('Invoice not found');
             return redirect(route('invoices.index'));
         }
 
-        $invoice = $this->invoiceRepository->update($request->all(), $id);
+        if ($invoice = $this->invoiceRepository->update($request->all(), $id)) {
 
-        Flash::success('Invoice updated successfully.');
+            $contact = Contact::findOrFail($request->contact_name_id);
+            $account = Account::findOrFail($request->account_name_id);
+            $quote = Quote::findOrFail($request->quote_id);
+
+            $invoice->contact()->associate($contact);
+            $invoice->account()->associate($account);
+            $invoice->quote()->associate($quote);
+
+            $invoice->save();
+
+            Flash::success(Lang::get('app.general:update-success'));
+
+        } else {
+
+            Flash::error(Lang::get('app.general:update-failed'));
+            return redirect(route('invoices.edit'));
+
+        }
 
         return redirect(route('invoices.index'));
     }

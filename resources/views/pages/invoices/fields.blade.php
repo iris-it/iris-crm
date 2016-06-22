@@ -6,8 +6,8 @@
 
 <!-- Account Name Field -->
 <div class="form-group col-sm-6">
-    <label for="account_name">{{trans('app.contact:account_name')}} :</label>
-    {!! Form::select('account_name', $accounts, null, ['class' => 'form-control']) !!}
+    <label for="account_name_id">{{trans('app.contact:account_name')}} :</label>
+    {!! Form::select('account_name_id', $accounts, null, ['class' => 'form-control']) !!}
 </div>
 
 <!-- Phase Field -->
@@ -18,8 +18,8 @@
 
 <!-- Contact Name Field -->
 <div class="form-group col-sm-6">
-    <label for="contact_name">{{trans('app.contact:name')}} :</label>
-    {!! Form::select('contact_name', $contacts, null, ['class' => 'form-control']) !!}
+    <label for="contact_name_id">{{trans('app.contact:name')}} :</label>
+    {!! Form::select('contact_name_id', $contacts, null, ['class' => 'form-control']) !!}
 </div>
 
 <!-- Deadline Field -->
@@ -66,8 +66,8 @@
 
 <!-- Quote Field -->
 <div class="form-group col-sm-6">
-    <label for="quote_name">{{trans('app.general:quote')}} :</label>
-    {!! Form::select('quote_name', $quotes, null, ['class' => 'form-control']) !!}
+    <label for="quote_id">{{trans('app.general:quote')}} :</label>
+    {!! Form::select('quote_id', $quotes, null, ['class' => 'form-control']) !!}
 </div>
 
 <!-- Submit Field -->
