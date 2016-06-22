@@ -46,7 +46,7 @@ class AccountController extends InfyOmBaseController
      */
     public function create()
     {
-        $users = User::all();
+        $users = User::lists('name', 'id');
 
         return view('pages.accounts.create')->with(compact('users'));
     }
@@ -65,7 +65,7 @@ class AccountController extends InfyOmBaseController
 
         if ($account = $this->accountRepository->create($input)) {
 
-            $user = User::findOrFail($request->account_owner->id);
+            $user = User::findOrFail($request->account_owner_id);
             $account->user()->associate($user);
             $account->save();
             Flash::success(Lang::get('app.general:create-success'));
@@ -111,7 +111,7 @@ class AccountController extends InfyOmBaseController
     public function edit($id)
     {
         $account = $this->accountRepository->findWithoutFail($id);
-        $users = User::all();
+        $users = User::lists('name', 'id');
 
         if (empty($account)) {
             Flash::error(Lang::get('app.general:missing-model'));
@@ -142,7 +142,7 @@ class AccountController extends InfyOmBaseController
 
         if($account = $this->accountRepository->update($request->all(), $id)) {
 
-            $user = User::findOrFail($request->account_owner->id);
+            $user = User::findOrFail($request->account_owner_id);
             $account->user()->associate($user);
             $account->save();
             Flash::success(Lang::get('app.general:update-success'));

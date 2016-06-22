@@ -28,6 +28,7 @@ class CreatecontactsTable extends Migration
             $table->string('zipcode');
             $table->string('city');
             $table->string('country');
+            $table->boolean('type');
             $table->string('free_label');
             $table->timestamps();
             $table->softDeletes();

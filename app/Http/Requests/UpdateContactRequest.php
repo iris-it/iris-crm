@@ -25,6 +25,7 @@ class UpdateContactRequest extends Request
      */
     public function rules()
     {
-        return Contact::$rules;
+        $contact = new Contact();
+        return $contact->rules();
     }
 }

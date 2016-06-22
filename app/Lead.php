@@ -79,11 +79,11 @@ class Lead extends Model
             'zipcode' => 'required|string',
             'city' => 'required|string',
             'country' => 'required|string',
-            'free_label' => 'required|string',
+            'free_label' => 'string',
 
             /*Relations*/
 
-            'account_owner' => 'required'
+            'account_owner_id' => 'integer|required'
 
         ];
     }
@@ -97,6 +97,6 @@ class Lead extends Model
 
     public function contacts()
     {
-        return $this->morphMany('App\Contact', 'boundable');
+        return $this->hasMany('App\Contact');
     }
 }

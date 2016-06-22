@@ -22,6 +22,7 @@ class ContactRepository extends BaseRepository
         'zipcode',
         'city',
         'country',
+        'type',
         'free_label'
     ];
 

@@ -11,7 +11,7 @@ use App\Repositories\ContactRepository;
 use App\Http\Controllers\AppBaseController as InfyOmBaseController;
 use App\User;
 use Illuminate\Http\Request;
-use Flash;
+use Laracasts\Flash\Flash;
 use Prettus\Repository\Criteria\RequestCriteria;
 use Response;
 
@@ -47,11 +47,15 @@ class ContactController extends InfyOmBaseController
      */
     public function create()
     {
-        $accounts = Account::all();
-        $leads = Lead::all();
-        $users = User::all();
+        $accounts = Account::lists('name', 'id');
+        $leads = Lead::lists('name', 'id');
+        $users = User::lists('name', 'id');
+        $types = [
+            trans('app.contact:account-type') => 1,
+            trans('app.contact:lead-type') => 0
+        ];
 
-        return view('pages.contacts.create')->with(compact('accounts', 'leads', 'users'));
+        return view('pages.contacts.create')->with(compact('accounts', 'leads', 'users', 'types'));
     }
 
     /**
@@ -65,9 +69,34 @@ class ContactController extends InfyOmBaseController
     {
         $input = $request->all();
 
-        $contact = $this->contactRepository->create($input);
 
-        Flash::success('Contact saved successfully.');
+        if ($contact = $this->contactRepository->create($input)) {
+
+            $user = User::findOrFail($request->contact_owner_id);
+
+            if ($contact->type == 0) {
+
+                $lead = Lead::findOrFail($request->lead_name_id);
+                $contact->lead()->associate($lead);
+                $contact->save();
+            } else {
+
+                $account = Account::findOrFail($request->account_name_id);
+                $contact->account()->associate($account);
+                $contact->save();
+            }
+
+            $contact->user()->associate($user);
+            $contact->save();
+
+            Flash::success(Lang::get('app.general:create-success'));
+
+        } else {
+
+            Flash::error(Lang::get('app.general:create-failed'));
+            return redirect(route('contacts.create'));
+
+        }
 
         return redirect(route('contacts.index'));
     }
@@ -102,9 +131,13 @@ class ContactController extends InfyOmBaseController
     public function edit($id)
     {
         $contact = $this->contactRepository->findWithoutFail($id);
-        $accounts = Account::all();
-        $leads = Lead::all();
-        $users = User::all();
+        $accounts = Account::lists('name', 'id');
+        $leads = Lead::lists('name', 'id');
+        $users = User::lists('name', 'id');
+        $types = [
+            trans('app.contact:account-type') => 1,
+            trans('app.contact:lead-type') => 0
+        ];
 
         if (empty($contact)) {
             Flash::error('Contact not found');
@@ -112,13 +145,13 @@ class ContactController extends InfyOmBaseController
             return redirect(route('contacts.index'));
         }
 
-        return view('pages.contacts.edit')->with(compact('contact', 'accounts', 'leads', 'users'));
+        return view('pages.contacts.edit')->with(compact('contact', 'accounts', 'leads', 'users', 'types'));
     }
 
     /**
      * Update the specified Contact in storage.
      *
-     * @param  int              $id
+     * @param  int $id
      * @param UpdateContactRequest $request
      *
      * @return Response
@@ -133,9 +166,38 @@ class ContactController extends InfyOmBaseController
             return redirect(route('contacts.index'));
         }
 
-        $contact = $this->contactRepository->update($request->all(), $id);
+        if ($contact = $this->contactRepository->update($request->all(), $id)) {
 
-        Flash::success('Contact updated successfully.');
+            $user = User::findOrFail($request->contact_owner_id);
+
+            if ($request->type == 0) {
+
+                $contact->account()->dissociate();
+
+                $lead = Lead::findOrFail($request->lead_name_id);
+                $contact->lead()->associate($lead);
+                $contact->save();
+            } else {
+
+                $contact->lead()->dissociate();
+
+                $account = Account::findOrFail($request->account_name_id);
+                $contact->account()->associate($account);
+                $contact->save();
+            }
+
+            $contact->user()->associate($user);
+            $contact->save();
+
+            Flash::success(Lang::get('app.general:update-success'));
+
+        } else {
+
+            Flash::error(Lang::get('app.general:update-failed'));
+            return redirect(route('contacts.edit'));
+
+        }
+
 
         return redirect(route('contacts.index'));
     }

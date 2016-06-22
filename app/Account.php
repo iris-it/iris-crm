@@ -91,11 +91,11 @@ class Account extends Model
             'delivery_city' => 'required|string',
             'billing_country' => 'required|string',
             'delivery_country' => 'required|string',
-            'free_label' => 'required|string',
+            'free_label' => 'string',
 
             /*Relations*/
 
-            'account_owner' => 'required'
+            'account_owner_id' => 'integer|required'
 
         ];
     }
@@ -117,6 +117,6 @@ class Account extends Model
 
     public function contacts()
     {
-        return $this->morphMany('App\Contact', 'boundable');
+        return $this->hasMany('App\Contact');
     }
 }

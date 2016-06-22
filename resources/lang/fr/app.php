@@ -1,6 +1,6 @@
 <?php
 
-# modified at 21-06-2016 12:54
+# modified at 22-06-2016 13:52
 
 return  array(
 	'contact:account-name'         => 'Nom de compte',
@@ -13,6 +13,8 @@ return  array(
 	'contact:owner'                => 'Propriétaire du contact',
 	'contact:phone'                => 'N° de tel',
 	'contact:post'                 => 'Fonction',
+	'contact:type-account'         => 'Contact associe a un compte',
+	'contact:type-lead'            => 'Contact associe a un prospect',
 	'document:authorizations'      => 'Autorisations',
 	'document:file'                => 'Fichier',
 	'document:readers'             => 'Lecteurs',

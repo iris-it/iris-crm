@@ -46,7 +46,7 @@ class LeadController extends InfyOmBaseController
      */
     public function create()
     {
-        $users = User::all();
+        $users = User::lists('name', 'id');
         return view('pages.leads.create')->with(compact('users'));
     }
 
@@ -63,7 +63,7 @@ class LeadController extends InfyOmBaseController
 
         if ($lead = $this->leadRepository->create($input)) {
 
-            $user = User::findOrFail($request->account_owner->id);
+            $user = User::findOrFail($request->account_owner_id);
             $lead->user()->associate($user);
             $lead->save();
             Flash::success(Lang::get('app.general:create-success'));
@@ -110,7 +110,7 @@ class LeadController extends InfyOmBaseController
     public function edit($id)
     {
         $lead = $this->leadRepository->findWithoutFail($id);
-        $users = User::all();
+        $users = User::lists('name', 'id');
 
         if (empty($lead)) {
             Flash::error('Lead not found');
@@ -141,7 +141,7 @@ class LeadController extends InfyOmBaseController
 
         if ($lead = $this->leadRepository->update($request->all(), $id)) {
 
-            $user = User::findOrFail($request->account_owner->id);
+            $user = User::findOrFail($request->account_owner_id);
             $lead->user()->associate($user);
             $lead->save();
             Flash::success(Lang::get('app.general:update-success'));

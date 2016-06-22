@@ -34,22 +34,28 @@
     {!! Form::text('phone_number', null, ['class' => 'form-control']) !!}
 </div>
 
+<!-- Type Field -->
+<div class="form-group col-sm-6">
+    <label for="type">Type :</label>
+    {!! Form::select('type', $types, null, ['class' => 'form-control']) !!}
+</div>
+
 <!-- Account Name Field -->
 
 <div class="form-group col-sm-6">
     <label for="account_name">{{trans('app.contact:account_name')}} :</label>
-    {!! Form::select('account_name', $accounts, null, ['class' => 'form-control']) !!}
+    {!! Form::select('account_name_id', $accounts, null, ['class' => 'form-control']) !!}
 </div>
 
 <div class="form-group col-sm-6">
     <label for="account_name">{{trans('app.contact:account_name')}} :</label>
-    {!! Form::select('account_name', $leads, null, ['class' => 'form-control']) !!}
+    {!! Form::select('lead_name_id', $leads, null, ['class' => 'form-control']) !!}
 </div>
 
 <!-- Contact Owner Field -->
 <div class="form-group col-sm-6">
     <label for="contact_owner">{{trans('app.contact:owner')}} :</label>
-    {!! Form::select('contact_owner', $users, null, ['class' => 'form-control']) !!}
+    {!! Form::select('contact_owner_id', $users, null, ['class' => 'form-control']) !!}
 </div>
 <!-- Avatar Field -->
 <div class="form-group col-sm-6">

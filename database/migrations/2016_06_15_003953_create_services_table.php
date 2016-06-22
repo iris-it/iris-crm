@@ -20,7 +20,6 @@ class CreateservicesTable extends Migration
             $table->string('category');
             $table->string('sale_unit');
             $table->decimal('ht_price');
-            $table->decimal('ttc_price');
             $table->timestamp('sale_datestart');
             $table->timestamp('sale_dateend');
             $table->string('description');

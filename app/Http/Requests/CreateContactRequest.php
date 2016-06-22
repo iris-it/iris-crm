@@ -3,7 +3,7 @@
 namespace App\Http\Requests;
 
 use App\Http\Requests\Request;
-use App\Models\Contact;
+use App\Contact;
 
 class CreateContactRequest extends Request
 {
@@ -25,6 +25,7 @@ class CreateContactRequest extends Request
      */
     public function rules()
     {
-        return Contact::$rules;
+        $contact = new Contact();
+        return $contact->rules();
     }
 }

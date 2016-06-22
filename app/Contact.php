@@ -14,7 +14,7 @@ class Contact extends Model
     use SoftDeletes;
 
     public $table = 'contacts';
-    
+
 
     protected $dates = ['deleted_at'];
 
@@ -31,6 +31,7 @@ class Contact extends Model
         'zipcode',
         'city',
         'country',
+        'type',
         'free_label'
     ];
 
@@ -51,6 +52,7 @@ class Contact extends Model
         'zipcode' => 'string',
         'city' => 'string',
         'country' => 'string',
+        'type' => 'boolean',
         'free_label' => 'string'
     ];
 
@@ -59,14 +61,43 @@ class Contact extends Model
      *
      * @var array
      */
-    public static $rules = [
-        
-    ];
 
-
-    public function boundable()
+    public function rules()
     {
-        return $this->morphTo();
+        return [
+
+            'civility' => 'string|between:2,3|required',
+            'lastname' => 'string|max:255|required',
+            'firstname' => 'string|max:255|required',
+            'post' => 'string|max:255|required',
+            'email' => 'required|email|max:255|unique:contacts,email,' . $this->id,
+            'phone_number' => array("regex:/^\+?[0-9]{10,20}$/im"),
+            'avatar' => 'string',
+            'address' => 'string|max:255|required',
+            'zipcode' => 'string|max:255|required',
+            'city' => 'string|max:255|required',
+            'country' => 'string|max:255|required',
+            'type' => 'boolean',
+            'free_label' => 'string',
+
+            /*Relations*/
+
+            'account_name_id' => 'integer',
+            'lead_name_id' => 'integer',
+            'contact_owner_id' => 'required|integer'
+
+        ];
+    }
+
+
+    public function account()
+    {
+        return $this->belongsTo('App\Account');
+    }
+
+    public function lead()
+    {
+        return $this->belongsTo('App\Lead');
     }
 
     public function user()

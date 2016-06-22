@@ -54,8 +54,8 @@
 
 <!-- Account Owner Field -->
 <div class="form-group col-sm-6">
-    <label for="account_owner">{{trans('app.general:account-owner')}} :</label>
-    {!! Form::select('account_owner', $users, null, ['class' => 'form-control']) !!}
+    <label for="account_owner_id">{{trans('app.general:account-owner')}} :</label>
+    {!! Form::select('account_owner_id', $users, null, ['class' => 'form-control']) !!}
 </div>
 
 <!-- Billing Address Field -->
