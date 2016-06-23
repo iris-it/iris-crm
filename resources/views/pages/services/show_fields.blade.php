@@ -30,10 +30,10 @@
 
 <!-- Ttc Price Field -->
 <div class="form-group">
-    {!! Form::label('ttc_price', trans('app.product:active-taxes') . " :" ) !!}
-    @if($service->taxes)
+    {!! Form::label('ttc_price', trans('app.product:active-taxes') . " :") !!}
+    @if($product->taxes)
         <ul>
-            @foreach($service->taxes as $tax)
+            @foreach($product->taxes as $tax)
                 <li>{{$tax->name}} : {{$tax->value}} %</li>
             @endforeach
         </ul>

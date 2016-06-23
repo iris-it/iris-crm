@@ -3,7 +3,7 @@
 namespace App\Http\Requests;
 
 use App\Http\Requests\Request;
-use App\Models\Service;
+use App\Service;
 
 class UpdateServiceRequest extends Request
 {
@@ -25,6 +25,7 @@ class UpdateServiceRequest extends Request
      */
     public function rules()
     {
-        return Service::$rules;
+        $service = new Service();
+        return $service->rules();
     }
 }

@@ -59,10 +59,13 @@ class Product extends Model
             'product_name' => 'string|max:255|required',
             'is_active' => 'boolean',
             'category' => 'string|max:255|required',
+            'ht_price' => 'decimal|required',
             'stock_disponibility' => 'integer|required',
             'product_avatar' => 'string',
+            'sale_datestart' => 'required|date_format:d/m/Y',
+            'sale_dateend' => 'required|date_format:d/m/Y',
             'product_notice' => 'string',
-            'description' => 'string|required',
+            'description' => 'string',
 
             /*Relations*/
             

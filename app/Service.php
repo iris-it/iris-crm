@@ -14,7 +14,7 @@ class Service extends Model
     use SoftDeletes;
 
     public $table = 'services';
-    
+
 
     protected $dates = ['deleted_at'];
 
@@ -48,9 +48,24 @@ class Service extends Model
      *
      * @var array
      */
-    public static $rules = [
-        
-    ];
+    public function rules()
+    {
+        return [
+
+            'service_name' => 'string|max:255|required',
+            'is_active' => 'boolean',
+            'category'=> 'string|max:255|required',
+            'sale_unit'=> 'string|max:255|required',
+            'ht_price' => 'decimal|required',
+            'sale_datestart'=> 'required|date_format:d/m/Y',
+            'sale_dateend' => 'required|date_format:d/m/Y',
+            'description' => 'string',
+
+            /*Relations*/
+
+            'taxes.*' => ''
+        ];
+    }
 
     public function taxes()
     {
