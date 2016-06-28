@@ -8,7 +8,8 @@ use App\Http\Requests\UpdateOrderRequest;
 use App\Repositories\OrderRepository;
 use App\Http\Controllers\AppBaseController as InfyOmBaseController;
 use Illuminate\Http\Request;
-use Flash;
+use Illuminate\Support\Facades\Lang;
+use Laracasts\Flash\Flash;
 use Prettus\Repository\Criteria\RequestCriteria;
 use Response;
 
@@ -58,9 +59,18 @@ class OrderController extends InfyOmBaseController
     {
         $input = $request->all();
 
-        $order = $this->orderRepository->create($input);
 
-        Flash::success('Order saved successfully.');
+        if ($order = $this->orderRepository->create($input)) {
+
+
+            Flash::success(Lang::get('app.general:create-success'));
+
+        } else {
+
+            Flash::error(Lang::get('app.general:create-failed'));
+            return redirect(route('order.create'));
+
+        }
 
         return redirect(route('orders.index'));
     }
@@ -108,7 +118,7 @@ class OrderController extends InfyOmBaseController
     /**
      * Update the specified Order in storage.
      *
-     * @param  int              $id
+     * @param  int $id
      * @param UpdateOrderRequest $request
      *
      * @return Response
@@ -123,9 +133,17 @@ class OrderController extends InfyOmBaseController
             return redirect(route('orders.index'));
         }
 
-        $order = $this->orderRepository->update($request->all(), $id);
+        if ($order = $this->orderRepository->update($request->all(), $id)) {
 
-        Flash::success('Order updated successfully.');
+
+            Flash::success(Lang::get('app.general:update-success'));
+
+        } else {
+
+            Flash::error(Lang::get('app.general:update-failed'));
+            return redirect(route('order.edit'));
+
+        }
 
         return redirect(route('orders.index'));
     }

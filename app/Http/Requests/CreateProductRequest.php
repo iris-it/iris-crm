@@ -3,7 +3,7 @@
 namespace App\Http\Requests;
 
 use App\Http\Requests\Request;
-use App\Models\Product;
+use App\Product;
 
 class CreateProductRequest extends Request
 {
@@ -25,7 +25,7 @@ class CreateProductRequest extends Request
      */
     public function rules()
     {
-        $product = new Product();
-        return $product->rules();
+        return Product::rules($this->products);
+
     }
 }

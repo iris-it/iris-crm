@@ -25,7 +25,12 @@
 <!-- Deadline Field -->
 <div class="form-group col-sm-6">
     {!! Form::label('deadline', trans('app.general:deadline') . " :" ) !!}
-    {!! Form::text('deadline', null, ['class' => 'form-control']) !!}
+    <div class="input-group date">
+        <div class="input-group-addon">
+            <i class="fa fa-calendar"></i>
+        </div>
+        {!! Form::text('deadline', null, ['class' => 'form-control', 'id' => 'deadline']) !!}
+    </div>
 </div>
 
 <!-- Quote Owner Field -->

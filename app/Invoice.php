@@ -2,6 +2,7 @@
 
 namespace App;
 
+use Carbon\Carbon;
 use Eloquent as Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
@@ -14,9 +15,9 @@ class Invoice extends Model
     use SoftDeletes;
 
     public $table = 'invoices';
-    
 
-    protected $dates = ['deleted_at'];
+
+    protected $dates = ['deleted_at', 'deadline'];
 
 
     public $fillable = [
@@ -39,7 +40,6 @@ class Invoice extends Model
     protected $casts = [
         'topic' => 'string',
         'phase' => 'string',
-        'deadline' => 'date',
         'description' => 'string',
         'special_conditions' => 'string',
         'address' => 'string',
@@ -53,13 +53,13 @@ class Invoice extends Model
      *
      * @var array
      */
-    public function rules()
+    public static function rules()
     {
         return [
 
             'topic' => 'required|max:255|string',
             'phase' => 'required|max:255|string',
-            'deadline' => 'required|date_format:d/m/Y',
+            'deadline' => 'required',
             'description' => 'string',
             'special_conditions' => 'string',
             'address' => 'required|string',
@@ -90,5 +90,25 @@ class Invoice extends Model
     public function quote()
     {
         return $this->belongsTo('App\Quote');
+    }
+
+    //MUTATORS
+    /**
+     * Mutate deadline to FR with Carbon
+     * @param $date
+     * @return string
+     */
+    public function getDeadlineAttribute($date)
+    {
+        return Carbon::parse($date)->format('d/m/Y');
+    }
+
+    /**
+     * Mutate deadline from FR to Carbon date
+     * @param $date
+     */
+    public function setDeadlineAttribute($date)
+    {
+        $this->attributes['deadline'] = Carbon::createFromFormat('d/m/Y', $date);
     }
 }

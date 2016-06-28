@@ -71,17 +71,18 @@ class Account extends Model
      *
      * @var array
      */
-    public function rules()
-    {
-        return [
-            'name' => 'required|max:255|unique:accounts,name,' . $this->id,
+    public static function rules($id) {
+
+        return
+            [
+            'name' => 'required|max:255|unique:accounts,name,' . $id ,
             'website' => 'url|max:255',
             'activity_sector' => 'string|max:255',
             'workforce' => 'integer',
             'type' => 'required|string|max:255',
-            'ape_number' => array('required', "regex:/(^[0-9]{1,2}\.[0-9]{1,2}[A-Z]$|^[0-9]{1,2}\.[0-9]{1,2})$/im"),
-            'siret_number' => array('required', "regex:/^[0-9]{3}[ \.\-]?[0-9]{3}[ \.\-]?[0-9]{3}[ \.\-]?[0-9]{5}$/im", 'unique:accounts,siret_number,' . $this->id,),
-            'phone_number' => array("regex:/^\+?[0-9]{10,20}$/im"),
+            'ape_number' => ['required', "regex:/(^[0-9]{1,2}\.[0-9]{1,2}[A-Z]$|^[0-9]{1,2}\.[0-9]{1,2})$/im"],
+            'siret_number' => ['required', "regex:/^[0-9]{3}[ \.\-]?[0-9]{3}[ \.\-]?[0-9]{3}[ \.\-]?[0-9]{5}$/im", 'unique:accounts,siret_number,' . $id,],
+            'phone_number' => ["regex:/^\+?[0-9]{10,20}$/im"],
             'is_active' => 'required|boolean',
             'billing_address' => 'required|string',
             'delivery_address' => 'required|string',
@@ -99,6 +100,8 @@ class Account extends Model
 
         ];
     }
+
+    
 
     public function user()
     {

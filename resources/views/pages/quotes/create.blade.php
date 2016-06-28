@@ -14,11 +14,17 @@
                 <div class="row">
                     {!! Form::open(['route' => 'quotes.store']) !!}
 
-                        @include('pages.quotes.fields')
+                    @include('pages.quotes.fields')
 
                     {!! Form::close() !!}
                 </div>
             </div>
         </div>
     </div>
+@endsection
+
+@section('js-app-scope')
+    @parent
+    IrisCrm.initDatePicker('deadline');
+
 @endsection

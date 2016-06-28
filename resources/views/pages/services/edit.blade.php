@@ -22,8 +22,10 @@
    </div>
 @endsection
 
-@section('js-app-scope)
+@section('js-app-scope')
 
     IrisCrm.initDualListBox('taxes_list');
+    IrisCrm.initDatePicker('sale_datestart');
+    IrisCrm.initDatePicker('sale_dateend');
 
 @endsection

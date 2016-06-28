@@ -62,15 +62,15 @@ class Contact extends Model
      * @var array
      */
 
-    public function rules()
-    {
+    public static function rules($id) {
+    
         return [
 
             'civility' => 'string|between:2,3|required',
             'lastname' => 'string|max:255|required',
             'firstname' => 'string|max:255|required',
             'post' => 'string|max:255|required',
-            'email' => 'required|email|max:255|unique:contacts,email,' . $this->id,
+            'email' => 'required|email|max:255|unique:contacts,email,' . $id,
             'phone_number' => array("regex:/^\+?[0-9]{10,20}$/im"),
             'avatar' => 'string',
             'address' => 'string|max:255|required',

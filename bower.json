@@ -4,6 +4,11 @@
   "dependencies": {
     "AdminLTE": "admin-lte#^2.3.3",
     "bootstrap": "^3.3.6",
-    "font-awesome": "^4.6.3"
+    "font-awesome": "^4.6.3",
+    "bootstrap-duallistbox": "^3.0.5",
+    "jquery": "^3.0.0"
+  },
+  "resolutions": {
+    "jquery": "~2.0.3"
   }
 }

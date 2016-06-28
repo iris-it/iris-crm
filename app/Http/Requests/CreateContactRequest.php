@@ -25,7 +25,6 @@ class CreateContactRequest extends Request
      */
     public function rules()
     {
-        $contact = new Contact();
-        return $contact->rules();
+        return Contact::rules($this->contacts);
     }
 }

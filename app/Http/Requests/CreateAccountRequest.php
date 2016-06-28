@@ -25,7 +25,7 @@ class CreateAccountRequest extends Request
      */
     public function rules()
     {
-        $account = new Account();
-        return $account->rules();
+        return Account::rules($this->accounts);
+
     }
 }

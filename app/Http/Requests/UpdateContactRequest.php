@@ -2,8 +2,8 @@
 
 namespace App\Http\Requests;
 
+use App\Contact;
 use App\Http\Requests\Request;
-use App\Models\Contact;
 
 class UpdateContactRequest extends Request
 {
@@ -25,7 +25,6 @@ class UpdateContactRequest extends Request
      */
     public function rules()
     {
-        $contact = new Contact();
-        return $contact->rules();
+        return Contact::rules($this->contacts);
     }
 }

@@ -21,3 +21,10 @@
        </div>
    </div>
 @endsection
+
+@section('js-app-scope')
+    @parent
+    IrisCrm.initDatePicker('order_date');
+    IrisCrm.initDatePicker('delivery_deadline');
+
+@endsection

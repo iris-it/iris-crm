@@ -25,7 +25,7 @@ class UpdateQuoteRequest extends Request
      */
     public function rules()
     {
-        $quote = new Quote();
-        return $quote->rules();
+        return Quote::rules($this->quotes);
+
     }
 }

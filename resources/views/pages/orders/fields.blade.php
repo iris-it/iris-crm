@@ -13,13 +13,23 @@
 <!-- Order Date Field -->
 <div class="form-group col-sm-6">
     {!! Form::label('order_date', trans('app.order:order-date') . " :" )  !!}
-    {!! Form::text('order_date', null, ['class' => 'form-control']) !!}
+    <div class="input-group date">
+        <div class="input-group-addon">
+            <i class="fa fa-calendar"></i>
+        </div>
+        {!! Form::text('order_date', null, ['class' => 'form-control', 'id' => 'order_date']) !!}
+    </div>
 </div>
 
 <!-- Delivery Deadline Field -->
 <div class="form-group col-sm-6">
     {!! Form::label('delivery_deadline', trans('app.order:deli-dead') . " :" ) !!}
-    {!! Form::text('delivery_deadline', null, ['class' => 'form-control']) !!}
+    <div class="input-group date">
+        <div class="input-group-addon">
+            <i class="fa fa-calendar"></i>
+        </div>
+        {!! Form::text('delivery_deadline', null, ['class' => 'form-control', 'id' => 'delivery_deadline']) !!}
+    </div>
 </div>
 
 <!-- Description Field -->
@@ -61,5 +71,5 @@
 <!-- Submit Field -->
 <div class="form-group col-sm-12">
     {!! Form::submit( trans('app.general:save-changes'), ['class' => 'btn btn-primary']) !!}
-    <a href="{!! route('orders.index') !!}" class="btn btn-default">Cancel</a>
+    <a href="{!! route('orders.index') !!}" class="btn btn-default">{{trans('app.general:cancel')}}</a>
 </div>

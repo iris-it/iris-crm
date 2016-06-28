@@ -22,3 +22,9 @@
         </div>
     </div>
 @endsection
+
+@section('js-app-scope')
+    @parent
+    IrisCrm.initDatePicker('deadline');
+
+@endsection

@@ -10467,36 +10467,20 @@ var _UserProfile = require('./components/Auth/UserProfile.vue');
 
 var _UserProfile2 = _interopRequireDefault(_UserProfile);
 
+var _ContactType = require('./components/Contact/ContactType.vue');
+
+var _ContactType2 = _interopRequireDefault(_ContactType);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var Vue = require('vue');
 
 new Vue({
     el: '#app',
-    components: { Login: _Login2.default, Logout: _Logout2.default, UserProfile: _UserProfile2.default }
+    components: { Login: _Login2.default, Logout: _Logout2.default, UserProfile: _UserProfile2.default, ContactType: _ContactType2.default }
 });
 
-var IrisCrm = function IrisCrm() {
-
-    var initDualListBox = function initDualListBox(domId) {
-        var parameters = {
-            filterTextClear: "Tout montrer",
-            moveAllLabel: "Tout sélectionner",
-            filterPlaceHolder: "Tapez pour filtrer...",
-            moveSelectedLabel: "Sélectionner",
-            removeSelectedLabel: "Déselectionner",
-            removeAllLabel: "Tout déselectionner",
-            infoText: "Sélection : {0}",
-            infoTextFiltered: '<span class="label label-warning">Filtre actif</span> {0} sur {1}',
-            infoTextEmpty: "Liste vide"
-
-        };
-
-        $('#' + domId).bootstrapDualListbox(parameters);
-    };
-};
-
-},{"./components/Auth/Login.vue":6,"./components/Auth/Logout.vue":7,"./components/Auth/UserProfile.vue":8,"vue":3}],6:[function(require,module,exports){
+},{"./components/Auth/Login.vue":6,"./components/Auth/Logout.vue":7,"./components/Auth/UserProfile.vue":8,"./components/Contact/ContactType.vue":9,"vue":3}],6:[function(require,module,exports){
 var __vueify_insert__ = require("vueify/lib/insert-css")
 var __vueify_style__ = __vueify_insert__.insert("\n\n")
 'use strict';
@@ -10575,6 +10559,52 @@ if (module.hot) {(function () {  module.hot.accept()
     hotAPI.createRecord("_v-4a6cafcd", module.exports)
   } else {
     hotAPI.update("_v-4a6cafcd", module.exports, (typeof module.exports === "function" ? module.exports.options : module.exports).template)
+  }
+})()}
+},{"vue":3,"vue-hot-reload-api":2,"vueify/lib/insert-css":4}],9:[function(require,module,exports){
+var __vueify_insert__ = require("vueify/lib/insert-css")
+var __vueify_style__ = __vueify_insert__.insert("\n\n")
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+exports.default = {
+
+    props: ['accounts', 'leads'],
+
+    created: function created() {
+
+        this.accounts = JSON.parse(this.accounts);
+        this.leads = JSON.parse(this.leads);
+    },
+    data: function data() {
+
+        return {
+
+            selectedType: 1,
+            accountType: 'Contact associé à un compte',
+            prospectType: 'Contact associé à un prospect',
+
+            types: [{ text: 'Contact associé à un compte', value: 1 }, { text: 'Contact associé à un prospect', value: 0 }]
+
+        };
+    }
+};
+if (module.exports.__esModule) module.exports = module.exports.default
+;(typeof module.exports === "function"? module.exports.options: module.exports).template = "\n\n<div class=\"form-group col-sm-6\">\n    <label for=\"type\">Type :</label>\n    <select id=\"type\" v-model=\"selectedType\" name=\"type\" class=\"form-control\">\n    <option v-for=\"type in types\" value=\"{{type.value}}\"> {{type.text}} </option>\n    </select>\n</div>\n\n<!-- Account Name Field -->\n\n<div class=\"form-group col-sm-6\" v-if=\"selectedType == 1\">\n    <label for=\"account_name_id\"> {{ accountType }} :</label>\n     <select id=\"account_name_id\" name=\"account_name_id\" class=\"form-control\">\n    <option v-for=\"(index,account) in accounts\" value=\"{{index}}\"> {{account}} </option>\n          </select>\n</div>\n\n<div class=\"form-group col-sm-6\" v-if=\"selectedType == 0\">\n    <label for=\"lead_name_id\"> {{ prospectType }} :</label>\n     <select id=\"lead_name_id\" name=\"lead_name_id\" class=\"form-control\">\n    <option v-for=\"(index,lead) in leads\" value=\"{{index}}\"> {{lead}} </option>\n          </select>\n</div>\n\n"
+if (module.hot) {(function () {  module.hot.accept()
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), true)
+  if (!hotAPI.compatible) return
+  module.hot.dispose(function () {
+    __vueify_insert__.cache["\n\n"] = false
+    document.head.removeChild(__vueify_style__)
+  })
+  if (!module.hot.data) {
+    hotAPI.createRecord("_v-515adbaa", module.exports)
+  } else {
+    hotAPI.update("_v-515adbaa", module.exports, (typeof module.exports === "function" ? module.exports.options : module.exports).template)
   }
 })()}
 },{"vue":3,"vue-hot-reload-api":2,"vueify/lib/insert-css":4}]},{},[5]);

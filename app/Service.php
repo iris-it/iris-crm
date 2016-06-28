@@ -2,6 +2,7 @@
 
 namespace App;
 
+use Carbon\Carbon;
 use Eloquent as Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
@@ -16,7 +17,7 @@ class Service extends Model
     public $table = 'services';
 
 
-    protected $dates = ['deleted_at'];
+    protected $dates = ['deleted_at', 'sale_datestart', 'sale_dateend'];
 
 
     public $fillable = [
@@ -48,17 +49,17 @@ class Service extends Model
      *
      * @var array
      */
-    public function rules()
+    public static function rules()
     {
         return [
 
             'service_name' => 'string|max:255|required',
-            'is_active' => 'boolean',
+            'is_active' => '',
             'category'=> 'string|max:255|required',
             'sale_unit'=> 'string|max:255|required',
-            'ht_price' => 'decimal|required',
-            'sale_datestart'=> 'required|date_format:d/m/Y',
-            'sale_dateend' => 'required|date_format:d/m/Y',
+            'ht_price' => 'numeric|required',
+            'sale_datestart'=> 'required',
+            'sale_dateend' => 'required',
             'description' => 'string',
 
             /*Relations*/
@@ -70,5 +71,45 @@ class Service extends Model
     public function taxes()
     {
         return $this->belongsToMany('App\Tax', 'services_taxes_pivot', 'service_id', 'tax_id')->withTimestamps();
+    }
+
+    //MUTATORS
+    /**
+     * Mutate deadline to FR with Carbon
+     * @param $date
+     * @return string
+     */
+    public function getSaleDateStartAttribute($date)
+    {
+        return Carbon::parse($date)->format('d/m/Y');
+    }
+
+    /**
+     * Mutate deadline from FR to Carbon date
+     * @param $date
+     */
+    public function setSaleDateStartAttribute($date)
+    {
+        $this->attributes['sale_datestart'] = Carbon::createFromFormat('d/m/Y', $date);
+    }
+
+    //MUTATORS
+    /**
+     * Mutate deadline to FR with Carbon
+     * @param $date
+     * @return string
+     */
+    public function getSaleDateEndAttribute($date)
+    {
+        return Carbon::parse($date)->format('d/m/Y');
+    }
+
+    /**
+     * Mutate deadline from FR to Carbon date
+     * @param $date
+     */
+    public function setSaleDateEndAttribute($date)
+    {
+        $this->attributes['sale_dateend'] = Carbon::createFromFormat('d/m/Y', $date);
     }
 }

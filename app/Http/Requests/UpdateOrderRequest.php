@@ -3,7 +3,7 @@
 namespace App\Http\Requests;
 
 use App\Http\Requests\Request;
-use App\Models\Order;
+use App\Order;
 
 class UpdateOrderRequest extends Request
 {
@@ -25,6 +25,6 @@ class UpdateOrderRequest extends Request
      */
     public function rules()
     {
-        return Order::$rules;
+        return Order::rules($this->orders);
     }
 }

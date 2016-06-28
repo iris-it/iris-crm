@@ -1,6 +1,6 @@
 <?php
 
-# modified at 22-06-2016 15:23
+# modified at 28-06-2016 08:07
 
 return  array(
 	'contact:account-name'         => 'Nom de compte',
@@ -9,12 +9,13 @@ return  array(
 	'contact:email'                => 'Adresse e-mail',
 	'contact:firstname'            => 'Prénom',
 	'contact:lastname'             => 'Nom',
+	'contact:lead-name'            => 'Nom de prospect',
 	'contact:name'                 => 'Nom du contact',
 	'contact:owner'                => 'Propriétaire du contact',
 	'contact:phone'                => 'N° de tel',
 	'contact:post'                 => 'Fonction',
-	'contact:type-account'         => 'Contact associe a un compte',
-	'contact:type-lead'            => 'Contact associe a un prospect',
+	'contact:type-account'         => 'Contact associé à un compte',
+	'contact:type-lead'            => 'Contact associé à un prospect',
 	'document:authorizations'      => 'Autorisations',
 	'document:file'                => 'Fichier',
 	'document:readers'             => 'Lecteurs',
@@ -25,9 +26,12 @@ return  array(
 	'general:activity-sector'      => 'Secteur d\'activité',
 	'general:address'              => 'Adresse',
 	'general:ape-number'           => 'Numéro APE',
+	'general:back'                 => 'Retour',
 	'general:billing-address'      => 'Adresse de facturation',
+	'general:cancel'               => 'Annuler',
 	'general:city'                 => 'Ville',
 	'general:country'              => 'Pays',
+	'general:create'               => 'Nouveau',
 	'general:create-failure'       => 'Échec de la création',
 	'general:create-success'       => 'Création reussie',
 	'general:created-at'           => 'Créé le',
@@ -38,6 +42,7 @@ return  array(
 	'general:is-active'            => 'Actif',
 	'general:missing-model'        => 'Entité non trouvée',
 	'general:name'                 => 'Nom',
+	'general:no'                   => 'Non',
 	'general:owner'                => 'Propriétaire',
 	'general:phase'                => 'Phase',
 	'general:phone-number'         => 'Téléphone',
@@ -52,8 +57,10 @@ return  array(
 	'general:update-failure'       => 'La mise à jour a échoué',
 	'general:update-success'       => 'Mise à jour réussie',
 	'general:updated-at'           => 'Dernière mise à jour',
+	'general:value'                => 'Valeur',
 	'general:website'              => 'Site web',
 	'general:workforce'            => 'Effectifs',
+	'general:yes'                  => 'Oui',
 	'general:zipcode'              => 'Code postal',
 	'login:welcome'                => 'Connectez vous pour accéder aux fonctionnalités',
 	'order:deli-dead'              => 'Échéance livraison',

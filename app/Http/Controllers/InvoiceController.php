@@ -12,7 +12,8 @@ use App\Repositories\InvoiceRepository;
 use App\Http\Controllers\AppBaseController as InfyOmBaseController;
 use App\User;
 use Illuminate\Http\Request;
-use Flash;
+use Illuminate\Support\Facades\Lang;
+use Laracasts\Flash\Flash;
 use Prettus\Repository\Criteria\RequestCriteria;
 use Response;
 
@@ -48,9 +49,9 @@ class InvoiceController extends InfyOmBaseController
      */
     public function create()
     {
-        $contacts = Contact::lists('firstname' . 'lastname', 'id');
+        $contacts = Contact::lists('lastname', 'id');
         $accounts = Account::lists('name', 'id');
-        $quotes = Quote::lists('name', 'id');
+        $quotes = Quote::lists('topic', 'id');
 
         return view('pages.invoices.create')->with(compact('contacts', 'accounts', 'quotes'));
     }
@@ -123,9 +124,9 @@ class InvoiceController extends InfyOmBaseController
     {
         $invoice = $this->invoiceRepository->findWithoutFail($id);
 
-        $contacts = Contact::lists('firstname' . 'lastname', 'id');
+        $contacts = Contact::lists('lastname', 'id');
         $accounts = Account::lists('name', 'id');
-        $quotes = Quote::lists('name', 'id');
+        $quotes = Quote::lists('topic', 'id');
 
         if (empty($invoice)) {
             Flash::error('Invoice not found');

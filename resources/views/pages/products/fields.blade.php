@@ -7,7 +7,12 @@
 <!-- Is Active Field -->
 <div class="form-group col-sm-6">
     {!! Form::label('is_active', trans('app.general:is-active') . " :" ) !!}
-    {!! Form::text('is_active', null, ['class' => 'form-control']) !!}
+    <div class="checkbox">
+        <label>
+            {!! Form::checkbox('is_active', null, true) !!}
+        </label>
+    </div>
+
 </div>
 
 <!-- Category Field -->
@@ -52,13 +57,23 @@
 <!-- Sale Datestart Field -->
 <div class="form-group col-sm-6">
     {!! Form::label('sale_datestart', trans('app.product:date-start') . " :") !!}
-    {!! Form::text('sale_datestart', null, ['class' => 'form-control']) !!}
+    <div class="input-group date">
+        <div class="input-group-addon">
+            <i class="fa fa-calendar"></i>
+        </div>
+        {!! Form::text('sale_datestart', null, ['class' => 'form-control', 'id' => 'sale_datestart']) !!}
+    </div>
 </div>
 
 <!-- Sale Dateend Field -->
 <div class="form-group col-sm-6">
     {!! Form::label('sale_dateend', trans('app.product:date-end') . " :") !!}
-    {!! Form::text('sale_dateend', null, ['class' => 'form-control']) !!}
+    <div class="input-group date">
+        <div class="input-group-addon">
+            <i class="fa fa-calendar"></i>
+        </div>
+        {!! Form::text('sale_dateend', null, ['class' => 'form-control', 'id' => 'sale_dateend']) !!}
+    </div>
 </div>
 
 <!-- Product Notice Field -->
@@ -76,5 +91,5 @@
 <!-- Submit Field -->
 <div class="form-group col-sm-12">
     {!! Form::submit( trans('app.general:save-changes'), ['class' => 'btn btn-primary']) !!}
-    <a href="{!! route('products.index') !!}" class="btn btn-default">Cancel</a>
+    <a href="{!! route('products.index') !!}" class="btn btn-default">{{trans('app.general:cancel')}}</a>
 </div>

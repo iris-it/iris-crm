@@ -7,12 +7,16 @@
 <!-- Is Active Field -->
 <div class="form-group col-sm-6">
     {!! Form::label('is_active', trans('app.general:is-active') . " :" )  !!}
-    {!! Form::text('is_active', null, ['class' => 'form-control']) !!}
+    <div class="checkbox">
+        <label>
+            {!! Form::checkbox('is_active', null, true) !!}
+        </label>
+    </div>
 </div>
 
 <!-- Category Field -->
 <div class="form-group col-sm-6">
-    {!! Form::label('category', trans('app.general:category') . " :" )  !!}
+    {!! Form::label('category', trans('app.product:category') . " :" )  !!}
     {!! Form::text('category', null, ['class' => 'form-control']) !!}
 </div>
 
@@ -29,7 +33,7 @@
 </div>
 
 <!-- Ttc Price Field -->
-<div class="form-group col-sm-6">
+<div class="form-group col-sm-12">
     {!! Form::label('ttc_price', trans('app.product:active-taxes') . " :") !!}
 
     <div>
@@ -40,13 +44,23 @@
 <!-- Sale Datestart Field -->
 <div class="form-group col-sm-6">
     {!! Form::label('sale_datestart',  trans('app.product:date-start') . " :" ) !!}
-    {!! Form::text('sale_datestart', null, ['class' => 'form-control']) !!}
+    <div class="input-group date">
+        <div class="input-group-addon">
+            <i class="fa fa-calendar"></i>
+        </div>
+        {!! Form::text('sale_datestart', null, ['class' => 'form-control', 'id' => 'sale_datestart']) !!}
+    </div>
 </div>
 
 <!-- Sale Dateend Field -->
 <div class="form-group col-sm-6">
     {!! Form::label('sale_dateend',  trans('app.product:date-end') . " :" ) !!}
-    {!! Form::text('sale_dateend', null, ['class' => 'form-control']) !!}
+    <div class="input-group date">
+        <div class="input-group-addon">
+            <i class="fa fa-calendar"></i>
+        </div>
+        {!! Form::text('sale_dateend', null, ['class' => 'form-control', 'id' => 'sale_dateend']) !!}
+    </div>
 </div>
 
 <!-- Description Field -->

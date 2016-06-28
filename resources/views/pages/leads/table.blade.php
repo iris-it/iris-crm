@@ -7,7 +7,7 @@
         <th>{{trans('app.general:type')}}</th>
 
         <th>{{trans('app.general:status')}}</th>
-        <th>{{trans('app.general:account-owner')}}r</th>
+        <th>{{trans('app.general:account-owner')}}</th>
 
         <th colspan="3">Action</th>
     </thead>

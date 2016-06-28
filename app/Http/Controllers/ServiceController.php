@@ -9,6 +9,7 @@ use App\Repositories\ServiceRepository;
 use App\Http\Controllers\AppBaseController as InfyOmBaseController;
 use App\Tax;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Lang;
 use Laracasts\Flash\Flash;
 use Prettus\Repository\Criteria\RequestCriteria;
 use Response;
@@ -45,7 +46,7 @@ class ServiceController extends InfyOmBaseController
      */
     public function create()
     {
-        $taxes = Tax::lists('name' . ' : ' . 'value' . ' %', 'id');
+        $taxes = Tax::lists('name', 'id');
 
         return view('pages.services.create')->with(compact('taxes'));
     }
@@ -108,7 +109,7 @@ class ServiceController extends InfyOmBaseController
     public function edit($id)
     {
         $service = $this->serviceRepository->findWithoutFail($id);
-        $taxes = Tax::lists('name' . ' : ' . 'value' . ' %', 'id');
+        $taxes = Tax::lists('name', 'id');
 
 
         if (empty($service)) {

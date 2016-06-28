@@ -1,6 +1,6 @@
 <?php
 
-# modified at 22-06-2016 15:23
+# modified at 28-06-2016 08:07
 
 return  array(
 	'contact:account-name'         => 'Account name',
@@ -9,6 +9,7 @@ return  array(
 	'contact:email'                => 'E-mail address',
 	'contact:firstname'            => 'Firstname',
 	'contact:lastname'             => 'Lastname',
+	'contact:lead-name'            => 'Lead name',
 	'contact:name'                 => 'Contact name',
 	'contact:owner'                => 'Contact owner',
 	'contact:phone'                => 'Phone number',
@@ -25,9 +26,12 @@ return  array(
 	'general:activity-sector'      => 'Activity sector',
 	'general:address'              => 'Address',
 	'general:ape-number'           => 'APE number',
+	'general:back'                 => 'Back',
 	'general:billing-address'      => 'Billing address',
+	'general:cancel'               => 'Cancel',
 	'general:city'                 => 'City',
 	'general:country'              => 'Country',
+	'general:create'               => 'Add new',
 	'general:create-failure'       => 'Creation has failed',
 	'general:create-success'       => 'Creation complete',
 	'general:created-at'           => 'Created at',
@@ -38,6 +42,7 @@ return  array(
 	'general:is-active'            => 'Active',
 	'general:missing-model'        => 'Entity not found',
 	'general:name'                 => 'Name',
+	'general:no'                   => 'No',
 	'general:owner'                => 'Owner',
 	'general:phase'                => 'Phase',
 	'general:phone-number'         => 'Phone',
@@ -52,8 +57,10 @@ return  array(
 	'general:update-failure'       => 'Update has failed',
 	'general:update-success'       => 'Update successful',
 	'general:updated-at'           => 'Updated at',
+	'general:value'                => 'Value',
 	'general:website'              => 'Website',
 	'general:workforce'            => 'Workforce',
+	'general:yes'                  => 'Yes',
 	'general:zipcode'              => 'Zipcode',
 	'login:welcome'                => 'Sign in to start your session',
 	'order:deli-dead'              => 'Delivery deadline',

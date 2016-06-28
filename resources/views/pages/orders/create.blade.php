@@ -14,11 +14,17 @@
                 <div class="row">
                     {!! Form::open(['route' => 'orders.store']) !!}
 
-                        @include('pages.orders.fields')
+                    @include('pages.orders.fields')
 
                     {!! Form::close() !!}
                 </div>
             </div>
         </div>
     </div>
+@endsection
+
+@section('js-app-scope')
+    @parent
+    IrisCrm.initDatePicker('order_date');
+    IrisCrm.initDatePicker('delivery_deadline');
 @endsection

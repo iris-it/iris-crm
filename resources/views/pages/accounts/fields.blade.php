@@ -49,7 +49,10 @@
 <!-- Is Active Field -->
 <div class="form-group col-sm-6">
     {!! Form::label('is_active', trans('app.general:is-active') . ' :') !!}
-    {!! Form::text('is_active', null, ['class' => 'form-control']) !!}
+    <select class="form-control" id="is_active" name="is_active">
+        <option value=1>{{trans('app.general:yes')}}</option>
+        <option value=0>{{trans('app.general:no')}}</option>
+    </select>
 </div>
 
 <!-- Account Owner Field -->
@@ -58,14 +61,19 @@
     {!! Form::select('account_owner_id', $users, null, ['class' => 'form-control']) !!}
 </div>
 
+
 <!-- Billing Address Field -->
 <div class="form-group col-sm-6">
+    <h4> {{trans('app.general:billing-address')}}</h4>
+    <br>
     {!! Form::label('billing_address', trans('app.general:address') . ' :') !!}
     {!! Form::text('billing_address', null, ['class' => 'form-control']) !!}
 </div>
 
 <!-- Delivery Address Field -->
 <div class="form-group col-sm-6">
+    <h4> {{trans('app.general:delivery-address')}}</h4>
+    <br>
     {!! Form::label('delivery_address', trans('app.general:address') . ' :') !!}
     {!! Form::text('delivery_address', null, ['class' => 'form-control']) !!}
 </div>
@@ -115,5 +123,5 @@
 <!-- Submit Field -->
 <div class="form-group col-sm-12">
     {!! Form::submit( trans('app.general:save-changes'), ['class' => 'btn btn-primary']) !!}
-    <a href="{!! route('accounts.index') !!}" class="btn btn-default">Cancel</a>
+    <a href="{!! route('accounts.index') !!}" class="btn btn-default">{{trans('app.general:cancel')}}</a>
 </div>

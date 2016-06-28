@@ -17,7 +17,7 @@ class CreatequotesTable extends Migration
             $table->increments('id');
             $table->string('topic');
             $table->string('phase');
-            $table->string('deadline');
+            $table->timestamp('deadline');
             $table->string('description');
             $table->string('special_conditions');
             $table->string('address');

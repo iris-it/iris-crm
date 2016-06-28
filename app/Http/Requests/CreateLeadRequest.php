@@ -25,7 +25,7 @@ class CreateLeadRequest extends Request
      */
     public function rules()
     {
-        $lead = new Lead();
-        return $lead->rules();
+        return Lead::rules($this->leads);
+
     }
 }

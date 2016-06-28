@@ -10,11 +10,15 @@
     @foreach($contacts as $contact)
         <tr>
             <td>{!! $contact->firstname !!} {!! $contact->lastname !!}</td>
-            @if($contact->boundable)
-                <td>{!! $contact->boundable->name !!}</td>
-            @else
-                {{trans('app.general:undefined')}}
-            @endif
+                @if($contact->account || $contact->lead)
+                    @if($contact->account)
+                        <td>{!! $contact->account->name !!}</td>
+                    @elseif($contact->lead)
+                        <td>{!! $contact->lead->name !!}</td>
+                    @endif
+                @else
+                    <td>{{trans('app.general:undefined')}}</td>
+                @endif
             <td>{!! $contact->post !!}</td>
             @if($contact->user)
                 <td>{!! $contact->user->name !!}</td>

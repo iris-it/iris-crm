@@ -1,21 +1,25 @@
 <table class="table table-responsive" id="services-table">
     <thead>
-        <th>{{trans('app.general:name')}}</th>
-        <th>{{trans('app.general:is-active')}}</th>
-        <th>{{trans('app.product:category')}}</th>
+    <th>{{trans('app.general:name')}}</th>
+    <th>{{trans('app.general:is-active')}}</th>
+    <th>{{trans('app.product:category')}}</th>
 
-        <th>{{trans('app.product:ht-price')}}</th>
+    <th>{{trans('app.product:ht-price')}}</th>
 
-        <th>{{trans('app.product:date-start')}}</th>
-        <th>{{trans('app.product:date-end')}}</th>
+    <th>{{trans('app.product:date-start')}}</th>
+    <th>{{trans('app.product:date-end')}}</th>
 
-        <th colspan="3">Action</th>
+    <th colspan="3">Action</th>
     </thead>
     <tbody>
     @foreach($services as $service)
         <tr>
             <td>{!! $service->service_name !!}</td>
-            <td>{!! $service->is_active !!}</td>
+            @if($service->is_active == true)
+                <td>{{trans('app.general:yes')}}</td>
+            @else
+                <td>{{trans('app.general:no')}}</td>
+            @endif
             <td>{!! $service->category !!}</td>
 
             <td>{!! $service->ht_price !!}</td>

@@ -25,7 +25,12 @@
 <!-- Deadline Field -->
 <div class="form-group col-sm-6">
     {!! Form::label('deadline', trans('app.general:deadline') . " :" )  !!}
-    {!! Form::text('deadline', null, ['class' => 'form-control']) !!}
+    <div class="input-group date">
+        <div class="input-group-addon">
+            <i class="fa fa-calendar"></i>
+        </div>
+        {!! Form::text('deadline', null, ['class' => 'form-control', 'id' => 'deadline']) !!}
+    </div>
 </div>
 
 <!-- Description Field -->
@@ -36,7 +41,7 @@
 
 <!-- Special Conditions Field -->
 <div class="form-group col-sm-6">
-    {!! Form::label('special_conditions', trans('app.contact:special-conditions') . " :" )  !!}
+    {!! Form::label('special_conditions', trans('app.general:special-conditions') . " :" )  !!}
     {!! Form::text('special_conditions', null, ['class' => 'form-control']) !!}
 </div>
 
@@ -73,6 +78,6 @@
 <!-- Submit Field -->
 <div class="form-group col-sm-12">
     {!! Form::submit( trans('app.general:save-changes'), ['class' => 'btn btn-primary']) !!}
-    <a href="{!! route('invoices.index') !!}" class="btn btn-default">Cancel</a>
+    <a href="{!! route('invoices.index') !!}" class="btn btn-default">{{trans('app.general:cancel')}}</a>
 </div>
 

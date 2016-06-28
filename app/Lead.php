@@ -63,16 +63,16 @@ class Lead extends Model
      *
      * @var array
      */
-    public function rules()
+    public static function rules($id)
     {
         return [
-            'name' => 'required|max:255|unique:leads,name,' . $this->id,
+            'name' => 'required|max:255|unique:leads,name,' . $id,
             'website'=> 'url|max:255',
             'activity_sector' => 'string|max:255',
             'workforce' => 'integer',
             'type' => 'required|string|max:255',
             'ape_number' => array('required', "regex:/(^[0-9]{1,2}\.[0-9]{1,2}[A-Z]$|^[0-9]{1,2}\.[0-9]{1,2})$/im"),
-            'siret_number' => array('required', "regex:/^[0-9]{3}[ \.\-]?[0-9]{3}[ \.\-]?[0-9]{3}[ \.\-]?[0-9]{5}$/im", 'unique:accounts,siret_number,' . $this->id,),
+            'siret_number' => array('required', "regex:/^[0-9]{3}[ \.\-]?[0-9]{3}[ \.\-]?[0-9]{3}[ \.\-]?[0-9]{5}$/im", 'unique:accounts,siret_number,' . $id,),
             'phone_number' => array("regex:/^\+?[0-9]{10,20}$/im"),
             'status' => 'required|string|max:255',
             'address' => 'required|string',

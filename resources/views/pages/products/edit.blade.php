@@ -11,7 +11,7 @@
        <div class="box box-primary">
            <div class="box-body">
                <div class="row">
-                   {!! Form::model($products, ['route' => ['products.update', $products->id], 'method' => 'patch']) !!}
+                   {!! Form::model($product, ['route' => ['products.update', $product->id], 'method' => 'patch']) !!}
 
                         @include('pages.products.fields')
 
@@ -22,8 +22,10 @@
    </div>
 @endsection
 
-@section('js-app-scope)
+@section('js-app-scope')
 
     IrisCrm.initDualListBox('taxes_list');
+    IrisCrm.initDatePicker('sale_datestart');
+    IrisCrm.initDatePicker('sale_dateend');
 
 @endsection

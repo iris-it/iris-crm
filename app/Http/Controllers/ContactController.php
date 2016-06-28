@@ -11,6 +11,7 @@ use App\Repositories\ContactRepository;
 use App\Http\Controllers\AppBaseController as InfyOmBaseController;
 use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Lang;
 use Laracasts\Flash\Flash;
 use Prettus\Repository\Criteria\RequestCriteria;
 use Response;
@@ -50,12 +51,8 @@ class ContactController extends InfyOmBaseController
         $accounts = Account::lists('name', 'id');
         $leads = Lead::lists('name', 'id');
         $users = User::lists('name', 'id');
-        $types = [
-            trans('app.contact:account-type') => 1,
-            trans('app.contact:lead-type') => 0
-        ];
 
-        return view('pages.contacts.create')->with(compact('accounts', 'leads', 'users', 'types'));
+        return view('pages.contacts.create')->with(compact('accounts', 'leads', 'users'));
     }
 
     /**
@@ -69,10 +66,10 @@ class ContactController extends InfyOmBaseController
     {
         $input = $request->all();
 
-
         if ($contact = $this->contactRepository->create($input)) {
 
             $user = User::findOrFail($request->contact_owner_id);
+
 
             if ($contact->type == 0) {
 
@@ -134,10 +131,6 @@ class ContactController extends InfyOmBaseController
         $accounts = Account::lists('name', 'id');
         $leads = Lead::lists('name', 'id');
         $users = User::lists('name', 'id');
-        $types = [
-            trans('app.contact:account-type') => 1,
-            trans('app.contact:lead-type') => 0
-        ];
 
         if (empty($contact)) {
             Flash::error('Contact not found');
@@ -145,7 +138,7 @@ class ContactController extends InfyOmBaseController
             return redirect(route('contacts.index'));
         }
 
-        return view('pages.contacts.edit')->with(compact('contact', 'accounts', 'leads', 'users', 'types'));
+        return view('pages.contacts.edit')->with(compact('contact', 'accounts', 'leads', 'users'));
     }
 
     /**

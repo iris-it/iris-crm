@@ -46,8 +46,17 @@ class ProductController extends InfyOmBaseController
      */
     public function create()
     {
-        $contacts = Contact::lists('firstname' . 'lastname', 'id');
-        $taxes = Tax::lists('name' . ' : ' . 'value' . ' %', 'id');
+        $contacts = Contact::lists('lastname', 'id');
+        $taxes = Tax::lists('name', 'id');
+//        $taxesArray = [];
+//        $taxes = Tax::all();
+//
+//        foreach($taxes as $tax) {
+//            $name = $tax->name;
+//            $value = $tax->value . " %";
+//
+//            $taxesArray[$name . " : " . $value] = $tax->id;
+//        }
 
         return view('pages.products.create')->with(compact('contacts', 'taxes'));
     }
@@ -114,8 +123,17 @@ class ProductController extends InfyOmBaseController
     public function edit($id)
     {
         $product = $this->productRepository->findWithoutFail($id);
-        $contacts = Contact::lists('firstname' . 'lastname', 'id');
-        $taxes = Tax::lists('name' . ' : ' . 'value' . ' %', 'id');
+        $contacts = Contact::lists('lastname', 'id');
+        $taxes = Tax::lists('name', 'id');
+//        $taxesArray = [];
+//        $taxes = Tax::all();
+//
+//        foreach($taxes as $tax) {
+//            $name = $tax->name;
+//            $value = $tax->value . " %";
+//
+//            $taxesArray[$name . " : " . $value] = $tax->id;
+//        }
 
         if (empty($product)) {
 
@@ -150,13 +168,17 @@ class ProductController extends InfyOmBaseController
 
         if ($product = $this->productRepository->update($request->all(), $id)) {
 
+            if (!$request->has('taxes')) {
+                $input["taxes"] = [];
+            }
+
             $product->taxes()->sync($input["taxes"] ?: []);
             $product->contact()->associate($contact);
             $product->save();
-            Flash::success(Lang::get('app.organization:update-success'));
+            Flash::success(Lang::get('app.general:update-success'));
 
         } else {
-            Flash::error(Lang::get('app.organization:update-failed'));
+            Flash::error(Lang::get('app.general:update-failed'));
             return redirect(route('products.edit'));
 
         }

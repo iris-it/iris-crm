@@ -11,7 +11,7 @@
             <div class="box-body">
                 <div class="row" style="padding-left: 20px">
                     @include('pages.leads.show_fields')
-                    <a href="{!! route('leads.index') !!}" class="btn btn-default">Back</a>
+                    <a href="{!! route('leads.index') !!}" class="btn btn-default">{{trans('app.general:back')}}</a>
                 </div>
             </div>
         </div>

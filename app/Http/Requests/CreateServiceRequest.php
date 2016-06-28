@@ -25,7 +25,7 @@ class CreateServiceRequest extends Request
      */
     public function rules()
     {
-        $service = new Service();
-        return $service->rules();
+        return Service::rules($this->services);
+
     }
 }

@@ -2,13 +2,17 @@
 
 namespace App\Http\Controllers;
 
+use App\Account;
+use App\Contact;
 use App\Http\Requests;
 use App\Http\Requests\CreateQuoteRequest;
 use App\Http\Requests\UpdateQuoteRequest;
 use App\Repositories\QuoteRepository;
 use App\Http\Controllers\AppBaseController as InfyOmBaseController;
+use App\User;
 use Illuminate\Http\Request;
-use Flash;
+use Illuminate\Support\Facades\Lang;
+use Laracasts\Flash\Flash;
 use Prettus\Repository\Criteria\RequestCriteria;
 use Response;
 
@@ -44,7 +48,7 @@ class QuoteController extends InfyOmBaseController
      */
     public function create()
     {
-        $contacts = Contact::lists('firstname' . 'lastname', 'id');
+        $contacts = Contact::lists('lastname', 'id');
         $accounts = Account::lists('name', 'id');
         $users = User::lists('name', 'id');
 
@@ -79,7 +83,7 @@ class QuoteController extends InfyOmBaseController
         } else {
 
             Flash::error(Lang::get('app.general:create-failed'));
-            return redirect(route('quote.create'));
+            return redirect(route('quotes.create'));
 
         }
 
@@ -117,7 +121,7 @@ class QuoteController extends InfyOmBaseController
     {
         $quote = $this->quoteRepository->findWithoutFail($id);
 
-        $contacts = Contact::lists('firstname' . 'lastname', 'id');
+        $contacts = Contact::lists('lastname', 'id');
         $accounts = Account::lists('name', 'id');
         $users = User::lists('name', 'id');
 

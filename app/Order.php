@@ -2,6 +2,7 @@
 
 namespace App;
 
+use Carbon\Carbon;
 use Eloquent as Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
@@ -16,7 +17,7 @@ class Order extends Model
     public $table = 'orders';
     
 
-    protected $dates = ['deleted_at'];
+    protected $dates = ['deleted_at', 'order_date', 'delivery_deadline'];
 
 
     public $fillable = [
@@ -40,8 +41,6 @@ class Order extends Model
     protected $casts = [
         'topic' => 'string',
         'supplier' => 'string',
-        'order_date' => 'date',
-        'delivery_deadline' => 'date',
         'description' => 'string',
         'special_conditions' => 'string',
         'address' => 'string',
@@ -55,7 +54,55 @@ class Order extends Model
      *
      * @var array
      */
-    public static $rules = [
-        
-    ];
+    public static function rules() {
+        return [
+            'topic' => 'required|max:255|string',
+            'supplier' => 'required|max:255|string',
+            'order_date' => 'required',
+            'delivery_deadline' => 'required',
+            'description' => 'string',
+            'special_conditions' => 'string',
+            'address' => 'required|string',
+            'zipcode'=> 'required|string',
+            'city'=> 'required|string',
+            'country' => 'required|string',
+        ];
+    }
+
+    //MUTATORS
+    /**
+     * Mutate order_date to FR with Carbon
+     * @param $date
+     * @return string
+     */
+    public function getOrderDateAttribute($date)
+    {
+        return Carbon::parse($date)->format('d/m/Y');
+    }
+    /**
+     * Mutate order_date from FR to Carbon date
+     * @param $date
+     */
+    public function setOrderDateAttribute($date)
+    {
+        $this->attributes['order_date'] = Carbon::createFromFormat('d/m/Y', $date);
+    }
+
+    /**
+     * Mutate delivery_deadline to FR with Carbon
+     * @param $date
+     * @return string
+     */
+    public function getDeliveryDeadlineAttribute($date)
+    {
+        return Carbon::parse($date)->format('d/m/Y');
+    }
+    /**
+     * Mutate delivery_deadline from FR to Carbon date
+     * @param $date
+     */
+    public function setDeliveryDeadlineAttribute($date)
+    {
+        $this->attributes['delivery_deadline'] = Carbon::createFromFormat('d/m/Y', $date);
+    }
 }

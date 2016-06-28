@@ -11,7 +11,10 @@
             <div class="box-body">
                 <div class="row" style="padding-left: 20px">
                     @include('pages.quotes.show_fields')
-                    <a href="{!! route('quotes.index') !!}" class="btn btn-default">Back</a>
+                    <div class="form-group col-sm-12">
+                        <a href="{!! route('quotes.index') !!}" class="btn btn-default">{{trans('app.general:back')}}</a>
+                    </div>
+
                 </div>
             </div>
         </div>

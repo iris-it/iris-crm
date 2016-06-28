@@ -3,7 +3,7 @@
 namespace App\Http\Requests;
 
 use App\Http\Requests\Request;
-use App\Models\Invoice;
+use App\Invoice;
 
 class CreateInvoiceRequest extends Request
 {
@@ -25,7 +25,7 @@ class CreateInvoiceRequest extends Request
      */
     public function rules()
     {
-        $invoice = new Invoice();
-        return $invoice->rules();
+        return Invoice::rules($this->invoices);
+
     }
 }

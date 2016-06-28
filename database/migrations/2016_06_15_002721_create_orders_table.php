@@ -17,8 +17,8 @@ class CreateordersTable extends Migration
             $table->increments('id');
             $table->string('topic');
             $table->string('supplier');
-            $table->date('order_date');
-            $table->date('delivery_deadline');
+            $table->timestamp('order_date');
+            $table->timestamp('delivery_deadline');
             $table->string('description');
             $table->string('special_conditions');
             $table->string('address');

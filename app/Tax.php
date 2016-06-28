@@ -14,7 +14,7 @@ class Tax extends Model
     use SoftDeletes;
 
     public $table = 'taxes';
-    
+
 
     protected $dates = ['deleted_at'];
 
@@ -43,9 +43,12 @@ class Tax extends Model
      *
      * @var array
      */
-    public static $rules = [
-        
-    ];
+    public static function rules()
+    {
+        return [
+
+        ];
+    }
 
     public function products()
     {
@@ -56,5 +59,5 @@ class Tax extends Model
     {
         return $this->belongsToMany('App\Service', 'services_taxes_pivot', 'tax_id', 'service_id')->withTimestamps();
     }
-    
+
 }
