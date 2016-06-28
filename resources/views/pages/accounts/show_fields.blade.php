@@ -64,56 +64,64 @@
 
 
 <!-- Billing Address Field -->
-<div class="form-group col-sm-6">
+<div class="col-md-12">
     <h4> {{trans('app.general:billing-address')}}</h4>
-    <br>
-    {!! Form::label('billing_address', trans('app.general:address') . ' :') !!}
-    <p>{!! $account->billing_address !!}</p>
+
+    <div class="form-group col-sm-6">
+        {!! Form::label('billing_address', trans('app.general:address') . ' :') !!}
+        <p>{!! $account->billing_address !!}</p>
+    </div>
+
+    <!-- Billing Zipcode Field -->
+    <div class="form-group col-sm-6">
+        {!! Form::label('billing_zipcode', trans('app.general:zipcode') . ' :') !!}
+        <p>{!! $account->billing_zipcode !!}</p>
+    </div>
+
+    <!-- Billing City Field -->
+    <div class="form-group col-sm-6">
+        {!! Form::label('billing_city', trans('app.general:city') . ' :') !!}
+        <p>{!! $account->billing_city !!}</p>
+    </div>
+
+    <!-- Billing Country Field -->
+    <div class="form-group col-sm-6">
+        {!! Form::label('billing_country', trans('app.general:country') . ' :') !!}
+        <p>{!! $account->billing_country !!}</p>
+    </div>
+
+
 </div>
 
-<!-- Delivery Address Field -->
-<div class="form-group col-sm-6">
+<div class="col-sm-12">
     <h4> {{trans('app.general:delivery-address')}}</h4>
-    <br>
-    {!! Form::label('delivery_address', trans('app.general:address') . ' :') !!}
-    <p>{!! $account->delivery_address !!}</p>
+
+    <!-- Delivery Address Field -->
+    <div class="form-group col-sm-6">
+        {!! Form::label('delivery_address', trans('app.general:address') . ' :') !!}
+        <p>{!! $account->delivery_address !!}</p>
+    </div>
+
+    <!-- Delivery Zipcode Field -->
+    <div class="form-group col-sm-6">
+        {!! Form::label('delivery_zipcode', trans('app.general:zipcode') . ' :') !!}
+        <p>{!! $account->delivery_zipcode !!}</p>
+    </div>
+
+    <!-- Delivery City Field -->
+    <div class="form-group col-sm-6">
+        {!! Form::label('delivery_city', trans('app.general:city') . ' :') !!}
+        <p>{!! $account->delivery_city !!}</p>
+    </div>
+
+    <!-- Delivery Country Field -->
+    <div class="form-group col-sm-6">
+        {!! Form::label('delivery_country', trans('app.general:country') . ' :')  !!}
+        <p>{!! $account->delivery_country !!}</p>
+    </div>
+
 </div>
 
-<!-- Billing Zipcode Field -->
-<div class="form-group col-sm-6">
-    {!! Form::label('billing_zipcode', trans('app.general:zipcode') . ' :') !!}
-    <p>{!! $account->billing_zipcode !!}</p>
-</div>
-
-<!-- Delivery Zipcode Field -->
-<div class="form-group col-sm-6">
-    {!! Form::label('delivery_zipcode', trans('app.general:zipcode') . ' :') !!}
-    <p>{!! $account->delivery_zipcode !!}</p>
-</div>
-
-<!-- Billing City Field -->
-<div class="form-group col-sm-6">
-    {!! Form::label('billing_city', trans('app.general:city') . ' :') !!}
-    <p>{!! $account->billing_city !!}</p>
-</div>
-
-<!-- Delivery City Field -->
-<div class="form-group col-sm-6">
-    {!! Form::label('delivery_city', trans('app.general:city') . ' :') !!}
-    <p>{!! $account->delivery_city !!}</p>
-</div>
-
-<!-- Billing Country Field -->
-<div class="form-group col-sm-6">
-    {!! Form::label('billing_country', trans('app.general:country') . ' :') !!}
-    <p>{!! $account->billing_country !!}</p>
-</div>
-
-<!-- Delivery Country Field -->
-<div class="form-group col-sm-6">
-    {!! Form::label('delivery_country', trans('app.general:country') . ' :')  !!}
-    <p>{!! $account->delivery_country !!}</p>
-</div>
 
 <!-- Free Label Field -->
 <div class="form-group col-sm-12">

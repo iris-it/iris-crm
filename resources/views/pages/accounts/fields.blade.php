@@ -61,58 +61,55 @@
     {!! Form::select('account_owner_id', $users, null, ['class' => 'form-control']) !!}
 </div>
 
-
-<!-- Billing Address Field -->
-<div class="form-group col-sm-6">
+<div class="col-sm-12">
     <h4> {{trans('app.general:billing-address')}}</h4>
-    <br>
-    {!! Form::label('billing_address', trans('app.general:address') . ' :') !!}
-    {!! Form::text('billing_address', null, ['class' => 'form-control']) !!}
+    <!-- Billing Address Field -->
+    <div class="form-group col-sm-6">
+        {!! Form::label('billing_address', trans('app.general:address') . ' :') !!}
+        {!! Form::text('billing_address', null, ['class' => 'form-control']) !!}
+    </div>
+    <!-- Billing Zipcode Field -->
+    <div class="form-group col-sm-6">
+        {!! Form::label('billing_zipcode', trans('app.general:zipcode') . ' :') !!}
+        {!! Form::text('billing_zipcode', null, ['class' => 'form-control']) !!}
+    </div>
+    <!-- Billing City Field -->
+    <div class="form-group col-sm-6">
+        {!! Form::label('billing_city', trans('app.general:city') . ' :') !!}
+        {!! Form::text('billing_city', null, ['class' => 'form-control']) !!}
+    </div>
+    <!-- Billing Country Field -->
+    <div class="form-group col-sm-6">
+        {!! Form::label('billing_country', trans('app.general:country') . ' :') !!}
+        {!! Form::text('billing_country', null, ['class' => 'form-control']) !!}
+    </div>
 </div>
 
-<!-- Delivery Address Field -->
-<div class="form-group col-sm-6">
+<div class="col-sm-12">
     <h4> {{trans('app.general:delivery-address')}}</h4>
-    <br>
-    {!! Form::label('delivery_address', trans('app.general:address') . ' :') !!}
-    {!! Form::text('delivery_address', null, ['class' => 'form-control']) !!}
+    <!-- Delivery Address Field -->
+    <div class="form-group col-sm-6">
+        {!! Form::label('delivery_address', trans('app.general:address') . ' :') !!}
+        {!! Form::text('delivery_address', null, ['class' => 'form-control']) !!}
+    </div>
+    <!-- Delivery Zipcode Field -->
+    <div class="form-group col-sm-6">
+        {!! Form::label('delivery_zipcode', trans('app.general:zipcode') . ' :') !!}
+        {!! Form::text('delivery_zipcode', null, ['class' => 'form-control']) !!}
+    </div>
+    <!-- Delivery City Field -->
+    <div class="form-group col-sm-6">
+        {!! Form::label('delivery_city', trans('app.general:city') . ' :') !!}
+        {!! Form::text('delivery_city', null, ['class' => 'form-control']) !!}
+    </div>
+    <!-- Delivery Country Field -->
+    <div class="form-group col-sm-6">
+        {!! Form::label('delivery_country', trans('app.general:country') . ' :') !!}
+        {!! Form::text('delivery_country', null, ['class' => 'form-control']) !!}
+    </div>
+
 </div>
 
-<!-- Billing Zipcode Field -->
-<div class="form-group col-sm-6">
-    {!! Form::label('billing_zipcode', trans('app.general:zipcode') . ' :') !!}
-    {!! Form::text('billing_zipcode', null, ['class' => 'form-control']) !!}
-</div>
-
-<!-- Delivery Zipcode Field -->
-<div class="form-group col-sm-6">
-    {!! Form::label('delivery_zipcode', trans('app.general:zipcode') . ' :') !!}
-    {!! Form::text('delivery_zipcode', null, ['class' => 'form-control']) !!}
-</div>
-
-<!-- Billing City Field -->
-<div class="form-group col-sm-6">
-    {!! Form::label('billing_city', trans('app.general:city') . ' :') !!}
-    {!! Form::text('billing_city', null, ['class' => 'form-control']) !!}
-</div>
-
-<!-- Delivery City Field -->
-<div class="form-group col-sm-6">
-    {!! Form::label('delivery_city', trans('app.general:city') . ' :') !!}
-    {!! Form::text('delivery_city', null, ['class' => 'form-control']) !!}
-</div>
-
-<!-- Billing Country Field -->
-<div class="form-group col-sm-6">
-    {!! Form::label('billing_country', trans('app.general:country') . ' :') !!}
-    {!! Form::text('billing_country', null, ['class' => 'form-control']) !!}
-</div>
-
-<!-- Delivery Country Field -->
-<div class="form-group col-sm-6">
-    {!! Form::label('delivery_country', trans('app.general:country') . ' :') !!}
-    {!! Form::text('delivery_country', null, ['class' => 'form-control']) !!}
-</div>
 
 <!-- Free Label Field -->
 <div class="form-group col-sm-6">

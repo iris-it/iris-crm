@@ -76,7 +76,7 @@ class Account extends Model
         return
             [
             'name' => 'required|max:255|unique:accounts,name,' . $id ,
-            'website' => 'url|max:255',
+            'website' => 'string|max:255',
             'activity_sector' => 'string|max:255',
             'workforce' => 'integer',
             'type' => 'required|string|max:255',

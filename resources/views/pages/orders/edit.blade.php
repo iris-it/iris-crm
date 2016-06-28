@@ -3,7 +3,7 @@
 @section('content')
     <section class="content-header">
         <h1>
-            Order
+            Édition d'une commande
         </h1>
    </section>
    <div class="content">

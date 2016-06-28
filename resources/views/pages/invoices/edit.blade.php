@@ -3,7 +3,7 @@
 @section('content')
     <section class="content-header">
         <h1>
-            Invoice
+            Édition d'une facture
         </h1>
    </section>
    <div class="content">
