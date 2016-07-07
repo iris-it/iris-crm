@@ -206,7 +206,8 @@
             data: {
                 datasets: [{
                     label: 'Scatter Dataset',
-                    data: chart_data
+                    data: char_data
+                }]
             },
             options: {
                 scales: {

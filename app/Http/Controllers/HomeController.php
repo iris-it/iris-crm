@@ -7,6 +7,7 @@ use App\Http\Requests;
 use App\Invoice;
 use App\Order;
 use App\Quote;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use JavaScript;
 
@@ -33,14 +34,31 @@ class HomeController extends Controller
         $convertedAccounts = Account::where('converted', true);
         $quotes = Quote::all();
         $invoices = Invoice::all();
+        $coordinates = [];
+
+        $from = Carbon::today()->startOfMonth();
+        $to = Carbon::today()->endOfMonth();
+
+        while($from->diffInDays($to) != 0) {
+            $x = $from->day;
+            $y = $invoices->map(function($item, $key) use ($from, $to) {
+               if($item->created_at > $from->startOfDay() && $item->created_at < $from->endOfDay()) {
+                   return $item->ttc_price;
+               }
+                return 0;
+            })->reduce(function($carry, $item) {
+                return $carry + $item;
+            });
+
+            $coordinates[] = ['x' => $x, 'y' => $y];
+            $from = $from->addDay();
+        }
+
 
         JavaScript::put([
-            'data' => [10,20,30,40],
-            'age' => 29
+            'char_data' => $coordinates,
         ]);
-
-        //TODO : service pour récupérer toutes les ventes depuis les factures
-        $sales = 244;
+        
 
 
         return view('pages.home.index')->with(compact('orders', 'convertedAccounts', 'quotes', 'invoices'));

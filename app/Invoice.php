@@ -17,7 +17,7 @@ class Invoice extends Model
     public $table = 'invoices';
 
 
-    protected $dates = ['deleted_at', 'deadline'];
+    protected $dates = ['created_at','deleted_at', 'deadline'];
 
 
     public $fillable = [
