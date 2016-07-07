@@ -162,6 +162,7 @@ return [
          */
         AdamWathan\EloquentOAuthL5\EloquentOAuthServiceProvider::class,
         Philo\Translate\TranslateServiceProvider::class,
+        Laracasts\Utilities\JavaScript\JavaScriptServiceProvider::class,
 
         /*
          * Crud
@@ -224,6 +225,7 @@ return [
          * Added
          */
         'SocialAuth' => AdamWathan\EloquentOAuth\Facades\OAuth::class,
+        'JavaScript' =>Laracasts\Utilities\JavaScript\JavaScriptFacade::class,
 
         /*
          * CRUD

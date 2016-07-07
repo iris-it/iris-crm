@@ -22,7 +22,8 @@
         "infyomlabs/core-templates": "dev-master",
         "infyomlabs/generator-builder": "dev-master",
         "infyomlabs/adminlte-templates": "dev-master",
-        "yajra/laravel-datatables-oracle": "~6.0"
+        "yajra/laravel-datatables-oracle": "~6.0",
+        "laracasts/utilities": "^2.1"
 
     },
     "require-dev": {

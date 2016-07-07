@@ -23,6 +23,10 @@ var paths = {
     "fontawesome": "./vendor/bower_components/font-awesome/",
     "adminlte": "./vendor/bower_components/AdminLTE/dist/",
     "duallistbox": "./vendor/bower_components/bootstrap-duallistbox/",
+    "ionicons": "./vendor/bower_components/Ionicons/",
+    "chartjs": "./vendor/bower_components/Chart.js/",
+
+    // AdminLTE inner plugins
     "adminlte_plugins" : "./vendor/bower_components/AdminLTE/plugins/"
 
 };
@@ -35,7 +39,10 @@ var styles = [
     paths.adminlte + "css/skins/_all-skins.css",
     paths.duallistbox + "src/bootstrap-duallistbox.css",
     paths.public + "css/app.css",
-    // Bootstrap date picker by Admin LTE
+    paths.ionicons + "css/ionicons.min.css",
+
+
+    // AdminLTE inner plugins
     paths.adminlte_plugins + "datepicker/datepicker3.css"
 
 ];
@@ -50,9 +57,12 @@ var libraries = [
     paths.bootstrap + "js/bootstrap.js",
     paths.adminlte + "js/app.js",
     paths.duallistbox + "dist/jquery.bootstrap-duallistbox.min.js",
-    // Boostrap date picker by Admin LTE
+    paths.chartjs + "dist/Chart.bundle.min.js",
+
+    // AdminLTE inner plugins
     paths.adminlte_plugins + "datepicker/bootstrap-datepicker.js",
     paths.adminlte_plugins + "datepicker/locales/bootstrap-datepicker.fr.js",
+
     // jQuery helper
     paths.assets + "js/crm.js"
 
@@ -60,7 +70,8 @@ var libraries = [
 
 var fonts = [
     paths.fontawesome + "fonts/",
-    paths.bootstrap + "fonts/"
+    paths.bootstrap + "fonts/",
+    paths.ionicons + "fonts/"
 ];
 
 

@@ -15,6 +15,7 @@ class InvoiceRepository extends BaseRepository
         'phase',
         'deadline',
         'description',
+        'ttc_price',
         'special_conditions',
         'address',
         'zipcode',

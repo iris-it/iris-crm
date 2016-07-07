@@ -65,6 +65,7 @@ class AccountController extends InfyOmBaseController
 
         if ($account = $this->accountRepository->create($input)) {
 
+            $account->converted = false;
             $user = User::findOrFail($request->account_owner_id);
             $account->user()->associate($user);
             $account->save();

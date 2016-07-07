@@ -20,6 +20,7 @@ class AccountRepository extends BaseRepository
         'siret_number',
         'phone_number',
         'is_active',
+        'converted',
         'billing_address',
         'delivery_address',
         'billing_zipcode',
