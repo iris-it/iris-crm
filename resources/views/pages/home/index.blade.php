@@ -205,8 +205,9 @@
             type: 'line',
             data: {
                 datasets: [{
-                    label: 'Scatter Dataset',
+                    label: 'Ventes',
                     data: char_data
+
                 }]
             },
             options: {
@@ -215,9 +216,40 @@
                         type: 'linear',
                         position: 'bottom'
                     }]
+                },
+
+                title: {
+                    display: true,
+                    text: 'Récapitulatif mensuel des ventes',
+                    fontSize: 18,
+                    fontColor : '#00c0ef',
+                    fontStyle : 'normal',
+                    fontFamily : 'Arial'
+                },
+
+                legend : {
+
+                    position : 'bottom',
+                    labels : {
+                        fontColor : '#00c0ef',
+                        fontStyle : 'normal'
+
+
+                    }
+
+
                 }
+
+
             }
+
+
         });
+
+        Chart.defaults.global.defaultFontSize = 14;
+        Chart.defaults.global.defaultFontFamily = 'Arial';
+        Chart.defaults.global.defaultFontColor = '#000000';
+        Chart.defaults.global.defaultFontStyle = 'bold';
     </script>
 @endsection
 

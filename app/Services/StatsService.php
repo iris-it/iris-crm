@@ -15,7 +15,7 @@ class StatsService
 {
     public function generateRevenuesByMonth($invoices) {
 
-        $coordinates = [];
+        $data = [];
 
         $from = Carbon::today()->startOfMonth();
         $to = Carbon::today()->endOfMonth();
@@ -31,10 +31,10 @@ class StatsService
                 return $carry + $item;
             });
 
-            $coordinates[] = ['x' => $x, 'y' => $y];
+            $data[] = ['x' => $x, 'y' => $y];
             $from = $from->addDay();
         }
-        return $coordinates;
+        return $data;
     }
 
 }

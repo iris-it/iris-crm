@@ -35,6 +35,8 @@ class HomeController extends Controller
         $quotes = Quote::all();
         $invoices = Invoice::all();
         $convertedAccounts = Account::where('converted', true);
+        
+        
 
         JavaScript::put([
             'char_data' => $statsService->generateRevenuesByMonth($invoices)
