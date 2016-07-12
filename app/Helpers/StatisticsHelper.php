@@ -43,18 +43,25 @@ class StatisticsHelper
                 return $carry + $item;
             });
 
-            $data['label'] = 'factures';
-            $data['borderColor'] = 'rgba(30, 14, 60, .07)';
-            $data['backgroundColor'] = 'rgba(30, 90, 200, .25)';
-            $data['pointBackgroundColor'] = '#000';
-            $data['pointBorderColor'] = '#fff';
-            $data['pointHoverBackgroundColor'] = '#fff';
+            $data['label'] = 'Ventes';
+            $data['borderColor'] = '#00a4cc';
+            $data['backgroundColor'] = '#00c0ef';
+            $data['pointBorderColor'] = '#000000';
+            $data['pointBackgroundColor'] = '#00c0ef';
+            $data['pointBorderWidth'] = 0.7;
             $data['pointHoverBorderColor'] = 'rgba(30, 70, 200, 1)';
+            $data['pointHoverRadius'] = 6;
+            $data['lineTension'] = 0;
+            $data['borderWidth'] = 2;
+            $data['borderJoinStyle'] = "miter";
+
             $data['data'][$x - 1] = $y;
             $from = $from->addDay();
         }
         return json_encode(array($data));
     }
+
+
 
 
 }

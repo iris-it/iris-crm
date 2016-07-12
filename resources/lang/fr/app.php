@@ -1,6 +1,6 @@
 <?php
 
-# modified at 07-07-2016 06:34
+# modified at 12-07-2016 13:26
 
 return  array(
 	'account:converted'              => 'Converti depuis prospect',
@@ -20,7 +20,9 @@ return  array(
 	'dashboard:converted-accounts'   => 'Conversion de prospect à compte|Conversions de prospects à comptes',
 	'dashboard:invoices'             => 'Facture|Factures',
 	'dashboard:orders'               => 'Commande|Commandes',
+	'dashboard:other-stats'          => 'Autres statistiques',
 	'dashboard:quotes'               => 'Devis',
+	'dashboard:sales-chart-title'    => 'Récapitulatif mensuel des ventes',
 	'document:authorizations'        => 'Autorisations',
 	'document:file'                  => 'Fichier',
 	'document:readers'               => 'Lecteurs',

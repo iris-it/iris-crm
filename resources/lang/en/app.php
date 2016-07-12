@@ -1,6 +1,6 @@
 <?php
 
-# modified at 07-07-2016 06:34
+# modified at 12-07-2016 13:26
 
 return  array(
 	'account:converted'              => 'Converted from lead',
@@ -20,7 +20,9 @@ return  array(
 	'dashboard:converted-accounts'   => 'Converted accounts from leads|Converted account from lead',
 	'dashboard:invoices'             => 'Invoice|Invoices',
 	'dashboard:orders'               => 'Order|Orders',
+	'dashboard:other-stats'          => 'Other stats',
 	'dashboard:quotes'               => 'Quote|Quotes',
+	'dashboard:sales-chart-title'    => 'Monthly sales recap report',
 	'document:authorizations'        => 'Authorizations',
 	'document:file'                  => 'File',
 	'document:readers'               => 'Readers',
