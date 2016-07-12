@@ -21,7 +21,7 @@
             <!-- ./col -->
             <div class="col-lg-3 col-xs-6">
                 <!-- small box -->
-                <div class="small-box bg-green">
+                <div class="small-box bg-light-blue">
                     <div class="inner">
                         <h3>{{$convertedAccounts->count()}}</h3>
 
@@ -36,7 +36,7 @@
             <!-- ./col -->
             <div class="col-lg-3 col-xs-6">
                 <!-- small box -->
-                <div class="small-box bg-yellow">
+                <div class="small-box bg-purple">
                     <div class="inner">
                         <h3>{{$invoices->count()}}</h3>
 
@@ -51,7 +51,7 @@
             <!-- ./col -->
             <div class="col-lg-3 col-xs-6">
                 <!-- small box -->
-                <div class="small-box bg-red">
+                <div class="small-box bg-maroon">
                     <div class="inner">
                         <h3>{{$quotes->count()}}</h3>
 
