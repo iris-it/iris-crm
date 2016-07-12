@@ -2,6 +2,7 @@
 /node_modules
 /public/storage
 /public/semantic
+/public/build
 Homestead.yaml
 Homestead.json
 .env
