@@ -7,10 +7,6 @@ use App\Http\Requests;
 use App\Invoice;
 use App\Order;
 use App\Quote;
-use App\Services\StatsService;
-use Carbon\Carbon;
-use Illuminate\Http\Request;
-use JavaScript;
 
 class HomeController extends Controller
 {
@@ -29,20 +25,13 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(StatsService $statsService)
+    public function index()
     {
         $orders = Order::all();
         $quotes = Quote::all();
         $invoices = Invoice::all();
         $convertedAccounts = Account::where('converted', true);
         
-        
-
-        JavaScript::put([
-            'char_data' => $statsService->generateRevenuesByMonth($invoices)
-        ]);
-
-
         return view('pages.home.index')->with(compact('orders', 'convertedAccounts', 'quotes', 'invoices'));
     }
 }
