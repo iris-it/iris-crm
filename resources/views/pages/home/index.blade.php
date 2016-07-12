@@ -199,57 +199,43 @@
 
 @section('scripts')
     @parent
-    <script>
-        var ctx = document.getElementById("myChart");
-        var myChart = new Chart(ctx, {
-            type: 'line',
-            data: {
-                datasets: [{
-                    label: 'Ventes',
-                    data: char_data
 
-                }]
-            },
-            options: {
-                scales: {
-                    xAxes: [{
-                        type: 'linear',
-                        position: 'bottom'
-                    }]
-                },
+    <script type="text/javascript">
 
-                title: {
-                    display: true,
-                    text: 'Récapitulatif mensuel des ventes',
-                    fontSize: 18,
-                    fontColor : '#00c0ef',
-                    fontStyle : 'normal',
-                    fontFamily : 'Arial'
-                },
+        $(document).ready(function () {
 
-                legend : {
+            // Chart.js Chart, for more examples you can check out http://www.chartjs.org/docs
+            var initDashChartJS = function () {
+                // Get Chart Container
+                var $dashChartLinesCon = $('#myChart');
 
-                    position : 'bottom',
-                    labels : {
-                        fontColor : '#00c0ef',
-                        fontStyle : 'normal'
+                // Lines Chart Data
+                var $dashChartLinesData = {
+                    labels: JSON.parse('{!! Stats::getDaysInMonth() !!}'),
+                    datasets: JSON.parse('{!! Stats::generateRevenuesByMonth($invoices) !!}')
+                };
 
-
+                // Init Lines Chart
+                new Chart.Line($dashChartLinesCon, {
+                    data: $dashChartLinesData,
+                    options: {
+                        scaleFontFamily: "'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif",
+                        scaleFontColor: '#999',
+                        scaleFontStyle: '600',
+                        tooltipTitleFontFamily: "'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif",
+                        tooltipCornerRadius: 3,
+                        maintainAspectRatio: false,
+                        responsive: true
                     }
+                });
+            };
 
-
-                }
-
-
-            }
-
+            initDashChartJS();
 
         });
 
-        Chart.defaults.global.defaultFontSize = 14;
-        Chart.defaults.global.defaultFontFamily = 'Arial';
-        Chart.defaults.global.defaultFontColor = '#000000';
-        Chart.defaults.global.defaultFontStyle = 'bold';
     </script>
+
+
 @endsection
 
