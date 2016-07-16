@@ -7,9 +7,11 @@ use App\Contact;
 use App\Http\Requests;
 use App\Http\Requests\CreateInvoiceRequest;
 use App\Http\Requests\UpdateInvoiceRequest;
+use App\Product;
 use App\Quote;
 use App\Repositories\InvoiceRepository;
 use App\Http\Controllers\AppBaseController as InfyOmBaseController;
+use App\Service;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Lang;
@@ -52,8 +54,11 @@ class InvoiceController extends InfyOmBaseController
         $contacts = Contact::lists('lastname', 'id');
         $accounts = Account::lists('name', 'id');
         $quotes = Quote::lists('topic', 'id');
+        $products = Product::lists('product_name', 'id');
+        $services = Service::lists('service_name', 'id');
 
-        return view('pages.invoices.create')->with(compact('contacts', 'accounts', 'quotes'));
+
+        return view('pages.invoices.create')->with(compact('contacts', 'accounts', 'quotes', 'services', 'products'));
     }
 
     /**
@@ -72,12 +77,83 @@ class InvoiceController extends InfyOmBaseController
 
             $contact = Contact::findOrFail($request->contact_name_id);
             $account = Account::findOrFail($request->account_name_id);
-            $quote = Quote::findOrFail($request->quote_id);
+            $htPrice = 0;
+            $price = 0;
+
 
             $invoice->contact()->associate($contact);
             $invoice->account()->associate($account);
-            $invoice->quote()->associate($quote);
 
+            if ($request->has('quote_id')) {
+
+                $quote = Quote::findOrFail($request->quote_id);
+                $productsArray = [];
+                $servicesArray = [];
+
+                $invoice->quote()->associate($quote);
+                $invoice->converted = true;
+
+                foreach($quote->products as $product) {
+
+                    $productsArray[] = $product->id;
+                }
+
+                foreach($quote->services as $service) {
+
+                    $servicesArray[] = $service->id;
+                }
+                $invoice->products()->sync($productsArray ?: []);
+                $invoice->services()->sync($servicesArray ?: []);
+
+            } else {
+                $invoice->converted = false;
+                $invoice->products()->sync($input["products"] ?: []);
+                $invoice->services()->sync($input["services"] ?: []);
+
+            }
+
+            $invoice->save();
+
+            foreach ($invoice->products as $product) {
+                $productPrice = 0;
+                $productHtPrice = 0;
+
+                $totalTaxes = 0;
+                foreach ($product->taxes as $tax) {
+
+                    if ($tax->is_active) {
+                        $totalTaxes = $totalTaxes + ($product->ht_price * ($tax->value / 100));
+                    }
+                }
+
+                $productHtPrice = $product->ht_price;
+                $htPrice = $htPrice + $productHtPrice;
+
+                $productPrice = $product->ht_price + $totalTaxes;
+                $price = $price + $productPrice;
+
+            }
+
+            foreach ($invoice->services as $service) {
+                $servicePrice = 0;
+                $totalTaxes = 0;
+                foreach ($service->taxes as $tax) {
+
+                    if ($tax->is_active) {
+                        $totalTaxes = $totalTaxes + ($service->ht_price * ($tax->value / 100));
+                    }
+                }
+
+                $serviceHtPrice = $service->ht_price;
+                $servicePrice = $service->ht_price + $totalTaxes;
+
+                $htPrice = $htPrice + $serviceHtPrice;
+                $price = $price + $servicePrice;
+
+            }
+
+            $invoice->ht_price = $htPrice;
+            $invoice->ttc_price = $price;
             $invoice->save();
 
             Flash::success(Lang::get('app.general:create-success'));
@@ -127,6 +203,8 @@ class InvoiceController extends InfyOmBaseController
         $contacts = Contact::lists('lastname', 'id');
         $accounts = Account::lists('name', 'id');
         $quotes = Quote::lists('topic', 'id');
+        $products = Product::lists('product_name', 'id');
+        $services = Service::lists('service_name', 'id');
 
         if (empty($invoice)) {
             Flash::error('Invoice not found');
@@ -134,7 +212,7 @@ class InvoiceController extends InfyOmBaseController
             return redirect(route('invoices.index'));
         }
 
-        return view('pages.invoices.edit')->with(compact('invoice', 'contacts', 'accounts', 'quotes'));
+        return view('pages.invoices.edit')->with(compact('invoice', 'contacts', 'accounts', 'quotes', 'products', 'services'));
     }
 
     /**
@@ -148,6 +226,7 @@ class InvoiceController extends InfyOmBaseController
     public function update($id, UpdateInvoiceRequest $request)
     {
         $invoice = $this->invoiceRepository->findWithoutFail($id);
+        $input = $request->all();
 
         if (empty($invoice)) {
 
@@ -159,12 +238,95 @@ class InvoiceController extends InfyOmBaseController
 
             $contact = Contact::findOrFail($request->contact_name_id);
             $account = Account::findOrFail($request->account_name_id);
-            $quote = Quote::findOrFail($request->quote_id);
+            $htPrice = 0;
+            $price = 0;
+
+
+
+            if ($request->has('quote_id')) {
+                $quote = Quote::findOrFail($request->quote_id);
+                $productsArray = [];
+                $servicesArray = [];
+
+                foreach($quote->products as $product) {
+
+                    $productsArray[] = $product->id;
+                }
+
+                foreach($quote->services as $service) {
+
+                    $servicesArray[] = $service->id;
+                }
+
+                $invoice->products()->sync($productsArray ?: []);
+                $invoice->services()->sync($servicesArray ?: []);
+
+                $invoice->quote()->associate($quote);
+                $invoice->converted = true;
+
+
+            } else {
+                $invoice->quote()->dissociate();
+                $invoice->converted = false;
+
+                if (!$request->has('products')) {
+                    $input["products"] = [];
+                }
+                else if(!$request->has('services')) {
+                    $input["services"] = [];
+                }
+
+                $invoice->products()->sync($input["products"] ?: []);
+                $invoice->services()->sync($input["services"] ?: []);
+            }
+            
 
             $invoice->contact()->associate($contact);
             $invoice->account()->associate($account);
-            $invoice->quote()->associate($quote);
 
+
+            $invoice->save();
+
+            foreach ($invoice->products as $product) {
+                $productPrice = 0;
+                $productHtPrice = 0;
+                $totalTaxes = 0;
+                foreach ($product->taxes as $tax) {
+
+                    if ($tax->is_active) {
+                        $totalTaxes = $totalTaxes + ($product->ht_price * ($tax->value / 100));
+                    }
+                }
+
+                $productHtPrice = $product->ht_price;
+                $htPrice = $htPrice + $productHtPrice;
+
+                $productPrice = $product->ht_price + $totalTaxes;
+                $price = $price + $productPrice;
+
+            }
+
+            foreach ($invoice->services as $service) {
+                $servicePrice = 0;
+                $serviceHtPrice = 0;
+                $totalTaxes = 0;
+                foreach ($service->taxes as $tax) {
+
+                    if ($tax->is_active) {
+                        $totalTaxes = $totalTaxes + ($service->ht_price * ($tax->value / 100));
+                    }
+                }
+
+                $serviceHtPrice = $service->ht_price;
+                $servicePrice = $service->ht_price + $totalTaxes;
+
+                $htPrice = $htPrice + $serviceHtPrice;
+                $price = $price + $servicePrice;
+
+            }
+
+            $invoice->ht_price = $htPrice;
+            $invoice->ttc_price = $price;
             $invoice->save();
 
             Flash::success(Lang::get('app.general:update-success'));

@@ -27,14 +27,21 @@
     {!! Form::text('ht_price', null, ['class' => 'form-control']) !!}
 </div>
 
-<!-- Ttc Price Field -->
+<!-- Taxes Field -->
 <div class="form-group col-sm-6">
     {!! Form::label('ttc_price', trans('app.product:active-taxes') . " :") !!}
 
+    <hr>
     <div>
-        {!! Form::select('taxes[]', $taxes, null, ['multiple', 'id'=> 'taxes_list', 'style' => 'height: 306px']) !!}
+        @if($product)
+            {!! Form::select('taxes[]', $taxes, array_pluck($product->taxes, 'id'), ['multiple', 'id'=> 'taxes_list', 'style' => 'height: 306px'] ) !!}
+        @else
+            {!! Form::select('taxes[]', $taxes, null, ['multiple', 'id'=> 'taxes_list', 'style' => 'height: 306px']) !!}
+        @endif
     </div>
+
 </div>
+
 
 <!-- Manutention Officer Field -->
 <div class="form-group col-sm-6">

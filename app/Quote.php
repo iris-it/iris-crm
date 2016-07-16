@@ -15,7 +15,7 @@ class Quote extends Model
     use SoftDeletes;
 
     public $table = 'quotes';
-    
+
 
     protected $dates = ['deleted_at', 'deadline'];
 
@@ -25,6 +25,7 @@ class Quote extends Model
         'phase',
         'deadline',
         'description',
+        'ht_price',
         'ttc_price',
         'special_conditions',
         'address',
@@ -62,6 +63,7 @@ class Quote extends Model
             'phase' => 'required|max:255|string',
             'deadline' => 'required',
             'description' => 'string',
+            'ht_price' => 'numeric',
             'ttc_price' => 'numeric',
             'special_conditions' => 'string',
             'address' => 'required|string',
@@ -73,7 +75,9 @@ class Quote extends Model
 
             'account_name_id' => 'required|integer',
             'contact_name_id' => 'required|integer',
-            'quote_owner_id' => 'required|integer'
+            'quote_owner_id' => 'required|integer',
+            'products.*' => '',
+            'services.*' => '',
 
 
         ];
@@ -100,6 +104,16 @@ class Quote extends Model
         return $this->hasMany('App\Invoice');
     }
 
+    public function products()
+    {
+        return $this->belongsToMany('App\Product', 'quotes_products_pivot', 'quote_id', 'product_id')->withTimestamps();
+    }
+
+    public function services()
+    {
+        return $this->belongsToMany('App\Service', 'quotes_services_pivot', 'quote_id', 'service_id')->withTimestamps();
+    }
+
     //MUTATORS
     /**
      * Mutate deadline to FR with Carbon
@@ -110,6 +124,7 @@ class Quote extends Model
     {
         return Carbon::parse($date)->format('d/m/Y');
     }
+
     /**
      * Mutate deadline from FR to Carbon date
      * @param $date

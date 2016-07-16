@@ -25,6 +25,7 @@ class Product extends Model
         'is_active',
         'category',
         'ht_price',
+        'ttc_price',
         'stock_disponibility',
         'product_avatar',
         'sale_datestart',
@@ -61,6 +62,7 @@ class Product extends Model
             'is_active' => '',
             'category' => 'string|max:255|required',
             'ht_price' => 'numeric|required',
+            'ttc_price' => 'numeric',
             'stock_disponibility' => 'integer|required',
             'product_avatar' => 'string',
             'sale_datestart' => 'required',
@@ -76,15 +78,28 @@ class Product extends Model
         ];
     }
 
-    public function taxes()
-    {
-        return $this->belongsToMany('App\Tax', 'products_taxes_pivot', 'product_id', 'tax_id')->withTimestamps();
-    }
 
     public function contact()
     {
         return $this->belongsTo('App\Contact');
     }
+
+    public function taxes()
+    {
+        return $this->belongsToMany('App\Tax', 'products_taxes_pivot', 'product_id', 'tax_id')->withTimestamps();
+    }
+
+    public function invoices()
+    {
+        return $this->belongsToMany('App\Invoice', 'invoices_products_pivot', 'product_id', 'invoice_id')->withTimestamps();
+    }
+
+    public function quotes()
+    {
+        return $this->belongsToMany('App\Quote', 'quotes_products_pivot', 'product_id', 'quote_id')->withTimestamps();
+    }
+
+
 
     //MUTATORS
     /**
@@ -105,6 +120,8 @@ class Product extends Model
     {
         $this->attributes['sale_datestart'] = Carbon::createFromFormat('d/m/Y', $date);
     }
+
+
 
     //MUTATORS
     /**

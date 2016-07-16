@@ -26,6 +26,7 @@ class Service extends Model
         'category',
         'sale_unit',
         'ht_price',
+        'ttc_price',
         'sale_datestart',
         'sale_dateend',
         'description'
@@ -58,6 +59,7 @@ class Service extends Model
             'category'=> 'string|max:255|required',
             'sale_unit'=> 'string|max:255|required',
             'ht_price' => 'numeric|required',
+            'ttc_price' => 'numeric',
             'sale_datestart'=> 'required',
             'sale_dateend' => 'required',
             'description' => 'string',
@@ -71,6 +73,16 @@ class Service extends Model
     public function taxes()
     {
         return $this->belongsToMany('App\Tax', 'services_taxes_pivot', 'service_id', 'tax_id')->withTimestamps();
+    }
+
+    public function invoices()
+    {
+        return $this->belongsToMany('App\Invoice', 'invoices_services_pivot', 'service_id', 'invoice_id')->withTimestamps();
+    }
+
+    public function quotes()
+    {
+        return $this->belongsToMany('App\Quote', 'quotes_services_pivot', 'service_id', 'quote_id')->withTimestamps();
     }
 
     //MUTATORS

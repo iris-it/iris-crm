@@ -4,15 +4,6 @@
     {!! Form::text('service_name', null, ['class' => 'form-control']) !!}
 </div>
 
-<!-- Is Active Field -->
-<div class="form-group col-sm-6">
-    {!! Form::label('is_active', trans('app.general:is-active') . " :" )  !!}
-    <div class="checkbox">
-        <label>
-            {!! Form::checkbox('is_active', null, true) !!}
-        </label>
-    </div>
-</div>
 
 <!-- Category Field -->
 <div class="form-group col-sm-6">
@@ -33,11 +24,15 @@
 </div>
 
 <!-- Ttc Price Field -->
-<div class="form-group col-sm-12">
+<div class="form-group col-sm-6">
     {!! Form::label('ttc_price', trans('app.product:active-taxes') . " :") !!}
-
+    <hr>
     <div>
-        {!! Form::select('taxes[]', $taxes, null, ['multiple', 'id'=> 'taxes_list', 'style' => 'height: 306px']) !!}
+        @if($service)
+            {!! Form::select('taxes[]', $taxes, array_pluck($service->taxes, 'id'), ['multiple', 'id'=> 'taxes_list', 'style' => 'height: 306px'] ) !!}
+        @else
+            {!! Form::select('taxes[]', $taxes, null, ['multiple', 'id'=> 'taxes_list', 'style' => 'height: 306px']) !!}
+        @endif
     </div>
 </div>
 
@@ -68,6 +63,17 @@
     {!! Form::label('description',  trans('app.general:description') . " :" ) !!}
     {!! Form::text('description', null, ['class' => 'form-control']) !!}
 </div>
+
+<!-- Is Active Field -->
+<div class="form-group col-sm-6">
+    {!! Form::label('is_active', trans('app.general:is-active') . " :" )  !!}
+    <div class="checkbox">
+        <label>
+            {!! Form::checkbox('is_active', null, true) !!}
+        </label>
+    </div>
+</div>
+
 
 <!-- Submit Field -->
 <div class="form-group col-sm-12">

@@ -95,7 +95,7 @@
                             <div class="col-md-8">
                                 <div class="chart">
                                     <!-- Sales Chart Canvas -->
-                                    <canvas id="myChart" width="600" height="500"></canvas>
+                                    <canvas id="lineChart" width="600" height="500"></canvas>
                                 </div>
                                 <!-- /.chart-responsive -->
                             </div>
@@ -106,12 +106,8 @@
                                 </p>
 
                                 <div class="progress-group">
-                                    <span class="progress-text">Add Products to Cart</span>
-                                    <span class="progress-number"><b>160</b>/200</span>
+                                    <canvas id="doughtnutChart" width="500" height="200"></canvas>
 
-                                    <div class="progress sm">
-                                        <div class="progress-bar progress-bar-aqua" style="width: 80%"></div>
-                                    </div>
                                 </div>
                                 <!-- /.progress-group -->
                                 <div class="progress-group">
@@ -165,13 +161,20 @@
             // Chart.js Chart, for more examples you can check out http://www.chartjs.org/docs
             var initDashChartJS = function () {
                 // Get Chart Container
-                var $dashChartLinesCon = $('#myChart');
+                var $dashChartLinesCon = $('#lineChart');
+                var $dashChartDoughnutCon = $('#doughtnutChart');
 
                 // Lines Chart Data
                 var $dashChartLinesData = {
                     labels: JSON.parse('{!! Stats::getDaysInMonth() !!}'),
                     datasets: JSON.parse('{!! Stats::generateRevenuesByMonth($invoices) !!}')
                 };
+
+                var $doughnutChartData = {
+                    labels : ["Factures indépendantes", "Factures converties depuis un devis"],
+                    datasets: JSON.parse('{!! Stats::generateConvertedInvoices($invoices) !!}')
+                };
+
 
                 // Init Lines Chart
                 new Chart.Line($dashChartLinesCon, {
@@ -186,6 +189,17 @@
                         responsive: true
                     }
                 });
+
+                new Chart($dashChartDoughnutCon, {
+                    type: 'doughnut',
+                    data: $doughnutChartData,
+                    options : {
+                        rotation : -1 * Math.PI,
+
+                    }
+                });
+
+
             };
 
             initDashChartJS();

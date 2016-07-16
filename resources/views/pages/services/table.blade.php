@@ -5,6 +5,7 @@
     <th>{{trans('app.product:category')}}</th>
 
     <th>{{trans('app.product:ht-price')}}</th>
+    <th>{{trans('app.general:ttc-price')}}</th>
 
     <th>{{trans('app.product:date-start')}}</th>
     <th>{{trans('app.product:date-end')}}</th>
@@ -23,6 +24,7 @@
             <td>{!! $service->category !!}</td>
 
             <td>{!! $service->ht_price !!}</td>
+            <td> {!! $service->ttc_price !!}</td>
             <td>{!! $service->sale_datestart !!}</td>
             <td>{!! $service->sale_dateend !!}</td>
             <td>

@@ -7,8 +7,10 @@ use App\Contact;
 use App\Http\Requests;
 use App\Http\Requests\CreateQuoteRequest;
 use App\Http\Requests\UpdateQuoteRequest;
+use App\Product;
 use App\Repositories\QuoteRepository;
 use App\Http\Controllers\AppBaseController as InfyOmBaseController;
+use App\Service;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Lang;
@@ -51,8 +53,10 @@ class QuoteController extends InfyOmBaseController
         $contacts = Contact::lists('lastname', 'id');
         $accounts = Account::lists('name', 'id');
         $users = User::lists('name', 'id');
+        $products = Product::lists('product_name', 'id');
+        $services = Service::lists('service_name', 'id');
 
-        return view('pages.quotes.create')->with(compact('contacts', 'accounts', 'users'));
+        return view('pages.quotes.create')->with(compact('contacts', 'accounts', 'users', 'products', 'services'));
     }
 
     /**
@@ -71,12 +75,61 @@ class QuoteController extends InfyOmBaseController
             $user = User::findOrFail($request->quote_owner_id);
             $contact = Contact::findOrFail($request->contact_name_id);
             $account = Account::findOrFail($request->account_name_id);
+            $htPrice = 0;
+            $price = 0;
 
             $quote->user()->associate($user);
             $quote->contact()->associate($contact);
             $quote->account()->associate($account);
 
+            $quote->products()->sync($input["products"] ?: []);
+            $quote->services()->sync($input["services"] ?: []);
+
             $quote->save();
+
+
+            foreach ($quote->products as $product) {
+                $productPrice = 0;
+                $productHtPrice = 0;
+                $totalTaxes = 0;
+                foreach ($product->taxes as $tax) {
+
+                    if ($tax->is_active) {
+                        $totalTaxes = $totalTaxes + ($product->ht_price * ($tax->value / 100));
+                    }
+                }
+
+                $productHtPrice = $product->ht_price;
+                $htPrice = $htPrice + $productHtPrice;
+
+                $productPrice = $product->ht_price + $totalTaxes;
+                $price = $price + $productPrice;
+
+            }
+
+            foreach ($quote->services as $service) {
+                $servicePrice = 0;
+                $serviceHtPrice = 0;
+                $totalTaxes = 0;
+                foreach ($service->taxes as $tax) {
+
+                    if ($tax->is_active) {
+                        $totalTaxes = $totalTaxes + ($service->ht_price * ($tax->value / 100));
+                    }
+                }
+
+                $serviceHtPrice = $service->ht_price;
+                $servicePrice = $service->ht_price + $totalTaxes;
+
+                $htPrice = $htPrice + $serviceHtPrice;
+                $price = $price + $servicePrice;
+
+            }
+
+            $quote->ht_price = $htPrice;
+            $quote->ttc_price = $price;
+            $quote->save();
+
 
             Flash::success(Lang::get('app.general:create-success'));
 
@@ -124,6 +177,8 @@ class QuoteController extends InfyOmBaseController
         $contacts = Contact::lists('lastname', 'id');
         $accounts = Account::lists('name', 'id');
         $users = User::lists('name', 'id');
+        $products = Product::lists('product_name', 'id');
+        $services = Service::lists('service_name', 'id');
 
         if (empty($quote)) {
             Flash::error('Quote not found');
@@ -131,7 +186,7 @@ class QuoteController extends InfyOmBaseController
             return redirect(route('quotes.index'));
         }
 
-        return view('pages.quotes.edit')->with(compact('quote', 'contacts', 'accounts', 'users'));
+        return view('pages.quotes.edit')->with(compact('quote', 'contacts', 'accounts', 'users', 'products', 'services'));
     }
 
     /**
@@ -145,6 +200,7 @@ class QuoteController extends InfyOmBaseController
     public function update($id, UpdateQuoteRequest $request)
     {
         $quote = $this->quoteRepository->findWithoutFail($id);
+        $input = $request->all();
 
         if (empty($quote)) {
             Flash::error('Quote not found');
@@ -157,11 +213,65 @@ class QuoteController extends InfyOmBaseController
             $user = User::findOrFail($request->quote_owner_id);
             $contact = Contact::findOrFail($request->contact_name_id);
             $account = Account::findOrFail($request->account_name_id);
-
+            $htPrice = 0;
+            $price = 0;
+            
             $quote->user()->associate($user);
             $quote->contact()->associate($contact);
             $quote->account()->associate($account);
 
+            if (!$request->has('products')) {
+                $input["products"] = [];
+            } else if (!$request->has('services')) {
+                $input["services"] = [];
+            }
+
+            $quote->products()->sync($input["products"] ?: []);
+            $quote->services()->sync($input["services"] ?: []);
+
+            $quote->save();
+
+            foreach ($quote->products as $product) {
+                $productPrice = 0;
+                $productHtPrice = 0;
+                $totalTaxes = 0;
+                foreach ($product->taxes as $tax) {
+
+                    if ($tax->is_active) {
+                        $totalTaxes = $totalTaxes + ($product->ht_price * ($tax->value / 100));
+                    }
+                }
+
+                $productHtPrice = $product->ht_price;
+                $htPrice = $htPrice + $productHtPrice;
+
+                $productPrice = $product->ht_price + $totalTaxes;
+                $price = $price + $productPrice;
+
+            }
+
+            foreach ($quote->services as $service) {
+                $servicePrice = 0;
+                $serviceHtPrice = 0;
+                $totalTaxes = 0;
+                foreach ($service->taxes as $tax) {
+
+                    if ($tax->is_active) {
+
+                        $totalTaxes = $totalTaxes + ($service->ht_price * ($tax->value / 100));
+                    }
+                }
+
+                $serviceHtPrice = $service->ht_price;
+                $servicePrice = $service->ht_price + $totalTaxes;
+
+                $htPrice = $htPrice + $serviceHtPrice;
+                $price = $price + $servicePrice;
+
+            }
+
+            $quote->ht_price = $htPrice;
+            $quote->ttc_price = $price;
             $quote->save();
 
             Flash::success(Lang::get('app.general:update-success'));

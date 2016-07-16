@@ -1,6 +1,6 @@
 <?php
 
-# modified at 12-07-2016 13:26
+# modified at 15-07-2016 16:11
 
 return  array(
 	'account:converted'              => 'Converti depuis prospect',
@@ -50,12 +50,14 @@ return  array(
 	'general:delivery-address'       => 'Adresse de livraison',
 	'general:description'            => 'Description',
 	'general:free-input'             => 'Commentaire libre',
+	'general:ht-price'               => 'Prix HT',
 	'general:invoices'               => 'Factures',
 	'general:is-active'              => 'Actif',
 	'general:leads'                  => 'Prospects',
 	'general:missing-model'          => 'Entité non trouvée',
 	'general:name'                   => 'Nom',
 	'general:no'                     => 'Non',
+	'general:none'                   => 'Aucun',
 	'general:orders'                 => 'Commande',
 	'general:owner'                  => 'Propriétaire',
 	'general:phase'                  => 'Phase',
@@ -70,6 +72,7 @@ return  array(
 	'general:status'                 => 'Statut',
 	'general:taxes'                  => 'Taxes',
 	'general:topic'                  => 'Sujet',
+	'general:ttc-price'              => 'Prix TTC',
 	'general:type'                   => 'Type',
 	'general:undefined'              => 'Non défini',
 	'general:update-failure'         => 'La mise à jour a échoué',
@@ -81,6 +84,8 @@ return  array(
 	'general:workforce'              => 'Effectifs',
 	'general:yes'                    => 'Oui',
 	'general:zipcode'                => 'Code postal',
+	'invoice:products-list'          => 'Produits inclus dans cette facture',
+	'invoice:services-list'          => 'Services inclus dans cette facture',
 	'login:welcome'                  => 'Connectez vous pour accéder aux fonctionnalités',
 	'order:deli-dead'                => 'Échéance livraison',
 	'order:order-date'               => 'Date de la commande',
@@ -96,5 +101,7 @@ return  array(
 	'product:notice'                 => 'Notice produit',
 	'product:stock-dispo'            => 'En stock',
 	'quote:owner'                    => 'Proprietaire du devis',
+	'quote:products-list'            => 'Produits inclus dans ce devis',
+	'quote:services-list'            => 'Services inclus dans ce devis',
 	'sidebar:main-title'             => 'MENU PRINCIPAL',
 );

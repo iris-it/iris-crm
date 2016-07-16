@@ -61,11 +61,23 @@ class ServiceController extends InfyOmBaseController
     public function store(CreateServiceRequest $request)
     {
         $input = $request->all();
+        $totalTaxes = 0;
 
         if ($service = $this->serviceRepository->create($input)) {
 
             $service->taxes()->sync($input["taxes"] ?: []);
             $service->save();
+
+            foreach ($service->taxes as $tax) {
+
+                if ($tax->is_active) {
+                    $totalTaxes = $totalTaxes + ($service->ht_price * ($tax->value / 100));
+                }
+            }
+
+            $service->ttc_price = $service->ht_price + $totalTaxes;
+            $service->save();
+
 
             Flash::success(Lang::get('app.general:create-success'));
 
@@ -133,6 +145,7 @@ class ServiceController extends InfyOmBaseController
     {
         $input = $request->all();
         $service = $this->serviceRepository->findWithoutFail($id);
+        $totalTaxes = 0;
 
         if (empty($service)) {
             Flash::error('Service not found');
@@ -142,8 +155,23 @@ class ServiceController extends InfyOmBaseController
 
         if ($service = $this->serviceRepository->update($request->all(), $id)) {
 
+            if (!$request->has('taxes')) {
+                $input["taxes"] = [];
+            }
+            
             $service->taxes()->sync($input["taxes"] ?: []);
             $service->save();
+
+            foreach ($service->taxes as $tax) {
+
+                if ($tax->is_active) {
+                    $totalTaxes = $totalTaxes + ($service->ht_price * ($tax->value / 100));
+                }
+            }
+
+            $service->ttc_price = $service->ht_price + $totalTaxes;
+            $service->save();
+
 
             Flash::success(Lang::get('app.organization:update-success'));
 

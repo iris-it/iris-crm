@@ -47,6 +47,36 @@
     @endif
 </div>
 
+<div class="form-group col-sm-6">
+    {!! Form::label('products_list', trans('app.quote:products-list') . " :") !!}
+    @if($quote->products()->count() > 0 )
+        <ul class="fa-ul">
+            @foreach($quote->products as $product)
+                <li><i class="fa fa-check fa-li"></i>{{$product->product_name}} (<span class="text-purple">{{$product->ht_price}} €</span>)</li>
+            @endforeach
+        </ul>
+    @else
+        <p>{{trans('app.general:none')}}</p>
+    @endif
+
+</div>
+
+<div class="form-group col-sm-6">
+    {!! Form::label('services_list', trans('app.quote:services-list') . " :") !!}
+
+    @if($quote->services()->count() > 0 )
+        <ul class="fa-ul">
+            @foreach($quote->services as $service)
+                <li><i class="fa fa-check fa-li"></i>{{$service->service_name}} (<span class="text-purple">{{$service->ht_price}} €</span>)</li>
+            @endforeach
+        </ul>
+    @else
+        <p>{{trans('app.general:none')}}</p>
+    @endif
+
+</div>
+
+
 <!-- Description Field -->
 <div class="form-group col-sm-6">
     {!! Form::label('description', trans('app.general:description') . " :" ) !!}

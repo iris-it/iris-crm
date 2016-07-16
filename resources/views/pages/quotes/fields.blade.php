@@ -39,6 +39,34 @@
     {!! Form::select('quote_owner_id', $users, null, ['class' => 'form-control']) !!}
 </div>
 
+<!-- products -->
+
+<div class="form-group col-sm-6">
+    {!! Form::label('products_list', trans('app.quote:products-list') . " :") !!}
+<hr>
+    <div>
+        @if($quote)
+            {!! Form::select('$products[]', $products, array_pluck($quote->products, 'id'), ['multiple', 'id'=> 'products_list', 'style' => 'height: 306px'] ) !!}
+        @else
+            {!! Form::select('products[]', $products, null, ['multiple', 'id'=> 'products_list', 'style' => 'height: 306px']) !!}
+        @endif
+    </div>
+</div>
+
+<!-- services -->
+<div class="form-group col-sm-6">
+    {!! Form::label('services_list', trans('app.quote:services-list') . " :") !!}
+    <hr>
+    <div>
+        @if($quote)
+            {!! Form::select('services[]', $services, array_pluck($quote->services, 'id'), ['multiple', 'id'=> 'services_list', 'style' => 'height: 306px'] ) !!}
+        @else
+            {!! Form::select('services[]', $services, null, ['multiple', 'id'=> 'services_list', 'style' => 'height: 306px']) !!}
+        @endif
+    </div>
+</div>
+
+
 <!-- Description Field -->
 <div class="form-group col-sm-6">
     {!! Form::label('description', trans('app.general:description') . " :" )!!}

@@ -25,5 +25,7 @@
 @section('js-app-scope')
     @parent
     IrisCrm.initDatePicker('deadline');
+    IrisCrm.initDualListBox('products_list');
+    IrisCrm.initDualListBox('services_list');
 
 @endsection

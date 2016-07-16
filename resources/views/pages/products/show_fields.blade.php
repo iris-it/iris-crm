@@ -26,6 +26,7 @@
     <p>{!! $product->ht_price !!}</p>
 </div>
 
+
 <!-- Ttc Price Field -->
 <div class="form-group col-sm-6">
     {!! Form::label('ttc_price', trans('app.product:active-taxes') . " :") !!}
@@ -39,6 +40,13 @@
         <p>{{trans('app.general:undefined')}}</p>
     @endif
 </div>
+
+<!-- TTC Price Field -->
+<div class="form-group col-sm-6">
+    {!! Form::label('ttc_price', trans('app.general:ttc-price') . " :" )  !!}
+    <p>{!! $product->ttc_price !!}</p>
+</div>
+
 
 <!-- Manutention Officer Field -->
 <div class="form-group col-sm-6">
@@ -79,6 +87,7 @@
     {!! Form::label('product_notice', trans('app.product:notice') . " :") !!}
     <p>{!! $product->product_notice !!}</p>
 </div>
+
 
 <!-- Description Field -->
 <div class="form-group col-sm-6">

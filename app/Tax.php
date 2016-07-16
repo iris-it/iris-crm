@@ -55,7 +55,7 @@ class Tax extends Model
         return $this->belongsToMany('App\Product', 'products_taxes_pivot', 'tax_id', 'product_id')->withTimestamps();
     }
 
-    public function taxes()
+    public function services()
     {
         return $this->belongsToMany('App\Service', 'services_taxes_pivot', 'tax_id', 'service_id')->withTimestamps();
     }

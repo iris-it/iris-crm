@@ -25,12 +25,14 @@ class Invoice extends Model
         'phase',
         'deadline',
         'description',
+        'ht_price',
         'ttc_price',
         'special_conditions',
         'address',
         'zipcode',
         'city',
-        'country'
+        'country',
+        'converted'
     ];
 
     /**
@@ -46,7 +48,8 @@ class Invoice extends Model
         'address' => 'string',
         'zipcode' => 'string',
         'city' => 'string',
-        'country' => 'string'
+        'country' => 'string',
+        'converted' => 'boolean'
     ];
 
     /**
@@ -62,6 +65,7 @@ class Invoice extends Model
             'phase' => 'required|max:255|string',
             'deadline' => 'required',
             'description' => 'string',
+            'ht_price' => 'numeric',
             'ttc_price' => 'numeric',
             'special_conditions' => 'string',
             'address' => 'required|string',
@@ -73,7 +77,9 @@ class Invoice extends Model
 
             'account_name_id' => 'required|integer',
             'contact_name_id' => 'required|integer',
-            'quote_id' => 'required|integer'
+            'quote_id' => 'integer',
+            'products.*' => '',
+            'services.*' => '',
 
 
         ];
@@ -92,6 +98,16 @@ class Invoice extends Model
     public function quote()
     {
         return $this->belongsTo('App\Quote');
+    }
+
+    public function products()
+    {
+        return $this->belongsToMany('App\Product', 'invoices_products_pivot', 'invoice_id', 'product_id')->withTimestamps();
+    }
+
+    public function services()
+    {
+        return $this->belongsToMany('App\Service', 'invoices_services_pivot', 'invoice_id', 'service_id')->withTimestamps();
     }
 
     //MUTATORS

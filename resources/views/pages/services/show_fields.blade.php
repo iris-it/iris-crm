@@ -32,6 +32,7 @@
     <p>{!! $service->ht_price !!}</p>
 </div>
 
+
 <!-- Ttc Price Field -->
 <div class="form-group col-sm-6">
     {!! Form::label('ttc_price', trans('app.product:active-taxes') . " :") !!}
@@ -44,6 +45,12 @@
     @else
         <p>{{trans('app.general:undefined')}}</p>
     @endif
+</div>
+
+<!-- TTC Price Field -->
+<div class="form-group col-sm-6">
+    {!! Form::label('ttc_price', trans('app.general:ttc-price') . " :" )  !!}
+    <p>{!! $service->ttc_price !!}</p>
 </div>
 
 <!-- Sale Datestart Field -->

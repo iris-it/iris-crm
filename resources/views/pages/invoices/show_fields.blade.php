@@ -36,6 +36,35 @@
     <p>{!! $invoice->deadline !!}</p>
 </div>
 
+<div class="form-group col-sm-6">
+    {!! Form::label('products_list', trans('app.invoice:products-list') . " :") !!}
+    @if($invoice->products()->count() > 0 )
+        <ul class="fa-ul">
+            @foreach($invoice->products as $product)
+                <li><i class="fa fa-check fa-li"></i>{{$product->product_name}} (<span class="text-purple">{{$product->ht_price}} €</span>)</li>
+            @endforeach
+        </ul>
+    @else
+        <p>{{trans('app.general:none')}}</p>
+    @endif
+
+</div>
+
+<div class="form-group col-sm-6">
+    {!! Form::label('services_list', trans('app.invoice:services-list') . " :") !!}
+
+    @if($invoice->services()->count() > 0 )
+        <ul class="fa-ul">
+            @foreach($invoice->services as $service)
+                <li><i class="fa fa-check fa-li"></i>{{$service->service_name}} (<span class="text-purple">{{$service->ht_price}} €</span>)</li>
+            @endforeach
+        </ul>
+    @else
+        <p>{{trans('app.general:none')}}</p>
+    @endif
+
+</div>
+
 <!-- Description Field -->
 <div class="form-group col-sm-6">
     {!! Form::label('description', trans('app.general:description') . " :" ) !!}

@@ -3,6 +3,7 @@
     <th>{{trans('app.general:name')}}</th>
     <th>{{trans('app.product:category')}}</th>
     <th>{{ trans('app.product:ht-price') }}</th>
+    <th>{{ trans('app.general:ttc-price') }}</th>
     <th>{{ trans('app.product:manu-officer') }}</th>
     <th>{{ trans('app.product:stock-dispo') }}</th>
 
@@ -14,6 +15,7 @@
             <td>{!! $product->product_name !!}</td>
             <td>{!! $product->category !!}</td>
             <td>{!! $product->ht_price !!}</td>
+            <td>{!! $product->ttc_price !!}</td>
             @if($product->contact)
                 <td>{!! $product->contact->firstname !!} {!! $product->contact->lastname !!}</td>
             @else

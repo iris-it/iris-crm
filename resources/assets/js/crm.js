@@ -12,9 +12,11 @@ var IrisCrm = (function () {
             moveSelectedLabel: "Sélectionner",
             removeSelectedLabel: "Déselectionner",
             removeAllLabel: "Tout déselectionner",
-            infoText: "Sélection : {0}",
+            infoText: "{0}",
             infoTextFiltered: '<span class="label label-warning">Filtre actif</span> {0} sur {1}',
-            infoTextEmpty: "Liste vide"
+            infoTextEmpty: "Vide",
+            selectedListLabel: "Éléments sélectionnés :",
+            nonSelectedListLabel: "Éléments disponibles :"
 
         };
 

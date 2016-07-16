@@ -4,6 +4,8 @@
     <th>{{trans('app.contact:account-name')}}</th>
     <th>{{trans('app.general:phase')}}</th>
     <th>{{trans('app.contact:name')}}</th>
+    <th>{{trans('app.general:ht-price')}}</th>
+    <th>{{trans('app.general:ttc-price')}}</th>
     <th>{{trans('app.general:deadline')}}</th>
     <th>{{trans('app.contact:owner')}}</th>
     <th colspan="3">Action</th>
@@ -23,6 +25,8 @@
             @else
                 <td> {{trans('app.general:undefined')}}</td>
             @endif
+            <td> {!! $quote->ht_price !!} €</td>
+            <td> {!! $quote->ttc_price !!} €</td>
             <td>{!! $quote->deadline !!}</td>
             @if($quote->user)
                 <td>{!! $quote->user->name !!}</td>

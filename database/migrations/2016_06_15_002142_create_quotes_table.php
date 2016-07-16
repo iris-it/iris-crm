@@ -19,6 +19,7 @@ class CreatequotesTable extends Migration
             $table->string('phase');
             $table->timestamp('deadline');
             $table->string('description');
+            $table->decimal('ht_price');
             $table->decimal('ttc_price');
             $table->string('special_conditions');
             $table->string('address');

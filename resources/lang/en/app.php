@@ -1,6 +1,6 @@
 <?php
 
-# modified at 12-07-2016 13:26
+# modified at 15-07-2016 16:11
 
 return  array(
 	'account:converted'              => 'Converted from lead',
@@ -50,12 +50,14 @@ return  array(
 	'general:delivery-address'       => 'Delivery address',
 	'general:description'            => 'Description',
 	'general:free-input'             => 'Optional commentary',
+	'general:ht-price'               => 'HT Price',
 	'general:invoices'               => 'Invoices',
 	'general:is-active'              => 'Active',
 	'general:leads'                  => 'Leads',
 	'general:missing-model'          => 'Entity not found',
 	'general:name'                   => 'Name',
 	'general:no'                     => 'No',
+	'general:none'                   => 'None',
 	'general:orders'                 => 'Orders',
 	'general:owner'                  => 'Owner',
 	'general:phase'                  => 'Phase',
@@ -70,6 +72,7 @@ return  array(
 	'general:status'                 => 'Status',
 	'general:taxes'                  => 'Taxes',
 	'general:topic'                  => 'Subject',
+	'general:ttc-price'              => 'TTC Price',
 	'general:type'                   => 'Type',
 	'general:undefined'              => 'Undefined',
 	'general:update-failure'         => 'Update has failed',
@@ -81,6 +84,8 @@ return  array(
 	'general:workforce'              => 'Workforce',
 	'general:yes'                    => 'Yes',
 	'general:zipcode'                => 'Zipcode',
+	'invoice:products-list'          => 'Products to include',
+	'invoice:services-list'          => 'Products to include',
 	'login:welcome'                  => 'Sign in to start your session',
 	'order:deli-dead'                => 'Delivery deadline',
 	'order:order-date'               => 'Order date',
@@ -96,5 +101,7 @@ return  array(
 	'product:notice'                 => 'Product notice',
 	'product:stock-dispo'            => 'Stock disponibility',
 	'quote:owner'                    => 'Quote owner',
+	'quote:products-list'            => 'Products to include',
+	'quote:services-list'            => 'Services to include',
 	'sidebar:main-title'             => 'MAIN NAVIGATION',
 );

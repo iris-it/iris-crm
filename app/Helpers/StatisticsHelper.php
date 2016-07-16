@@ -61,6 +61,30 @@ class StatisticsHelper
         return json_encode(array($data));
     }
 
+    public static function generateConvertedInvoices($invoices) 
+    {
+        $data = [];
+
+        $from = Carbon::today()->startOfMonth();
+        $to = Carbon::today()->endOfMonth();
+        $convertedCount = 0;
+
+        foreach($invoices as $invoice) {
+            if ($invoice->created_at > $from && $invoice->created_at < $to && $invoice->converted) {
+
+                $convertedCount++;
+
+            }
+        }
+
+        $data['data'] = [$invoices->count() - $convertedCount, $convertedCount];
+        $data['backgroundColor'] = [ "#605ca8", "#d81a5f"];
+        $data['hoverBackgroundColor'] = [ "#524d8f", "#b81652"];
+
+
+        return json_encode(array($data));
+        }
+
 
 
 

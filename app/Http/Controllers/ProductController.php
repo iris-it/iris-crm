@@ -75,10 +75,21 @@ class ProductController extends InfyOmBaseController
         if ($product = $this->productRepository->create($input)) {
 
             $contact = Contact::findOrFail($request->manutention_officer_id);
+            $totalTaxes = 0;
 
             $product->taxes()->sync($input["taxes"] ?: []);
             $product->contact()->associate($contact);
 
+            $product->save();
+
+            foreach ($product->taxes as $tax) {
+
+                if ($tax->is_active) {
+                    $totalTaxes = $totalTaxes + ($product->ht_price * ($tax->value / 100));
+                }
+            }
+
+            $product->ttc_price = $product->ht_price + $totalTaxes;
             $product->save();
 
             Flash::success(Lang::get('app.general:create-success'));
@@ -125,6 +136,7 @@ class ProductController extends InfyOmBaseController
         $product = $this->productRepository->findWithoutFail($id);
         $contacts = Contact::lists('lastname', 'id');
         $taxes = Tax::lists('name', 'id');
+        
 //        $taxesArray = [];
 //        $taxes = Tax::all();
 //
@@ -157,6 +169,7 @@ class ProductController extends InfyOmBaseController
     {
         $product = $this->productRepository->findWithoutFail($id);
         $input = $request->all();
+        $totalTaxes = 0;
 
         $contact = Contact::findOrFail($request->manutention_officer_id);
 
@@ -175,6 +188,17 @@ class ProductController extends InfyOmBaseController
             $product->taxes()->sync($input["taxes"] ?: []);
             $product->contact()->associate($contact);
             $product->save();
+
+            foreach ($product->taxes as $tax) {
+
+                if ($tax->is_active) {
+                    $totalTaxes = $totalTaxes + ($product->ht_price * ($tax->value / 100));
+                }
+            }
+
+            $product->ttc_price = $product->ht_price + $totalTaxes;
+            $product->save();
+
             Flash::success(Lang::get('app.general:update-success'));
 
         } else {
