@@ -1,35 +1,35 @@
-<table class="table table-responsive" id="leads-table">
+<table class="table table-striped table-responsive" id="leads-table">
     <thead>
-        <th>{{trans('app.general:name')}}</th>
+        <th class="h4 text-purple text-uppercase">{{trans('app.general:name')}}</th>
 
-        <th>{{trans('app.general:activity-sector')}}</th>
+        <th class="h4 text-purple text-uppercase">{{trans('app.general:activity-sector')}}</th>
 
-        <th>{{trans('app.general:type')}}</th>
+        <th class="h4 text-purple text-uppercase">{{trans('app.general:type')}}</th>
 
-        <th>{{trans('app.general:status')}}</th>
-        <th>{{trans('app.general:account-owner')}}</th>
+        <th class="h4 text-purple text-uppercase">{{trans('app.general:status')}}</th>
+        <th class="h4 text-purple text-uppercase">{{trans('app.general:account-owner')}}</th>
 
-        <th colspan="3">Action</th>
+        <th class="h4 text-purple text-uppercase" colspan="3">Action</th>
     </thead>
     <tbody>
     @foreach($leads as $lead)
         <tr>
-            <td>{!! $lead->name !!}</td>
-            <td>{!! $lead->activity_sector !!}</td>
-            <td>{!! $lead->type !!}</td>
-            <td>{!! $lead->status !!}</td>
+            <td class="text-bold">{!! $lead->name !!}</td>
+            <td class="text-bold">{!! $lead->activity_sector !!}</td>
+            <td class="text-bold">{!! $lead->type !!}</td>
+            <td class="text-bold">{!! $lead->status !!}</td>
             @if($lead->user)
-                <td>{!! $lead->user->name !!}</td>
+                <td class="text-bold">{!! $lead->user->name !!}</td>
             @else
-                <td>{{trans('app.general:undefined')}}</td>
+                <td class="text-bold">{{trans('app.general:undefined')}}</td>
             @endif
 
             <td>
                 {!! Form::open(['route' => ['leads.destroy', $lead->id], 'method' => 'delete']) !!}
                 <div class='btn-group'>
-                    <a href="{!! route('leads.show', [$lead->id]) !!}" class='btn btn-default btn-xs'><i class="glyphicon glyphicon-eye-open"></i></a>
-                    <a href="{!! route('leads.edit', [$lead->id]) !!}" class='btn btn-default btn-xs'><i class="glyphicon glyphicon-edit"></i></a>
-                    {!! Form::button('<i class="glyphicon glyphicon-trash"></i>', ['type' => 'submit', 'class' => 'btn btn-danger btn-xs', 'onclick' => "return confirm('Are you sure?')"]) !!}
+                    <a href="{!! route('leads.show', [$lead->id]) !!}" class='btn btn-info btn-flat'><i class="glyphicon glyphicon-eye-open"></i></a>
+                    <a href="{!! route('leads.edit', [$lead->id]) !!}" class='btn bg-purple btn-flat'><i class="glyphicon glyphicon-edit"></i></a>
+                    {!! Form::button('<i class="glyphicon glyphicon-trash"></i>', ['type' => 'submit', 'class' => 'btn btn-danger btn-flat', 'onclick' => "return confirm('Are you sure?')"]) !!}
                 </div>
                 {!! Form::close() !!}
             </td>

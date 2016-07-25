@@ -61,7 +61,7 @@ class StatisticsHelper
         return json_encode(array($data));
     }
 
-    public static function generateConvertedInvoices($invoices) 
+    public static function generateConvertedInvoices($invoices)
     {
         $data = [];
 
@@ -69,7 +69,7 @@ class StatisticsHelper
         $to = Carbon::today()->endOfMonth();
         $convertedCount = 0;
 
-        foreach($invoices as $invoice) {
+        foreach ($invoices as $invoice) {
             if ($invoice->created_at > $from && $invoice->created_at < $to && $invoice->converted) {
 
                 $convertedCount++;
@@ -78,14 +78,41 @@ class StatisticsHelper
         }
 
         $data['data'] = [$invoices->count() - $convertedCount, $convertedCount];
-        $data['backgroundColor'] = [ "#605ca8", "#d81a5f"];
-        $data['hoverBackgroundColor'] = [ "#524d8f", "#b81652"];
+        $data['backgroundColor'] = ["#605ca8", "#d81a5f"];
+        $data['hoverBackgroundColor'] = ["#524d8f", "#b81652"];
 
 
         return json_encode(array($data));
+    }
+
+    public static function generateProductsServicesRate($invoices)
+    {
+        $data = [];
+        $from = Carbon::today()->startOfMonth();
+        $to = Carbon::today()->endOfMonth();
+
+        $productsCount = 0;
+        $servicesCount = 0;
+
+        foreach ($invoices as $invoice) {
+
+            if ($invoice->created_at > $from && $invoice->created_at < $to && $invoice->converted) {
+
+                $productsCount = $productsCount + $invoice->products()->count();
+                $servicesCount = $servicesCount + $invoice->services()->count();
+
+            }
         }
 
+        $data['data'] = [$productsCount, $servicesCount];
+        $data['backgroundColor'] = ["#38cccc", "#00a65a"];
+        $data['hoverBackgroundColor'] = ["#2fbbbb", "#008d4b"];
+        $data['display'] = 'bot';
 
+        return json_encode(array($data));
+
+
+    }
 
 
 }

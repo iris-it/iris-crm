@@ -54,6 +54,7 @@ class InvoiceController extends InfyOmBaseController
         $contacts = Contact::lists('lastname', 'id');
         $accounts = Account::lists('name', 'id');
         $quotes = Quote::lists('topic', 'id');
+        $quotes->prepend("Aucun", 0);
         $products = Product::lists('product_name', 'id');
         $services = Service::lists('service_name', 'id');
 
@@ -84,7 +85,7 @@ class InvoiceController extends InfyOmBaseController
             $invoice->contact()->associate($contact);
             $invoice->account()->associate($account);
 
-            if ($request->has('quote_id')) {
+            if ($request->has('quote_id') && $request->quote_id != 0) {
 
                 $quote = Quote::findOrFail($request->quote_id);
                 $productsArray = [];
@@ -93,12 +94,12 @@ class InvoiceController extends InfyOmBaseController
                 $invoice->quote()->associate($quote);
                 $invoice->converted = true;
 
-                foreach($quote->products as $product) {
+                foreach ($quote->products as $product) {
 
                     $productsArray[] = $product->id;
                 }
 
-                foreach($quote->services as $service) {
+                foreach ($quote->services as $service) {
 
                     $servicesArray[] = $service->id;
                 }
@@ -108,6 +109,9 @@ class InvoiceController extends InfyOmBaseController
             } else {
                 $invoice->converted = false;
                 $invoice->products()->sync($input["products"] ?: []);
+                if(empty($input["services"])) {
+                    $input["services"] = [];
+                }
                 $invoice->services()->sync($input["services"] ?: []);
 
             }
@@ -203,6 +207,7 @@ class InvoiceController extends InfyOmBaseController
         $contacts = Contact::lists('lastname', 'id');
         $accounts = Account::lists('name', 'id');
         $quotes = Quote::lists('topic', 'id');
+        $quotes->prepend("Aucun", 0);
         $products = Product::lists('product_name', 'id');
         $services = Service::lists('service_name', 'id');
 
@@ -242,18 +247,17 @@ class InvoiceController extends InfyOmBaseController
             $price = 0;
 
 
-
-            if ($request->has('quote_id')) {
+            if ($request->has('quote_id') && $request->quote_id != 0) {
                 $quote = Quote::findOrFail($request->quote_id);
                 $productsArray = [];
                 $servicesArray = [];
 
-                foreach($quote->products as $product) {
+                foreach ($quote->products as $product) {
 
                     $productsArray[] = $product->id;
                 }
 
-                foreach($quote->services as $service) {
+                foreach ($quote->services as $service) {
 
                     $servicesArray[] = $service->id;
                 }
@@ -271,15 +275,14 @@ class InvoiceController extends InfyOmBaseController
 
                 if (!$request->has('products')) {
                     $input["products"] = [];
-                }
-                else if(!$request->has('services')) {
+                } else if (!$request->has('services')) {
                     $input["services"] = [];
                 }
 
                 $invoice->products()->sync($input["products"] ?: []);
                 $invoice->services()->sync($input["services"] ?: []);
             }
-            
+
 
             $invoice->contact()->associate($contact);
             $invoice->account()->associate($account);

@@ -1,44 +1,44 @@
-<table class="table table-responsive" id="invoices-table">
+<table class="table table-striped table-responsive" id="invoices-table">
     <thead>
-    <th>{{trans('app.general:topic')}}</th>
-    <th>{{trans('app.contact:account-name')}}</th>
-    <th>{{trans('app.general:phase')}}</th>
-    <th>{{trans('app.contact:name')}}</th>
-    <th>{{trans('app.general:ht-price')}}</th>
-    <th>{{trans('app.general:ttc-price')}}</th>
-    <th>{{trans('app.general:deadline')}}</th>
-    <th>{{trans('app.general:quote')}}</th>
-    <th colspan="3">Action</th>
+    <th class="h4 text-purple text-uppercase">{{trans('app.general:topic')}}</th>
+    <th class="h4 text-purple text-uppercase">{{trans('app.contact:account-name')}}</th>
+    <th class="h4 text-purple text-uppercase">{{trans('app.general:phase')}}</th>
+    <th class="h4 text-purple text-uppercase">{{trans('app.contact:name')}}</th>
+    <th class="h4 text-purple text-uppercase">{{trans('app.general:ht-price')}}</th>
+    <th class="h4 text-purple text-uppercase">{{trans('app.general:ttc-price')}}</th>
+    <th class="h4 text-purple text-uppercase">{{trans('app.general:deadline')}}</th>
+    <th class="h4 text-purple text-uppercase">{{trans('app.general:quote')}}</th>
+    <th class="h4 text-purple text-uppercase" colspan="3">Action</th>
     </thead>
     <tbody>
     @foreach($invoices as $invoice)
         <tr>
-            <td>{!! $invoice->topic !!}</td>
+            <td class="text-bold">{!! $invoice->topic !!}</td>
             @if($invoice->account)
-                <td>{!! $invoice->account->name !!}</td>
+                <td class="text-bold">{!! $invoice->account->name !!}</td>
             @else
-                <td>{{trans('app.general:undefined')}}</td>
+                <td class="text-bold">{{trans('app.general:undefined')}}</td>
             @endif
-            <td>{!! $invoice->phase !!}</td>
+            <td class="text-bold">{!! $invoice->phase !!}</td>
             @if($invoice->contact)
-                <td>{!! $invoice->contact->name !!}</td>
+                <td class="text-bold">{!! $invoice->contact->name !!}</td>
             @else
-                <td>{{trans('app.general:undefined')}}</td>
+                <td class="text-bold">{{trans('app.general:undefined')}}</td>
             @endif
-            <td> {!! $invoice->ht_price !!} €</td>
-            <td> {!! $invoice->ttc_price !!} €</td>
-            <td>{!! $invoice->deadline !!}</td>
+            <td class="text-bold"> {!! $invoice->ht_price !!} €</td>
+            <td class="text-bold"> {!! $invoice->ttc_price !!} €</td>
+            <td class="text-bold">{!! $invoice->deadline !!}</td>
             @if($invoice->quote)
-                <td> {!! $invoice->quote->name !!}</td>
+                <td class="text-bold"> {!! $invoice->quote->name !!}</td>
             @else
-                <td> {{trans('app.general:undefined')}}</td>
+                <td class="text-bold"> {{trans('app.general:undefined')}}</td>
             @endif
             <td>
                 {!! Form::open(['route' => ['invoices.destroy', $invoice->id], 'method' => 'delete']) !!}
                 <div class='btn-group'>
-                    <a href="{!! route('invoices.show', [$invoice->id]) !!}" class='btn btn-default btn-xs'><i class="glyphicon glyphicon-eye-open"></i></a>
-                    <a href="{!! route('invoices.edit', [$invoice->id]) !!}" class='btn btn-default btn-xs'><i class="glyphicon glyphicon-edit"></i></a>
-                    {!! Form::button('<i class="glyphicon glyphicon-trash"></i>', ['type' => 'submit', 'class' => 'btn btn-danger btn-xs', 'onclick' => "return confirm('Are you sure?')"]) !!}
+                    <a href="{!! route('invoices.show', [$invoice->id]) !!}" class='btn btn-info btn-flat'><i class="glyphicon glyphicon-eye-open"></i></a>
+                    <a href="{!! route('invoices.edit', [$invoice->id]) !!}" class='btn bg-purple btn-flat'><i class="glyphicon glyphicon-edit"></i></a>
+                    {!! Form::button('<i class="glyphicon glyphicon-trash"></i>', ['type' => 'submit', 'class' => 'btn btn-danger btn-flat', 'onclick' => "return confirm('Are you sure?')"]) !!}
                 </div>
                 {!! Form::close() !!}
             </td>

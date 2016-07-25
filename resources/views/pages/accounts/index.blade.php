@@ -7,7 +7,6 @@
             <a class="btn btn-app bg-purple btn-flat pull-right"  style="margin-top: -10px;margin-bottom: 5px" href="{!! route('accounts.create') !!}">
                 <i class="fa fa-plus"></i> {{trans('app.general:create')}}
             </a>
-           {{--<a class="btn btn-primary pull-right" style="margin-top: -10px;margin-bottom: 5px" href="{!! route('accounts.create') !!}">{{trans('app.general:create')}}</a>--}}
         </h1>
     </section>
     <div class="content">

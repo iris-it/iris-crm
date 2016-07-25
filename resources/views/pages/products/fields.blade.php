@@ -33,7 +33,7 @@
 
     <hr>
     <div>
-        @if($product)
+        @if(isset($product))
             {!! Form::select('taxes[]', $taxes, array_pluck($product->taxes, 'id'), ['multiple', 'id'=> 'taxes_list', 'style' => 'height: 306px'] ) !!}
         @else
             {!! Form::select('taxes[]', $taxes, null, ['multiple', 'id'=> 'taxes_list', 'style' => 'height: 306px']) !!}

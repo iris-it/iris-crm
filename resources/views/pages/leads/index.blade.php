@@ -2,9 +2,11 @@
 
 @section('content')
     <section class="content-header">
-        <h1 class="pull-left">Prospects</h1>
+        <h1 class="pull-left text-purple">{{trans('app.general:leads')}}</h1>
         <h1 class="pull-right">
-           <a class="btn btn-primary pull-right" style="margin-top: -10px;margin-bottom: 5px" href="{!! route('leads.create') !!}">{{trans('app.general:create')}}</a>
+            <a class="btn btn-app bg-purple btn-flat pull-right"  style="margin-top: -10px;margin-bottom: 5px" href="{!! route('leads.create') !!}">
+                <i class="fa fa-plus"></i> {{trans('app.general:create')}}
+            </a>
         </h1>
     </section>
     <div class="content">

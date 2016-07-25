@@ -101,41 +101,24 @@
                             </div>
                             <!-- /.col -->
                             <div class="col-md-4">
-                                <p class="text-center">
+                                <h4 class="text-center text-uppercase">
                                     <strong>{{ trans('app.dashboard:other-stats') }}</strong>
-                                </p>
+                                </h4>
+
 
                                 <div class="progress-group">
                                     <canvas id="doughtnutChart" width="500" height="200"></canvas>
 
                                 </div>
-                                <!-- /.progress-group -->
+                                <br>
+                                <br>
                                 <div class="progress-group">
-                                    <span class="progress-text">Complete Purchase</span>
-                                    <span class="progress-number"><b>310</b>/400</span>
+                                    <canvas id="doughtnutChartTwo" width="500" height="200"></canvas>
 
-                                    <div class="progress sm">
-                                        <div class="progress-bar progress-bar-red" style="width: 80%"></div>
-                                    </div>
                                 </div>
+
                                 <!-- /.progress-group -->
-                                <div class="progress-group">
-                                    <span class="progress-text">Visit Premium Page</span>
-                                    <span class="progress-number"><b>480</b>/800</span>
 
-                                    <div class="progress sm">
-                                        <div class="progress-bar progress-bar-green" style="width: 80%"></div>
-                                    </div>
-                                </div>
-                                <!-- /.progress-group -->
-                                <div class="progress-group">
-                                    <span class="progress-text">Send Inquiries</span>
-                                    <span class="progress-number"><b>250</b>/500</span>
-
-                                    <div class="progress sm">
-                                        <div class="progress-bar progress-bar-yellow" style="width: 80%"></div>
-                                    </div>
-                                </div>
                                 <!-- /.progress-group -->
                             </div>
                             <!-- /.col -->
@@ -163,6 +146,7 @@
                 // Get Chart Container
                 var $dashChartLinesCon = $('#lineChart');
                 var $dashChartDoughnutCon = $('#doughtnutChart');
+                var $dashChartDoughnutConTwo = $('#doughtnutChartTwo');
 
                 // Lines Chart Data
                 var $dashChartLinesData = {
@@ -171,10 +155,14 @@
                 };
 
                 var $doughnutChartData = {
-                    labels : ["Factures indépendantes", "Factures converties depuis un devis"],
+                    labels: ["Factures indépendantes", "Converties depuis un devis"],
                     datasets: JSON.parse('{!! Stats::generateConvertedInvoices($invoices) !!}')
                 };
 
+                var $doughnutChartDataTwo = {
+                    labels: ["Produits vendus", "Services vendus"],
+                    datasets: JSON.parse('{!! Stats::generateProductsServicesRate($invoices) !!}')
+                };
 
                 // Init Lines Chart
                 new Chart.Line($dashChartLinesCon, {
@@ -186,15 +174,47 @@
                         tooltipTitleFontFamily: "'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif",
                         tooltipCornerRadius: 3,
                         maintainAspectRatio: false,
-                        responsive: true
+                        responsive: true,
+                        legend: {
+                            labels: {
+                                fontColor: '#494444',
+                                fontSize: 14,
+                                fontStyle: "bold"
+                            }
+                        }
                     }
                 });
 
                 new Chart($dashChartDoughnutCon, {
                     type: 'doughnut',
                     data: $doughnutChartData,
-                    options : {
-                        rotation : -1 * Math.PI,
+                    options: {
+                        rotation: -1 * Math.PI,
+                        legend: {
+                            position: "bottom",
+                            labels: {
+                                fontColor: '#494444',
+                                fontSize: 14,
+                                fontStyle: "bold"
+                            }
+                        }
+
+                    }
+                });
+
+                new Chart($dashChartDoughnutConTwo, {
+                    type: 'doughnut',
+                    data: $doughnutChartDataTwo,
+                    options: {
+                        rotation: -1 * Math.PI,
+                        legend: {
+                            position: "bottom",
+                            labels: {
+                                fontColor: '#494444',
+                                fontSize: 14,
+                                fontStyle: "bold"
+                            }
+                        }
 
                     }
                 });

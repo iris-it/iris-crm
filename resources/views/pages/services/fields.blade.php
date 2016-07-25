@@ -28,7 +28,7 @@
     {!! Form::label('ttc_price', trans('app.product:active-taxes') . " :") !!}
     <hr>
     <div>
-        @if($service)
+        @if(isset($service))
             {!! Form::select('taxes[]', $taxes, array_pluck($service->taxes, 'id'), ['multiple', 'id'=> 'taxes_list', 'style' => 'height: 306px'] ) !!}
         @else
             {!! Form::select('taxes[]', $taxes, null, ['multiple', 'id'=> 'taxes_list', 'style' => 'height: 306px']) !!}

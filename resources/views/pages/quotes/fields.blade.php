@@ -45,8 +45,8 @@
     {!! Form::label('products_list', trans('app.quote:products-list') . " :") !!}
 <hr>
     <div>
-        @if($quote)
-            {!! Form::select('$products[]', $products, array_pluck($quote->products, 'id'), ['multiple', 'id'=> 'products_list', 'style' => 'height: 306px'] ) !!}
+        @if(isset($quote))
+            {!! Form::select('products[]', $products, array_pluck($quote->products, 'id'), ['multiple', 'id'=> 'products_list', 'style' => 'height: 306px'] ) !!}
         @else
             {!! Form::select('products[]', $products, null, ['multiple', 'id'=> 'products_list', 'style' => 'height: 306px']) !!}
         @endif
@@ -58,7 +58,7 @@
     {!! Form::label('services_list', trans('app.quote:services-list') . " :") !!}
     <hr>
     <div>
-        @if($quote)
+        @if(isset($quote))
             {!! Form::select('services[]', $services, array_pluck($quote->services, 'id'), ['multiple', 'id'=> 'services_list', 'style' => 'height: 306px'] ) !!}
         @else
             {!! Form::select('services[]', $services, null, ['multiple', 'id'=> 'services_list', 'style' => 'height: 306px']) !!}

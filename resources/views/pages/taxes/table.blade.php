@@ -1,26 +1,26 @@
-<table class="table table-responsive" id="quotes-table">
+<table class="table table-striped table-responsive" id="quotes-table">
     <thead>
-    <th>{{trans('app.general:name')}}</th>
-    <th>{{trans('app.general:value')}}</th>
-    <th>{{trans('app.general:is-active')}}</th>
-    <th colspan="3">Action</th>
+    <th class="h4 text-purple text-uppercase">{{trans('app.general:name')}}</th>
+    <th class="h4 text-purple text-uppercase">{{trans('app.general:value')}}</th>
+    <th class="h4 text-purple text-uppercase">{{trans('app.general:is-active')}}</th>
+    <th class="h4 text-purple text-uppercase" colspan="3">Action</th>
     </thead>
     <tbody>
     @foreach($taxes as $tax)
         <tr>
-            <td>{!! $tax->name !!}</td>
-            <td>{!! $tax->value !!} %</td>
+            <td class="text-bold">{!! $tax->name !!}</td>
+            <td class="text-bold">{!! $tax->value !!} %</td>
             @if($tax->is_active)
-                <td>{{trans('app.general:yes')}}</td>
+                <td class="text-bold">{{trans('app.general:yes')}}</td>
             @else
-                <td>{{trans('app.general:no')}}</td>
+                <td class="text-bold">{{trans('app.general:no')}}</td>
             @endif
             <td>
                 {!! Form::open(['route' => ['taxes.destroy', $tax->id], 'method' => 'delete']) !!}
                 <div class='btn-group'>
-                    <a href="{!! route('taxes.show', [$tax->id]) !!}" class='btn btn-default btn-xs'><i class="glyphicon glyphicon-eye-open"></i></a>
-                    <a href="{!! route('taxes.edit', [$tax->id]) !!}" class='btn btn-default btn-xs'><i class="glyphicon glyphicon-edit"></i></a>
-                    {!! Form::button('<i class="glyphicon glyphicon-trash"></i>', ['type' => 'submit', 'class' => 'btn btn-danger btn-xs', 'onclick' => "return confirm('Are you sure?')"]) !!}
+                    <a href="{!! route('taxes.show', [$tax->id]) !!}" class='btn btn-info btn-flat'><i class="glyphicon glyphicon-eye-open"></i></a>
+                    <a href="{!! route('taxes.edit', [$tax->id]) !!}" class='btn bg-purple btn-flat'><i class="glyphicon glyphicon-edit"></i></a>
+                    {!! Form::button('<i class="glyphicon glyphicon-trash"></i>', ['type' => 'submit', 'class' => 'btn btn-danger btn-flat', 'onclick' => "return confirm('Are you sure?')"]) !!}
                 </div>
                 {!! Form::close() !!}
             </td>
