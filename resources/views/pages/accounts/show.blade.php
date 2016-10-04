@@ -7,13 +7,10 @@
         </h1>
     </section>
     <div class="content">
-        <div class="box box-primary">
-            <div class="box-body">
-                <div class="row" style="padding-left: 20px">
-                    @include('pages.accounts.show_fields')
-                    <a href="{!! route('accounts.index') !!}" class="btn btn-default">{{trans('app.general:back')}}</a>
-                </div>
-            </div>
-        </div>
+
+
+        @include('pages.accounts.show_fields')
+        <a href="{!! route('accounts.index') !!}" class="btn btn-lg btn-flat bg-purple"><i class="fa fa-chevron-circle-left"></i> {{trans('app.general:back')}}</a>
+
     </div>
 @endsection

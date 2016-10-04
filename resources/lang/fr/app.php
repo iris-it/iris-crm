@@ -1,6 +1,6 @@
 <?php
 
-# modified at 15-07-2016 16:11
+# modified at 04-10-2016 08:36
 
 return  array(
 	'account:converted'              => 'Converti depuis prospect',
@@ -49,11 +49,14 @@ return  array(
 	'general:deadline'               => 'Échéance',
 	'general:delivery-address'       => 'Adresse de livraison',
 	'general:description'            => 'Description',
+	'general:detail-info'            => 'Détail',
 	'general:free-input'             => 'Commentaire libre',
+	'general:general-info'           => 'Informations générales',
 	'general:ht-price'               => 'Prix HT',
 	'general:invoices'               => 'Factures',
 	'general:is-active'              => 'Actif',
 	'general:leads'                  => 'Prospects',
+	'general:linked-items'           => 'Éléments liés',
 	'general:missing-model'          => 'Entité non trouvée',
 	'general:name'                   => 'Nom',
 	'general:no'                     => 'Non',

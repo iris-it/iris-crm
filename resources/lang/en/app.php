@@ -1,6 +1,6 @@
 <?php
 
-# modified at 15-07-2016 16:11
+# modified at 04-10-2016 08:36
 
 return  array(
 	'account:converted'              => 'Converted from lead',
@@ -49,11 +49,14 @@ return  array(
 	'general:deadline'               => 'Deadline',
 	'general:delivery-address'       => 'Delivery address',
 	'general:description'            => 'Description',
+	'general:detail-info'            => 'Detail',
 	'general:free-input'             => 'Optional commentary',
+	'general:general-info'           => 'General information',
 	'general:ht-price'               => 'HT Price',
 	'general:invoices'               => 'Invoices',
 	'general:is-active'              => 'Active',
 	'general:leads'                  => 'Leads',
+	'general:linked-items'           => 'Linked items',
 	'general:missing-model'          => 'Entity not found',
 	'general:name'                   => 'Name',
 	'general:no'                     => 'No',
