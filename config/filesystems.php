@@ -48,10 +48,20 @@ return [
             'root' => storage_path('app'),
         ],
 
+        'base' => [
+            'driver' => 'local',
+            'root' => base_path() . DIRECTORY_SEPARATOR,
+        ],
+
         'public' => [
             'driver' => 'local',
             'root' => storage_path('app/public'),
             'visibility' => 'public',
+        ],
+
+        'osjs' => [
+            'driver' => 'local',
+            'root' => env('OSJS_VFS_PATH'),
         ],
 
         's3' => [

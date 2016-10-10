@@ -13,7 +13,7 @@ return [
     |
     */
 
-    'fetch' => PDO::FETCH_CLASS,
+    'fetch' => PDO::FETCH_OBJ,
 
     /*
     |--------------------------------------------------------------------------
@@ -53,24 +53,19 @@ return [
         ],
 
         'mysql' => [
-            'driver'    => 'mysql',
-            'read' => [
-                'host' => env('DB_HOST_READ', 'localhost'),
-                'port' => env('DB_PORT_READ', '3306'),
-            ],
-            'write' => [
-                'host' => env('DB_HOST_WRITE', 'localhost'),
-                'port' => env('DB_PORT_WRITE', '3306'),
-            ],
-            'database'  => env('DB_DATABASE', ''),
-            'username'  => env('DB_USERNAME', ''),
-            'password'  => env('DB_PASSWORD', ''),
-            'charset'   => 'utf8',
+            'driver' => 'mysql',
+            'host' => env('DB_HOST', 'localhost'),
+            'port' => env('DB_PORT', '3306'),
+            'database' => env('DB_DATABASE', 'forge'),
+            'username' => env('DB_USERNAME', 'forge'),
+            'password' => env('DB_PASSWORD', ''),
+            'charset' => 'utf8',
             'collation' => 'utf8_unicode_ci',
-            'prefix'    => '',
-            'strict'    => false,
+            'prefix' => '',
+            'strict' => true,
+            'engine' => null,
         ],
-        
+
         'pgsql' => [
             'driver' => 'pgsql',
             'host' => env('DB_HOST', 'localhost'),
@@ -81,6 +76,7 @@ return [
             'charset' => 'utf8',
             'prefix' => '',
             'schema' => 'public',
+            'sslmode' => 'prefer',
         ],
 
     ],

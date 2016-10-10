@@ -2,48 +2,137 @@
 
 namespace App;
 
+
+use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable
 {
+
+    use Notifiable;
+
     /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'sub',
+        'name',
+        'preferred_username',
+        'given_name',
+        'family_name',
+        'email',
+        'resource_access',
+        'settings',
+        'role_id'
     ];
+
 
     /**
      * The attributes that should be hidden for arrays.
      *
      * @var array
      */
-    protected $hidden = [
-        'password', 'remember_token',
+    protected $casts = [
+        'sub' => 'string',
+        'resource_access' => 'json',
+        'settings' => 'json'
     ];
 
-    public function accounts()
+    /**
+     * Get the primary key for the model.
+     *
+     * @return string
+     */
+    public function getKeyName()
     {
-        return $this->hasMany('App\Account');
+        return config('irispass.user_primary_key');
     }
 
-    public function leads()
+    /**
+     * this assign roles to an user (obvious isn'it ?)
+     *
+     * @param $role
+     * @return \Illuminate\Database\Eloquent\Model
+     */
+    public function assignRole($role)
     {
-        return $this->hasMany('App\Lead');
+        $role = Role::where('name', $role)->firstOrFail();
+
+        return $this->role()->associate($role)->save();
     }
 
-    public function quotes()
+    /**
+     * check if user has role
+     *
+     * @param $role
+     * @return bool
+     */
+    public function hasRole($role)
     {
-        return $this->hasMany('App\Quote');
+        if (is_string($role)) {
+            return $this->role->name == $role;
+        }
+
+        return false;
     }
 
-    public function contacts()
+    /**
+     * check if user has role
+     *
+     * @param $permission
+     * @return bool
+     */
+    public function hasPermission($permission)
     {
-        return $this->hasMany('App\Contact');
-    }
-    
+        if (is_string($permission)) {
+            foreach ($this->role->permissions as $permissionRole) {
+                if ($permissionRole->name == $permission) {
+                    return true;
+                }
+            }
+        }
 
+        return false;
+    }
+
+    /**
+     * An user has many roles
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function role()
+    {
+        return $this->belongsTo('App\Role');
+    }
+
+
+    /**
+     * An user has one organization
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function provider()
+    {
+        return $this->hasOne('App\UserProvider');
+    }
+
+    /**
+     * An user has one organization
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function organization()
+    {
+        return $this->belongsTo('App\Organization');
+    }
+
+    /**
+     * An user can be in many groups
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function groups()
+    {
+        return $this->belongsToMany('App\UserGroup', 'groups_users_pivot', 'user_id', 'group_id')->withTimestamps();
+    }
 }
-

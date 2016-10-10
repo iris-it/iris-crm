@@ -3,16 +3,22 @@
 <head>
     @include('elements.head')
 </head>
-<body class="hold-transition skin-purple sidebar-mini" id="app">
-<div class="wrapper">
+<body class="hold-transition skin-purple sidebar-mini">
+<div class="wrapper" id="app">
 
 
     @include('elements.sidebar')
 
     @include('elements.header')
 
-    <div class="content-wrapper" style="background-color:#fcfcfc">
+    <div class="content-wrapper">
+
+        <section class="content-header">
+            @yield('breadcrumbs')
+        </section>
+
         @yield('content')
+
     </div>
 
 

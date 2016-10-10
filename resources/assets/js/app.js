@@ -1,12 +1,23 @@
-var Vue = require('vue');
+/**
+ * First we will load all of this project's JavaScript dependencies which
+ * include Vue and Vue Resource. This gives a great starting point for
+ * building robust, powerful web applications using Vue and Laravel.
+ */
 
-import Login from './components/Auth/Login.vue';
-import Logout from './components/Auth/Logout.vue';
-import UserProfile from './components/Auth/UserProfile.vue';
-import ContactType from './components/Contact/ContactType.vue';
+require('./bootstrap');
 
-new Vue({
-    el: '#app',
-    components: {Login, Logout, UserProfile, ContactType}
+/**
+ * Next, we will create a fresh Vue application instance and attach it to
+ * the body of the page. From here, you may begin adding components to
+ * the application, or feel free to tweak this setup for your needs.
+ */
+
+Vue.component('example', require('./components/Example.vue'));
+Vue.component('Login', require('./components/Auth/Login.vue'));
+Vue.component('Logout', require('./components/Auth/Logout.vue'));
+Vue.component('UserProfile', require('./components/Auth/UserProfile.vue'));
+Vue.component('ContactType', require('./components/Contact/ContactType.vue'));
+
+const app = new Vue({
+    el: '#app'
 });
-

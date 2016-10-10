@@ -1,6 +1,12 @@
-<?php
+<?php 
 
-# modified at 14-06-2016 12:03
-
-return  array(
-);
+return [
+    'documentation' => 'documentation',
+    'back' => 'back',
+    'login' => 'connexion',
+    'register' => 'enreigsitee',
+    'laracasts' => 'laracste',
+    'news' => 'news',
+    'forge' => 'forge',
+    'github' => 'Github',
+];
