@@ -4,6 +4,7 @@
     @include('elements.head')
 </head>
 <body class="hold-transition skin-purple sidebar-mini">
+
 <div class="wrapper" id="app">
 
 
@@ -24,8 +25,9 @@
 
     @include('elements.footer')
 
-    @include('elements.scripts')
-
 </div>
+
+@include('elements.scripts')
+
 </body>
 </html>

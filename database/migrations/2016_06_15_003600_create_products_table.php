@@ -22,8 +22,8 @@ class CreateproductsTable extends Migration
             $table->decimal('ttc_price');
             $table->integer('stock_disponibility');
             $table->string('product_avatar');
-            $table->timestamp('sale_datestart');
-            $table->timestamp('sale_dateend');
+            $table->timestamp('sale_datestart')->nullable();
+            $table->timestamp('sale_dateend')->nullable();
             $table->string('product_notice');
             $table->string('description');
             $table->timestamps();

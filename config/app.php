@@ -38,7 +38,7 @@ return [
     |
     */
 
-    'debug' => env('APP_DEBUG', false),
+    'debug' => env('APP_DEBUG', true),
 
     /*
     |--------------------------------------------------------------------------
@@ -77,7 +77,7 @@ return [
     |
     */
 
-    'locale' => 'en',
+    'locale' => 'fr',
 
     /*
     |--------------------------------------------------------------------------
@@ -189,6 +189,9 @@ return [
         Collective\Html\HtmlServiceProvider::class,
 
         Barryvdh\Debugbar\ServiceProvider::class,
+        Prettus\Repository\Providers\RepositoryServiceProvider::class,
+        InfyOm\Generator\InfyOmGeneratorServiceProvider::class,
+        InfyOm\AdminLTETemplates\AdminLTETemplatesServiceProvider::class
     ],
 
     /*
@@ -246,8 +249,12 @@ return [
         'Html' => Collective\Html\HtmlFacade::class,
         'Flash' => Laracasts\Flash\Flash::class,
         'Uuid' => Webpatser\Uuid\Uuid::class,
-
         'Debugbar' => Barryvdh\Debugbar\Facade::class,
+
+       /*
+        * Homemade
+        */
+        'Stats' => App\Helpers\StatisticsHelper::class,
     ],
 
 ];

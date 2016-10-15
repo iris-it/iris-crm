@@ -46,7 +46,7 @@ class LeadController extends InfyOmBaseController
      */
     public function create()
     {
-        $users = User::lists('name', 'id');
+        $users = User::pluck('name', 'id');
         return view('pages.leads.create')->with(compact('users'));
     }
 
@@ -110,7 +110,7 @@ class LeadController extends InfyOmBaseController
     public function edit($id)
     {
         $lead = $this->leadRepository->findWithoutFail($id);
-        $users = User::lists('name', 'id');
+        $users = User::pluck('name', 'id');
 
         if (empty($lead)) {
             Flash::error('Lead not found');

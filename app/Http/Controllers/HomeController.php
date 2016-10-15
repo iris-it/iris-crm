@@ -3,6 +3,11 @@
 namespace App\Http\Controllers;
 
 
+use App\Account;
+use App\Invoice;
+use App\Order;
+use App\Quote;
+
 class HomeController extends Controller
 {
 
@@ -18,6 +23,13 @@ class HomeController extends Controller
             $users = $this->organization->users()->get();
         }
 
-        return view('pages.home.index')->with(compact('organization', 'groups', 'users'));
+        $orders = Order::all();
+        $quotes = Quote::all();
+        $invoices = Invoice::all();
+        $convertedAccounts = Account::where('converted', true);
+
+
+        return view('pages.home.index')->with(compact('organization', 'groups', 'users', 'orders', 'convertedAccounts', 'quotes', 'invoices'));
+
     }
 }

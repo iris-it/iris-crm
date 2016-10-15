@@ -21,8 +21,8 @@ class CreateservicesTable extends Migration
             $table->string('sale_unit');
             $table->decimal('ht_price');
             $table->decimal('ttc_price');
-            $table->timestamp('sale_datestart');
-            $table->timestamp('sale_dateend');
+            $table->timestamp('sale_datestart')->nullable();
+            $table->timestamp('sale_dateend')->nullable();
             $table->string('description');
             $table->timestamps();
             $table->softDeletes();

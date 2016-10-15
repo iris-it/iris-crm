@@ -50,11 +50,11 @@ class QuoteController extends InfyOmBaseController
      */
     public function create()
     {
-        $contacts = Contact::lists('lastname', 'id');
-        $accounts = Account::lists('name', 'id');
-        $users = User::lists('name', 'id');
-        $products = Product::lists('product_name', 'id');
-        $services = Service::lists('service_name', 'id');
+        $contacts = Contact::pluck('lastname', 'id');
+        $accounts = Account::pluck('name', 'id');
+        $users = User::pluck('name', 'id');
+        $products = Product::pluck('product_name', 'id');
+        $services = Service::pluck('service_name', 'id');
 
         return view('pages.quotes.create')->with(compact('contacts', 'accounts', 'users', 'products', 'services'));
     }
@@ -174,11 +174,11 @@ class QuoteController extends InfyOmBaseController
     {
         $quote = $this->quoteRepository->findWithoutFail($id);
 
-        $contacts = Contact::lists('lastname', 'id');
-        $accounts = Account::lists('name', 'id');
-        $users = User::lists('name', 'id');
-        $products = Product::lists('product_name', 'id');
-        $services = Service::lists('service_name', 'id');
+        $contacts = Contact::pluck('lastname', 'id');
+        $accounts = Account::pluck('name', 'id');
+        $users = User::pluck('name', 'id');
+        $products = Product::pluck('product_name', 'id');
+        $services = Service::pluck('service_name', 'id');
 
         if (empty($quote)) {
             Flash::error('Quote not found');

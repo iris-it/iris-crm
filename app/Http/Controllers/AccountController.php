@@ -46,7 +46,7 @@ class AccountController extends InfyOmBaseController
      */
     public function create()
     {
-        $users = User::lists('name', 'id');
+        $users = User::pluck('name', 'id');
 
         return view('pages.accounts.create')->with(compact('users'));
     }
@@ -112,7 +112,7 @@ class AccountController extends InfyOmBaseController
     public function edit($id)
     {
         $account = $this->accountRepository->findWithoutFail($id);
-        $users = User::lists('name', 'id');
+        $users = User::pluck('name', 'id');
 
         if (empty($account)) {
             Flash::error(Lang::get('app.general:missing-model'));

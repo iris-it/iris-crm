@@ -17,7 +17,7 @@ class CreatequotesTable extends Migration
             $table->increments('id');
             $table->string('topic');
             $table->string('phase');
-            $table->timestamp('deadline');
+            $table->timestamp('deadline')->nullable();
             $table->string('description');
             $table->decimal('ht_price');
             $table->decimal('ttc_price');

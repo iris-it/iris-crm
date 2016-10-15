@@ -1,7 +1,5 @@
 <?php
 
-# modified at 04-10-2016 08:36
-
 return  array(
 	'account:converted'              => 'Converti depuis prospect',
 	'contact:account-name'           => 'Nom de compte',
@@ -19,6 +17,10 @@ return  array(
 	'contact:type-lead'              => 'Contact associé à un prospect',
 	'dashboard:converted-accounts'   => 'Conversion de prospect à compte|Conversions de prospects à comptes',
 	'dashboard:invoices'             => 'Facture|Factures',
+	'dashboard:no-conversion'        => 'Aucun compte transformé pour le moment',
+	'dashboard:no-invoice'           => 'Aucune facture enregistrée',
+	'dashboard:no-order'             => 'Aucune commande enregistrée',
+	'dashboard:no-quote'             => 'Aucun devis enregistré',
 	'dashboard:orders'               => 'Commande|Commandes',
 	'dashboard:other-stats'          => 'Autres statistiques',
 	'dashboard:quotes'               => 'Devis',

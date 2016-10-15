@@ -48,9 +48,9 @@ class ContactController extends InfyOmBaseController
      */
     public function create()
     {
-        $accounts = Account::lists('name', 'id');
-        $leads = Lead::lists('name', 'id');
-        $users = User::lists('name', 'id');
+        $accounts = Account::pluck('name', 'id');
+        $leads = Lead::pluck('name', 'id');
+        $users = User::pluck('name', 'id');
 
         return view('pages.contacts.create')->with(compact('accounts', 'leads', 'users'));
     }
@@ -128,9 +128,9 @@ class ContactController extends InfyOmBaseController
     public function edit($id)
     {
         $contact = $this->contactRepository->findWithoutFail($id);
-        $accounts = Account::lists('name', 'id');
-        $leads = Lead::lists('name', 'id');
-        $users = User::lists('name', 'id');
+        $accounts = Account::pluck('name', 'id');
+        $leads = Lead::pluck('name', 'id');
+        $users = User::pluck('name', 'id');
 
         if (empty($contact)) {
             Flash::error('Contact not found');

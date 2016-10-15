@@ -51,12 +51,12 @@ class InvoiceController extends InfyOmBaseController
      */
     public function create()
     {
-        $contacts = Contact::lists('lastname', 'id');
-        $accounts = Account::lists('name', 'id');
-        $quotes = Quote::lists('topic', 'id');
+        $contacts = Contact::pluck('lastname', 'id');
+        $accounts = Account::pluck('name', 'id');
+        $quotes = Quote::pluck('topic', 'id');
         $quotes->prepend("Aucun", 0);
-        $products = Product::lists('product_name', 'id');
-        $services = Service::lists('service_name', 'id');
+        $products = Product::pluck('product_name', 'id');
+        $services = Service::pluck('service_name', 'id');
 
 
         return view('pages.invoices.create')->with(compact('contacts', 'accounts', 'quotes', 'services', 'products'));
@@ -204,12 +204,12 @@ class InvoiceController extends InfyOmBaseController
     {
         $invoice = $this->invoiceRepository->findWithoutFail($id);
 
-        $contacts = Contact::lists('lastname', 'id');
-        $accounts = Account::lists('name', 'id');
-        $quotes = Quote::lists('topic', 'id');
+        $contacts = Contact::pluck('lastname', 'id');
+        $accounts = Account::pluck('name', 'id');
+        $quotes = Quote::pluck('topic', 'id');
         $quotes->prepend("Aucun", 0);
-        $products = Product::lists('product_name', 'id');
-        $services = Service::lists('service_name', 'id');
+        $products = Product::pluck('product_name', 'id');
+        $services = Service::pluck('service_name', 'id');
 
         if (empty($invoice)) {
             Flash::error('Invoice not found');

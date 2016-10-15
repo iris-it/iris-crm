@@ -1,29 +1,21 @@
 <aside class="main-sidebar">
     <section class="sidebar">
         <ul class="sidebar-menu">
-            <li class="header text-center">{{ trans('menu.title') }}</li>
-
-            <li>
-                <a href="{{ action('HomeController@index') }}">
-                    <i class="fa fa-home"></i>
-                    <span>{{ trans('menu.home') }}</span>
-                </a>
-            </li>
+            <li class="header text-center">{{ trans('app.sidebar:main-title') }}</li>
+            <li><a href="{{ action('HomeController@index') }}"><i class="fa fa-dashboard"></i> <span>{{trans('app.general:dashboard')}}</span></a></li>
+            <li><a href="{{ action('AccountController@index') }}"><i class="fa fa-briefcase"></i> <span>{{trans('app.general:accounts')}}</span></a></li>
+            <li><a href="{{ action('LeadController@index') }}"><i class="fa fa-fire"></i> <span>{{trans('app.general:leads')}}</span></a></li>
+            <li><a href="{{ action('ContactController@index') }}"><i class="fa fa-user"></i> <span>{{trans('app.general:contacts')}}</span></a></li>
+            <li><a href="{{ action('QuoteController@index') }}"><i class="fa fa-file-text"></i> <span>{{trans('app.general:quotes')}}</span></a></li>
+            <li><a href="{{ action('OrderController@index') }}"><i class="fa fa-line-chart"></i> <span>{{trans('app.general:orders')}}</span></a></li>
+            <li><a href="{{ action('InvoiceController@index') }}"><i class="fa fa-archive"></i> <span>{{trans('app.general:invoices')}}</span></a></li>
+            <li><a href="{{ action('ProductController@index') }}"><i class="fa fa-cubes"></i> <span>{{trans('app.general:products')}}</span></a></li>
+            <li><a href="{{ action('ServiceController@index') }}"><i class="fa fa-truck"></i> <span>{{trans('app.general:services')}}</span></a></li>
+            <li><a href="{{ action('TaxController@index') }}"><i class="fa fa-percent"></i> <span>{{trans('app.general:taxes')}}</span></a></li>
 
             @can('permission::access_flow_admin_section')
-                <li class="header">{{ trans('menu.admin-role') }}</li>
+                <li class="header">ADMIN</li>
 
-                <li class="treeview"><a href="#">
-                        <span>{{ trans('menu.admin-section') }}</span>
-                        <i class="fa fa-angle-left pull-right"></i>
-                    </a>
-                    <ul class="treeview-menu">
-                        <li>
-                            <a href="{{ action('HomeController@index') }}"><i class="fa fa-home"></i>
-                                <span>{{ trans('menu.home') }}</span></a>
-                        </li>
-                    </ul>
-                </li>
             @endcan
 
 

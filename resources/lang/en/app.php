@@ -1,7 +1,5 @@
 <?php
 
-# modified at 04-10-2016 08:36
-
 return  array(
 	'account:converted'              => 'Converted from lead',
 	'contact:account-name'           => 'Account name',
@@ -19,6 +17,10 @@ return  array(
 	'contact:type-lead'              => 'Lead linked',
 	'dashboard:converted-accounts'   => 'Converted accounts from leads|Converted account from lead',
 	'dashboard:invoices'             => 'Invoice|Invoices',
+	'dashboard:no-conversion'        => 'No converted account yet',
+	'dashboard:no-invoice'           => 'No invoice registered yet',
+	'dashboard:no-order'             => 'No order registered yet',
+	'dashboard:no-quote'             => 'No quote registered yet',
 	'dashboard:orders'               => 'Order|Orders',
 	'dashboard:other-stats'          => 'Other stats',
 	'dashboard:quotes'               => 'Quote|Quotes',

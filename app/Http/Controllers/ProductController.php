@@ -46,8 +46,8 @@ class ProductController extends InfyOmBaseController
      */
     public function create()
     {
-        $contacts = Contact::lists('lastname', 'id');
-        $taxes = Tax::lists('name', 'id');
+        $contacts = Contact::pluck('lastname', 'id');
+        $taxes = Tax::pluck('name', 'id');
 //        $taxesArray = [];
 //        $taxes = Tax::all();
 //
@@ -134,8 +134,8 @@ class ProductController extends InfyOmBaseController
     public function edit($id)
     {
         $product = $this->productRepository->findWithoutFail($id);
-        $contacts = Contact::lists('lastname', 'id');
-        $taxes = Tax::lists('name', 'id');
+        $contacts = Contact::pluck('lastname', 'id');
+        $taxes = Tax::pluck('name', 'id');
         
 //        $taxesArray = [];
 //        $taxes = Tax::all();

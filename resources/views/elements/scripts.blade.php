@@ -2,6 +2,8 @@
 
 <script src="{{ elixir("js/app.js") }}"></script>
 
+##LOOOOLL
+
 <script type="text/javascript">
     $(document).ready(function () {
 
@@ -17,6 +19,7 @@
             }
         });
 
+        @yield('js-app-scope')
     });
 </script>
 

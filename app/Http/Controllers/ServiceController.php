@@ -46,7 +46,7 @@ class ServiceController extends InfyOmBaseController
      */
     public function create()
     {
-        $taxes = Tax::lists('name', 'id');
+        $taxes = Tax::pluck('name', 'id');
 
         return view('pages.services.create')->with(compact('taxes'));
     }
@@ -121,7 +121,7 @@ class ServiceController extends InfyOmBaseController
     public function edit($id)
     {
         $service = $this->serviceRepository->findWithoutFail($id);
-        $taxes = Tax::lists('name', 'id');
+        $taxes = Tax::pluck('name', 'id');
 
 
         if (empty($service)) {
