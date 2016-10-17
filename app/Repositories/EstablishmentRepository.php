@@ -19,6 +19,7 @@ class EstablishmentRepository extends BaseRepository
         'ape_number',
         'siret_number',
         'phone_number',
+        'is_main',
         'is_active',
         'free_label'
     ];

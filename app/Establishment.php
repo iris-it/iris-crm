@@ -28,6 +28,7 @@ class Establishment extends Model
         'ape_number',
         'siret_number',
         'phone_number',
+        'is_main',
         'is_active',
         'free_label'
     ];
@@ -46,6 +47,7 @@ class Establishment extends Model
         'ape_number' => 'string',
         'siret_number' => 'string',
         'phone_number' => 'string',
+        'is_main' => 'boolean',
         'is_active' => 'boolean',
         'free_label' => 'string'
     ];
@@ -67,6 +69,7 @@ class Establishment extends Model
             'ape_number' => ['required', "regex:/(^[0-9]{1,2}\.[0-9]{1,2}[A-Z]$|^[0-9]{1,2}\.[0-9]{1,2})$/im"],
             'siret_number' => ['required', "regex:/^[0-9]{3}[ \.\-]?[0-9]{3}[ \.\-]?[0-9]{3}[ \.\-]?[0-9]{5}$/im", 'unique:accounts,siret_number,' . $id,],
             'phone_number' => ["regex:/^\+?[0-9]{10,20}$/im"],
+            'is_main' => 'required|boolean',
             'is_active' => 'required|boolean',
             'free_label' => 'string',
 

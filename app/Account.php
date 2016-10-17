@@ -21,24 +21,7 @@ class Account extends Model
 
     public $fillable = [
         'name',
-        'website',
-        'activity_sector',
-        'workforce',
-        'type',
-        'ape_number',
-        'siret_number',
-        'phone_number',
-        'is_active',
-        'converted',
-        'billing_address',
-        'delivery_address',
-        'billing_zipcode',
-        'delivery_zipcode',
-        'billing_city',
-        'delivery_city',
-        'billing_country',
-        'delivery_country',
-        'free_label'
+        'converted'
     ];
 
     /**
@@ -48,24 +31,7 @@ class Account extends Model
      */
     protected $casts = [
         'name' => 'string',
-        'website' => 'string',
-        'activity_sector' => 'string',
-        'workforce' => 'integer',
-        'type' => 'string',
-        'ape_number' => 'string',
-        'siret_number' => 'string',
-        'phone_number' => 'string',
-        'is_active' => 'boolean',
         'converted' => 'boolean',
-        'billing_address' => 'string',
-        'delivery_address' => 'string',
-        'billing_zipcode' => 'string',
-        'delivery_zipcode' => 'string',
-        'billing_city' => 'string',
-        'delivery_city' => 'string',
-        'billing_country' => 'string',
-        'delivery_country' => 'string',
-        'free_label' => 'string'
     ];
 
     /**
@@ -78,24 +44,8 @@ class Account extends Model
         return
             [
             'name' => 'required|max:255|unique:accounts,name,' . $id ,
-            'website' => 'string|max:255',
-            'activity_sector' => 'string|max:255',
-            'workforce' => 'integer',
-            'type' => 'required|string|max:255',
-            'ape_number' => ['required', "regex:/(^[0-9]{1,2}\.[0-9]{1,2}[A-Z]$|^[0-9]{1,2}\.[0-9]{1,2})$/im"],
-            'siret_number' => ['required', "regex:/^[0-9]{3}[ \.\-]?[0-9]{3}[ \.\-]?[0-9]{3}[ \.\-]?[0-9]{5}$/im", 'unique:accounts,siret_number,' . $id,],
-            'phone_number' => ["regex:/^\+?[0-9]{10,20}$/im"],
-            'is_active' => 'required|boolean',
             'converted' => 'boolean', //
-            'billing_address' => 'required|string',
-            'delivery_address' => 'required|string',
-            'billing_zipcode' => 'required|string',
-            'delivery_zipcode' => 'required|string',
-            'billing_city' => 'required|string',
-            'delivery_city' => 'required|string',
-            'billing_country' => 'required|string',
-            'delivery_country' => 'required|string',
-            'free_label' => 'string',
+
 
             /*Relations*/
 
@@ -111,18 +61,9 @@ class Account extends Model
         return $this->belongsTo('App\User');
     }
 
-    public function quotes()
+    public function establishments()
     {
-        return $this->hasMany('App\Quote');
+        return $this->hasMany('App\Establishment');
     }
 
-    public function invoices()
-    {
-        return $this->hasMany('App\Invoice');
-    }
-
-    public function contacts()
-    {
-        return $this->hasMany('App\Contact');
-    }
 }

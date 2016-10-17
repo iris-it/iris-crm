@@ -23,6 +23,7 @@ class CreateEstablishmentsTable extends Migration
             $table->string('ape_number');
             $table->string('siret_number');
             $table->string('phone_number');
+            $table->boolean('is_main');
             $table->boolean('is_active');
             $table->string('free_label');
             $table->timestamps();
