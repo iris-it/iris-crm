@@ -18,6 +18,9 @@ class Organization extends Model
      *
      * @var array
      */
+
+    protected $dates = ['created_at','deleted_at', 'deadline'];
+
     protected $fillable = [
         'uuid',
         'name',
@@ -33,11 +36,49 @@ class Organization extends Model
         'tva_number',
         'ape_number',
         'licence_id',
+        'owner_id'
     ];
 
     protected $casts = [
-        'is_active' => 'boolean'
+
+        'name' => 'string',
+        'address' => 'string',
+        'address_comp' => 'string',
+        'phone' => 'string',
+        'email' => 'string',
+        'website' => 'string',
+        'is_active' => 'boolean',
+        'status' => 'string',
+        'siret_number' => 'string',
+        'siren_number' => 'string',
+        'tva_number' => 'string',
+        'ape_number' => 'string',
+
     ];
+
+    /**
+     * Get the validation rules that apply to the request.
+     *
+     * @return array
+     */
+    public function rules()
+    {
+
+        return [
+            'name' => 'required|max:255',
+            'address' => 'required|max:255',
+            'address_comp' => 'max:255',
+            'phone' => 'required|min:10',
+            'email' => 'email|max:255',
+            'website' => 'max:500',
+            'status' => 'required|string|max:255',
+            'siren_number' => array("regex:/^[0-9]{3}[ \.\-]?[0-9]{3}[ \.\-]?[0-9]{3}$/im", 'unique:organizations,siren_number,' . $this->id,),
+            'siret_number' => array('required', "regex:/^[0-9]{3}[ \.\-]?[0-9]{3}[ \.\-]?[0-9]{3}[ \.\-]?[0-9]{5}$/im", 'unique:organizations,siret_number,' . $this->id,),
+            'ape_number' => array('required', "regex:/(^[0-9]{1,2}\.[0-9]{1,2}[A-Z]$|^[0-9]{1,2}\.[0-9]{1,2})$/im"),
+            'tva_number' => array('required', "regex:/^[A-Z]{2}[ \.\-]?[0-9]{2}[ \.\-]?[0-9]{3}[ \.\-]?[0-9]{3}[ \.\-]?[0-9]{3}$/im"),
+        ];
+
+    }
 
     /**
      * An organization belongs to an user
@@ -79,5 +120,23 @@ class Organization extends Model
     {
         return $this->belongsTo('App\Licence');
     }
+
+    /**
+     * An organization determines which entities the user can access
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+
+    public function accounts()
+    {
+        return $this->hasMany('App\Account');
+    }
+
+    public function leads()
+    {
+        return $this->hasMany('App\Lead');
+    }
+
+
+
 
 }

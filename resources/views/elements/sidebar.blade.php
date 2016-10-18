@@ -13,11 +13,14 @@
             <li><a href="{{ action('ServiceController@index') }}"><i class="fa fa-truck"></i> <span>{{trans('app.general:services')}}</span></a></li>
             <li><a href="{{ action('TaxController@index') }}"><i class="fa fa-percent"></i> <span>{{trans('app.general:taxes')}}</span></a></li>
 
+            @if(env('STANDALONE_MODE'))
+                <li><a href="{{ action('Admin\OrganizationController@index') }}">{{trans('menu.admin-organizations-link')}}</a></li>
+            @endif
+
             @can('permission::access_flow_admin_section')
                 <li class="header">ADMIN</li>
 
             @endcan
-
 
         </ul>
     </section>

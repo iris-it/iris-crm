@@ -22,7 +22,6 @@ class CreateUsersTable extends Migration
             $table->string('email');
             $table->string('resource_access')->nullable();
             $table->longText('settings')->nullable();
-            $table->integer('organization_id')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });

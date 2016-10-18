@@ -19,9 +19,10 @@ class Controller extends BaseController
     {
         Carbon::setLocale("fr");
 
-        if (Auth::user()) {
-            $this->organization = Auth::user()->organization()->first();
-        }
+        $this->middleware(function ($request, $next) {
+            $this->organization = Auth::user()->organization;
+            return $next($request);
+        });
 
     }
 
