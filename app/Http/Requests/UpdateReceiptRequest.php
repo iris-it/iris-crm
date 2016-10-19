@@ -3,9 +3,9 @@
 namespace App\Http\Requests;
 
 use App\Http\Requests\Request;
-use App\Order;
+use App\Receipt;
 
-class CreateOrderRequest extends Request
+class UpdateReceiptRequest extends Request
 {
 
     /**
@@ -25,7 +25,6 @@ class CreateOrderRequest extends Request
      */
     public function rules()
     {
-        return Order::rules($this->orders);
-
+        return Receipt::rules($this->receipts);
     }
 }

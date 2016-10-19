@@ -2,7 +2,7 @@
 
 namespace App;
 
-use Eloquent as Model;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
@@ -48,6 +48,11 @@ class Tax extends Model
         return [
 
         ];
+    }
+
+    public function organization()
+    {
+        return $this->belongsTo('App\Organization');
     }
 
     public function products()

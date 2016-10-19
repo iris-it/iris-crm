@@ -1,9 +1,10 @@
 <?php
 
+use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateRelationAccountsUsers extends Migration
+class CreateRelationAccountsOrganizations extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +14,8 @@ class CreateRelationAccountsUsers extends Migration
     public function up()
     {
         Schema::table('accounts', function ($table) {
-            $table->integer('user_id')->after('converted')->unsigned()->nullable()->index();
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('set null');
+            $table->integer('organization_id')->after('converted')->unsigned()->nullable()->index();
+            $table->foreign('organization_id')->references('id')->on('organizations')->onDelete('set null');
         });
     }
 
@@ -26,8 +27,8 @@ class CreateRelationAccountsUsers extends Migration
     public function down()
     {
         Schema::table('accounts', function ($table) {
-            $table->dropForeign('accounts_user_id_foreign');
-            $table->dropColumn('user_id');
+            $table->dropForeign('accounts_organization_id_foreign');
+            $table->dropColumn('organization_id');
         });
     }
 }

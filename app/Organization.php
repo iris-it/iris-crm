@@ -131,11 +131,29 @@ class Organization extends Model
         return $this->hasMany('App\Account');
     }
 
-    public function leads()
+    public function establishments()
     {
-        return $this->hasMany('App\Lead');
+        return $this->hasManyThrough('App\Establishment' , 'App\Account');
+    }
+    public function contacts()
+    {
+        return $this->hasMany('App\Contact');
     }
 
+    public function products()
+    {
+        return $this->hasMany('App\Product');
+    }
+
+    public function services()
+    {
+        return $this->hasMany('App\Service');
+    }
+
+    public function taxes()
+    {
+        return $this->hasMany('App\Tax');
+    }
 
 
 

@@ -2,7 +2,7 @@
 
 namespace App;
 
-use Eloquent as Model;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
@@ -62,8 +62,9 @@ class Contact extends Model
      * @var array
      */
 
-    public static function rules($id) {
-    
+    public static function rules($id)
+    {
+
         return [
 
             'civility' => 'string|between:2,3|required',
@@ -89,34 +90,13 @@ class Contact extends Model
         ];
     }
 
-
-    public function account()
+    public function organization()
     {
-        return $this->belongsTo('App\Account');
+        return $this->belongsTo('App\Organization');
     }
 
-    public function lead()
+    public function establishment()
     {
-        return $this->belongsTo('App\Lead');
-    }
-
-    public function user()
-    {
-        return $this->belongsTo('App\User');
-    }
-
-    public function products()
-    {
-        return $this->hasMany('App\Product');
-    }
-
-    public function quotes()
-    {
-        return $this->hasMany('App\Quote');
-    }
-
-    public function invoices()
-    {
-        return $this->hasMany('App\Invoice');
+        return $this->belongsTo(('App\Establishment'));
     }
 }

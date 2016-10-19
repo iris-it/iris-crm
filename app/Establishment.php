@@ -2,7 +2,7 @@
 
 namespace App;
 
-use Eloquent as Model;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
@@ -84,9 +84,14 @@ class Establishment extends Model
         return $this->belongsTo('App\Account');
     }
 
-    public function lead()
+    public function addresses()
     {
-        return $this->belongsTo('App\Lead');
+        return $this->belongsToMany('App\Address', 'addresses_establishments_pivot', 'establishment_id', 'address_id')->withPivot('type')->withTimestamps();
+    }
+
+    public function contacts()
+    {
+        return $this->hasMany('App\Contact');
     }
 
     public function quotes()
@@ -99,13 +104,7 @@ class Establishment extends Model
         return $this->hasMany('App\Invoice');
     }
 
-    public function contacts()
-    {
-        return $this->hasMany('App\Contact');
-    }
 
-    public function addresses()
-    {
-        return $this->belongsToMany('App\Address', 'establishments_addresses_pivot', 'establishment_id', 'address_id')->withPivot('type')->withTimestamps();
-    }
+
+
 }

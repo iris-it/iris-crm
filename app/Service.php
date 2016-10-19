@@ -3,7 +3,7 @@
 namespace App;
 
 use Carbon\Carbon;
-use Eloquent as Model;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
@@ -56,11 +56,11 @@ class Service extends Model
 
             'service_name' => 'string|max:255|required',
             'is_active' => '',
-            'category'=> 'string|max:255|required',
-            'sale_unit'=> 'string|max:255|required',
+            'category' => 'string|max:255|required',
+            'sale_unit' => 'string|max:255|required',
             'ht_price' => 'numeric|required',
             'ttc_price' => 'numeric',
-            'sale_datestart'=> 'required',
+            'sale_datestart' => 'required',
             'sale_dateend' => 'required',
             'description' => 'string',
 
@@ -68,21 +68,6 @@ class Service extends Model
 
             'taxes.*' => ''
         ];
-    }
-
-    public function taxes()
-    {
-        return $this->belongsToMany('App\Tax', 'services_taxes_pivot', 'service_id', 'tax_id')->withTimestamps();
-    }
-
-    public function invoices()
-    {
-        return $this->belongsToMany('App\Invoice', 'invoices_services_pivot', 'service_id', 'invoice_id')->withTimestamps();
-    }
-
-    public function quotes()
-    {
-        return $this->belongsToMany('App\Quote', 'quotes_services_pivot', 'service_id', 'quote_id')->withTimestamps();
     }
 
     //MUTATORS
@@ -124,4 +109,16 @@ class Service extends Model
     {
         $this->attributes['sale_dateend'] = Carbon::createFromFormat('d/m/Y', $date);
     }
+
+
+    public function organization()
+    {
+        return $this->belongsTo('App\Organization');
+    }
+
+    public function taxes()
+    {
+        return $this->belongsToMany('App\Tax', 'services_taxes_pivot', 'service_id', 'tax_id')->withTimestamps();
+    }
+
 }

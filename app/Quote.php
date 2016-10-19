@@ -3,7 +3,7 @@
 namespace App;
 
 use Carbon\Carbon;
-use Eloquent as Model;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
@@ -83,37 +83,6 @@ class Quote extends Model
         ];
     }
 
-
-    public function user()
-    {
-        return $this->belongsTo('App\User');
-    }
-
-    public function account()
-    {
-        return $this->belongsTo('App\Account');
-    }
-
-    public function contact()
-    {
-        return $this->belongsTo('App\Contact');
-    }
-
-    public function invoices()
-    {
-        return $this->hasMany('App\Invoice');
-    }
-
-    public function products()
-    {
-        return $this->belongsToMany('App\Product', 'quotes_products_pivot', 'quote_id', 'product_id')->withTimestamps();
-    }
-
-    public function services()
-    {
-        return $this->belongsToMany('App\Service', 'quotes_services_pivot', 'quote_id', 'service_id')->withTimestamps();
-    }
-
     //MUTATORS
     /**
      * Mutate deadline to FR with Carbon
@@ -132,5 +101,15 @@ class Quote extends Model
     public function setDeadlineAttribute($date)
     {
         $this->attributes['deadline'] = Carbon::createFromFormat('d/m/Y', $date);
+    }
+
+    public function establishment()
+    {
+        return $this->belongsTo('App\Establishment');
+    }
+
+    public function receipt()
+    {
+        return $this->hasOne(('App\Receipt'));
     }
 }

@@ -3,7 +3,7 @@
 namespace App;
 
 use Carbon\Carbon;
-use Eloquent as Model;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
@@ -17,7 +17,7 @@ class Invoice extends Model
     public $table = 'invoices';
 
 
-    protected $dates = ['created_at','deleted_at', 'deadline'];
+    protected $dates = ['created_at', 'deleted_at', 'deadline'];
 
 
     public $fillable = [
@@ -75,7 +75,6 @@ class Invoice extends Model
 
             /*Relations*/
 
-            'account_name_id' => 'required|integer',
             'contact_name_id' => 'required|integer',
             'quote_id' => 'integer',
             'products.*' => '',
@@ -83,31 +82,6 @@ class Invoice extends Model
 
 
         ];
-    }
-
-    public function account()
-    {
-        return $this->belongsTo('App\Account');
-    }
-
-    public function contact()
-    {
-        return $this->belongsTo('App\Contact');
-    }
-
-    public function quote()
-    {
-        return $this->belongsTo('App\Quote');
-    }
-
-    public function products()
-    {
-        return $this->belongsToMany('App\Product', 'invoices_products_pivot', 'invoice_id', 'product_id')->withTimestamps();
-    }
-
-    public function services()
-    {
-        return $this->belongsToMany('App\Service', 'invoices_services_pivot', 'invoice_id', 'service_id')->withTimestamps();
     }
 
     //MUTATORS
@@ -129,4 +103,10 @@ class Invoice extends Model
     {
         $this->attributes['deadline'] = Carbon::createFromFormat('d/m/Y', $date);
     }
+
+    public function establishment()
+    {
+        return $this->belongsTo('App\Establishment');
+    }
+
 }

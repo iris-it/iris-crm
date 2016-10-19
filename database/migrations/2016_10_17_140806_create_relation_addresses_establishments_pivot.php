@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateRelationEstablishmentsAddressesPivot extends Migration
+class CreateRelationAddressesEstablishmentsPivot extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateRelationEstablishmentsAddressesPivot extends Migration
      */
     public function up()
     {
-        Schema::table('establishments_addresses_pivot', function (Blueprint $table) {
+        Schema::table('addresses_establishments_pivot', function (Blueprint $table) {
 
             $table->string('type')->index();
             $table->integer('establishment_id')->unsigned()->index();

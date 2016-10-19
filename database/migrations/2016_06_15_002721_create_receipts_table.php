@@ -3,7 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 
-class CreateleadsTable extends Migration
+class CreateReceiptsTable extends Migration
 {
 
     /**
@@ -13,22 +13,18 @@ class CreateleadsTable extends Migration
      */
     public function up()
     {
-        Schema::create('leads', function (Blueprint $table) {
+        Schema::create('receipts', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('name');
-            $table->string('website');
-            $table->string('activity_sector');
-            $table->integer('workforce');
-            $table->string('type');
-            $table->string('ape_number');
-            $table->string('siret_number');
-            $table->string('phone_number');
-            $table->string('status');
+            $table->string('topic');
+            $table->string('supplier');
+            $table->timestamp('order_date')->nullable();
+            $table->timestamp('delivery_deadline')->nullable();
+            $table->string('description');
+            $table->string('special_conditions');
             $table->string('address');
             $table->string('zipcode');
             $table->string('city');
             $table->string('country');
-            $table->string('free_label');
             $table->timestamps();
             $table->softDeletes();
         });
@@ -41,6 +37,6 @@ class CreateleadsTable extends Migration
      */
     public function down()
     {
-        Schema::drop('leads');
+        Schema::drop('receipts');
     }
 }

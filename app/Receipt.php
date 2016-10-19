@@ -3,18 +3,18 @@
 namespace App;
 
 use Carbon\Carbon;
-use Eloquent as Model;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
  * Class Order
  * @package App\Models
  */
-class Order extends Model
+class Receipt extends Model
 {
     use SoftDeletes;
 
-    public $table = 'orders';
+    public $table = 'receipts';
     
 
     protected $dates = ['deleted_at', 'order_date', 'delivery_deadline'];
@@ -104,5 +104,10 @@ class Order extends Model
     public function setDeliveryDeadlineAttribute($date)
     {
         $this->attributes['delivery_deadline'] = Carbon::createFromFormat('d/m/Y', $date);
+    }
+
+    public function quote()
+    {
+        return $this->belongsTo('App\Quote');
     }
 }

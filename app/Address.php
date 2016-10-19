@@ -2,7 +2,7 @@
 
 namespace App;
 
-use Eloquent as Model;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
@@ -64,6 +64,6 @@ class Address extends Model
 
     public function establishments()
     {
-        return $this->belongsToMany('App\Establishment', 'establishments_addresses_pivot', 'address_id', 'establishment_id')->withPivot('type')->withTimestamps();
+        return $this->belongsToMany('App\Establishment', 'addresses_establishments_pivot', 'address_id', 'establishment_id')->withPivot('type')->withTimestamps();
     }
 }

@@ -3,7 +3,7 @@
 namespace App;
 
 use Carbon\Carbon;
-use Eloquent as Model;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
@@ -79,28 +79,6 @@ class Product extends Model
     }
 
 
-    public function contact()
-    {
-        return $this->belongsTo('App\Contact');
-    }
-
-    public function taxes()
-    {
-        return $this->belongsToMany('App\Tax', 'products_taxes_pivot', 'product_id', 'tax_id')->withTimestamps();
-    }
-
-    public function invoices()
-    {
-        return $this->belongsToMany('App\Invoice', 'invoices_products_pivot', 'product_id', 'invoice_id')->withTimestamps();
-    }
-
-    public function quotes()
-    {
-        return $this->belongsToMany('App\Quote', 'quotes_products_pivot', 'product_id', 'quote_id')->withTimestamps();
-    }
-
-
-
     //MUTATORS
     /**
      * Mutate deadline to FR with Carbon
@@ -142,4 +120,16 @@ class Product extends Model
     {
         $this->attributes['sale_dateend'] = Carbon::createFromFormat('d/m/Y', $date);
     }
+
+
+    public function organization()
+    {
+        return $this->belongsTo('App\Organization');
+    }
+
+    public function taxes()
+    {
+        return $this->belongsToMany('App\Tax', 'products_taxes_pivot', 'product_id', 'tax_id')->withTimestamps();
+    }
+
 }

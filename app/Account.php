@@ -2,7 +2,7 @@
 
 namespace App;
 
-use Eloquent as Model;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
@@ -21,6 +21,7 @@ class Account extends Model
 
     public $fillable = [
         'name',
+        'is_lead',
         'converted'
     ];
 
@@ -31,6 +32,7 @@ class Account extends Model
      */
     protected $casts = [
         'name' => 'string',
+        'is_lead' => 'boolean',
         'converted' => 'boolean',
     ];
 
@@ -39,31 +41,42 @@ class Account extends Model
      *
      * @var array
      */
-    public static function rules($id) {
+    public static function rules($id)
+    {
 
         return
             [
-            'name' => 'required|max:255|unique:accounts,name,' . $id ,
-            'converted' => 'boolean', //
+                'name' => 'required|max:255|unique:accounts,name,' . $id,
+                'is_lead' => 'boolean',
+                'converted' => 'boolean', //
 
-
-            /*Relations*/
-
-            'account_owner_id' => 'integer|required'
-
-        ];
+            ];
     }
 
-    
 
-    public function user()
+    public function organization()
     {
-        return $this->belongsTo('App\User');
+        return $this->belongsTo('App\Organization');
     }
 
     public function establishments()
     {
         return $this->hasMany('App\Establishment');
+    }
+
+    public function invoices()
+    {
+        return $this->hasManyThrough('App\Invoice', 'App\Establishment');
+    }
+
+    public function quotes()
+    {
+        return $this->hasManyThrough('App\Quote', 'App\Establishment');
+    }
+
+    public function contacts()
+    {
+        return $this->hasManyThrough('App\Contact', 'App\Establishment');
     }
 
 }

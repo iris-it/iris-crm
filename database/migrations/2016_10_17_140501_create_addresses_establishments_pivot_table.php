@@ -1,9 +1,10 @@
 <?php
 
+use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateInvoicesProductsPivotTable extends Migration
+class CreateAddressesEstablishmentsPivotTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,8 +13,9 @@ class CreateInvoicesProductsPivotTable extends Migration
      */
     public function up()
     {
-        Schema::create('invoices_products_pivot', function (Blueprint $table) {
+        Schema::create('addresses_establishments_pivot', function (Blueprint $table) {
             $table->increments('id');
+            $table->string('type');
             $table->timestamps();
 
         });
@@ -26,7 +28,6 @@ class CreateInvoicesProductsPivotTable extends Migration
      */
     public function down()
     {
-        Schema::drop('invoices_products_pivot');
-
+        Schema::drop('addresses_establishments_pivot');
     }
 }

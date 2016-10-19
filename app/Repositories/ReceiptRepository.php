@@ -2,10 +2,10 @@
 
 namespace App\Repositories;
 
-use App\Order;
+use App\Receipt;
 use InfyOm\Generator\Common\BaseRepository;
 
-class OrderRepository extends BaseRepository
+class ReceiptRepository extends BaseRepository
 {
     /**
      * @var array
@@ -28,6 +28,6 @@ class OrderRepository extends BaseRepository
      **/
     public function model()
     {
-        return Order::class;
+        return Receipt::class;
     }
 }
