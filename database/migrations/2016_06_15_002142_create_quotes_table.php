@@ -3,7 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 
-class CreatequotesTable extends Migration
+class CreateQuotesTable extends Migration
 {
 
     /**
@@ -26,6 +26,7 @@ class CreatequotesTable extends Migration
             $table->string('zipcode');
             $table->string('city');
             $table->string('country');
+            $table->text('content')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

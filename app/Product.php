@@ -54,7 +54,7 @@ class Product extends Model
      *
      * @var array
      */
-    public static function rules()
+    public static function rules($id)
     {
         return [
 

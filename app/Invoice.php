@@ -32,7 +32,8 @@ class Invoice extends Model
         'zipcode',
         'city',
         'country',
-        'converted'
+        'converted',
+        'content',
     ];
 
     /**
@@ -49,7 +50,8 @@ class Invoice extends Model
         'zipcode' => 'string',
         'city' => 'string',
         'country' => 'string',
-        'converted' => 'boolean'
+        'converted' => 'boolean',
+        'content' => 'array'
     ];
 
     /**

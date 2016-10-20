@@ -30,7 +30,8 @@ class Receipt extends Model
         'address',
         'zipcode',
         'city',
-        'country'
+        'country',
+        'content'
     ];
 
     /**
@@ -46,7 +47,8 @@ class Receipt extends Model
         'address' => 'string',
         'zipcode' => 'string',
         'city' => 'string',
-        'country' => 'string'
+        'country' => 'string',
+        'content' => 'array'
     ];
 
     /**
@@ -54,7 +56,7 @@ class Receipt extends Model
      *
      * @var array
      */
-    public static function rules() {
+    public static function rules($id) {
         return [
             'topic' => 'required|max:255|string',
             'supplier' => 'required|max:255|string',

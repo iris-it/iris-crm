@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateRelationOrganizationsLicencesTable extends Migration
+class CreateRelationOrganizationsLicences extends Migration
 {
     /**
      * Run the migrations.

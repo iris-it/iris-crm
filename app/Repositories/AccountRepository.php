@@ -12,7 +12,8 @@ class AccountRepository extends BaseRepository
      */
     protected $fieldSearchable = [
         'name',
-        'converted',
+        'is_lead',
+        'converted'
     ];
 
     /**

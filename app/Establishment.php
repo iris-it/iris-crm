@@ -105,6 +105,4 @@ class Establishment extends Model
     }
 
 
-
-
 }

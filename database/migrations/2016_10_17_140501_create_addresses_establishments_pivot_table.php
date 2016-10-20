@@ -15,7 +15,6 @@ class CreateAddressesEstablishmentsPivotTable extends Migration
     {
         Schema::create('addresses_establishments_pivot', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('type');
             $table->timestamps();
 
         });

@@ -31,7 +31,8 @@ class Quote extends Model
         'address',
         'zipcode',
         'city',
-        'country'
+        'country',
+        'content'
     ];
 
     /**
@@ -47,7 +48,8 @@ class Quote extends Model
         'address' => 'string',
         'zipcode' => 'string',
         'city' => 'string',
-        'country' => 'string'
+        'country' => 'string',
+        'content' => 'array'
     ];
 
     /**
@@ -73,7 +75,6 @@ class Quote extends Model
 
             /*Relations*/
 
-            'account_name_id' => 'required|integer',
             'contact_name_id' => 'required|integer',
             'quote_owner_id' => 'required|integer',
             'products.*' => '',

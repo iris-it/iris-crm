@@ -3,7 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 
-class CreateinvoicesTable extends Migration
+class CreateInvoicesTable extends Migration
 {
 
     /**
@@ -27,6 +27,7 @@ class CreateinvoicesTable extends Migration
             $table->string('city');
             $table->string('country');
             $table->boolean('converted');
+            $table->text('content')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

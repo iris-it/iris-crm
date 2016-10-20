@@ -14,7 +14,7 @@ class CreateRelationQuotesEstablishments extends Migration
     public function up()
     {
         Schema::table('quotes', function ($table) {
-            $table->integer('establishment_id')->after('topic')->unsigned()->nullable()->index();
+            $table->integer('establishment_id')->after('content')->unsigned()->nullable()->index();
             $table->foreign('establishment_id')->references('id')->on('establishments')->onDelete('set null');
         });
     }
