@@ -2,10 +2,10 @@
 
 namespace App\Http\Requests;
 
-use App\Account;
+use App\Establishment;
 use App\Http\Requests\Request;
 
-class CreateAccountRequest extends Request
+class EstablishmentRequest extends Request
 {
 
     /**
@@ -25,7 +25,7 @@ class CreateAccountRequest extends Request
      */
     public function rules()
     {
-        return Account::rules($this->accounts);
+        return Establishment::rules($this->establishments);
 
     }
 }

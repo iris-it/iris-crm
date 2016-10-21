@@ -3,9 +3,9 @@
 namespace App\Http\Requests;
 
 use App\Http\Requests\Request;
-use App\Invoice;
+use App\Product;
 
-class UpdateInvoiceRequest extends Request
+class ProductRequest extends Request
 {
 
     /**
@@ -25,7 +25,7 @@ class UpdateInvoiceRequest extends Request
      */
     public function rules()
     {
-        return Invoice::rules($this->invoices);
+        return Product::rules($this->products);
 
     }
 }

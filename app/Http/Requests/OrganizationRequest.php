@@ -2,10 +2,10 @@
 
 namespace App\Http\Requests;
 
-use App\Establishment;
 use App\Http\Requests\Request;
+use App\Organization;
 
-class UpdateEstablishmentRequest extends Request
+class OrganizationRequest extends Request
 {
 
     /**
@@ -25,6 +25,7 @@ class UpdateEstablishmentRequest extends Request
      */
     public function rules()
     {
-        return Establishment::rules($this->establishments);
+        return Organization::rules($this->organizations);
+
     }
 }

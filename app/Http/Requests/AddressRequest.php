@@ -2,10 +2,10 @@
 
 namespace App\Http\Requests;
 
+use App\Address;
 use App\Http\Requests\Request;
-use App\Contact;
 
-class CreateContactRequest extends Request
+class AddressRequest extends Request
 {
 
     /**
@@ -25,6 +25,7 @@ class CreateContactRequest extends Request
      */
     public function rules()
     {
-        return Contact::rules($this->contacts);
+        return Address::rules($this->addresses);
+
     }
 }

@@ -3,9 +3,9 @@
 namespace App\Http\Requests;
 
 use App\Http\Requests\Request;
-use App\Quote;
+use App\Contact;
 
-class CreateQuoteRequest extends Request
+class ContactRequest extends Request
 {
 
     /**
@@ -25,7 +25,6 @@ class CreateQuoteRequest extends Request
      */
     public function rules()
     {
-        return Quote::rules($this->quotes);
-
+        return Contact::rules($this->contacts);
     }
 }

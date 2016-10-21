@@ -3,9 +3,9 @@
 namespace App\Http\Requests;
 
 use App\Http\Requests\Request;
-use App\Tax;
+use App\Quote;
 
-class UpdateTaxRequest extends Request
+class QuoteRequest extends Request
 {
 
     /**
@@ -25,7 +25,7 @@ class UpdateTaxRequest extends Request
      */
     public function rules()
     {
-        return Tax::rules($this->taxes);
+        return Quote::rules($this->quotes);
 
     }
 }

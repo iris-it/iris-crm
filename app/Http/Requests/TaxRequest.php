@@ -2,9 +2,10 @@
 
 namespace App\Http\Requests;
 
-use App\Organization;
+use App\Http\Requests\Request;
+use App\Tax;
 
-class UpdateOrganizationRequest extends Request
+class TaxRequest extends Request
 {
 
     /**
@@ -24,6 +25,7 @@ class UpdateOrganizationRequest extends Request
      */
     public function rules()
     {
-        return Organization::rules($this->organizations);
+        return Tax::rules($this->taxes);
+
     }
 }

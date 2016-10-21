@@ -3,9 +3,9 @@
 namespace App\Http\Requests;
 
 use App\Http\Requests\Request;
-use App\Receipt;
+use App\Service;
 
-class CreateReceiptRequest extends Request
+class ServiceRequest extends Request
 {
 
     /**
@@ -25,7 +25,7 @@ class CreateReceiptRequest extends Request
      */
     public function rules()
     {
-        return Receipt::rules($this->receipts);
+        return Service::rules($this->services);
 
     }
 }
