@@ -26,6 +26,7 @@ class CreateQuotesTable extends Migration
             $table->string('zipcode');
             $table->string('city');
             $table->string('country');
+            $table->text('content_backup')->nullable();
             $table->text('content')->nullable();
             $table->timestamps();
             $table->softDeletes();

@@ -33,6 +33,7 @@ class Invoice extends Model
         'city',
         'country',
         'converted',
+        'content_backup',
         'content',
     ];
 
@@ -51,6 +52,7 @@ class Invoice extends Model
         'city' => 'string',
         'country' => 'string',
         'converted' => 'boolean',
+        'content_backup' => 'array',
         'content' => 'array'
     ];
 

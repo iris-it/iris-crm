@@ -32,6 +32,7 @@ class Quote extends Model
         'zipcode',
         'city',
         'country',
+        'content_backup',
         'content'
     ];
 
@@ -49,6 +50,7 @@ class Quote extends Model
         'zipcode' => 'string',
         'city' => 'string',
         'country' => 'string',
+        'content_backup' => 'array',
         'content' => 'array'
     ];
 
