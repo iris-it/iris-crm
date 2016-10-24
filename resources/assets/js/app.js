@@ -18,7 +18,22 @@ Vue.component('Login', require('./components/Auth/Login.vue'));
 Vue.component('Logout', require('./components/Auth/Logout.vue'));
 Vue.component('UserProfile', require('./components/Auth/UserProfile.vue'));
 Vue.component('ContactType', require('./components/Contact/ContactType.vue'));
+Vue.component('ModalBox', require('./components/Common/Modal.vue'));
 
 const app = new Vue({
-    el: '#app'
+
+    el: '#app',
+
+    data: {
+
+        modalIsOpen : false
+    },
+
+    methods: {
+
+        showModal : function() {
+            this.modalIsOpen = true;
+        }
+    }
+
 });
