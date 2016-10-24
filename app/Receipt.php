@@ -51,26 +51,6 @@ class Receipt extends Model
         'content' => 'array'
     ];
 
-    /**
-     * Validation rules
-     *
-     * @var array
-     */
-    public static function rules($id) {
-        return [
-            'topic' => 'required|max:255|string',
-            'supplier' => 'required|max:255|string',
-            'order_date' => 'required',
-            'delivery_deadline' => 'required',
-            'description' => 'string',
-            'special_conditions' => 'string',
-            'address' => 'required|string',
-            'zipcode'=> 'required|string',
-            'city'=> 'required|string',
-            'country' => 'required|string',
-        ];
-    }
-
     //MUTATORS
     /**
      * Mutate order_date to FR with Carbon

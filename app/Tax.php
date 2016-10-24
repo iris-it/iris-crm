@@ -38,18 +38,6 @@ class Tax extends Model
 
     ];
 
-    /**
-     * Validation rules
-     *
-     * @var array
-     */
-    public static function rules($id)
-    {
-        return [
-
-        ];
-    }
-
     public function organization()
     {
         return $this->belongsTo('App\Organization');

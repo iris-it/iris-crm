@@ -28,6 +28,7 @@ class Product extends Model
         'ttc_price',
         'stock_disponibility',
         'product_avatar',
+        'officer',
         'sale_datestart',
         'sale_dateend',
         'product_notice',
@@ -45,38 +46,10 @@ class Product extends Model
         'category' => 'string',
         'stock_disponibility' => 'integer',
         'product_avatar' => 'string',
+        'officer' => 'string',
         'product_notice' => 'string',
         'description' => 'string'
     ];
-
-    /**
-     * Validation rules
-     *
-     * @var array
-     */
-    public static function rules($id)
-    {
-        return [
-
-            'product_name' => 'string|max:255|required',
-            'is_active' => '',
-            'category' => 'string|max:255|required',
-            'ht_price' => 'numeric|required',
-            'ttc_price' => 'numeric',
-            'stock_disponibility' => 'integer|required',
-            'product_avatar' => 'string',
-            'sale_datestart' => 'required',
-            'sale_dateend' => 'required',
-            'product_notice' => 'string',
-            'description' => 'string',
-
-            /*Relations*/
-            
-            'taxes.*' => '',
-            'manutention_officer_id' => 'required|integer',
-
-        ];
-    }
 
 
     //MUTATORS

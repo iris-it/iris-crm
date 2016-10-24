@@ -6,14 +6,14 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
- * Class Account
+ * Class Office
  * @package App\Models
  */
-class Establishment extends Model
+class Office extends Model
 {
     use SoftDeletes;
 
-    public $table = 'establishments';
+    public $table = 'offices';
 
 
     protected $dates = ['deleted_at'];
@@ -52,32 +52,6 @@ class Establishment extends Model
         'free_label' => 'string'
     ];
 
-    /**
-     * Validation rules
-     *
-     * @var array
-     */
-    public static function rules($id) {
-
-        return
-            [
-            'name' => 'required|max:255|unique:accounts,name,' . $id ,
-            'website' => 'string|max:255',
-            'activity_sector' => 'string|max:255',
-            'workforce' => 'integer',
-            'type' => 'required|string|max:255',
-            'ape_number' => ['required', "regex:/(^[0-9]{1,2}\.[0-9]{1,2}[A-Z]$|^[0-9]{1,2}\.[0-9]{1,2})$/im"],
-            'siret_number' => ['required', "regex:/^[0-9]{3}[ \.\-]?[0-9]{3}[ \.\-]?[0-9]{3}[ \.\-]?[0-9]{5}$/im", 'unique:accounts,siret_number,' . $id,],
-            'phone_number' => ["regex:/^\+?[0-9]{10,20}$/im"],
-            'is_main' => 'required|boolean',
-            'is_active' => 'required|boolean',
-            'free_label' => 'string',
-
-
-        ];
-    }
-
-
 
     public function account()
     {
@@ -86,7 +60,7 @@ class Establishment extends Model
 
     public function addresses()
     {
-        return $this->belongsToMany('App\Address', 'addresses_establishments_pivot', 'establishment_id', 'address_id')->withPivot('type')->withTimestamps();
+        return $this->belongsToMany('App\Address', 'addresses_offices_pivot', 'office_id', 'address_id')->withPivot('type')->withTimestamps();
     }
 
     public function contacts()
@@ -102,6 +76,11 @@ class Establishment extends Model
     public function invoices()
     {
         return $this->hasMany('App\Invoice');
+    }
+
+    public function receipts()
+    {
+        return $this->hasManyThrough('App\Receipt', 'App\Quote');
     }
 
 

@@ -25,7 +25,19 @@ class ReceiptRequest extends Request
      */
     public function rules()
     {
-        return Receipt::rules($this->receipts);
+        return [
+            'topic' => 'required|max:255|string',
+            'supplier' => 'required|max:255|string',
+            'order_date' => 'required',
+            'delivery_deadline' => 'required',
+            'description' => 'string',
+            'special_conditions' => 'string',
+            'address' => 'required|string',
+            'zipcode' => 'required|string',
+            'city' => 'required|string',
+            'country' => 'required|string',
 
+            'quote_id' => 'integer'
+        ];
     }
 }

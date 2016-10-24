@@ -2,73 +2,64 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests;
-use App\Http\Requests\CreateAccountRequest;
-use App\Http\Requests\UpdateAccountRequest;
-use App\Repositories\AccountRepository;
-use App\Http\Controllers\AppBaseController as InfyOmBaseController;
-use App\User;
-use Illuminate\Http\Request;
+use App\Account;
+use App\Http\Requests\AccountRequest;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Lang;
 use Laracasts\Flash\Flash;
-use Prettus\Repository\Criteria\RequestCriteria;
-use Response;
 
-class AccountController extends InfyOmBaseController
+class AccountController extends Controller
 {
-    /** @var  AccountRepository */
-    private $accountRepository;
 
-    public function __construct(AccountRepository $accountRepo)
+
+    public function __construct()
     {
-        $this->accountRepository = $accountRepo;
+        $this->middleware('auth');
+
+        $this->middleware('hasOrganization');
+
+        $this->organization = Auth::user()->organization;
     }
 
     /**
      * Display a listing of the Account.
-     *
-     * @param Request $request
-     * @return Response
      */
-    public function index(Request $request)
-    {
-        $this->accountRepository->pushCriteria(new RequestCriteria($request));
-        $accounts = $this->accountRepository->all();
 
-        return view('pages.accounts.index')
-            ->with('accounts', $accounts);
+    public function index()
+    {
+        $accounts = $this->organization->accounts()->where('is_lead', false)->get();
+
+        return view('pages.accounts.index')->with('accounts', $accounts);
+
     }
 
     /**
      * Show the form for creating a new Account.
-     *
-     * @return Response
      */
+
     public function create()
     {
-        $users = User::pluck('name', 'id');
 
-        return view('pages.accounts.create')->with(compact('users'));
+        return view('pages.accounts.create');
     }
 
     /**
      * Store a newly created Account in storage.
      *
-     * @param CreateAccountRequest $request
-     *
-     * @return Response
      */
-    public function store(CreateAccountRequest $request)
+
+    public function store(AccountRequest $request)
     {
         $input = $request->all();
 
 
-        if ($account = $this->accountRepository->create($input)) {
+        if ($account = Account::create($input)) {
 
             $account->converted = false;
-            $user = User::findOrFail($request->account_owner_id);
-            $account->user()->associate($user);
+            $account->is_lead = false;
+            $account->organization()->associate($this->organization);
             $account->save();
+
             Flash::success(Lang::get('app.general:create-success'));
 
         } else {
@@ -81,20 +72,16 @@ class AccountController extends InfyOmBaseController
         return redirect(route('accounts.index'));
     }
 
-
     /**
      * Display the specified Account.
-     *
-     * @param  int $id
-     *
-     * @return Response
      */
+
     public function show($id)
     {
-        $account = $this->accountRepository->findWithoutFail($id);
+        $account = Account::findOrFail($id);
 
         if (empty($account)) {
-            Flash::error('Account not found');
+            Flash::error(Lang::get('app.general:missing-model'));
 
             return redirect(route('accounts.index'));
         }
@@ -104,15 +91,11 @@ class AccountController extends InfyOmBaseController
 
     /**
      * Show the form for editing the specified Account.
-     *
-     * @param  int $id
-     *
-     * @return Response
      */
+
     public function edit($id)
     {
-        $account = $this->accountRepository->findWithoutFail($id);
-        $users = User::pluck('name', 'id');
+        $account = Account::findOrFail($id);
 
         if (empty($account)) {
             Flash::error(Lang::get('app.general:missing-model'));
@@ -120,20 +103,17 @@ class AccountController extends InfyOmBaseController
             return redirect(route('accounts.index'));
         }
 
-        return view('pages.accounts.edit')->with(compact('account', 'users'));
+        return view('pages.accounts.edit')->with('account', $account);
     }
 
     /**
      * Update the specified Account in storage.
-     *
-     * @param  int $id
-     * @param UpdateAccountRequest $request
-     *
-     * @return Response
      */
-    public function update($id, UpdateAccountRequest $request)
+
+    public function update($id, AccountRequest $request)
     {
-        $account = $this->accountRepository->findWithoutFail($id);
+        $account = Account::findOrFail($id);
+        $data = $request->all();
 
         if (empty($account)) {
             Flash::error(Lang::get('app.general:missing-model'));
@@ -141,11 +121,8 @@ class AccountController extends InfyOmBaseController
             return redirect(route('accounts.index'));
         }
 
-        if($account = $this->accountRepository->update($request->all(), $id)) {
+        if($account->update($data) && $account->save()) {
 
-            $user = User::findOrFail($request->account_owner_id);
-            $account->user()->associate($user);
-            $account->save();
             Flash::success(Lang::get('app.general:update-success'));
 
         } else {
@@ -166,17 +143,17 @@ class AccountController extends InfyOmBaseController
      */
     public function destroy($id)
     {
-        $account = $this->accountRepository->findWithoutFail($id);
+        $account = Account::findOrFail($id);
 
         if (empty($account)) {
-            Flash::error('Account not found');
+            Flash::error(Lang::get('app.general:missing-model'));
 
             return redirect(route('accounts.index'));
         }
 
-        $this->accountRepository->delete($id);
+        $account->delete();
 
-        Flash::success('Account deleted successfully.');
+        Flash::success(Lang::get('app.general:delete-success'));
 
         return redirect(route('accounts.index'));
     }

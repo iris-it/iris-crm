@@ -3,91 +3,65 @@
 namespace App\Http\Controllers;
 
 use App\Account;
-use App\Http\Requests;
-use App\Http\Requests\CreateContactRequest;
-use App\Http\Requests\UpdateContactRequest;
-use App\Lead;
-use App\Repositories\ContactRepository;
-use App\Http\Controllers\AppBaseController as InfyOmBaseController;
-use App\User;
-use Illuminate\Http\Request;
+use App\Contact;
+use App\Http\Requests\ContactRequest;
+use App\Office;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Lang;
 use Laracasts\Flash\Flash;
-use Prettus\Repository\Criteria\RequestCriteria;
-use Response;
 
-class ContactController extends InfyOmBaseController
+class ContactController extends Controller
 {
-    /** @var  ContactRepository */
-    private $contactRepository;
 
-    public function __construct(ContactRepository $contactRepo)
+    public function __construct()
     {
-        $this->contactRepository = $contactRepo;
+        $this->middleware('auth');
+
+        $this->middleware('hasOrganization');
+
+        $this->organization = Auth::user()->organization;
     }
 
     /**
      * Display a listing of the Contact.
-     *
-     * @param Request $request
-     * @return Response
      */
-    public function index(Request $request)
+    public function index()
     {
-        $this->contactRepository->pushCriteria(new RequestCriteria($request));
-        $contacts = $this->contactRepository->all();
+        $contacts = $this->organization->contacts;
+        $accounts = $this->organization->accounts->where('is_lead', false)->get();
+        $leads = $this->organization->accounts->where('is_lead', true)->get();
 
-        return view('pages.contacts.index')
-            ->with('contacts', $contacts);
+        return view('pages.contacts.index')->with(compact('contacts', 'accounts', 'leads'));
     }
 
     /**
      * Show the form for creating a new Contact.
-     *
-     * @return Response
      */
-    public function create()
+    public function create($id)
     {
-        $accounts = Account::pluck('name', 'id');
-        $leads = Lead::pluck('name', 'id');
-        $users = User::pluck('name', 'id');
+        $account = Account::findOrFail($id);
+        $offices = $account->offices;
 
-        return view('pages.contacts.create')->with(compact('accounts', 'leads', 'users'));
+        return view('pages.contacts.create')->with(compact('account', 'offices'));
     }
 
     /**
      * Store a newly created Contact in storage.
-     *
-     * @param CreateContactRequest $request
-     *
-     * @return Response
      */
-    public function store(CreateContactRequest $request)
+
+    public function store(ContactRequest $request)
     {
         $input = $request->all();
 
-        if ($contact = $this->contactRepository->create($input)) {
-
-            $user = User::findOrFail($request->contact_owner_id);
+        if ($contact = Contact::create($input)) {
 
 
-            if ($contact->type == 0) {
+            $office = Office::findOrFail($request->office_id);
+            $contact->office()->associate($office);
 
-                $lead = Lead::findOrFail($request->lead_name_id);
-                $contact->lead()->associate($lead);
-                $contact->save();
-            } else {
-
-                $account = Account::findOrFail($request->account_name_id);
-                $contact->account()->associate($account);
-                $contact->save();
-            }
-
-            $contact->user()->associate($user);
             $contact->save();
 
             Flash::success(Lang::get('app.general:create-success'));
-
         } else {
 
             Flash::error(Lang::get('app.general:create-failed'));
@@ -101,16 +75,13 @@ class ContactController extends InfyOmBaseController
     /**
      * Display the specified Contact.
      *
-     * @param  int $id
-     *
-     * @return Response
      */
     public function show($id)
     {
-        $contact = $this->contactRepository->findWithoutFail($id);
+        $contact = Contact::findOrFail($id);
 
         if (empty($contact)) {
-            Flash::error('Contact not found');
+            Flash::error(Lang::get('app.general:missing-model'));
 
             return redirect(route('contacts.index'));
         }
@@ -120,66 +91,41 @@ class ContactController extends InfyOmBaseController
 
     /**
      * Show the form for editing the specified Contact.
-     *
-     * @param  int $id
-     *
-     * @return Response
      */
-    public function edit($id)
+    public function edit($id, $accountId)
     {
-        $contact = $this->contactRepository->findWithoutFail($id);
-        $accounts = Account::pluck('name', 'id');
-        $leads = Lead::pluck('name', 'id');
-        $users = User::pluck('name', 'id');
+        $contact = Contact::findOrFail($id);
+        $account = Account::findOrFail($accountId);
+        $offices = $account->offices;
 
         if (empty($contact)) {
-            Flash::error('Contact not found');
+            Flash::error(Lang::get('app.general:missing-model'));
 
             return redirect(route('contacts.index'));
         }
 
-        return view('pages.contacts.edit')->with(compact('contact', 'accounts', 'leads', 'users'));
+        return view('pages.contacts.edit')->with(compact('contact', 'account', 'offices'));
     }
 
     /**
      * Update the specified Contact in storage.
-     *
-     * @param  int $id
-     * @param UpdateContactRequest $request
-     *
-     * @return Response
      */
-    public function update($id, UpdateContactRequest $request)
+    public function update($id, ContactRequest $request)
     {
-        $contact = $this->contactRepository->findWithoutFail($id);
+        $contact = Contact::findOrFail($id);
+        $input = $request->all();
 
         if (empty($contact)) {
-            Flash::error('Contact not found');
+            Flash::error(Lang::get('app.general:missing-model'));
 
             return redirect(route('contacts.index'));
         }
 
-        if ($contact = $this->contactRepository->update($request->all(), $id)) {
+        if ($contact->update($input) && $contact->save()) {
 
-            $user = User::findOrFail($request->contact_owner_id);
+            $office = Office::findOrFail($request->office_id);
+            $contact->office()->associate($office);
 
-            if ($request->type == 0) {
-
-                $contact->account()->dissociate();
-
-                $lead = Lead::findOrFail($request->lead_name_id);
-                $contact->lead()->associate($lead);
-                $contact->save();
-            } else {
-
-                $contact->lead()->dissociate();
-
-                $account = Account::findOrFail($request->account_name_id);
-                $contact->account()->associate($account);
-                $contact->save();
-            }
-
-            $contact->user()->associate($user);
             $contact->save();
 
             Flash::success(Lang::get('app.general:update-success'));
@@ -197,24 +143,20 @@ class ContactController extends InfyOmBaseController
 
     /**
      * Remove the specified Contact from storage.
-     *
-     * @param  int $id
-     *
-     * @return Response
      */
     public function destroy($id)
     {
-        $contact = $this->contactRepository->findWithoutFail($id);
+        $contact = Contact::findOrFail($id);
 
         if (empty($contact)) {
-            Flash::error('Contact not found');
+            Flash::error(Lang::get('app.general:missing-model'));
 
             return redirect(route('contacts.index'));
         }
 
-        $this->contactRepository->delete($id);
+        $contact->delete();
 
-        Flash::success('Contact deleted successfully.');
+        Flash::success(Lang::get('app.general:delete-success'));
 
         return redirect(route('contacts.index'));
     }

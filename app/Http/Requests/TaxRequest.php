@@ -25,7 +25,8 @@ class TaxRequest extends Request
      */
     public function rules()
     {
-        return Tax::rules($this->taxes);
+        return [
 
+        ];
     }
 }

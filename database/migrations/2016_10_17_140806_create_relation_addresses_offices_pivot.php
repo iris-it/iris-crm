@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateRelationAddressesEstablishmentsPivot extends Migration
+class CreateRelationAddressesOfficesPivot extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,11 @@ class CreateRelationAddressesEstablishmentsPivot extends Migration
      */
     public function up()
     {
-        Schema::table('addresses_establishments_pivot', function (Blueprint $table) {
+        Schema::table('addresses_offices_pivot', function (Blueprint $table) {
 
             $table->string('type')->index();
-            $table->integer('establishment_id')->unsigned()->index();
-            $table->foreign('establishment_id')->references('id')->on('establishments')->onDelete('cascade');
+            $table->integer('office_id')->unsigned()->index();
+            $table->foreign('office_id')->references('id')->on('offices')->onDelete('cascade');
 
             $table->integer('address_id')->unsigned()->index();
             $table->foreign('address_id')->references('id')->on('addresses')->onDelete('cascade');

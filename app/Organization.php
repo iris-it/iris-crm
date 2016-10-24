@@ -57,30 +57,6 @@ class Organization extends Model
     ];
 
     /**
-     * Get the validation rules that apply to the request.
-     *
-     * @return array
-     */
-    public static function rules($id)
-    {
-
-        return [
-            'name' => 'required|max:255',
-            'address' => 'required|max:255',
-            'address_comp' => 'max:255',
-            'phone' => 'required|min:10',
-            'email' => 'email|max:255',
-            'website' => 'max:500',
-            'status' => 'required|string|max:255',
-            'siren_number' => array("regex:/^[0-9]{3}[ \.\-]?[0-9]{3}[ \.\-]?[0-9]{3}$/im", 'unique:organizations,siren_number,' . $id),
-            'siret_number' => array('required', "regex:/^[0-9]{3}[ \.\-]?[0-9]{3}[ \.\-]?[0-9]{3}[ \.\-]?[0-9]{5}$/im", 'unique:organizations,siret_number,' . $id),
-            'ape_number' => array('required', "regex:/(^[0-9]{1,2}\.[0-9]{1,2}[A-Z]$|^[0-9]{1,2}\.[0-9]{1,2})$/im"),
-            'tva_number' => array('required', "regex:/^[A-Z]{2}[ \.\-]?[0-9]{2}[ \.\-]?[0-9]{3}[ \.\-]?[0-9]{3}[ \.\-]?[0-9]{3}$/im"),
-        ];
-
-    }
-
-    /**
      * An organization belongs to an user
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
@@ -131,9 +107,9 @@ class Organization extends Model
         return $this->hasMany('App\Account');
     }
 
-    public function establishments()
+    public function offices()
     {
-        return $this->hasManyThrough('App\Establishment' , 'App\Account');
+        return $this->hasManyThrough('App\Office' , 'App\Account');
     }
     public function contacts()
     {

@@ -4,94 +4,76 @@ namespace App\Http\Controllers;
 
 use App\Account;
 use App\Contact;
-use App\Http\Requests;
-use App\Http\Requests\CreateQuoteRequest;
-use App\Http\Requests\UpdateQuoteRequest;
+use App\Http\Requests\QuoteRequest;
+use App\Office;
 use App\Product;
-use App\Repositories\QuoteRepository;
-use App\Http\Controllers\AppBaseController as InfyOmBaseController;
+use App\Quote;
 use App\Service;
-use App\User;
-use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Lang;
 use Laracasts\Flash\Flash;
-use Prettus\Repository\Criteria\RequestCriteria;
-use Response;
 
-class QuoteController extends InfyOmBaseController
+class QuoteController extends Controller
 {
-    /** @var  QuoteRepository */
-    private $quoteRepository;
 
-    public function __construct(QuoteRepository $quoteRepo)
+    public function __construct()
     {
-        $this->quoteRepository = $quoteRepo;
+        $this->middleware('auth');
+
+        $this->middleware('hasOrganization');
+
+        $this->organization = Auth::user()->organization;
     }
 
     /**
      * Display a listing of the Quote.
-     *
-     * @param Request $request
-     * @return Response
      */
-    public function index(Request $request)
+    public function index($id)
     {
-        $this->quoteRepository->pushCriteria(new RequestCriteria($request));
-        $quotes = $this->quoteRepository->all();
+        $office = Office::findOrFail($id);
+        $quotes = $office->quotes;
 
-        return view('pages.quotes.index')
-            ->with('quotes', $quotes);
+        return view('pages.quotes.index')->with('quotes', $quotes);
     }
 
     /**
      * Show the form for creating a new Quote.
-     *
-     * @return Response
      */
-    public function create()
+    public function create($id)
     {
-        $contacts = Contact::pluck('lastname', 'id');
-        $accounts = Account::pluck('name', 'id');
-        $users = User::pluck('name', 'id');
-        $products = Product::pluck('product_name', 'id');
-        $services = Service::pluck('service_name', 'id');
+        $office = Office::findOrFail($id);
 
-        return view('pages.quotes.create')->with(compact('contacts', 'accounts', 'users', 'products', 'services'));
+        $contacts = $office->contacts;
+        $products = $this->organization->products;
+        $services = $this->organization->services;
+
+        return view('pages.quotes.create')->with(compact('office', 'contacts','products', 'services'));
     }
 
     /**
      * Store a newly created Quote in storage.
-     *
-     * @param CreateQuoteRequest $request
-     *
-     * @return Response
      */
-    public function store(CreateQuoteRequest $request)
+    public function store($id, QuoteRequest $request)
     {
         $input = $request->all();
+        $office = Office::findOrFail($id);
 
-        if ($quote = $this->quoteRepository->create($input)) {
+        if ($quote = Quote::create($input)) {
 
-            $user = User::findOrFail($request->quote_owner_id);
-            $contact = Contact::findOrFail($request->contact_name_id);
-            $account = Account::findOrFail($request->account_name_id);
             $htPrice = 0;
             $price = 0;
+            $contact = Contact::findOrFail($request->contact_id);
 
-            $quote->user()->associate($user);
-            $quote->contact()->associate($contact);
-            $quote->account()->associate($account);
+            $quote->office()->associate($office);
 
-            $quote->products()->sync($input["products"] ?: []);
-            $quote->services()->sync($input["services"] ?: []);
+            // Serialize
 
-            $quote->save();
+            foreach ($request->products as $product) {
 
-
-            foreach ($quote->products as $product) {
-                $productPrice = 0;
-                $productHtPrice = 0;
                 $totalTaxes = 0;
+
+                $product = Product::findOrFail($product->id);
+
                 foreach ($product->taxes as $tax) {
 
                     if ($tax->is_active) {
@@ -107,10 +89,12 @@ class QuoteController extends InfyOmBaseController
 
             }
 
-            foreach ($quote->services as $service) {
-                $servicePrice = 0;
-                $serviceHtPrice = 0;
+            foreach ($request->services as $service) {
+
                 $totalTaxes = 0;
+
+                $service = Service::findOrFail($service->id);
+
                 foreach ($service->taxes as $tax) {
 
                     if ($tax->is_active) {
@@ -145,17 +129,14 @@ class QuoteController extends InfyOmBaseController
 
     /**
      * Display the specified Quote.
-     *
-     * @param  int $id
-     *
-     * @return Response
      */
     public function show($id)
     {
-        $quote = $this->quoteRepository->findWithoutFail($id);
+
+        $quote = Quote::findOrFail($id);
 
         if (empty($quote)) {
-            Flash::error('Quote not found');
+            Flash::error(Lang::get('app.general:missing-model'));
 
             return redirect(route('quotes.index'));
         }
@@ -165,60 +146,46 @@ class QuoteController extends InfyOmBaseController
 
     /**
      * Show the form for editing the specified Quote.
-     *
-     * @param  int $id
-     *
-     * @return Response
      */
     public function edit($id)
     {
-        $quote = $this->quoteRepository->findWithoutFail($id);
+        $quote = Quote::findOrFail($id);
 
-        $contacts = Contact::pluck('lastname', 'id');
-        $accounts = Account::pluck('name', 'id');
-        $users = User::pluck('name', 'id');
-        $products = Product::pluck('product_name', 'id');
-        $services = Service::pluck('service_name', 'id');
+        $offices = $this->organization->offices;
+        $contacts = $this->organization->contacts;
+        $products = $this->organization->products;
+        $services = $this->organization->services;
 
         if (empty($quote)) {
-            Flash::error('Quote not found');
+            Flash::error(Lang::get('app.general:missing-model'));
 
             return redirect(route('quotes.index'));
         }
 
-        return view('pages.quotes.edit')->with(compact('quote', 'contacts', 'accounts', 'users', 'products', 'services'));
+        return view('pages.quotes.edit')->with(compact('quote', 'contacts', 'offices', 'products', 'services'));
     }
 
     /**
      * Update the specified Quote in storage.
-     *
-     * @param  int $id
-     * @param UpdateQuoteRequest $request
-     *
-     * @return Response
      */
-    public function update($id, UpdateQuoteRequest $request)
+    public function update($id, QuoteRequest $request)
     {
-        $quote = $this->quoteRepository->findWithoutFail($id);
+        $quote = Quote::findOrFail($id);
         $input = $request->all();
 
         if (empty($quote)) {
-            Flash::error('Quote not found');
-
+            Flash::error(Lang::get('app.general:missing-model'));
             return redirect(route('quotes.index'));
         }
 
-        if ($quote = $this->quoteRepository->update($request->all(), $id)) {
+        if ($quote->update($input) && $quote->save()) {
 
-            $user = User::findOrFail($request->quote_owner_id);
-            $contact = Contact::findOrFail($request->contact_name_id);
-            $account = Account::findOrFail($request->account_name_id);
             $htPrice = 0;
             $price = 0;
-            
-            $quote->user()->associate($user);
-            $quote->contact()->associate($contact);
-            $quote->account()->associate($account);
+            $office = Office::findOrFail($request->office_id);
+            $contact = Contact::findOrFail($request->contact_id);
+
+            $quote->office()->associate($office);
 
             if (!$request->has('products')) {
                 $input["products"] = [];
@@ -226,15 +193,13 @@ class QuoteController extends InfyOmBaseController
                 $input["services"] = [];
             }
 
-            $quote->products()->sync($input["products"] ?: []);
-            $quote->services()->sync($input["services"] ?: []);
+            // Serialize
 
-            $quote->save();
+            foreach ($request->products as $product) {
 
-            foreach ($quote->products as $product) {
-                $productPrice = 0;
-                $productHtPrice = 0;
                 $totalTaxes = 0;
+                $product = Product::findOrFail($product->id);
+
                 foreach ($product->taxes as $tax) {
 
                     if ($tax->is_active) {
@@ -250,10 +215,11 @@ class QuoteController extends InfyOmBaseController
 
             }
 
-            foreach ($quote->services as $service) {
-                $servicePrice = 0;
-                $serviceHtPrice = 0;
+            foreach ($request->services as $service) {
+
                 $totalTaxes = 0;
+                $service = Service::findOrFail($service->id);
+
                 foreach ($service->taxes as $tax) {
 
                     if ($tax->is_active) {
@@ -288,24 +254,20 @@ class QuoteController extends InfyOmBaseController
 
     /**
      * Remove the specified Quote from storage.
-     *
-     * @param  int $id
-     *
-     * @return Response
      */
     public function destroy($id)
     {
-        $quote = $this->quoteRepository->findWithoutFail($id);
+        $quote = Quote::findOrFail($id);
 
         if (empty($quote)) {
-            Flash::error('Quote not found');
+            Flash::error(Lang::get('app.general:missing-model'));
 
             return redirect(route('quotes.index'));
         }
 
-        $this->quoteRepository->delete($id);
+        $quote->delete();
 
-        Flash::success('Quote deleted successfully.');
+        Flash::success(Lang::get('app.general:delete-success'));
 
         return redirect(route('quotes.index'));
     }

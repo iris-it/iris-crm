@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateRelationQuotesEstablishments extends Migration
+class CreateRelationQuotesOffices extends Migration
 {
     /**
      * Run the migrations.
@@ -14,8 +14,8 @@ class CreateRelationQuotesEstablishments extends Migration
     public function up()
     {
         Schema::table('quotes', function ($table) {
-            $table->integer('establishment_id')->after('content')->unsigned()->nullable()->index();
-            $table->foreign('establishment_id')->references('id')->on('establishments')->onDelete('set null');
+            $table->integer('office_id')->after('content')->unsigned()->nullable()->index();
+            $table->foreign('office_id')->references('id')->on('offices')->onDelete('set null');
         });
     }
 
@@ -27,8 +27,8 @@ class CreateRelationQuotesEstablishments extends Migration
     public function down()
     {
         Schema::table('quotes', function ($table) {
-            $table->dropForeign('quotes_establishment_id_foreign');
-            $table->dropColumn('establishment_id');
+            $table->dropForeign('quotes_office_id_foreign');
+            $table->dropColumn('office_id');
         });
     }
 }

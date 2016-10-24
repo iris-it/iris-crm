@@ -25,7 +25,21 @@ class ServiceRequest extends Request
      */
     public function rules()
     {
-        return Service::rules($this->services);
+        return [
 
+            'service_name' => 'string|max:255|required',
+            'is_active' => '',
+            'category' => 'string|max:255|required',
+            'sale_unit' => 'string|max:255|required',
+            'ht_price' => 'numeric|required',
+            'ttc_price' => 'numeric',
+            'sale_datestart' => 'required',
+            'sale_dateend' => 'required',
+            'description' => 'string',
+
+            /*Relations*/
+
+            'taxes.*' => ''
+        ];
     }
 }

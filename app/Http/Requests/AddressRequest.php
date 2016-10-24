@@ -25,7 +25,15 @@ class AddressRequest extends Request
      */
     public function rules()
     {
-        return Address::rules($this->addresses);
 
+        return
+            [
+                'name' => 'required|max:255',
+                'street_label' => 'required|max:255',
+                'street_detail' => 'max:255',
+                'zipcode' => 'required|max:10|integer',
+                'city' => 'required|max:255',
+                'country' => 'required|max:255',
+            ];
     }
 }

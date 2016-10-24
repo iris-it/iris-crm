@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateRelationEstablishmentsAccounts extends Migration
+class CreateRelationOfficesAccounts extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateRelationEstablishmentsAccounts extends Migration
      */
     public function up()
     {
-        Schema::table('establishments', function ($table) {
+        Schema::table('offices', function ($table) {
             $table->integer('account_id')->after('is_active')->unsigned()->index();
             $table->foreign('account_id')->references('id')->on('accounts')->onDelete('cascade');
         });
@@ -26,7 +26,7 @@ class CreateRelationEstablishmentsAccounts extends Migration
      */
     public function down()
     {
-        Schema::table('establishments', function ($table) {
+        Schema::table('offices', function ($table) {
             $table->dropForeign('establishments_account_id_foreign');
             $table->dropColumn('account_id');
         });

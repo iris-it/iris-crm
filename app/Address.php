@@ -42,28 +42,9 @@ class Address extends Model
         'country' => 'string',
     ];
 
-    /**
-     * Validation rules
-     *
-     * @var array
-     */
-    public static function rules($id)
+
+    public function offices()
     {
-
-        return
-            [
-                'name' => 'required|max:255',
-                'street_label' => 'required|max:255',
-                'street_detail' => 'max:255',
-                'zipcode' => 'required|max:10|integer',
-                'city' => 'required|max:255',
-                'country' => 'required|max:255',
-            ];
-    }
-
-
-    public function establishments()
-    {
-        return $this->belongsToMany('App\Establishment', 'addresses_establishments_pivot', 'address_id', 'establishment_id')->withPivot('type')->withTimestamps();
+        return $this->belongsToMany('App\Office', 'addresses_offices_pivot', 'address_id', 'office_id')->withPivot('type')->withTimestamps();
     }
 }

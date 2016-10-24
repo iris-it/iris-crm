@@ -56,37 +56,6 @@ class Invoice extends Model
         'content' => 'array'
     ];
 
-    /**
-     * Validation rules
-     *
-     * @var array
-     */
-    public static function rules($id)
-    {
-        return [
-
-            'topic' => 'required|max:255|string',
-            'phase' => 'required|max:255|string',
-            'deadline' => 'required',
-            'description' => 'string',
-            'ht_price' => 'numeric',
-            'ttc_price' => 'numeric',
-            'special_conditions' => 'string',
-            'address' => 'required|string',
-            'zipcode' => 'required|string',
-            'city' => 'required|string',
-            'country' => 'required|string',
-
-            /*Relations*/
-
-            'contact_name_id' => 'required|integer',
-            'quote_id' => 'integer',
-            'products.*' => '',
-            'services.*' => '',
-
-
-        ];
-    }
 
     //MUTATORS
     /**
@@ -108,9 +77,9 @@ class Invoice extends Model
         $this->attributes['deadline'] = Carbon::createFromFormat('d/m/Y', $date);
     }
 
-    public function establishment()
+    public function office()
     {
-        return $this->belongsTo('App\Establishment');
+        return $this->belongsTo('App\Office');
     }
 
 }

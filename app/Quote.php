@@ -54,38 +54,6 @@ class Quote extends Model
         'content' => 'array'
     ];
 
-    /**
-     * Validation rules
-     *
-     * @var array
-     */
-    public static function rules($id)
-    {
-        return [
-
-            'topic' => 'required|max:255|string',
-            'phase' => 'required|max:255|string',
-            'deadline' => 'required',
-            'description' => 'string',
-            'ht_price' => 'numeric',
-            'ttc_price' => 'numeric',
-            'special_conditions' => 'string',
-            'address' => 'required|string',
-            'zipcode' => 'required|string',
-            'city' => 'required|string',
-            'country' => 'required|string',
-
-            /*Relations*/
-
-            'contact_name_id' => 'required|integer',
-            'quote_owner_id' => 'required|integer',
-            'products.*' => '',
-            'services.*' => '',
-
-
-        ];
-    }
-
     //MUTATORS
     /**
      * Mutate deadline to FR with Carbon
@@ -106,9 +74,9 @@ class Quote extends Model
         $this->attributes['deadline'] = Carbon::createFromFormat('d/m/Y', $date);
     }
 
-    public function establishment()
+    public function office()
     {
-        return $this->belongsTo('App\Establishment');
+        return $this->belongsTo('App\Office');
     }
 
     public function receipt()

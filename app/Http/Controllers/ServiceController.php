@@ -2,68 +2,54 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests;
-use App\Http\Requests\CreateServiceRequest;
-use App\Http\Requests\UpdateServiceRequest;
-use App\Repositories\ServiceRepository;
-use App\Http\Controllers\AppBaseController as InfyOmBaseController;
+
+use App\Http\Requests\ServiceRequest;
+use App\Service;
 use App\Tax;
-use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Lang;
 use Laracasts\Flash\Flash;
-use Prettus\Repository\Criteria\RequestCriteria;
-use Response;
 
-class ServiceController extends InfyOmBaseController
+class ServiceController extends Controller
 {
-    /** @var  ServiceRepository */
-    private $serviceRepository;
 
-    public function __construct(ServiceRepository $serviceRepo)
+    public function __construct()
     {
-        $this->serviceRepository = $serviceRepo;
+        $this->middleware('auth');
+
+        $this->middleware('hasOrganization');
+
+        $this->organization = Auth::user()->organization;
     }
 
     /**
      * Display a listing of the Service.
-     *
-     * @param Request $request
-     * @return Response
      */
-    public function index(Request $request)
+    public function index()
     {
-        $this->serviceRepository->pushCriteria(new RequestCriteria($request));
-        $services = $this->serviceRepository->all();
-
-        return view('pages.services.index')
-            ->with('services', $services);
+        $services = $this->organization->services;
+        return view('pages.services.index')->with('services', $services);
     }
 
     /**
      * Show the form for creating a new Service.
-     *
-     * @return Response
      */
     public function create()
     {
-        $taxes = Tax::pluck('name', 'id');
+        $taxes = $this->organization->taxes;
 
         return view('pages.services.create')->with(compact('taxes'));
     }
 
     /**
      * Store a newly created Service in storage.
-     *
-     * @param CreateServiceRequest $request
-     *
-     * @return Response
      */
-    public function store(CreateServiceRequest $request)
+    public function store(ServiceRequest $request)
     {
         $input = $request->all();
         $totalTaxes = 0;
 
-        if ($service = $this->serviceRepository->create($input)) {
+        if ($service = Service::create($input)) {
 
             $service->taxes()->sync($input["taxes"] ?: []);
             $service->save();
@@ -94,16 +80,13 @@ class ServiceController extends InfyOmBaseController
     /**
      * Display the specified Service.
      *
-     * @param  int $id
-     *
-     * @return Response
      */
     public function show($id)
     {
-        $service = $this->serviceRepository->findWithoutFail($id);
+        $service = Service::findOrFail($id);
 
         if (empty($service)) {
-            Flash::error('Service not found');
+            Flash::error(Lang::get('app.general:missing-model'));
 
             return redirect(route('services.index'));
         }
@@ -113,19 +96,15 @@ class ServiceController extends InfyOmBaseController
 
     /**
      * Show the form for editing the specified Service.
-     *
-     * @param  int $id
-     *
-     * @return Response
      */
     public function edit($id)
     {
-        $service = $this->serviceRepository->findWithoutFail($id);
-        $taxes = Tax::pluck('name', 'id');
+        $service = Service::findOrFail($id);
+        $taxes = $this->organization->taxes;
 
 
         if (empty($service)) {
-            Flash::error('Service not found');
+            Flash::error(Lang::get('app.general:missing-model'));
 
             return redirect(route('services.index'));
         }
@@ -135,32 +114,26 @@ class ServiceController extends InfyOmBaseController
 
     /**
      * Update the specified Service in storage.
-     *
-     * @param  int $id
-     * @param UpdateServiceRequest $request
-     *
-     * @return Response
      */
-    public function update($id, UpdateServiceRequest $request)
+    public function update($id, ServiceRequest $request)
     {
         $input = $request->all();
-        $service = $this->serviceRepository->findWithoutFail($id);
+        $service = Service::findOrFail($id);
         $totalTaxes = 0;
 
         if (empty($service)) {
-            Flash::error('Service not found');
+            Flash::error(Lang::get('app.general:missing-model'));
 
             return redirect(route('services.index'));
         }
 
-        if ($service = $this->serviceRepository->update($request->all(), $id)) {
+        if ($service->update($input) && $service->save()) {
 
             if (!$request->has('taxes')) {
                 $input["taxes"] = [];
             }
-            
+
             $service->taxes()->sync($input["taxes"] ?: []);
-            $service->save();
 
             foreach ($service->taxes as $tax) {
 
@@ -187,24 +160,20 @@ class ServiceController extends InfyOmBaseController
 
     /**
      * Remove the specified Service from storage.
-     *
-     * @param  int $id
-     *
-     * @return Response
      */
     public function destroy($id)
     {
-        $service = $this->serviceRepository->findWithoutFail($id);
+        $service = Service::findOrFail($id);
 
         if (empty($service)) {
-            Flash::error('Service not found');
+            Flash::error(Lang::get('app.general:missing-model'));
 
             return redirect(route('services.index'));
         }
 
-        $this->serviceRepository->delete($id);
+        $service->delete();
 
-        Flash::success('Service deleted successfully.');
+        Flash::success(Lang::get('app.general:delete-success'));
 
         return redirect(route('services.index'));
     }

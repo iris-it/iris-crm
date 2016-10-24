@@ -36,22 +36,6 @@ class Account extends Model
         'converted' => 'boolean',
     ];
 
-    /**
-     * Validation rules
-     *
-     * @var array
-     */
-    public static function rules($id)
-    {
-
-        return
-            [
-                'name' => 'required|max:255|unique:accounts,name,' . $id,
-                'is_lead' => 'boolean',
-                'converted' => 'boolean', //
-
-            ];
-    }
 
 
     public function organization()
@@ -59,9 +43,9 @@ class Account extends Model
         return $this->belongsTo('App\Organization');
     }
 
-    public function establishments()
+    public function offices()
     {
-        return $this->hasMany('App\Establishment');
+        return $this->hasMany('App\Office');
     }
 
     public function invoices()

@@ -2,70 +2,60 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests;
-use App\Http\Requests\CreateLeadRequest;
-use App\Http\Requests\UpdateLeadRequest;
-use App\Repositories\LeadRepository;
-use App\Http\Controllers\AppBaseController as InfyOmBaseController;
+
+use App\Account;
+use App\Http\Requests\AccountRequest;
 use App\User;
-use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Lang;
 use Laracasts\Flash\Flash;
-use Prettus\Repository\Criteria\RequestCriteria;
-use Response;
 
-class LeadController extends InfyOmBaseController
+
+class LeadController extends Controller
 {
-    /** @var  LeadRepository */
-    private $leadRepository;
 
-    public function __construct(LeadRepository $leadRepo)
+    public function __construct()
     {
-        $this->leadRepository = $leadRepo;
+        $this->middleware('auth');
+
+        $this->middleware('hasOrganization');
+
+        $this->organization = Auth::user()->organization;
     }
 
     /**
      * Display a listing of the Lead.
-     *
-     * @param Request $request
-     * @return Response
      */
-    public function index(Request $request)
+    public function index()
     {
-        $this->leadRepository->pushCriteria(new RequestCriteria($request));
-        $leads = $this->leadRepository->all();
+        $leads = $this->organization->accounts()->where('is_lead', true)->get();
 
-        return view('pages.leads.index')
-            ->with('leads', $leads);
+        return view('pages.leads.index')->with('leads', $leads);
     }
 
     /**
      * Show the form for creating a new Lead.
-     *
-     * @return Response
      */
     public function create()
     {
-        $users = User::pluck('name', 'id');
-        return view('pages.leads.create')->with(compact('users'));
+        return view('pages.leads.create');
     }
 
     /**
      * Store a newly created Lead in storage.
      *
-     * @param CreateLeadRequest $request
-     *
-     * @return Response
      */
-    public function store(CreateLeadRequest $request)
+    public function store(AccountRequest $request)
     {
         $input = $request->all();
 
-        if ($lead = $this->leadRepository->create($input)) {
+        if ($lead = Account::create($input)) {
 
-            $user = User::findOrFail($request->account_owner_id);
-            $lead->user()->associate($user);
+            $lead->converted = false;
+            $lead->is_lead = true;
+            $lead->organization()->associate($this->organization);
             $lead->save();
+
             Flash::success(Lang::get('app.general:create-success'));
 
         } else {
@@ -75,24 +65,19 @@ class LeadController extends InfyOmBaseController
 
         }
 
-        Flash::success('Lead saved successfully.');
-
         return redirect(route('leads.index'));
     }
 
     /**
      * Display the specified Lead.
      *
-     * @param  int $id
-     *
-     * @return Response
      */
     public function show($id)
     {
-        $lead = $this->leadRepository->findWithoutFail($id);
+        $lead = Account::findOrFail($id);
 
         if (empty($lead)) {
-            Flash::error('Lead not found');
+            Flash::error(Lang::get('app.general:missing-model'));
 
             return redirect(route('leads.index'));
         }
@@ -102,36 +87,10 @@ class LeadController extends InfyOmBaseController
 
     /**
      * Show the form for editing the specified Lead.
-     *
-     * @param  int $id
-     *
-     * @return Response
      */
     public function edit($id)
     {
-        $lead = $this->leadRepository->findWithoutFail($id);
-        $users = User::pluck('name', 'id');
-
-        if (empty($lead)) {
-            Flash::error('Lead not found');
-
-            return redirect(route('leads.index'));
-        }
-
-        return view('pages.leads.edit')->with(compact('users', 'lead'));
-    }
-
-    /**
-     * Update the specified Lead in storage.
-     *
-     * @param  int $id
-     * @param UpdateLeadRequest $request
-     *
-     * @return Response
-     */
-    public function update($id, UpdateLeadRequest $request)
-    {
-        $lead = $this->leadRepository->findWithoutFail($id);
+        $lead = Account::findOrFail($id);
 
         if (empty($lead)) {
             Flash::error(Lang::get('app.general:missing-model'));
@@ -139,11 +98,25 @@ class LeadController extends InfyOmBaseController
             return redirect(route('leads.index'));
         }
 
-        if ($lead = $this->leadRepository->update($request->all(), $id)) {
+        return view('pages.leads.edit')->with('lead', $lead);
+    }
 
-            $user = User::findOrFail($request->account_owner_id);
-            $lead->user()->associate($user);
-            $lead->save();
+    /**
+     * Update the specified Lead in storage.
+     */
+    public function update($id, AccountRequest $request)
+    {
+        $lead = Account::findOrFail($id);
+        $data = $request->all();
+
+        if (empty($lead)) {
+            Flash::error(Lang::get('app.general:missing-model'));
+
+            return redirect(route('leads.index'));
+        }
+
+        if ($lead->update($data) && $lead->save()) {
+
             Flash::success(Lang::get('app.general:update-success'));
 
         } else {
@@ -157,24 +130,19 @@ class LeadController extends InfyOmBaseController
 
     /**
      * Remove the specified Lead from storage.
-     *
-     * @param  int $id
-     *
-     * @return Response
      */
     public function destroy($id)
     {
-        $lead = $this->leadRepository->findWithoutFail($id);
+        $lead = Account::findOrFail($id);
 
         if (empty($lead)) {
-            Flash::error('Lead not found');
+            Flash::error(Lang::get('app.general:missing-model'));
 
             return redirect(route('leads.index'));
         }
 
-        $this->leadRepository->delete($id);
-
-        Flash::success('Lead deleted successfully.');
+        $lead->delete();
+        Flash::success(Lang::get('app.general:delete-success'));
 
         return redirect(route('leads.index'));
     }

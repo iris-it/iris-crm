@@ -5,11 +5,21 @@ namespace App\Http\Controllers;
 
 use App\Account;
 use App\Invoice;
-use App\Order;
 use App\Quote;
+use App\Receipt;
 
 class HomeController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('auth');
+
+        $this->middleware('hasOrganization');
+
+        $this->organization = Auth::user()->organization;
+    }
+
 
     /**
      * Show the application dashboard.
@@ -23,7 +33,7 @@ class HomeController extends Controller
             $users = $this->organization->users()->get();
         }
 
-        $orders = Order::all();
+        $receipts = Receipt::all();
         $quotes = Quote::all();
         $invoices = Invoice::all();
         $convertedAccounts = Account::where('converted', true);

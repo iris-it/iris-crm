@@ -2,46 +2,39 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests;
-use App\Http\Requests\CreateTaxRequest;
-use App\Http\Requests\UpdateTaxRequest;
-use App\Repositories\TaxRepository;
-use App\Http\Controllers\AppBaseController as InfyOmBaseController;
+
+use App\Http\Requests\TaxRequest;
+use App\Tax;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Lang;
 use Laracasts\Flash\Flash;
-use Prettus\Repository\Criteria\RequestCriteria;
-use Response;
 
-class TaxController extends InfyOmBaseController
+
+class TaxController extends Controller
 {
-    /** @var  TaxRepository */
-    private $taxRepository;
 
-    public function __construct(TaxRepository $taxRepo)
+    public function __construct()
     {
-        $this->taxRepository = $taxRepo;
+        $this->middleware('auth');
+
+        $this->middleware('hasOrganization');
+
+        $this->organization = Auth::user()->organization;
     }
 
     /**
      * Display a listing of the Tax.
-     *
-     * @param Request $request
-     * @return Response
      */
-    public function index(Request $request)
+    public function index()
     {
-        $this->taxRepository->pushCriteria(new RequestCriteria($request));
-        $taxes = $this->taxRepository->all();
+      $taxes = $this->organization->taxes;
 
-        return view('pages.taxes.index')
-            ->with('taxes', $taxes);
+        return view('pages.taxes.index')->with('taxes', $taxes);
     }
 
     /**
      * Show the form for creating a new Tax.
-     *
-     * @return Response
      */
     public function create()
     {
@@ -50,16 +43,12 @@ class TaxController extends InfyOmBaseController
 
     /**
      * Store a newly created Tax in storage.
-     *
-     * @param CreateTaxRequest $request
-     *
-     * @return Response
      */
-    public function store(CreateTaxRequest $request)
+    public function store(TaxRequest $request)
     {
         $input = $request->all();
 
-        if ($tax = $this->taxRepository->create($input)) {
+        if ($tax = Tax::create($input)) {
 
             Flash::success(Lang::get('app.general:create-success'));
 
@@ -75,14 +64,10 @@ class TaxController extends InfyOmBaseController
 
     /**
      * Display the specified Tax.
-     *
-     * @param  int $id
-     *
-     * @return Response
      */
     public function show($id)
     {
-        $tax = $this->taxRepository->findWithoutFail($id);
+        $tax = Tax::findOrFail($id);
 
         if (empty($tax)) {
             Flash::error(Lang::get('app.general:missing-model'));
@@ -95,15 +80,10 @@ class TaxController extends InfyOmBaseController
 
     /**
      * Show the form for editing the specified Tax.
-     *
-     * @param  int $id
-     *
-     * @return Response
      */
     public function edit($id)
     {
-        $tax = $this->taxRepository->findWithoutFail($id);
-
+        $tax = Tax::findOrFail($id);
 
         if (empty($tax)) {
             Flash::error(Lang::get('app.general:missing-model'));
@@ -116,15 +96,11 @@ class TaxController extends InfyOmBaseController
 
     /**
      * Update the specified Tax in storage.
-     *
-     * @param  int $id
-     * @param UpdateTaxRequest $request
-     *
-     * @return Response
      */
-    public function update($id, UpdateTaxRequest $request)
+    public function update($id, TaxRequest $request)
     {
-        $tax = $this->taxRepository->findWithoutFail($id);
+        $tax = Tax::findOrFail($id);
+        $data = $request->all();
 
         if (empty($tax)) {
             Flash::error(Lang::get('app.general:missing-model'));
@@ -132,7 +108,7 @@ class TaxController extends InfyOmBaseController
             return redirect(route('taxes.index'));
         }
 
-        if ($tax = $this->taxRepository->update($request->all(), $id)) {
+        if ($tax->update($data) && $tax->save()) {
 
             Flash::success(Lang::get('app.general:update-success'));
 
@@ -148,14 +124,10 @@ class TaxController extends InfyOmBaseController
 
     /**
      * Remove the specified Tax from storage.
-     *
-     * @param  int $id
-     *
-     * @return Response
      */
     public function destroy($id)
     {
-        $tax = $this->taxRepository->findWithoutFail($id);
+        $tax = Tax::findOrFail($id);
 
         if (empty($tax)) {
             Flash::error(Lang::get('app.general:missing-model'));
@@ -163,9 +135,9 @@ class TaxController extends InfyOmBaseController
             return redirect(route('taxes.index'));
         }
 
-        $this->taxRepository->delete($id);
+        $tax->delete();
 
-        Flash::success('Tax deleted successfully.');
+        Flash::success(Lang::get('app.general:delete-success'));
 
         return redirect(route('taxes.index'));
     }

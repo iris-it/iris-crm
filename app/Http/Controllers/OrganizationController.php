@@ -1,7 +1,6 @@
 <?php namespace App\Http\Controllers;
 
-use App\Http\Requests\CreateOrganizationRequest;
-use App\Http\Requests\UpdateOrganizationRequest;
+use App\Http\Requests\OrganizationRequest;
 use App\Organization;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Lang;
@@ -19,8 +18,6 @@ class OrganizationController extends Controller
     {
 
         $organization = $this->organization;
-
-        dd($organization);
 
         $groups = $this->organization->groups()->get();
 
@@ -47,10 +44,10 @@ class OrganizationController extends Controller
     /**
      * Store a newly created organization in storage.
      *
-     * @param CreateOrganizationRequest $request
+     * @param OrganizationRequest $request
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
-    public function store(CreateOrganizationRequest $request)
+    public function store(OrganizationRequest $request)
     {
 
         $data = $request->all();
@@ -89,10 +86,10 @@ class OrganizationController extends Controller
     /**
      * Update the profile of the authenticated user
      *
-     * @param UpdateOrganizationRequest $request
+     * @param OrganizationRequest $request
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
-    public function update(UpdateOrganizationRequest $request)
+    public function update(OrganizationRequest $request)
     {
 
         if ($this->filterName($request->get('name'))) {

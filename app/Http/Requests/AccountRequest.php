@@ -2,7 +2,6 @@
 
 namespace App\Http\Requests;
 
-use App\Account;
 use App\Http\Requests\Request;
 
 class AccountRequest extends Request
@@ -23,9 +22,16 @@ class AccountRequest extends Request
      *
      * @return array
      */
+
     public function rules()
     {
-        return Account::rules($this->accounts);
 
+        return
+            [
+                'name' => 'required|max:255|unique:accounts,name,' . $this->id,
+                'is_lead' => 'boolean',
+                'converted' => 'boolean', //
+
+            ];
     }
 }

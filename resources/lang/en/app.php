@@ -49,6 +49,7 @@ return  array(
 	'general:created-at'             => 'Created at',
 	'general:dashboard'              => 'Dashboard',
 	'general:deadline'               => 'Deadline',
+	'general:delete-success'         => 'Deletion successful',
 	'general:delivery-address'       => 'Delivery address',
 	'general:description'            => 'Description',
 	'general:detail-info'            => 'Detail',

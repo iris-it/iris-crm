@@ -3,84 +3,59 @@
 namespace App\Http\Controllers;
 
 use App\Contact;
-use App\Http\Requests;
-use App\Http\Requests\CreateProductRequest;
-use App\Http\Requests\UpdateProductRequest;
-use App\Repositories\ProductRepository;
-use App\Http\Controllers\AppBaseController as InfyOmBaseController;
-use App\Tax;
-use Illuminate\Http\Request;
+use App\Http\Requests\ProductRequest;
+use App\Product;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Lang;
 use Laracasts\Flash\Flash;
-use Prettus\Repository\Criteria\RequestCriteria;
-use Response;
 
-class ProductController extends InfyOmBaseController
+class ProductController extends Controller
 {
-    /** @var  ProductRepository */
-    private $productRepository;
 
-    public function __construct(ProductRepository $productRepo)
+    public function __construct()
     {
-        $this->productRepository = $productRepo;
+        $this->middleware('auth');
+
+        $this->middleware('hasOrganization');
+
+        $this->organization = Auth::user()->organization;
     }
 
     /**
      * Display a listing of the Product.
-     *
-     * @param Request $request
-     * @return Response
      */
-    public function index(Request $request)
+    public function index()
     {
-        $this->productRepository->pushCriteria(new RequestCriteria($request));
-        $products = $this->productRepository->all();
-
+        $products = $this->organization->products;
         return view('pages.products.index')->with('products', $products);
     }
 
     /**
      * Show the form for creating a new Product.
-     *
-     * @return Response
      */
     public function create()
     {
-        $contacts = Contact::pluck('lastname', 'id');
-        $taxes = Tax::pluck('name', 'id');
-//        $taxesArray = [];
-//        $taxes = Tax::all();
-//
-//        foreach($taxes as $tax) {
-//            $name = $tax->name;
-//            $value = $tax->value . " %";
-//
-//            $taxesArray[$name . " : " . $value] = $tax->id;
-//        }
+        $contacts = $this->organization->contacts;
+        $taxes = $this->organization->taxes;
+
 
         return view('pages.products.create')->with(compact('contacts', 'taxes'));
     }
 
     /**
      * Store a newly created Product in storage.
-     *
-     * @param CreateProductRequest $request
-     *
-     * @return Response
      */
-    public function store(CreateProductRequest $request)
+    public function store(ProductRequest $request)
     {
         $input = $request->all();
 
-        if ($product = $this->productRepository->create($input)) {
+        if ($product = Product::create($input)) {
 
-            $contact = Contact::findOrFail($request->manutention_officer_id);
             $totalTaxes = 0;
 
+            $contact = Contact::findOrFail($request->manutention_officer_id);
+            $product->officer = $contact->firstname . " " . $contact->lastname;
             $product->taxes()->sync($input["taxes"] ?: []);
-            $product->contact()->associate($contact);
-
-            $product->save();
 
             foreach ($product->taxes as $tax) {
 
@@ -107,17 +82,14 @@ class ProductController extends InfyOmBaseController
     /**
      * Display the specified Product.
      *
-     * @param  int $id
-     *
-     * @return Response
      */
     public function show($id)
     {
-        $product = $this->productRepository->findWithoutFail($id);
+        $product = Product::findOrFail($id);
 
         if (empty($product)) {
-            Flash::error('Product not found');
 
+            Flash::error(Lang::get('app.general:missing-model'));
             return redirect(route('products.index'));
         }
 
@@ -127,29 +99,16 @@ class ProductController extends InfyOmBaseController
     /**
      * Show the form for editing the specified Product.
      *
-     * @param  int $id
-     *
-     * @return Response
      */
     public function edit($id)
     {
-        $product = $this->productRepository->findWithoutFail($id);
-        $contacts = Contact::pluck('lastname', 'id');
-        $taxes = Tax::pluck('name', 'id');
-        
-//        $taxesArray = [];
-//        $taxes = Tax::all();
-//
-//        foreach($taxes as $tax) {
-//            $name = $tax->name;
-//            $value = $tax->value . " %";
-//
-//            $taxesArray[$name . " : " . $value] = $tax->id;
-//        }
+        $product = Product::findOrFail($id);
+        $contacts = $this->organization->contacts;
+        $taxes = $this->organization->taxes;
 
         if (empty($product)) {
 
-            Flash::error('Product not found');
+            Flash::error(Lang::get('app.general:missing-model'));
 
             return redirect(route('products.index'));
         }
@@ -159,35 +118,29 @@ class ProductController extends InfyOmBaseController
 
     /**
      * Update the specified Product in storage.
-     *
-     * @param  int $id
-     * @param UpdateProductRequest $request
-     *
-     * @return Response
      */
-    public function update($id, UpdateProductRequest $request)
+    public function update($id, ProductRequest $request)
     {
-        $product = $this->productRepository->findWithoutFail($id);
+        $product = Product::findOrFail($id);
         $input = $request->all();
         $totalTaxes = 0;
 
         $contact = Contact::findOrFail($request->manutention_officer_id);
 
         if (empty($product)) {
-            Flash::error(trans('app.general:undefined'));
+            Flash::error(Lang::get('app.general:missing-model'));
 
             return redirect(route('products.index'));
         }
 
-        if ($product = $this->productRepository->update($request->all(), $id)) {
+        if ($product->update($input) && $product->save()) {
 
             if (!$request->has('taxes')) {
                 $input["taxes"] = [];
             }
 
             $product->taxes()->sync($input["taxes"] ?: []);
-            $product->contact()->associate($contact);
-            $product->save();
+            $product->officer = $contact->firstname . " " . $contact->lastname;
 
             foreach ($product->taxes as $tax) {
 
@@ -213,24 +166,20 @@ class ProductController extends InfyOmBaseController
 
     /**
      * Remove the specified Product from storage.
-     *
-     * @param  int $id
-     *
-     * @return Response
      */
     public function destroy($id)
     {
-        $product = $this->productRepository->findWithoutFail($id);
+        $product = Product::findOrFail($id);
 
         if (empty($product)) {
-            Flash::error('Product not found');
+            Flash::error(Lang::get('app.general:missing-model'));
 
             return redirect(route('products.index'));
         }
 
-        $this->productRepository->delete($id);
+        $product->delete();
 
-        Flash::success('Product deleted successfully.');
+        Flash::success(Lang::get('app.general:delete-success'));
 
         return redirect(route('products.index'));
     }
