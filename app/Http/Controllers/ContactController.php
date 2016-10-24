@@ -6,21 +6,11 @@ use App\Account;
 use App\Contact;
 use App\Http\Requests\ContactRequest;
 use App\Office;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Lang;
 use Laracasts\Flash\Flash;
 
 class ContactController extends Controller
 {
-
-    public function __construct()
-    {
-        $this->middleware('auth');
-
-        $this->middleware('hasOrganization');
-
-        $this->organization = Auth::user()->organization;
-    }
 
     /**
      * Display a listing of the Contact.

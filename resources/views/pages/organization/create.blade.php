@@ -1,7 +1,5 @@
 @extends('layouts.app')
 
-@section('breadcrumbs', Breadcrumbs::render('organization_create'))
-
 @section('content')
 
     <section class="content">

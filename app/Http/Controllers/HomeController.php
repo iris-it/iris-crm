@@ -10,14 +10,12 @@ use App\Receipt;
 
 class HomeController extends Controller
 {
-
     public function __construct()
     {
         $this->middleware('auth');
 
         $this->middleware('hasOrganization');
 
-        $this->organization = Auth::user()->organization;
     }
 
 

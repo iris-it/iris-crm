@@ -5,23 +5,12 @@ namespace App\Http\Controllers;
 
 use App\Account;
 use App\Http\Requests\AccountRequest;
-use App\User;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Lang;
 use Laracasts\Flash\Flash;
 
 
 class LeadController extends Controller
 {
-
-    public function __construct()
-    {
-        $this->middleware('auth');
-
-        $this->middleware('hasOrganization');
-
-        $this->organization = Auth::user()->organization;
-    }
 
     /**
      * Display a listing of the Lead.

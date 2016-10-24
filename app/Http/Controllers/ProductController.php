@@ -5,21 +5,11 @@ namespace App\Http\Controllers;
 use App\Contact;
 use App\Http\Requests\ProductRequest;
 use App\Product;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Lang;
 use Laracasts\Flash\Flash;
 
 class ProductController extends Controller
 {
-
-    public function __construct()
-    {
-        $this->middleware('auth');
-
-        $this->middleware('hasOrganization');
-
-        $this->organization = Auth::user()->organization;
-    }
 
     /**
      * Display a listing of the Product.

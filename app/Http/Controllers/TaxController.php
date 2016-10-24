@@ -5,23 +5,12 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\TaxRequest;
 use App\Tax;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Lang;
 use Laracasts\Flash\Flash;
 
 
 class TaxController extends Controller
 {
-
-    public function __construct()
-    {
-        $this->middleware('auth');
-
-        $this->middleware('hasOrganization');
-
-        $this->organization = Auth::user()->organization;
-    }
 
     /**
      * Display a listing of the Tax.

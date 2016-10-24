@@ -12,21 +12,13 @@ class AccountController extends Controller
 {
 
 
-    public function __construct()
-    {
-        $this->middleware('auth');
-
-        $this->middleware('hasOrganization');
-
-        $this->organization = Auth::user()->organization;
-    }
-
     /**
      * Display a listing of the Account.
      */
 
     public function index()
     {
+
         $accounts = $this->organization->accounts()->where('is_lead', false)->get();
 
         return view('pages.accounts.index')->with('accounts', $accounts);
@@ -121,7 +113,7 @@ class AccountController extends Controller
             return redirect(route('accounts.index'));
         }
 
-        if($account->update($data) && $account->save()) {
+        if ($account->update($data) && $account->save()) {
 
             Flash::success(Lang::get('app.general:update-success'));
 

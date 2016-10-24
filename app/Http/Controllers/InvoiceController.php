@@ -16,16 +16,6 @@ use Laracasts\Flash\Flash;
 class InvoiceController extends Controller
 {
 
-    public function __construct()
-    {
-        $this->middleware('auth');
-
-        $this->middleware('hasOrganization');
-
-        $this->organization = Auth::user()->organization;
-
-    }
-
     /**
      * Display a listing of the Invoice.
      */

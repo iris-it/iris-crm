@@ -2,27 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests;
 use App\Http\Requests\ReceiptRequest;
 use App\Office;
 use App\Receipt;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Lang;
 use Laracasts\Flash\Flash;
-use Prettus\Repository\Criteria\RequestCriteria;
 
 class ReceiptController extends Controller
 {
-
-    public function __construct()
-    {
-        $this->middleware('auth');
-
-        $this->middleware('hasOrganization');
-
-        $this->organization = Auth::user()->organization;
-    }
-
     /**
      * Display a listing of the Order.
      */
