@@ -2,6 +2,7 @@
 
 return  array(
 	'account:converted'                 => 'Converted from lead',
+	'account:new'                       => 'New account',
 	'contact:account-name'              => 'Account name',
 	'contact:avatar'                    => 'Profil picture',
 	'contact:civility'                  => 'Civility',

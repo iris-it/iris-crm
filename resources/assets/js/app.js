@@ -18,22 +18,30 @@ Vue.component('Login', require('./components/Auth/Login.vue'));
 Vue.component('Logout', require('./components/Auth/Logout.vue'));
 Vue.component('UserProfile', require('./components/Auth/UserProfile.vue'));
 Vue.component('ContactType', require('./components/Contact/ContactType.vue'));
-Vue.component('ModalBox', require('./components/Common/Modal.vue'));
+Vue.component('Modal', require('./components/Common/Modal.vue'));
+
 
 const app = new Vue({
 
     el: '#app',
 
     data: {
-
-        modalIsOpen : false
+        modalState : {},
+        modalData: {}
     },
 
     methods: {
 
-        showModal : function() {
-            this.modalIsOpen = true;
-        }
+        showModal: function (id,data) {
+
+            this.$set(this.modalData, id, data);
+            this.$set(this.modalState, id, true);
+
+        },
+
     }
 
+
 });
+
+

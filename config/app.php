@@ -255,6 +255,7 @@ return [
         * Homemade
         */
         'Stats' => App\Helpers\StatisticsHelper::class,
+        'VueHelper' => App\Helpers\VueHelper::class,
     ],
 
 ];

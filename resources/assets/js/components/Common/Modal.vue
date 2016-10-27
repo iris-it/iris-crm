@@ -1,42 +1,44 @@
 <template>
-        <div class="modal" @click="closeModal" v-show="isModalOpen">
-          <div class="modal-dialog">
-            <div class="modal-content" @click.stop="" v-show="isModalOpen"  >
-              <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                  <span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title">@{{title}}</h4>
-              </div>
-              <div class="modal-body">
+
+<transition name="custom-classes-transition" enter-active-class="animated fadeIn" leave-active-class="animated fadeOut">
+<div @click="closeModal" v-show="isModalOpen" class="Modal u-overlay animated">
+   <transition name="custom-classes-transition" enter-active-class="animated fadeInDown" leave-active-class="animated fadeOutUp">
+    <div @click.stop="" v-show="isModalOpen" transition="fadeWithMove" class="Modal__container animated">
+            <header class="Modal__header">
+                <h1>
+                    {{ title }}
+                </h1>
+            </header>
+
+            <div class="Modal__content">
                 <slot></slot>
-              </div>
-              <div class="modal-footer">
-                <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Save changes</button>
-              </div>
             </div>
-            <!-- /.modal-content -->
-          </div>
-          <!-- /.modal-dialog -->
+
+            <footer class="Modal__footer"></footer>
         </div>
-        <!-- /.modal -->
+        </transition>
+    </div>
+     </transition>
 </template>
 
-<style>
-
-</style>
 
 <script type="text/babel">
 
     export default {
 
-        props: ['title'],
+        props: ['id', 'title'],
+
+        created: function() {
+            this.closeModal();
+        },
 
         computed: {
 
             isModalOpen: function() {
 
-                return this.$root.modalIsOpen;
+               var id = this.id;
+
+               return this.$root.modalState[id];
 
             }
         },
@@ -45,7 +47,7 @@
 
             closeModal: function() {
 
-                this.$root.modalIsOpen = false;
+                 this.$root.$set(this.$root.modalState, this.id, false);
             }
 
         }

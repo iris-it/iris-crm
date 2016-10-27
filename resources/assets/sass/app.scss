@@ -1,24 +1,72 @@
-
 // Fonts
 @import url(https://fonts.googleapis.com/css?family=Raleway:300,400,600);
-
 // Variables
 @import "variables";
-
 // Bootstrap
 @import "node_modules/bootstrap-sass/assets/stylesheets/bootstrap";
-
 // Font Awesome
 @import "node_modules/font-awesome/scss/font-awesome.scss";
-
 //Ionicons
 @import "node_modules/ionicons/dist/scss/ionicons.scss";
-
 // Bootstrap Dual List Box
 @import "node_modules/bootstrap-duallistbox/src/bootstrap-duallistbox";
-
 // Admin LTE
 @import "node_modules/admin-lte/dist/css/AdminLTE.min";
 @import "node_modules/admin-lte/dist/css/skins/skin-purple.min";
 
+//Animate
+@import "node_modules/animate.css/animate.min";
+
+/*
+ * Modal.vue component style
+ */
+
+.Modal__container {
+  max-width: 700px;
+  width: 90%;
+  background: white;
+  border-radius: 2px;
+  animation-duration: 0.3s;
+  animation-delay: 0s;
+}
+
+.Modal__header {
+  border-bottom: 1px solid white;
+  padding: 15px 10px;
+  background-color: silver;
+  color: white;
+  border-radius: 2px;
+}
+
+.Modal__header > h1 {
+  font-size: 27px;
+  font-weight: normal;
+  margin: 0;
+}
+
+.Modal__content {
+  padding: 10px;
+}
+
+.Modal__footer {
+  padding: 5px;
+}
+
+.u-overlay {
+  position: fixed;
+  z-index: 1000;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.naked-link {
+  color: inherit;
+  text-decoration: inherit;
+}
 

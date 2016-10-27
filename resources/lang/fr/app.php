@@ -2,6 +2,7 @@
 
 return  array(
 	'account:converted'                 => 'Converti depuis prospect',
+	'account:new'                       => 'Nouveau compte',
 	'contact:account-name'              => 'Nom de compte',
 	'contact:avatar'                    => 'Image de profil',
 	'contact:civility'                  => 'Civilité',
