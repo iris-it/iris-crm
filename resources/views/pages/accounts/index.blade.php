@@ -20,12 +20,20 @@
             </div>
         </div>
         <modal id="createAccountModal" title="{{trans('app.account:new')}}">
-            <p>Here is the body.</p>
-        </modal>
+            {!! Form::open(['route' => 'accounts.store']) !!}
 
+            <div class="form-group col-sm-12">
+                {!! Form::label('name',  trans('app.general:name') . ' :') !!}
+                {!! Form::text('name', null, ['class' => 'form-control']) !!}
+            </div>
 
-        <modal id="lolilol" title="{{trans('app.account:new')}}">
-            <p>Here is the body.</p>
+            <!-- Submit Field -->
+            <div class="form-group col-sm-12">
+                {!! Form::submit( trans('app.general:save-changes'), ['class' => 'btn btn-primary']) !!}
+                <a href="{!! route('accounts.index') !!}" class="btn btn-default">{{trans('app.general:cancel')}}</a>
+            </div>
+
+            {!! Form::close() !!}
         </modal>
     </div>
 

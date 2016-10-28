@@ -61,7 +61,7 @@ class AccountController extends Controller
 
         }
 
-        return redirect(route('accounts.index'));
+        return view('pages.accounts.show')->with('account', $account);
     }
 
     /**

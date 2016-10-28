@@ -1,8 +1,10 @@
 <?php
 
 return  array(
-	'account:converted'                 => 'Converted from lead',
+	'account:converted'                 => 'Converted from a lead',
+	'account:converted-field'           => 'Origin',
 	'account:new'                       => 'New account',
+	'account:unconverted'               => 'No conversion from a lead',
 	'contact:account-name'              => 'Account name',
 	'contact:avatar'                    => 'Profil picture',
 	'contact:civility'                  => 'Civility',

@@ -28,7 +28,7 @@ class AccountRequest extends Request
 
         return
             [
-                'name' => 'required|max:255|unique:accounts,name,' . $this->id,
+                'name' => 'required|max:255',
                 'is_lead' => 'boolean',
                 'converted' => 'boolean', //
 

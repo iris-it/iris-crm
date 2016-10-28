@@ -1,8 +1,10 @@
 <?php
 
 return  array(
-	'account:converted'                 => 'Converti depuis prospect',
+	'account:converted'                 => 'Converti depuis un prospect',
+	'account:converted-field'           => 'Origine',
 	'account:new'                       => 'Nouveau compte',
+	'account:unconverted'               => 'Non converti depuis un prospect',
 	'contact:account-name'              => 'Nom de compte',
 	'contact:avatar'                    => 'Image de profil',
 	'contact:civility'                  => 'Civilité',

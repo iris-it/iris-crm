@@ -16,8 +16,8 @@ class CreateAccountsTable extends Migration
         Schema::create('accounts', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
-            $table->boolean('is_lead');
-            $table->boolean('converted');
+            $table->boolean('is_lead')->nullable();
+            $table->boolean('converted')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });
