@@ -4,34 +4,30 @@
 
 
 const state = {
-    saveState: "",
-    copyState: ""
+    queue: []
 }
 
 const mutations = {
-    SAVE (state, srcId) {
-        state.saveState = srcId;
-    },
+
     COPY (state, destId) {
-        state.copyState = destId;
+        state.queue.push(destId);
     },
-    SAVE_RESET (state) {
-        state.saveState = "";
-    },
-    COPY_RESET (state) {
-        state.copyState = "";
+    FLUSH (state, updatedId) {
+        var index = state.queue.indexOf(updatedId);
+        if (index > -1) {
+            state.queue.splice(index, 1);
+        }
     }
 }
 
 const actions = {
-    save: ({ commit }) => commit('SAVE'),
     copy: ({ commit }) => commit('COPY'),
-    reset: ({ commit }) => commit('RESET'),
+    flush: ({ commit }) => commit('FLUSH'),
 }
 
 const getters = {
-    saveState: state => state.saveState,
-    copyState: state => state.copyState
+
+    queue: state => state.queue
 }
 
 export default {

@@ -34,8 +34,6 @@ Vue.component('Modal', require('./components/Common/Modal.vue'));
 Vue.component('AddressBlock', require('./components/Common/AddressBlock.vue'));
 
 
-
-
 const app = new Vue({
 
     el: '#app',
@@ -44,7 +42,7 @@ const app = new Vue({
 
     data: {
 
-        modalState : {},
+        modalState: {},
         modalData: {},
 
         addressData: {}
@@ -52,25 +50,27 @@ const app = new Vue({
 
     methods: {
 
-        showModal: function (id,data) {
+        showModal: function (id, data) {
 
             this.$set(this.modalData, id, data);
             this.$set(this.modalState, id, true);
 
         },
 
-        saveAndCopy: function (srcId, destId) {
+        saveAndCopy: function (srcId, destIdArray) {
 
-            this.addressData[destId] = Object.assign({},  this.addressData[destId], this.addressData[srcId]);
+            destIdArray.forEach(function (item) {
 
-            store.commit('SAVE', srcId);
-            store.commit('COPY', destId);
+                app.addressData[item] = Object.assign({}, app.addressData[item], app.addressData[srcId]);
+                store.commit('COPY', item);
+
+            });
+
+
 
         },
 
     }
-
-
 
 
 });

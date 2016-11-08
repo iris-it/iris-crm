@@ -72,11 +72,27 @@
 </address-block>
 <div class="col-sm-12">
     <div class="form-group col-sm-6">
-        <button type="button" class="btn btn-info btn-flat" @click="saveAndCopy('deliveryAddress','billingAddress')"><i class="fa fa-files-o"></i> {{trans('app.address:use-same-btn')}}</button>
+        <button type="button" class="btn btn-info btn-flat" @click="{{ VueHelper::saveAndCopy('deliveryAddress', ['billingAddress', 'mainAddress']) }}"><i class="fa fa-files-o"></i> {{trans('app.address:use-same-btn')}}</button>
     </div>
 </div>
 
 <address-block id="billingAddress" title="{{trans('app.general:billing-address')}}"  type="billing">
+
+    {!! Form::label('name', trans('app.address:name') . ' :', ['slot' => 'name-field']) !!}
+
+    {!! Form::label('street_label', trans('app.address:street-label') . ' :', ['slot' => 'street-label-field']) !!}
+
+    {!! Form::label('street_detail', trans('app.address:street-detail') . ' :', ['slot' => 'street-detail-field']) !!}
+
+    {!! Form::label('zipcode', trans('app.general:zipcode') . ' :', ['slot' => 'zipcode-field']) !!}
+
+    {!! Form::label('city', trans('app.general:city') . ' :', ['slot' => 'city-field']) !!}
+
+    {!! Form::label('country', trans('app.general:country') . ' :', ['slot' => 'country-field']) !!}
+
+</address-block>
+
+<address-block id="mainAddress" title="Principale Addresse"  type="main">
 
     {!! Form::label('name', trans('app.address:name') . ' :', ['slot' => 'name-field']) !!}
 

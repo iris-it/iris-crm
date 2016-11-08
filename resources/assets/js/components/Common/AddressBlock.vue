@@ -49,22 +49,16 @@
        props: ['id', 'title', 'type'],
 
        created: function() {
-          console.log('test 3');
+
           this.$set(this.$root.addressData, this.id, this.$data.fields);
 
        },
 
        computed: {
 
-
-             saveState: function() {
-
-                return this.id == this.$store.getters.saveState;
-             },
-
              syncState: function() {
 
-                return this.id == this.$store.getters.copyState;
+                return this.$store.getters.queue.includes(this.id);
 
              }
          },
@@ -86,24 +80,12 @@
 
         methods: {
 
-             saveChanges: function() {
-
-                if(this.saveState) {
-
-                 this.$set(this.$root.addressData, this.id, this.$data.fields);
-                 this.$store.commit('SAVE_RESET');
-
-                }
-
-             },
-
              syncChanges: function() {
 
-                 if(this.syncState) {
+                 if(this.syncState == true) {
 
                  this.$set(this.$data, 'fields', this.$root.addressData[this.id]);
-                 this.$store.commit('COPY_RESET');
-
+                 this.$store.commit('FLUSH', this.id);
                  }
              }
          },
@@ -111,7 +93,6 @@
 
         watch : {
 
-                 'saveState' : 'saveChanges',
                  'syncState' : 'syncChanges',
         }
 
