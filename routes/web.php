@@ -57,7 +57,7 @@ Route::group(['middleware' => 'auth'], function () {
         Route::patch('organization/edit', array('uses' => 'OrganizationController@update'));
 
        /*
-        * Other resources
+        * General resources
         */
 
         Route::resource('accounts', 'AccountController');
@@ -77,6 +77,15 @@ Route::group(['middleware' => 'auth'], function () {
         Route::resource('services', 'ServiceController');
 
         Route::resource('taxes', 'TaxController');
+
+        /*
+         * Office resources
+         */
+        Route::get('account/{id}/offices/create', 'OfficeController@create');
+        Route::post('account/{id}/offices', 'OfficeController@store');
+        Route::get('account/{id}/offices/{officeId}/show', 'OfficeController@show');
+        Route::get('account/{id}/offices/{officeId}/edit', 'OfficeController@edit');
+        Route::delete('account/{id}/offices/{officeId}', 'OfficeController@destroy');
 
     });
 });

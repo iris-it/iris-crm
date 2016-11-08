@@ -3,7 +3,7 @@
 @section('content')
     <section class="content-header">
         <h1>
-            Création d'un compte
+            {{trans('app.office:create-title')}}
         </h1>
     </section>
     <div class="content">
@@ -12,9 +12,9 @@
 
             <div class="box-body">
                 <div class="row">
-                    {!! Form::open(['route' => 'accounts.store']) !!}
+                    {!! Form::open(['method' => 'POST','action' => ['OfficeController@store', $account->id]]) !!}
 
-                        @include('pages.accounts.fields')
+                        @include('pages.offices.fields')
 
                     {!! Form::close() !!}
                 </div>

@@ -22,8 +22,12 @@ window.IrisCrm = require('./crm');
  * and simple, leaving you to focus on building your next great project.
  */
 
+
 window.Vue = require('vue');
+window.Vuex = require('vuex');
+
 require('vue-resource');
+
 
 /**
  * We'll register a HTTP interceptor to attach the "CSRF" header to each of

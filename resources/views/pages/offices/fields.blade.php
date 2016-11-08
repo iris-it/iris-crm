@@ -55,55 +55,42 @@
     </select>
 </div>
 
+<address-block id="deliveryAddress" title="{{trans('app.general:delivery-address')}}" type="delivery">
+
+    {!! Form::label('name', trans('app.address:name') . ' :', ['slot' => 'name-field']) !!}
+
+    {!! Form::label('street_label', trans('app.address:street-label') . ' :', ['slot' => 'street-label-field']) !!}
+
+    {!! Form::label('street_detail', trans('app.address:street-detail') . ' :', ['slot' => 'street-detail-field']) !!}
+
+    {!! Form::label('zipcode', trans('app.general:zipcode') . ' :', ['slot' => 'zipcode-field']) !!}
+
+    {!! Form::label('city', trans('app.general:city') . ' :', ['slot' => 'city-field']) !!}
+
+    {!! Form::label('country', trans('app.general:country') . ' :', ['slot' => 'country-field']) !!}
+
+</address-block>
 <div class="col-sm-12">
-    <h4> {{trans('app.general:billing-address')}}</h4>
-    <!-- Billing Address Field -->
     <div class="form-group col-sm-6">
-        {!! Form::label('billing_address', trans('app.general:address') . ' :') !!}
-        {!! Form::text('billing_address', null, ['class' => 'form-control']) !!}
-    </div>
-    <!-- Billing Zipcode Field -->
-    <div class="form-group col-sm-6">
-        {!! Form::label('billing_zipcode', trans('app.general:zipcode') . ' :') !!}
-        {!! Form::text('billing_zipcode', null, ['class' => 'form-control']) !!}
-    </div>
-    <!-- Billing City Field -->
-    <div class="form-group col-sm-6">
-        {!! Form::label('billing_city', trans('app.general:city') . ' :') !!}
-        {!! Form::text('billing_city', null, ['class' => 'form-control']) !!}
-    </div>
-    <!-- Billing Country Field -->
-    <div class="form-group col-sm-6">
-        {!! Form::label('billing_country', trans('app.general:country') . ' :') !!}
-        {!! Form::text('billing_country', null, ['class' => 'form-control']) !!}
+        <button type="button" class="btn btn-info btn-flat" @click="saveAndCopy('deliveryAddress','billingAddress')"><i class="fa fa-files-o"></i> {{trans('app.address:use-same-btn')}}</button>
     </div>
 </div>
 
-<div class="col-sm-12">
-    <h4> {{trans('app.general:delivery-address')}}</h4>
-    <!-- Delivery Address Field -->
-    <div class="form-group col-sm-6">
-        {!! Form::label('delivery_address', trans('app.general:address') . ' :') !!}
-        {!! Form::text('delivery_address', null, ['class' => 'form-control']) !!}
-    </div>
-    <!-- Delivery Zipcode Field -->
-    <div class="form-group col-sm-6">
-        {!! Form::label('delivery_zipcode', trans('app.general:zipcode') . ' :') !!}
-        {!! Form::text('delivery_zipcode', null, ['class' => 'form-control']) !!}
-    </div>
-    <!-- Delivery City Field -->
-    <div class="form-group col-sm-6">
-        {!! Form::label('delivery_city', trans('app.general:city') . ' :') !!}
-        {!! Form::text('delivery_city', null, ['class' => 'form-control']) !!}
-    </div>
-    <!-- Delivery Country Field -->
-    <div class="form-group col-sm-6">
-        {!! Form::label('delivery_country', trans('app.general:country') . ' :') !!}
-        {!! Form::text('delivery_country', null, ['class' => 'form-control']) !!}
-    </div>
+<address-block id="billingAddress" title="{{trans('app.general:billing-address')}}"  type="billing">
 
-</div>
+    {!! Form::label('name', trans('app.address:name') . ' :', ['slot' => 'name-field']) !!}
 
+    {!! Form::label('street_label', trans('app.address:street-label') . ' :', ['slot' => 'street-label-field']) !!}
+
+    {!! Form::label('street_detail', trans('app.address:street-detail') . ' :', ['slot' => 'street-detail-field']) !!}
+
+    {!! Form::label('zipcode', trans('app.general:zipcode') . ' :', ['slot' => 'zipcode-field']) !!}
+
+    {!! Form::label('city', trans('app.general:city') . ' :', ['slot' => 'city-field']) !!}
+
+    {!! Form::label('country', trans('app.general:country') . ' :', ['slot' => 'country-field']) !!}
+
+</address-block>
 
 <!-- Free Label Field -->
 <div class="form-group col-sm-6">

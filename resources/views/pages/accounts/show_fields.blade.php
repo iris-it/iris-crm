@@ -22,9 +22,25 @@
     </div>
 </div>
 
-
-<div class="box box-primary">
-    <div class="box-body">
-
+@if($account->offices->count() < 1)
+    <div class="form-group col-sm-10 text-center">
+        <h3 class="box-title animated flash">{{trans('app.account:no-offices-title')}}</h3>
+        <h4 class="animated fadeIn">{{trans('app.account:no-offices-desc')}}</h4>
+        <div class="col-sm-12 text-center">
+            <a class="btn btn-app bg-purple btn-flat animated pulse" style="font-size: 15px;" href="{{action('OfficeController@create', $account->id)}}">
+                <i class="fa fa-building"></i> {{trans('app.general:create')}}
+            </a>
+        </div>
     </div>
-</div>
+
+@else
+    <div class="box box-primary">
+        <div class="box-body">
+            <h4 class="box-title">{{trans('app.general:offices')}}</h4>
+            <hr>
+
+
+        </div>
+    </div>
+@endif
+
