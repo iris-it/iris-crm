@@ -38,6 +38,9 @@
         <div class="box-body">
             <h4 class="box-title">{{trans('app.general:offices')}}</h4>
             <hr>
+            @foreach($account->offices as $office)
+                <button type="button" class="btn btn-block btn-info btn-flat">{{$office->name}}</button>
+            @endforeach
 
 
         </div>

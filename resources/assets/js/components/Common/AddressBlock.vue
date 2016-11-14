@@ -67,19 +67,6 @@
 
             return  {
 
-                 addresses : new Map([
-                    [this.id,
-                        [
-                            ["name", ""],
-                            ["street_label", ""],
-                            ["street_detail", ""],
-                            ["zipcode", ""],
-                            ["city", ""],
-                            ["country", ""],
-                        ]
-                    ]
-                ]),
-
                 fields : {
                         name : "",
                         street_label : "",
