@@ -12,7 +12,8 @@ return [
      |
      */
 
-    'enabled' => env('APP_DEBUG', false),
+//    'enabled' => env('APP_DEBUG', false),
+    'enabled' => false,
 
     /*
      |--------------------------------------------------------------------------
@@ -48,7 +49,7 @@ return [
      |
      */
 
-    'include_vendors' => true,
+    'include_vendors' => 'js',
 
     /*
      |--------------------------------------------------------------------------

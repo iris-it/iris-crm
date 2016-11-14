@@ -14,7 +14,7 @@ class CreateRelationOfficesAccounts extends Migration
     public function up()
     {
         Schema::table('offices', function ($table) {
-            $table->integer('account_id')->after('is_active')->unsigned()->index();
+            $table->integer('account_id')->after('is_active')->unsigned()->nullable()->index();
             $table->foreign('account_id')->references('id')->on('accounts')->onDelete('cascade');
         });
     }

@@ -57,7 +57,7 @@ const app = new Vue({
 
         },
 
-        saveAndCopy: function (srcId, destIdArray) {
+        duplicateAddress: function (srcId, destIdArray) {
 
             destIdArray.forEach(function (item) {
 

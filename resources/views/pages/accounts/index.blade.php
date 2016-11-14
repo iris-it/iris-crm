@@ -5,7 +5,7 @@
         <h1 class="pull-left text-purple">{{trans('app.general:accounts')}}</h1>
         <h1 class="pull-right">
             <a class="btn btn-app bg-purple btn-flat pull-right" style="font-size: 15px; margin-top: -10px;margin-bottom: 5px" href="#" @click="{{VueHelper::showModal('createAccountModal')}}">
-                <i class="fa fa-plus"></i> {{trans('app.general:create')}} </a>
+            <i class="fa fa-plus"></i> {{trans('app.general:create')}} </a>
         </h1>
     </section>
     <div class="content">
@@ -14,11 +14,23 @@
         @include('flash::message')
 
         <div class="clearfix"></div>
-        <div class="box box-primary">
-            <div class="box-body">
+        @if($accounts->count() > 0)
+            <div class="box box-primary">
+                <div class="box-body">
                     @include('pages.accounts.table')
+                </div>
             </div>
-        </div>
+        @else
+            <div class="form-group col-sm-10 text-center">
+                <h3 class="box-title animated flash">{{trans('app.account:no-accounts-title')}}</h3>
+                <h4 class="animated fadeIn">{{trans('app.account:no-accounts-desc')}}</h4>
+                <div class="col-sm-12 text-center">
+                    <a class="btn btn-app bg-purple btn-flat animated pulse" style="font-size: 15px;" href="#" @click="{{VueHelper::showModal('createAccountModal')}}">
+                        <i class="fa fa-address-book"></i> {{trans('app.general:create')}} </a>
+                </div>
+            </div>
+        @endif
+
         <modal id="createAccountModal" title="{{trans('app.account:new')}}">
             {!! Form::open(['route' => 'accounts.store']) !!}
 
@@ -35,6 +47,7 @@
 
             {!! Form::close() !!}
         </modal>
+
     </div>
 
 

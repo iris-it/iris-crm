@@ -25,8 +25,18 @@ class TaxRequest extends Request
      */
     public function rules()
     {
-        return [
+        switch ($this->method()) {
+            case 'POST': {
+                return [
 
-        ];
+                ];
+            }
+            case 'PATCH': {
+                return [
+
+                ];
+            }
+        }
+
     }
 }

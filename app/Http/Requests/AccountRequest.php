@@ -25,13 +25,32 @@ class AccountRequest extends Request
 
     public function rules()
     {
+        switch ($this->method()) {
+            case 'POST' : {
 
-        return
-            [
-                'name' => 'required|max:255',
-                'is_lead' => 'boolean',
-                'converted' => 'boolean', //
+                return
+                    [
+                        'name' => 'required|max:255',
+                        'is_lead' => 'boolean',
+                        'converted' => 'boolean',
 
-            ];
+                    ];
+
+            }
+            case 'PATCH' : {
+
+                return
+                    [
+                        'name' => 'required|max:255',
+                        'is_lead' => 'boolean',
+                        'converted' => 'boolean',
+
+                    ];
+
+            }
+
+        }
+
+
     }
 }

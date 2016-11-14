@@ -26,25 +26,51 @@ class ProductRequest extends Request
 
     public function rules()
     {
-        return [
+        switch ($this->method()) {
+            case 'POST': {
+                return [
 
-            'product_name' => 'string|max:255|required',
-            'is_active' => '',
-            'category' => 'string|max:255|required',
-            'ht_price' => 'numeric|required',
-            'ttc_price' => 'numeric',
-            'stock_disponibility' => 'integer|required',
-            'product_avatar' => 'string',
-            'sale_datestart' => 'required',
-            'sale_dateend' => 'required',
-            'product_notice' => 'string',
-            'description' => 'string',
+                    'product_name' => 'string|max:255|required',
+                    'is_active' => '',
+                    'category' => 'string|max:255|required',
+                    'ht_price' => 'numeric|required',
+                    'ttc_price' => 'numeric',
+                    'stock_disponibility' => 'integer|required',
+                    'product_avatar' => 'string',
+                    'sale_datestart' => 'required',
+                    'sale_dateend' => 'required',
+                    'product_notice' => 'string',
+                    'description' => 'string',
 
-            /*Relations*/
+                    /*Relations*/
 
-            'taxes.*' => '',
-            'manutention_officer_id' => 'integer',
+                    'taxes.*' => '',
+                    'manutention_officer_id' => 'integer',
 
-        ];
+                ];
+            }
+            case 'PATCH': {
+                return [
+
+                    'product_name' => 'string|max:255|required',
+                    'is_active' => '',
+                    'category' => 'string|max:255|required',
+                    'ht_price' => 'numeric|required',
+                    'ttc_price' => 'numeric',
+                    'stock_disponibility' => 'integer|required',
+                    'product_avatar' => 'string',
+                    'sale_datestart' => 'required',
+                    'sale_dateend' => 'required',
+                    'product_notice' => 'string',
+                    'description' => 'string',
+
+                    /*Relations*/
+
+                    'taxes.*' => '',
+                    'manutention_officer_id' => 'integer',
+
+                ];
+            }
+        }
     }
 }

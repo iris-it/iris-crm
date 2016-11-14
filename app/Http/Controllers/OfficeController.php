@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Account;
+use App\Address;
 use App\Http\Requests\OfficeRequest;
 use App\Office;
 use App\Http\Requests\AccountRequest;
@@ -14,7 +15,6 @@ class OfficeController extends Controller
 {
 
 
-
     /**
      * Show the form for creating a new Office.
      */
@@ -22,7 +22,7 @@ class OfficeController extends Controller
     public function create($id)
     {
 
-       $account = Account::findOrFail($id);
+        $account = Account::findOrFail($id);
 
         return view('pages.offices.create')->with('account', $account);
     }
@@ -37,7 +37,14 @@ class OfficeController extends Controller
         $input = $request->all();
         $account = Account::findOrFail($id);
 
+
         if ($office = Office::create($input)) {
+
+            foreach ($input["addresses"] as $address) {
+                if ($newAdd = Address::create($address)) {
+                        $office->addresses()->attach($newAdd->id, ['type' => $address['type']]);
+                }
+            }
 
             $office->account()->associate($account);
             $office->save();

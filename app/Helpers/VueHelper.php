@@ -17,13 +17,11 @@ class VueHelper
         return "showModal('$id', $toJSON)";
     }
 
-    public static function saveAndCopy($id, array $data = [])
+    public static function duplicateAddress($id, array $data = [])
     {
         $toJSON = json_encode($data);
 
-        logger("saveAndCopy('$id', $toJSON)");
-
-        return "saveAndCopy('$id', {$toJSON})";
+        return "duplicateAddress('$id', {$toJSON})";
     }
 
 }

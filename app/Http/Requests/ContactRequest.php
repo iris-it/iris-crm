@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use App\Http\Requests\Request;
+use Illuminate\Validation\Rule;
 
 class ContactRequest extends Request
 {
@@ -25,29 +26,55 @@ class ContactRequest extends Request
 
     public function rules()
     {
+        switch ($this->method()) {
+            case 'POST': {
+                return [
 
-        return [
+                    'civility' => 'string|between:2,3|required',
+                    'lastname' => 'string|max:255|required',
+                    'firstname' => 'string|max:255|required',
+                    'post' => 'string|max:255|required',
+                    'email' => ['required', 'email', 'max:255', Rule::unique('contacts', 'email')],
+                    'phone_number' => ["regex:/^\+?[0-9]{10,20}$/im"],
+                    'avatar' => 'string',
+                    'address' => 'string|max:255|required',
+                    'zipcode' => 'string|max:255|required',
+                    'city' => 'string|max:255|required',
+                    'country' => 'string|max:255|required',
+                    'type' => 'boolean',
+                    'free_label' => 'string',
 
-            'civility' => 'string|between:2,3|required',
-            'lastname' => 'string|max:255|required',
-            'firstname' => 'string|max:255|required',
-            'post' => 'string|max:255|required',
-            'email' => 'required|email|max:255|unique:contacts,email,' . $this->id,
-            'phone_number' => array("regex:/^\+?[0-9]{10,20}$/im"),
-            'avatar' => 'string',
-            'address' => 'string|max:255|required',
-            'zipcode' => 'string|max:255|required',
-            'city' => 'string|max:255|required',
-            'country' => 'string|max:255|required',
-            'type' => 'boolean',
-            'free_label' => 'string',
+                    /*Relations*/
 
-            /*Relations*/
-
-            'office_id' => 'integer',
+                    'office_id' => 'integer',
 
 
+                ];
+            }
+            case 'PATCH': {
+                return [
 
-        ];
+                    'civility' => 'string|between:2,3|required',
+                    'lastname' => 'string|max:255|required',
+                    'firstname' => 'string|max:255|required',
+                    'post' => 'string|max:255|required',
+                    'email' => ['required', 'email', 'max:255', Rule::unique('contacts', 'email')],
+                    'phone_number' => ["regex:/^\+?[0-9]{10,20}$/im"],
+                    'avatar' => 'string',
+                    'address' => 'string|max:255|required',
+                    'zipcode' => 'string|max:255|required',
+                    'city' => 'string|max:255|required',
+                    'country' => 'string|max:255|required',
+                    'type' => 'boolean',
+                    'free_label' => 'string',
+
+                    /*Relations*/
+
+                    'office_id' => 'integer',
+
+
+                ];
+            }
+        }
     }
 }

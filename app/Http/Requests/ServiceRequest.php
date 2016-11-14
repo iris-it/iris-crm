@@ -25,21 +25,43 @@ class ServiceRequest extends Request
      */
     public function rules()
     {
-        return [
+        switch ($this->method()) {
+            case 'POST': {
+                return [
 
-            'service_name' => 'string|max:255|required',
-            'is_active' => '',
-            'category' => 'string|max:255|required',
-            'sale_unit' => 'string|max:255|required',
-            'ht_price' => 'numeric|required',
-            'ttc_price' => 'numeric',
-            'sale_datestart' => 'required',
-            'sale_dateend' => 'required',
-            'description' => 'string',
+                    'service_name' => 'string|max:255|required',
+                    'is_active' => '',
+                    'category' => 'string|max:255|required',
+                    'sale_unit' => 'string|max:255|required',
+                    'ht_price' => 'numeric|required',
+                    'ttc_price' => 'numeric',
+                    'sale_datestart' => 'required',
+                    'sale_dateend' => 'required',
+                    'description' => 'string',
 
-            /*Relations*/
+                    /*Relations*/
 
-            'taxes.*' => ''
-        ];
+                    'taxes.*' => ''
+                ];
+            }
+            case 'PATCH': {
+                return [
+
+                    'service_name' => 'string|max:255|required',
+                    'is_active' => '',
+                    'category' => 'string|max:255|required',
+                    'sale_unit' => 'string|max:255|required',
+                    'ht_price' => 'numeric|required',
+                    'ttc_price' => 'numeric',
+                    'sale_datestart' => 'required',
+                    'sale_dateend' => 'required',
+                    'description' => 'string',
+
+                    /*Relations*/
+
+                    'taxes.*' => ''
+                ];
+            }
+        }
     }
 }
