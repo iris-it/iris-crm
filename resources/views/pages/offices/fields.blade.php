@@ -64,7 +64,7 @@
 </div>
 
 
-<address-block id="deliveryAddress" title="{{trans('app.general:delivery-address')}}" type="delivery">
+<address-form id="deliveryAddress" title="{{trans('app.general:delivery-address')}}" type="delivery">
 
     {!! Form::label('name', trans('app.address:name') . ' :', ['slot' => 'name-field']) !!}
 
@@ -78,14 +78,14 @@
 
     {!! Form::label('country', trans('app.general:country') . ' :', ['slot' => 'country-field']) !!}
 
-</address-block>
+</address-form>
 <div class="col-sm-12">
     <div class="form-group col-sm-6">
         <button type="button" class="btn btn-info btn-flat" @click="{{ VueHelper::duplicateAddress('deliveryAddress', ['billingAddress']) }}"><i class="fa fa-files-o"></i> {{trans('app.address:use-same-btn')}}</button>
     </div>
 </div>
 
-<address-block id="billingAddress" title="{{trans('app.general:billing-address')}}" type="billing">
+<address-form id="billingAddress" title="{{trans('app.general:billing-address')}}" type="billing">
 
     {!! Form::label('name', trans('app.address:name') . ' :', ['slot' => 'name-field']) !!}
 
@@ -99,7 +99,7 @@
 
     {!! Form::label('country', trans('app.general:country') . ' :', ['slot' => 'country-field']) !!}
 
-</address-block>
+</address-form>
 
 
 <!-- Free Label Field -->

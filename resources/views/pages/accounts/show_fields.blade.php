@@ -38,11 +38,45 @@
         <div class="box-body">
             <h4 class="box-title">{{trans('app.general:offices')}}</h4>
             <hr>
+            <table class="table table-bordered text-center">
+                <tbody>
+                <tr>
+                    @foreach($account->offices as $office)
+                        <td>
+                            <button type="button" class="btn btn-lg btn-block btn-info btn-flat">{{$office->name}}</button>
+                        </td>
+                    @endforeach
+                </tr>
+                </tbody>
+            </table>
+
             @foreach($account->offices as $office)
-                <button type="button" class="btn btn-block btn-info btn-flat">{{$office->name}}</button>
+                <office-tabcontent id="{{$office->name . "-tabContent"}}" title="{{$office->name}}">
+
+                    {!! Form::label('name', trans('app.general:name') . ' :', ['slot' => 'name-field', 'class' => 'h4 text-purple']) !!}
+
+                    {!! Form::label('type',trans('app.general:type') . ' :', ['slot' => 'type-field','class' => 'h4 text-purple']) !!}
+
+                    {!! Form::label('activity_sector', trans('app.general:activity-sector') . ' :', ['slot' => 'activity-sector-field', 'class' => 'h4 text-purple']) !!}
+
+                    {!! Form::label('workforce', trans('app.general:workforce') . ' :', ['slot' => 'workforce-field', 'class' => 'h4 text-purple']) !!}
+
+                    {!! Form::label('siret_number', trans('app.general:siret-number') . ' :', ['slot' => 'siret-field', 'class' => 'h4 text-purple']) !!}
+
+                    {!! Form::label('ape_number', trans('app.general:ape-number') . ' :', ['slot' => 'ape-field', 'class' => 'h4 text-purple']) !!}
+
+                    {!! Form::label('phone_number', trans('app.general:phone-number') . ' :', ['slot' => 'phone-field', 'class' => 'h4 text-purple']) !!}
+
+                    {!! Form::label('website', trans('app.general:website') . ' :', ['slot' => 'website-field', 'class' => 'h4 text-purple']) !!}
+
+                    {!! Form::label('is_active', trans('app.general:is-active') . ' :', ['slot' => 'is-active-field', 'class' => 'h4 text-purple']) !!}
+
+                    {!! Form::label('created_at', trans('app.general:created-at') . ' :', ['slot' => 'created-at-field', 'class' => 'h4 text-purple']) !!}
+
+                    {!! Form::label('updated_at',  trans('app.general:updated-at') . ' :', ['slot' => 'updated-at-field', 'class' => 'h4 text-purple']) !!}
+
+                </office-tabcontent>
             @endforeach
-
-
         </div>
     </div>
 @endif
