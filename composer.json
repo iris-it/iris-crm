@@ -14,7 +14,6 @@
     "adamwathan/eloquent-oauth-l5": "^0.5.1",
     "davejamesmiller/laravel-breadcrumbs": "^3.0",
     "irisit/socialnorm-keycloak": "^0.0.1",
-    "barryvdh/laravel-debugbar": "^2.2",
     "philo/laravel-translate": "^2.0",
     "webpatser/laravel-uuid": "2.*",
     "guzzlehttp/guzzle": "~6.0",
