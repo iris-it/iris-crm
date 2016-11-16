@@ -3,6 +3,7 @@
 return  array(
 	'account:converted'                 => 'Converted from a lead',
 	'account:converted-field'           => 'Origin',
+	'account:detail'                    => 'Account details',
 	'account:new'                       => 'New account',
 	'account:no-accounts-desc'          => 'Register your first customer account by clicking the button below',
 	'account:no-accounts-title'         => 'No account created yet !',
@@ -107,6 +108,7 @@ return  array(
 	'login:welcome'                     => 'Sign in to start your session',
 	'office::is-main'                   => 'Main office',
 	'office:create-title'               => 'New office',
+	'office:is-main'                    => 'Main office of this account',
 	'order:deli-dead'                   => 'Delivery deadline',
 	'order:order-date'                  => 'Order date',
 	'order:sale-unit'                   => 'Sale unit',

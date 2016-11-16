@@ -3,6 +3,7 @@
 return  array(
 	'account:converted'                 => 'Converti depuis un prospect',
 	'account:converted-field'           => 'Origine',
+	'account:detail'                    => 'Détail du compte',
 	'account:new'                       => 'Nouveau compte',
 	'account:no-accounts-desc'          => 'Créez votre premier compte client grâce au bouton ci-dessous',
 	'account:no-accounts-title'         => 'Aucun compte créé pour le moment !',
@@ -106,7 +107,7 @@ return  array(
 	'invoice:services-list'             => 'Services inclus dans cette facture',
 	'login:welcome'                     => 'Connectez vous pour accéder aux fonctionnalités',
 	'office:create-title'               => 'Nouvel établissement',
-	'office:is-main'                    => 'Établissement principal',
+	'office:is-main'                    => 'Établissement principal de ce compte',
 	'order:deli-dead'                   => 'Échéance livraison',
 	'order:order-date'                  => 'Date de la commande',
 	'order:sale-unit'                   => 'Unité de vente',

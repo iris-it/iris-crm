@@ -42,16 +42,18 @@
                 <tbody>
                 <tr>
                     @foreach($account->offices as $office)
+
                         <td>
-                            <button type="button" class="btn btn-lg btn-block btn-info btn-flat">{{$office->name}}</button>
+                            <button type="button" class="btn btn-lg btn-block btn-info btn-flat" @click="{{VueHelper::format('showTab', $office->name, $office->load('addresses'))}}">{{$office->name}}</button>
                         </td>
                     @endforeach
+
                 </tr>
                 </tbody>
             </table>
 
             @foreach($account->offices as $office)
-                <office-tabcontent id="{{$office->name . "-tabContent"}}" title="{{$office->name}}">
+                <office-tabcontent id="{{$office->name}}" title="{{$office->name}}">
 
                     {!! Form::label('name', trans('app.general:name') . ' :', ['slot' => 'name-field', 'class' => 'h4 text-purple']) !!}
 
@@ -71,11 +73,26 @@
 
                     {!! Form::label('is_active', trans('app.general:is-active') . ' :', ['slot' => 'is-active-field', 'class' => 'h4 text-purple']) !!}
 
+                    {!! Form::label('is_active', trans('app.office:is-main') . ' :', ['slot' => 'is-main-field', 'class' => 'h4 text-purple']) !!}
+
                     {!! Form::label('created_at', trans('app.general:created-at') . ' :', ['slot' => 'created-at-field', 'class' => 'h4 text-purple']) !!}
 
                     {!! Form::label('updated_at',  trans('app.general:updated-at') . ' :', ['slot' => 'updated-at-field', 'class' => 'h4 text-purple']) !!}
 
+                    {!! Form::label('name', trans('app.address:name') . ' :', ['slot' => 'address-name-field', 'class' => 'h4 text-purple']) !!}
+
+                    {!! Form::label('street_label', trans('app.address:street-label') . ' :', ['slot' => 'street-label-field', 'class' => 'h4 text-purple']) !!}
+
+                    {!! Form::label('street_detail', trans('app.address:street-detail') . ' :', ['slot' => 'street-detail-field', 'class' => 'h4 text-purple']) !!}
+
+                    {!! Form::label('zipcode', trans('app.general:zipcode') . ' :', ['slot' => 'zipcode-field', 'class' => 'h4 text-purple']) !!}
+
+                    {!! Form::label('city', trans('app.general:city') . ' :', ['slot' => 'city-field', 'class' => 'h4 text-purple']) !!}
+
+                    {!! Form::label('country', trans('app.general:country') . ' :', ['slot' => 'country-field', 'class' => 'h4 text-purple']) !!}
+
                 </office-tabcontent>
+
             @endforeach
         </div>
     </div>

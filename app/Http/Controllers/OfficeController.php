@@ -37,6 +37,9 @@ class OfficeController extends Controller
         $input = $request->all();
         $account = Account::findOrFail($id);
 
+        if(!$request->has('is_main')) {
+            $input['is_main'] = false;
+        }
 
         if ($office = Office::create($input)) {
 

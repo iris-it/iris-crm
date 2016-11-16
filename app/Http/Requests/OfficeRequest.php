@@ -38,7 +38,7 @@ class OfficeRequest extends Request
                     'ape_number' => ['required', "regex:/(^[0-9]{1,2}\.[0-9]{1,2}[A-Z]$|^[0-9]{1,2}\.[0-9]{1,2})$/im"],
                     'siret_number' => ['required', "regex:/^[0-9]{3}[ \.\-]?[0-9]{3}[ \.\-]?[0-9]{3}[ \.\-]?[0-9]{5}$/im", Rule::unique('offices', 'siret_number')],
                     'phone_number' => ["regex:/^\+?[0-9]{10,20}$/im"],
-                    'is_main' => 'required|boolean',
+                    'is_main' => 'boolean',
                     'is_active' => 'required|boolean',
                     'free_label' => 'string',
 
@@ -55,7 +55,7 @@ class OfficeRequest extends Request
                     'ape_number' => ['required', "regex:/(^[0-9]{1,2}\.[0-9]{1,2}[A-Z]$|^[0-9]{1,2}\.[0-9]{1,2})$/im"],
                     'siret_number' => ['required', "regex:/^[0-9]{3}[ \.\-]?[0-9]{3}[ \.\-]?[0-9]{3}[ \.\-]?[0-9]{5}$/im", Rule::unique('offices', 'siret_number')->ignore($this->id)],
                     'phone_number' => ["regex:/^\+?[0-9]{10,20}$/im"],
-                    'is_main' => 'required|boolean',
+                    'is_main' => 'boolean',
                     'is_active' => 'required|boolean',
                     'free_label' => 'string',
 

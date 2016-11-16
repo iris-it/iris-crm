@@ -81,7 +81,7 @@
 </address-form>
 <div class="col-sm-12">
     <div class="form-group col-sm-6">
-        <button type="button" class="btn btn-info btn-flat" @click="{{ VueHelper::duplicateAddress('deliveryAddress', ['billingAddress']) }}"><i class="fa fa-files-o"></i> {{trans('app.address:use-same-btn')}}</button>
+        <button type="button" class="btn btn-info btn-flat" @click="{{ VueHelper::format('duplicateAddress', 'deliveryAddress', ['billingAddress']) }}"><i class="fa fa-files-o"></i> {{trans('app.address:use-same-btn')}}</button>
     </div>
 </div>
 

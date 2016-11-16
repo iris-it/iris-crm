@@ -46,6 +46,9 @@ const app = new Vue({
         modalState: {},
         modalData: {},
 
+        tabState: {},
+        tabContent: {},
+
         addressData: {}
     },
 
@@ -55,6 +58,21 @@ const app = new Vue({
 
             this.$set(this.modalData, id, data);
             this.$set(this.modalState, id, true);
+
+        },
+
+        showTab: function(id,data) {
+
+            this.$set(this.tabContent, id, data);
+
+            for (var key in this.tabState) {
+                if (this.tabState.hasOwnProperty(key) && key != id) {
+                    this.tabState[key] = false;
+                }
+            }
+
+            this.$set(this.tabState, id, true);
+
 
         },
 
