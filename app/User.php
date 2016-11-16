@@ -41,16 +41,6 @@ class User extends Authenticatable
     ];
 
     /**
-     * Get the primary key for the model.
-     *
-     * @return string
-     */
-    public function getKeyName()
-    {
-        return config('irispass.user_primary_key');
-    }
-
-    /**
      * this assign roles to an user (obvious isn'it ?)
      *
      * @param $role
