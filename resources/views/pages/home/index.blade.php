@@ -20,7 +20,8 @@
                     <div class="icon">
                         <i class="fa fa-line-chart"></i>
                     </div>
-                    <a href="{{ action('OrderController@index') }}" class="small-box-footer">{{trans('app.general:access')}} <i class="fa fa-arrow-circle-right"></i></a>
+                    <a href="{{ action('OrderController@index') }}"
+                       class="small-box-footer">{{trans('app.general:access')}} <i class="fa fa-arrow-circle-right"></i></a>
                 </div>
             </div>
             <!-- ./col -->
@@ -42,7 +43,8 @@
                     <div class="icon">
                         <i class="fa fa-user-plus"></i>
                     </div>
-                    <a href="{{ action('AccountController@index') }}" class="small-box-footer">{{trans('app.general:access')}} <i class="fa fa-arrow-circle-right"></i></a>
+                    <a href="{{ action('AccountController@index') }}"
+                       class="small-box-footer">{{trans('app.general:access')}} <i class="fa fa-arrow-circle-right"></i></a>
                 </div>
             </div>
             <!-- ./col -->
@@ -64,7 +66,8 @@
                     <div class="icon">
                         <i class="fa fa-archive"></i>
                     </div>
-                    <a href="{{ action('InvoiceController@index') }}" class="small-box-footer">{{trans('app.general:access')}} <i class="fa fa-arrow-circle-right"></i></a>
+                    <a href="{{ action('InvoiceController@index') }}"
+                       class="small-box-footer">{{trans('app.general:access')}} <i class="fa fa-arrow-circle-right"></i></a>
                 </div>
             </div>
             <!-- ./col -->
@@ -84,7 +87,8 @@
                     <div class="icon">
                         <i class="fa fa-file-text"></i>
                     </div>
-                    <a href="{{ action('QuoteController@index') }}" class="small-box-footer">{{trans('app.general:access')}} <i class="fa fa-arrow-circle-right"></i></a>
+                    <a href="{{ action('QuoteController@index') }}"
+                       class="small-box-footer">{{trans('app.general:access')}} <i class="fa fa-arrow-circle-right"></i></a>
                 </div>
             </div>
             <!-- ./col -->
@@ -97,20 +101,12 @@
                         <h2 class="box-title text-uppercase">{{trans('app.dashboard:sales-chart-title')}}</h2>
 
                         <div class="box-tools pull-right">
-                            <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                            <button type="button" class="btn btn-box-tool" data-widget="collapse"><i
+                                    class="fa fa-minus"></i>
                             </button>
-                            <div class="btn-group">
-                                <button type="button" class="btn btn-box-tool dropdown-toggle" data-toggle="dropdown">
-                                    <i class="fa fa-wrench"></i></button>
-                                <ul class="dropdown-menu" role="menu">
-                                    <li><a href="#">Action</a></li>
-                                    <li><a href="#">Another action</a></li>
-                                    <li><a href="#">Something else here</a></li>
-                                    <li class="divider"></li>
-                                    <li><a href="#">Separated link</a></li>
-                                </ul>
-                            </div>
-                            <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+                            <button type="button" class="btn btn-box-tool" data-widget="remove"><i
+                                    class="fa fa-times"></i>
+                            </button>
                         </div>
                     </div>
                     <!-- /.box-header -->
@@ -119,7 +115,7 @@
                             <div class="col-md-8">
                                 <div class="chart">
                                     <!-- Sales Chart Canvas -->
-                                    <canvas id="lineChart" width="600" height="500"></canvas>
+                                    <canvas id="lineChart" width="600"></canvas>
                                 </div>
                                 <!-- /.chart-responsive -->
                             </div>

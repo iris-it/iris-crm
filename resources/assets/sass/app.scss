@@ -2,14 +2,21 @@
 @import url(https://fonts.googleapis.com/css?family=Raleway:300,400,600);
 // Variables
 @import "variables";
+
 // Bootstrap
+/* override icon-font-path value and include scss */
+$icon-font-path: "../../fonts/";
 @import "node_modules/bootstrap-sass/assets/stylesheets/bootstrap";
+
 // Font Awesome
 @import "node_modules/font-awesome/scss/font-awesome.scss";
+
 //Ionicons
 @import "node_modules/ionicons/dist/scss/ionicons.scss";
+
 // Bootstrap Dual List Box
 @import "node_modules/bootstrap-duallistbox/src/bootstrap-duallistbox";
+
 // Admin LTE
 @import "node_modules/admin-lte/dist/css/AdminLTE.min";
 @import "node_modules/admin-lte/dist/css/skins/skin-purple.min";
@@ -39,7 +46,7 @@
 }
 
 .Modal__header > h1 {
-  text-align:center;
+  text-align: center;
   font-size: 27px;
   font-weight: normal;
   margin: 0;

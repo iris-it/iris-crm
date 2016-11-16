@@ -13,9 +13,9 @@ require('./legacy');
 
 import addressStore from './stores/address';
 const store = new Vuex.Store({
-    modules: {
-        addressStore
-    }
+  modules: {
+    addressStore
+  }
 });
 
 
@@ -37,59 +37,57 @@ Vue.component('OfficeTabcontent', require('./components/Office/TabContent.vue'))
 
 const app = new Vue({
 
-    el: '#app',
+  el: '#app',
 
-    store,
+  store,
 
-    data: {
+  data: {
 
-        modalState: {},
-        modalData: {},
+    modalState: {},
+    modalData: {},
 
-        tabState: {},
-        tabContent: {},
+    tabState: {},
+    tabContent: {},
 
-        addressData: {}
+    addressData: {}
+  },
+
+  methods: {
+
+    showModal: function (id, data) {
+
+      this.$set(this.modalData, id, data);
+      this.$set(this.modalState, id, true);
+
     },
 
-    methods: {
+    showTab: function(id,data) {
 
-        showModal: function (id, data) {
+        this.$set(this.tabContent, id, data);
 
-            this.$set(this.modalData, id, data);
-            this.$set(this.modalState, id, true);
-
-        },
-
-        showTab: function(id,data) {
-
-            this.$set(this.tabContent, id, data);
-
-            for (var key in this.tabState) {
-                if (this.tabState.hasOwnProperty(key) && key != id) {
-                    this.tabState[key] = false;
-                }
+        for (var key in this.tabState) {
+            if (this.tabState.hasOwnProperty(key) && key != id) {
+                this.tabState[key] = false;
             }
+        }
 
-            this.$set(this.tabState, id, true);
+        this.$set(this.tabState, id, true);
+
+    },
+
+    duplicateAddress: function (srcId, destIdArray) {
+
+      destIdArray.forEach(function (item) {
+
+        app.addressData[item] = Object.assign({}, app.addressData[item], app.addressData[srcId]);
+        store.commit('COPY', item);
+
+      });
 
 
-        },
+    },
 
-        duplicateAddress: function (srcId, destIdArray) {
-
-            destIdArray.forEach(function (item) {
-
-                app.addressData[item] = Object.assign({}, app.addressData[item], app.addressData[srcId]);
-                store.commit('COPY', item);
-
-            });
-
-
-
-        },
-
-    }
+  }
 
 
 });
