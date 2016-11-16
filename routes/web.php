@@ -33,7 +33,7 @@ Route::group(['middleware' => 'auth'], function () {
     /*
      * Homepage (Dashboard)
      */
-    Route::get('/', 'HomeController@index');
+    Route::get('/home', 'HomeController@index');
 
     /*
      * Authentication actions
