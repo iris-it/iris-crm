@@ -13,9 +13,9 @@ require('./legacy');
 
 import addressStore from './stores/address';
 const store = new Vuex.Store({
-    modules: {
-        addressStore
-    }
+  modules: {
+    addressStore
+  }
 });
 
 
@@ -37,41 +37,40 @@ Vue.component('OfficeTabcontent', require('./components/Office/TabContent.vue'))
 
 const app = new Vue({
 
-    el: '#app',
+  el: '#app',
 
-    store,
+  store,
 
-    data: {
+  data: {
 
-        modalState: {},
-        modalData: {},
+    modalState: {},
+    modalData: {},
 
-        addressData: {}
+    addressData: {}
+  },
+
+  methods: {
+
+    showModal: function (id, data) {
+
+      this.$set(this.modalData, id, data);
+      this.$set(this.modalState, id, true);
+
     },
 
-    methods: {
+    duplicateAddress: function (srcId, destIdArray) {
 
-        showModal: function (id, data) {
+      destIdArray.forEach(function (item) {
 
-            this.$set(this.modalData, id, data);
-            this.$set(this.modalState, id, true);
+        app.addressData[item] = Object.assign({}, app.addressData[item], app.addressData[srcId]);
+        store.commit('COPY', item);
 
-        },
-
-        duplicateAddress: function (srcId, destIdArray) {
-
-            destIdArray.forEach(function (item) {
-
-                app.addressData[item] = Object.assign({}, app.addressData[item], app.addressData[srcId]);
-                store.commit('COPY', item);
-
-            });
+      });
 
 
+    },
 
-        },
-
-    }
+  }
 
 
 });

@@ -20,7 +20,8 @@
                     <div class="icon">
                         <i class="fa fa-line-chart"></i>
                     </div>
-                    <a href="{{ action('OrderController@index') }}" class="small-box-footer">{{trans('app.general:access')}} <i class="fa fa-arrow-circle-right"></i></a>
+                    <a href="{{ action('OrderController@index') }}"
+                       class="small-box-footer">{{trans('app.general:access')}} <i class="fa fa-arrow-circle-right"></i></a>
                 </div>
             </div>
             <!-- ./col -->
@@ -42,7 +43,8 @@
                     <div class="icon">
                         <i class="fa fa-user-plus"></i>
                     </div>
-                    <a href="{{ action('AccountController@index') }}" class="small-box-footer">{{trans('app.general:access')}} <i class="fa fa-arrow-circle-right"></i></a>
+                    <a href="{{ action('AccountController@index') }}"
+                       class="small-box-footer">{{trans('app.general:access')}} <i class="fa fa-arrow-circle-right"></i></a>
                 </div>
             </div>
             <!-- ./col -->
@@ -64,7 +66,8 @@
                     <div class="icon">
                         <i class="fa fa-archive"></i>
                     </div>
-                    <a href="{{ action('InvoiceController@index') }}" class="small-box-footer">{{trans('app.general:access')}} <i class="fa fa-arrow-circle-right"></i></a>
+                    <a href="{{ action('InvoiceController@index') }}"
+                       class="small-box-footer">{{trans('app.general:access')}} <i class="fa fa-arrow-circle-right"></i></a>
                 </div>
             </div>
             <!-- ./col -->
@@ -84,7 +87,8 @@
                     <div class="icon">
                         <i class="fa fa-file-text"></i>
                     </div>
-                    <a href="{{ action('QuoteController@index') }}" class="small-box-footer">{{trans('app.general:access')}} <i class="fa fa-arrow-circle-right"></i></a>
+                    <a href="{{ action('QuoteController@index') }}"
+                       class="small-box-footer">{{trans('app.general:access')}} <i class="fa fa-arrow-circle-right"></i></a>
                 </div>
             </div>
             <!-- ./col -->
@@ -97,8 +101,12 @@
                         <h2 class="box-title text-uppercase">{{trans('app.dashboard:sales-chart-title')}}</h2>
 
                         <div class="box-tools pull-right">
-                            <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
-                            <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+                            <button type="button" class="btn btn-box-tool" data-widget="collapse"><i
+                                    class="fa fa-minus"></i>
+                            </button>
+                            <button type="button" class="btn btn-box-tool" data-widget="remove"><i
+                                    class="fa fa-times"></i>
+                            </button>
                         </div>
                     </div>
                     <!-- /.box-header -->
