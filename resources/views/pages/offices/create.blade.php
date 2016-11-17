@@ -7,7 +7,7 @@
         </h1>
     </section>
     <div class="content">
-        @include('adminlte-templates::common.errors')
+        @include('errors.list')
         <div class="box box-primary">
 
             <div class="box-body">

@@ -183,14 +183,12 @@ return [
          * Added
          */
         AdamWathan\EloquentOAuthL5\EloquentOAuthServiceProvider::class,
+        Spatie\MediaLibrary\MediaLibraryServiceProvider::class,
         DaveJamesMiller\Breadcrumbs\ServiceProvider::class,
         Philo\Translate\TranslateServiceProvider::class,
         Laracasts\Flash\FlashServiceProvider::class,
         Collective\Html\HtmlServiceProvider::class,
 
-        Prettus\Repository\Providers\RepositoryServiceProvider::class,
-        InfyOm\Generator\InfyOmGeneratorServiceProvider::class,
-        InfyOm\AdminLTETemplates\AdminLTETemplatesServiceProvider::class
     ],
 
     /*

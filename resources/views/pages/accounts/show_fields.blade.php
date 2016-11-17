@@ -42,7 +42,6 @@
                 <tbody>
                 <tr>
                     @foreach($account->offices as $office)
-
                         <td>
                             <button type="button" class="btn btn-lg btn-block btn-info btn-flat" @click="{{VueHelper::format('showTab', $office->name, $office->load('addresses'))}}">{{$office->name}}</button>
                         </td>

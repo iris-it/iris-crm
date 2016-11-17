@@ -59,9 +59,10 @@ return [
             'visibility' => 'public',
         ],
 
-        'osjs' => [
+
+        'media' => [
             'driver' => 'local',
-            'root' => env('OSJS_VFS_PATH'),
+            'root' => public_path('media'),
         ],
 
         's3' => [

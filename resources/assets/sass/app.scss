@@ -5,7 +5,7 @@
 
 // Bootstrap
 /* override icon-font-path value and include scss */
-$icon-font-path: "../../fonts/";
+$icon-font-path: "../fonts/";
 @import "node_modules/bootstrap-sass/assets/stylesheets/bootstrap";
 
 // Font Awesome

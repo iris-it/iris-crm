@@ -28,7 +28,7 @@
             <td class="text-bold">{!! $service->sale_datestart !!}</td>
             <td class="text-bold">{!! $service->sale_dateend !!}</td>
             <td>
-                {!! Form::open(['route' => ['services.destroy', $service->id], 'method' => 'delete']) !!}
+                {!! Form::open(['action' => ['ServiceController@destroy', $service->id], 'method' => 'delete']) !!}
                 <div class='btn-group'>
                     <a href="{!! route('services.show', [$service->id]) !!}" class='btn btn-info btn-flat'><i class="glyphicon glyphicon-eye-open"></i></a>
                     <a href="{!! route('services.edit', [$service->id]) !!}" class='btn bg-purple btn-flat'><i class="glyphicon glyphicon-edit"></i></a>

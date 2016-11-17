@@ -7,14 +7,14 @@
         </h1>
     </section>
     <div class="content">
-        @include('adminlte-templates::common.errors')
+        @include('errors.list')
         <div class="box box-primary">
 
             <div class="box-body">
                 <div class="row">
-                    {!! Form::open(['route' => 'accounts.store']) !!}
+                    {!! Form::open(['route' => 'accounts.store', 'files' => true]) !!}
 
-                        @include('pages.accounts.fields')
+                    @include('pages.accounts.fields')
 
                     {!! Form::close() !!}
                 </div>

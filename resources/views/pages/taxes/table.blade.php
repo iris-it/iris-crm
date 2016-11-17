@@ -16,7 +16,7 @@
                 <td class="text-bold">{{trans('app.general:no')}}</td>
             @endif
             <td>
-                {!! Form::open(['route' => ['taxes.destroy', $tax->id], 'method' => 'delete']) !!}
+                {!! Form::open(['action' => ['TaxController@destroy', $tax->id], 'method' => 'delete']) !!}
                 <div class='btn-group'>
                     <a href="{!! route('taxes.show', [$tax->id]) !!}" class='btn btn-info btn-flat'><i class="glyphicon glyphicon-eye-open"></i></a>
                     <a href="{!! route('taxes.edit', [$tax->id]) !!}" class='btn bg-purple btn-flat'><i class="glyphicon glyphicon-edit"></i></a>

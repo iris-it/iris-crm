@@ -4,6 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
 
 /**
  * Class Account
@@ -11,7 +12,8 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  */
 class Account extends Model
 {
-    use SoftDeletes;
+    use SoftDeletes, HasMediaTrait;
+
 
     public $table = 'accounts';
 
@@ -35,7 +37,6 @@ class Account extends Model
         'is_lead' => 'boolean',
         'converted' => 'boolean',
     ];
-
 
 
     public function organization()

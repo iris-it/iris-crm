@@ -7,12 +7,12 @@
         </h1>
     </section>
     <div class="content">
-        @include('adminlte-templates::common.errors')
+        @include('errors.list')
         <div class="box box-primary">
 
             <div class="box-body">
                 <div class="row">
-                    {!! Form::open(['route' => 'leads.store']) !!}
+                    {!! Form::open(['action' => 'LeadController@store']) !!}
 
                         @include('pages.leads.fields')
 
