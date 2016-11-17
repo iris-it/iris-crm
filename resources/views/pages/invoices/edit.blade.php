@@ -11,7 +11,7 @@
        <div class="box box-primary">
            <div class="box-body">
                <div class="row">
-                   {!! Form::model($invoice, ['route' => ['invoices.update', $invoice->id], 'method' => 'patch']) !!}
+                   {!! Form::model($invoice, ['action' => ['InvoiceController@update', $invoice->id], 'method' => 'patch']) !!}
 
                         @include('pages.invoices.fields')
 

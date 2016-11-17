@@ -12,7 +12,7 @@
 
             <div class="box-body">
                 <div class="row">
-                    {!! Form::open(['route' => 'invoices.store']) !!}
+                    {!! Form::open(['action' => 'InvoiceController@store']) !!}
 
                         @include('pages.invoices.fields')
 

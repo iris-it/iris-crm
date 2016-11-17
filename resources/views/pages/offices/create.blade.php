@@ -12,7 +12,7 @@
 
             <div class="box-body">
                 <div class="row">
-                    {!! Form::open(['method' => 'POST','action' => ['OfficeController@store', $account->id]]) !!}
+                    {!! Form::open(['action' => ['OfficeController@store', $account->id], 'method' => 'POST']) !!}
 
                         @include('pages.offices.fields')
 

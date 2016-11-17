@@ -19,5 +19,5 @@
 <!-- Submit Field -->
 <div class="form-group col-sm-12">
     {!! Form::submit( trans('app.general:save-changes'), ['class' => 'btn btn-primary']) !!}
-    <a href="{!! route('taxes.index') !!}" class="btn btn-default">{{trans('app.general:cancel')}}</a>
+    <a href="{!! action('TaxController@index') !!}" class="btn btn-default">{{trans('app.general:cancel')}}</a>
 </div>

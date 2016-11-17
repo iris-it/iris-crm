@@ -34,10 +34,10 @@
                 <td class="text-bold"> {{trans('app.general:undefined')}}</td>
             @endif
             <td>
-                {!! Form::open(['route' => ['quotes.destroy', $quote->id], 'method' => 'delete']) !!}
+                {!! Form::open(['action' => ['QuoteController@destroy', $quote->id], 'method' => 'delete']) !!}
                 <div class='btn-group'>
-                    <a href="{!! route('quotes.show', [$quote->id]) !!}" class='btn btn-info btn-flat'><i class="glyphicon glyphicon-eye-open"></i></a>
-                    <a href="{!! route('quotes.edit', [$quote->id]) !!}" class='btn bg-purple btn-flat'><i class="glyphicon glyphicon-edit"></i></a>
+                    <a href="{!! action('QuoteController@show', [$quote->id]) !!}" class='btn btn-info btn-flat'><i class="glyphicon glyphicon-eye-open"></i></a>
+                    <a href="{!! action('QuoteController@edit', [$quote->id]) !!}" class='btn bg-purple btn-flat'><i class="glyphicon glyphicon-edit"></i></a>
                     {!! Form::button('<i class="glyphicon glyphicon-trash"></i>', ['type' => 'submit', 'class' => 'btn btn-danger btn-flat', 'onclick' => "return confirm('Are you sure?')"]) !!}
                 </div>
                 {!! Form::close() !!}

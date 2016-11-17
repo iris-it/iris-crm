@@ -15,6 +15,7 @@ class ReceiptController extends Controller
      */
     public function index($id)
     {
+
         $office = Office::findOrFail($id);
         $receipts = $office->receipts;
 
@@ -26,6 +27,7 @@ class ReceiptController extends Controller
      */
     public function create($id)
     {
+
         $office = Office::findOrFail($id);
         $quotes = $office->quotes;
 
@@ -51,11 +53,11 @@ class ReceiptController extends Controller
         } else {
 
             Flash::error(Lang::get('app.general:create-failed'));
-            return redirect(route('order.create'));
+            return redirect(action('order.create'));
 
         }
 
-        return redirect(route('orders.index'));
+        return redirect(action('OrderController@index'));
     }
 
     /**
@@ -69,7 +71,7 @@ class ReceiptController extends Controller
         if (empty($order)) {
             Flash::error(Lang::get('app.general:missing-model'));
 
-            return redirect(route('orders.index'));
+            return redirect(action('OrderController@index'));
         }
 
         return view('pages.orders.show')->with('receipt', $receipt);
@@ -85,7 +87,7 @@ class ReceiptController extends Controller
         if (empty($order)) {
             Flash::error(Lang::get('app.general:missing-model'));
 
-            return redirect(route('orders.index'));
+            return redirect(action('OrderController@index'));
         }
 
         return view('pages.orders.edit')->with('receipt', $receipt);
@@ -102,7 +104,7 @@ class ReceiptController extends Controller
         if (empty($order)) {
             Flash::error(Lang::get('app.general:missing-model'));
 
-            return redirect(route('orders.index'));
+            return redirect(action('OrderController@index'));
         }
 
         if ($receipt->update($data) && $receipt->save()) {
@@ -112,11 +114,11 @@ class ReceiptController extends Controller
         } else {
 
             Flash::error(Lang::get('app.general:update-failed'));
-            return redirect(route('order.edit'));
+            return redirect(action('order.edit'));
 
         }
 
-        return redirect(route('orders.index'));
+        return redirect(action('OrderController@index'));
     }
 
     /**
@@ -129,13 +131,13 @@ class ReceiptController extends Controller
         if (empty($order)) {
             Flash::error(Lang::get('app.general:missing-model'));
 
-            return redirect(route('orders.index'));
+            return redirect(action('OrderController@index'));
         }
 
         $receipt->delete();
 
         Flash::success(Lang::get('app.general:delete-success'));
 
-        return redirect(route('orders.index'));
+        return redirect(action('OrderController@index'));
     }
 }

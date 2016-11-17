@@ -11,7 +11,7 @@
        <div class="box box-primary">
            <div class="box-body">
                <div class="row">
-                   {!! Form::model($tax, ['route' => ['taxes.update', $tax->id], 'method' => 'patch']) !!}
+                   {!! Form::model($tax, ['action' => ['TaxController@update', $tax->id], 'method' => 'patch']) !!}
 
                         @include('pages.taxes.fields')
 

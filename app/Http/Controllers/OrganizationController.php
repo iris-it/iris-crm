@@ -71,7 +71,7 @@ class OrganizationController extends Controller
 
         Flash::success(Lang::get('organization.create-success'));
 
-        return redirect()->action('HomeController@index');
+        return redirect(action('HomeController@index'));
     }
 
     /**
@@ -120,7 +120,9 @@ class OrganizationController extends Controller
         $banned_names = [
             'cms', 'irispass', 'mail', 'desktop',
             'bureau', 'chat', 'www', 'office',
-            'iris', 'only', 'admin'
+            'iris', 'only', 'admin', 'crm', 'erp',
+            'dcos', 'jenkins', 'build', 'docker',
+            'it',
         ];
 
         return (starts_with($name, ['www']) || in_array($name, $banned_names));

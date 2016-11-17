@@ -11,7 +11,7 @@
        <div class="box box-primary">
            <div class="box-body">
                <div class="row">
-                   {!! Form::model($quote, ['route' => ['quotes.update', $quote->id], 'method' => 'patch']) !!}
+                   {!! Form::model($quote, ['action' => ['QuoteController@update', $quote->id], 'method' => 'patch']) !!}
 
                         @include('pages.quotes.fields')
 

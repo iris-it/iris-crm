@@ -22,6 +22,8 @@ class InvoiceController extends Controller
     public function index($id)
     {
 
+        //FIXME Les bonnes requetes vers l'organisation de l'utilisateur :)
+
         $office = Office::findOrFail($id);
         $invoices = $office->invoices;
 
@@ -34,6 +36,9 @@ class InvoiceController extends Controller
      */
     public function create($id)
     {
+
+        //FIXME Les bonnes requetes vers l'organisation de l'utilisateur :)
+
         $office = Office::findOrFail($id);
 
         $contacts = $office->contacts;
@@ -49,7 +54,11 @@ class InvoiceController extends Controller
      */
     public function store($id, InvoiceRequest $request)
     {
+
+        //FIXME Les bonnes requetes vers l'organisation de l'utilisateur :)
+
         $input = $request->all();
+
         $office = Office::findOrFail($id);
 
 
@@ -123,11 +132,11 @@ class InvoiceController extends Controller
         } else {
 
             Flash::error(Lang::get('app.general:create-failed'));
-            return redirect(route('invoices.create'));
+            return redirect(action('InvoiceController@create'));
 
         }
 
-        return redirect(route('invoices.index'));
+        return redirect(action('invoices.index'));
     }
 
     /**
@@ -141,7 +150,7 @@ class InvoiceController extends Controller
         if (empty($invoice)) {
             Flash::error(Lang::get('app.general:missing-model'));
 
-            return redirect(route('invoices.index'));
+            return redirect(action('InvoiceController@index'));
         }
 
         return view('pages.invoices.show')->with('invoice', $invoice);
@@ -166,7 +175,7 @@ class InvoiceController extends Controller
         if (empty($invoice)) {
             Flash::error(Lang::get('app.general:missing-model'));
 
-            return redirect(route('invoices.index'));
+            return redirect(action('InvoiceController@index'));
         }
 
         return view('pages.invoices.edit')->with(compact('invoice', 'contacts', 'offices', 'quotes', 'products', 'services'));
@@ -184,13 +193,14 @@ class InvoiceController extends Controller
         if (empty($invoice)) {
 
             Flash::error(Lang::get('app.general:missing-model'));
-            return redirect(route('invoices.index'));
+            return redirect(action('InvoiceController@index'));
         }
 
         if ($invoice->update($input) && $invoice->save()) {
 
             $htPrice = 0;
             $price = 0;
+
             $office = Office::findOrFail($request->office_id);
             $contact = Contact::findOrFail($request->contact_id);
 
@@ -264,11 +274,11 @@ class InvoiceController extends Controller
         } else {
 
             Flash::error(Lang::get('app.general:update-failed'));
-            return redirect(route('invoices.edit'));
+            return redirect(action('InvoiceController@edit'));
 
         }
 
-        return redirect(route('invoices.index'));
+        return redirect(action('InvoiceController@index'));
     }
 
     /**
@@ -285,13 +295,13 @@ class InvoiceController extends Controller
         if (empty($invoice)) {
             Flash::error(Lang::get('app.general:missing-model'));
 
-            return redirect(route('invoices.index'));
+            return redirect(action('InvoiceController@index'));
         }
 
         $invoice->delete();
 
         Flash::success(Lang::get('app.general:delete-success'));
 
-        return redirect(route('invoices.index'));
+        return redirect(action('InvoiceController@index'));
     }
 }

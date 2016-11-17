@@ -11,7 +11,7 @@
        <div class="box box-primary">
            <div class="box-body">
                <div class="row">
-                   {!! Form::model($service, ['route' => ['services.update', $service->id], 'method' => 'patch']) !!}
+                   {!! Form::model($service, ['action' => ['ServiceController@update', $service->id], 'method' => 'patch']) !!}
 
                         @include('pages.services.fields')
 

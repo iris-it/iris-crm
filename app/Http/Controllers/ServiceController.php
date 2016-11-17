@@ -59,11 +59,11 @@ class ServiceController extends Controller
         } else {
 
             Flash::error(Lang::get('app.general:create-failed'));
-            return redirect(route('services.create'));
+            return redirect(action('ServiceController@create'));
 
         }
 
-        return redirect(route('services.index'));
+        return redirect(action('ServiceController@index'));
     }
 
     /**
@@ -77,7 +77,7 @@ class ServiceController extends Controller
         if (empty($service)) {
             Flash::error(Lang::get('app.general:missing-model'));
 
-            return redirect(route('services.index'));
+            return redirect(action('ServiceController@index'));
         }
 
         return view('pages.services.show')->with('service', $service);
@@ -95,7 +95,7 @@ class ServiceController extends Controller
         if (empty($service)) {
             Flash::error(Lang::get('app.general:missing-model'));
 
-            return redirect(route('services.index'));
+            return redirect(action('ServiceController@index'));
         }
 
         return view('pages.services.edit')->with(compact('service', 'taxes'));
@@ -113,7 +113,7 @@ class ServiceController extends Controller
         if (empty($service)) {
             Flash::error(Lang::get('app.general:missing-model'));
 
-            return redirect(route('services.index'));
+            return redirect(action('ServiceController@index'));
         }
 
         if ($service->update($input) && $service->save()) {
@@ -140,11 +140,11 @@ class ServiceController extends Controller
         } else {
 
             Flash::error(Lang::get('app.organization:update-failed'));
-            return redirect(route('services.edit'));
+            return redirect(action('ServiceController@edit'));
 
         }
 
-        return redirect(route('services.index'));
+        return redirect(action('ServiceController@index'));
     }
 
     /**
@@ -157,13 +157,13 @@ class ServiceController extends Controller
         if (empty($service)) {
             Flash::error(Lang::get('app.general:missing-model'));
 
-            return redirect(route('services.index'));
+            return redirect(action('ServiceController@index'));
         }
 
         $service->delete();
 
         Flash::success(Lang::get('app.general:delete-success'));
 
-        return redirect(route('services.index'));
+        return redirect(action('ServiceController@index'));
     }
 }

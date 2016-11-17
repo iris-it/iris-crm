@@ -10,14 +10,6 @@ use App\Receipt;
 
 class HomeController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('auth');
-
-        $this->middleware('hasOrganization');
-
-    }
-
 
     /**
      * Show the application dashboard.
@@ -26,10 +18,7 @@ class HomeController extends Controller
     public function index()
     {
 
-        if ($this->organization) {
-            $groups = $this->organization->groups()->get();
-            $users = $this->organization->users()->get();
-        }
+        //FIXME Les bonnes requetes vers l'organisation de l'utilisateur :)
 
         $receipts = Receipt::all();
         $quotes = Quote::all();
@@ -37,7 +26,7 @@ class HomeController extends Controller
         $convertedAccounts = Account::where('converted', true);
 
 
-        return view('pages.home.index')->with(compact('organization', 'groups', 'users', 'orders', 'convertedAccounts', 'quotes', 'invoices'));
+        return view('pages.home.index')->with(compact('organization', 'orders', 'convertedAccounts', 'quotes', 'invoices'));
 
     }
 }

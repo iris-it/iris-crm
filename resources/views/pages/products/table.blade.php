@@ -24,10 +24,10 @@
             <td class="text-bold">{!! $product->stock_disponibility !!}</td>
 
             <td>
-                {!! Form::open(['route' => ['products.destroy', $product->id], 'method' => 'delete']) !!}
+                {!! Form::open(['action' => ['ProductController@destroy', $product->id], 'method' => 'delete']) !!}
                 <div class='btn-group'>
-                    <a href="{!! route('products.show', [$product->id]) !!}" class='btn btn-info btn-flat'><i class="glyphicon glyphicon-eye-open"></i></a>
-                    <a href="{!! route('products.edit', [$product->id]) !!}" class='btn bg-purple btn-flat'><i class="glyphicon glyphicon-edit"></i></a>
+                    <a href="{!! action('ProductController@show', [$product->id]) !!}" class='btn btn-info btn-flat'><i class="glyphicon glyphicon-eye-open"></i></a>
+                    <a href="{!! action('ProductController@edit', [$product->id]) !!}" class='btn bg-purple btn-flat'><i class="glyphicon glyphicon-edit"></i></a>
                     {!! Form::button('<i class="glyphicon glyphicon-trash"></i>', ['type' => 'submit', 'class' => 'btn btn-danger btn-flat', 'onclick' => "return confirm('Are you sure?')"]) !!}
                 </div>
                 {!! Form::close() !!}

@@ -106,6 +106,6 @@
 <!-- Submit Field -->
 <div class="form-group col-sm-12">
     {!! Form::submit( trans('app.general:save-changes'), ['class' => 'btn btn-primary']) !!}
-    <a href="{!! route('invoices.index') !!}" class="btn btn-default">{{trans('app.general:cancel')}}</a>
+    <a href="{!! action('InvoiceController@index') !!}" class="btn btn-default">{{trans('app.general:cancel')}}</a>
 </div>
 

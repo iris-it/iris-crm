@@ -75,7 +75,7 @@ class OfficeController extends Controller
         if (empty($account)) {
             Flash::error(Lang::get('app.general:missing-model'));
 
-            return redirect(route('accounts.index'));
+            return redirect(action('AccountControllerindex'));
         }
 
         return view('pages.accounts.show')->with('account', $account);
@@ -92,7 +92,7 @@ class OfficeController extends Controller
         if (empty($account)) {
             Flash::error(Lang::get('app.general:missing-model'));
 
-            return redirect(route('accounts.index'));
+            return redirect(action('AccountControllerindex'));
         }
 
         return view('pages.accounts.edit')->with('account', $account);
@@ -110,7 +110,7 @@ class OfficeController extends Controller
         if (empty($account)) {
             Flash::error(Lang::get('app.general:missing-model'));
 
-            return redirect(route('accounts.index'));
+            return redirect(action('AccountControllerindex'));
         }
 
         if ($account->update($data) && $account->save()) {
@@ -120,10 +120,10 @@ class OfficeController extends Controller
         } else {
 
             Flash::error(Lang::get('app.general:update-failure'));
-            return redirect(route('accounts.edit'));
+            return redirect(action('AccountControlleredit'));
         }
 
-        return redirect(route('accounts.index'));
+        return redirect(action('AccountControllerindex'));
     }
 
     /**
@@ -140,13 +140,13 @@ class OfficeController extends Controller
         if (empty($account)) {
             Flash::error(Lang::get('app.general:missing-model'));
 
-            return redirect(route('accounts.index'));
+            return redirect(action('AccountControllerindex'));
         }
 
         $account->delete();
 
         Flash::success(Lang::get('app.general:delete-success'));
 
-        return redirect(route('accounts.index'));
+        return redirect(action('AccountControllerindex'));
     }
 }

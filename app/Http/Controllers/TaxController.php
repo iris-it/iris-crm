@@ -44,11 +44,11 @@ class TaxController extends Controller
         } else {
 
             Flash::error(Lang::get('app.general:create-failed'));
-            return redirect(route('taxes.create'));
+            return redirect(action('TaxController@create'));
 
         }
 
-        return redirect(route('taxes.index'));
+        return redirect(action('TaxController@index'));
     }
 
     /**
@@ -61,7 +61,7 @@ class TaxController extends Controller
         if (empty($tax)) {
             Flash::error(Lang::get('app.general:missing-model'));
 
-            return redirect(route('taxes.index'));
+            return redirect(action('TaxController@index'));
         }
 
         return view('pages.taxes.show')->with('tax', $tax);
@@ -77,7 +77,7 @@ class TaxController extends Controller
         if (empty($tax)) {
             Flash::error(Lang::get('app.general:missing-model'));
 
-            return redirect(route('taxes.index'));
+            return redirect(action('TaxController@index'));
         }
 
         return view('pages.taxes.edit')->with(compact('tax'));
@@ -94,7 +94,7 @@ class TaxController extends Controller
         if (empty($tax)) {
             Flash::error(Lang::get('app.general:missing-model'));
 
-            return redirect(route('taxes.index'));
+            return redirect(action('TaxController@index'));
         }
 
         if ($tax->update($data) && $tax->save()) {
@@ -104,11 +104,11 @@ class TaxController extends Controller
         } else {
 
             Flash::error(Lang::get('app.general:update-failed'));
-            return redirect(route('taxes.edit'));
+            return redirect(action('TaxController@edit'));
 
         }
 
-        return redirect(route('taxes.index'));
+        return redirect(action('TaxController@index'));
     }
 
     /**
@@ -121,13 +121,13 @@ class TaxController extends Controller
         if (empty($tax)) {
             Flash::error(Lang::get('app.general:missing-model'));
 
-            return redirect(route('taxes.index'));
+            return redirect(action('TaxController@index'));
         }
 
         $tax->delete();
 
         Flash::success(Lang::get('app.general:delete-success'));
 
-        return redirect(route('taxes.index'));
+        return redirect(action('TaxController@index'));
     }
 }

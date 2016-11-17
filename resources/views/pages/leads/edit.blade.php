@@ -11,7 +11,7 @@
        <div class="box box-primary">
            <div class="box-body">
                <div class="row">
-                   {!! Form::model($lead, ['route' => ['leads.update', $lead->id], 'method' => 'patch']) !!}
+                   {!! Form::model($lead, ['action' => ['LeadController@update', $lead->id], 'method' => 'patch']) !!}
 
                         @include('pages.leads.fields')
 

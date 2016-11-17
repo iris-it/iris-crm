@@ -12,7 +12,7 @@
 
             <div class="box-body">
                 <div class="row">
-                    {!! Form::open(['route' => 'quotes.store']) !!}
+                    {!! Form::open(['action' => 'QuoteController@store']) !!}
 
                     @include('pages.quotes.fields')
 

@@ -2,6 +2,7 @@
   <dictionary name="alexa">
     <words>
       <w>adminlte</w>
+      <w>dcos</w>
       <w>livereload</w>
     </words>
   </dictionary>

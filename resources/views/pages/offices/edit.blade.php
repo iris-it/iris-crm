@@ -11,7 +11,7 @@
        <div class="box box-primary">
            <div class="box-body">
                <div class="row">
-                   {!! Form::model($account, ['route' => ['accounts.update', $account->id], 'method' => 'patch']) !!}
+                   {!! Form::model($account, ['action' => ['AccountController@update', $account->id], 'method' => 'patch']) !!}
 
                         @include('pages.accounts.fields')
 

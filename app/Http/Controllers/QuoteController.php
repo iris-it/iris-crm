@@ -21,6 +21,8 @@ class QuoteController extends Controller
      */
     public function index($id)
     {
+        //FIXME Les bonnes requetes vers l'organisation de l'utilisateur :)
+
         $office = Office::findOrFail($id);
         $quotes = $office->quotes;
 
@@ -32,6 +34,7 @@ class QuoteController extends Controller
      */
     public function create($id)
     {
+
         $office = Office::findOrFail($id);
 
         $contacts = $office->contacts;
@@ -46,7 +49,9 @@ class QuoteController extends Controller
      */
     public function store($id, QuoteRequest $request)
     {
+
         $input = $request->all();
+
         $office = Office::findOrFail($id);
 
         if ($quote = Quote::create($input)) {
@@ -111,11 +116,11 @@ class QuoteController extends Controller
         } else {
 
             Flash::error(Lang::get('app.general:create-failed'));
-            return redirect(route('quotes.create'));
+            return redirect(action('QuoteController@create'));
 
         }
 
-        return redirect(route('quotes.index'));
+        return redirect(action('QuoteController@index'));
     }
 
     /**
@@ -129,7 +134,7 @@ class QuoteController extends Controller
         if (empty($quote)) {
             Flash::error(Lang::get('app.general:missing-model'));
 
-            return redirect(route('quotes.index'));
+            return redirect(action('QuoteController@index'));
         }
 
         return view('pages.quotes.show')->with('quote', $quote);
@@ -150,7 +155,7 @@ class QuoteController extends Controller
         if (empty($quote)) {
             Flash::error(Lang::get('app.general:missing-model'));
 
-            return redirect(route('quotes.index'));
+            return redirect(action('QuoteController@index'));
         }
 
         return view('pages.quotes.edit')->with(compact('quote', 'contacts', 'offices', 'products', 'services'));
@@ -166,13 +171,14 @@ class QuoteController extends Controller
 
         if (empty($quote)) {
             Flash::error(Lang::get('app.general:missing-model'));
-            return redirect(route('quotes.index'));
+            return redirect(action('QuoteController@index'));
         }
 
         if ($quote->update($input) && $quote->save()) {
 
             $htPrice = 0;
             $price = 0;
+
             $office = Office::findOrFail($request->office_id);
             $contact = Contact::findOrFail($request->contact_id);
 
@@ -236,11 +242,11 @@ class QuoteController extends Controller
         } else {
 
             Flash::error(Lang::get('app.general:update-failed'));
-            return redirect(route('quote.edit'));
+            return redirect(action('quote.edit'));
 
         }
 
-        return redirect(route('quotes.index'));
+        return redirect(action('QuoteController@index'));
     }
 
     /**
@@ -253,13 +259,13 @@ class QuoteController extends Controller
         if (empty($quote)) {
             Flash::error(Lang::get('app.general:missing-model'));
 
-            return redirect(route('quotes.index'));
+            return redirect(action('QuoteController@index'));
         }
 
         $quote->delete();
 
         Flash::success(Lang::get('app.general:delete-success'));
 
-        return redirect(route('quotes.index'));
+        return redirect(action('QuoteController@index'));
     }
 }

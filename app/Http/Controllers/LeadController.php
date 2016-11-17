@@ -50,11 +50,11 @@ class LeadController extends Controller
         } else {
 
             Flash::error(Lang::get('app.general:create-failed'));
-            return redirect(route('leads.create'));
+            return redirect(action('LeadController@create'));
 
         }
 
-        return redirect(route('leads.index'));
+        return redirect(action('LeadController@index'));
     }
 
     /**
@@ -68,7 +68,7 @@ class LeadController extends Controller
         if (empty($lead)) {
             Flash::error(Lang::get('app.general:missing-model'));
 
-            return redirect(route('leads.index'));
+            return redirect(action('LeadController@index'));
         }
 
         return view('pages.leads.show')->with('lead', $lead);
@@ -84,7 +84,7 @@ class LeadController extends Controller
         if (empty($lead)) {
             Flash::error(Lang::get('app.general:missing-model'));
 
-            return redirect(route('leads.index'));
+            return redirect(action('LeadController@index'));
         }
 
         return view('pages.leads.edit')->with('lead', $lead);
@@ -101,7 +101,7 @@ class LeadController extends Controller
         if (empty($lead)) {
             Flash::error(Lang::get('app.general:missing-model'));
 
-            return redirect(route('leads.index'));
+            return redirect(action('LeadController@index'));
         }
 
         if ($lead->update($data) && $lead->save()) {
@@ -111,10 +111,10 @@ class LeadController extends Controller
         } else {
 
             Flash::error(Lang::get('app.general:update-failure'));
-            return redirect(route('leads.edit'));
+            return redirect(action('LeadController@edit'));
         }
 
-        return redirect(route('leads.index'));
+        return redirect(action('LeadController@index'));
     }
 
     /**
@@ -127,12 +127,12 @@ class LeadController extends Controller
         if (empty($lead)) {
             Flash::error(Lang::get('app.general:missing-model'));
 
-            return redirect(route('leads.index'));
+            return redirect(action('LeadController@index'));
         }
 
         $lead->delete();
         Flash::success(Lang::get('app.general:delete-success'));
 
-        return redirect(route('leads.index'));
+        return redirect(action('LeadController@index'));
     }
 }

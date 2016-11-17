@@ -10,7 +10,7 @@
             <div class="box-body">
                 @include('errors.list')
 
-                {!! Form::open(['method' => 'POST','action' => 'OrganizationController@store']) !!}
+                {!! Form::open(['action' => 'OrganizationController@store','method' => 'POST']) !!}
 
                 @include('pages.organization.partials.form')
 

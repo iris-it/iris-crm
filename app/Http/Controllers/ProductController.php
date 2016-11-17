@@ -62,11 +62,11 @@ class ProductController extends Controller
         } else {
 
             Flash::error(Lang::get('app.general:create-failed'));
-            return redirect(route('products.create'));
+            return redirect(action('ProductController@create'));
 
         }
 
-        return redirect(route('products.index'));
+        return redirect(action('products.index'));
     }
 
     /**
@@ -80,7 +80,7 @@ class ProductController extends Controller
         if (empty($product)) {
 
             Flash::error(Lang::get('app.general:missing-model'));
-            return redirect(route('products.index'));
+            return redirect(action('ProductController@index'));
         }
 
         return view('pages.products.show')->with('product', $product);
@@ -100,7 +100,7 @@ class ProductController extends Controller
 
             Flash::error(Lang::get('app.general:missing-model'));
 
-            return redirect(route('products.index'));
+            return redirect(action('ProductController@index'));
         }
 
         return view('pages.products.edit')->with(compact('product', 'contacts', 'taxes'));
@@ -120,7 +120,7 @@ class ProductController extends Controller
         if (empty($product)) {
             Flash::error(Lang::get('app.general:missing-model'));
 
-            return redirect(route('products.index'));
+            return redirect(action('ProductController@index'));
         }
 
         if ($product->update($input) && $product->save()) {
@@ -146,12 +146,12 @@ class ProductController extends Controller
 
         } else {
             Flash::error(Lang::get('app.general:update-failed'));
-            return redirect(route('products.edit'));
+            return redirect(action('ProductController@edit'));
 
         }
 
 
-        return redirect(route('products.index'));
+        return redirect(action('ProductController@index'));
     }
 
     /**
@@ -164,13 +164,13 @@ class ProductController extends Controller
         if (empty($product)) {
             Flash::error(Lang::get('app.general:missing-model'));
 
-            return redirect(route('products.index'));
+            return redirect(action('ProductController@index'));
         }
 
         $product->delete();
 
         Flash::success(Lang::get('app.general:delete-success'));
 
-        return redirect(route('products.index'));
+        return redirect(action('ProductController@index'));
     }
 }

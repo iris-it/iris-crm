@@ -57,7 +57,7 @@ class AccountController extends Controller
         } else {
 
             Flash::error(Lang::get('app.general:create-failed'));
-            return redirect(route('accounts.create'));
+            return redirect(action('AccountController@create'));
 
         }
 
@@ -75,7 +75,7 @@ class AccountController extends Controller
         if (empty($account)) {
             Flash::error(Lang::get('app.general:missing-model'));
 
-            return redirect(route('accounts.index'));
+            return redirect(action('AccountController@index'));
         }
 
         return view('pages.accounts.show')->with('account', $account);
@@ -92,7 +92,7 @@ class AccountController extends Controller
         if (empty($account)) {
             Flash::error(Lang::get('app.general:missing-model'));
 
-            return redirect(route('accounts.index'));
+            return redirect(action('AccountController@index'));
         }
 
         return view('pages.accounts.edit')->with('account', $account);
@@ -110,7 +110,7 @@ class AccountController extends Controller
         if (empty($account)) {
             Flash::error(Lang::get('app.general:missing-model'));
 
-            return redirect(route('accounts.index'));
+            return redirect(action('AccountController@index'));
         }
 
         if ($account->update($data) && $account->save()) {
@@ -120,10 +120,10 @@ class AccountController extends Controller
         } else {
 
             Flash::error(Lang::get('app.general:update-failure'));
-            return redirect(route('accounts.edit'));
+            return redirect(action('AccountController@edit'));
         }
 
-        return redirect(route('accounts.index'));
+        return redirect(action('AccountController@index'));
     }
 
     /**
@@ -140,13 +140,13 @@ class AccountController extends Controller
         if (empty($account)) {
             Flash::error(Lang::get('app.general:missing-model'));
 
-            return redirect(route('accounts.index'));
+            return redirect(action('AccountController@index'));
         }
 
         $account->delete();
 
         Flash::success(Lang::get('app.general:delete-success'));
 
-        return redirect(route('accounts.index'));
+        return redirect(action('AccountController@index'));
     }
 }

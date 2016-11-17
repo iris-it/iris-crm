@@ -45,7 +45,6 @@ class ContactController extends Controller
 
         if ($contact = Contact::create($input)) {
 
-
             $office = Office::findOrFail($request->office_id);
             $contact->office()->associate($office);
 
@@ -55,11 +54,11 @@ class ContactController extends Controller
         } else {
 
             Flash::error(Lang::get('app.general:create-failed'));
-            return redirect(route('contacts.create'));
+            return redirect(action('ContactController@create'));
 
         }
 
-        return redirect(route('contacts.index'));
+        return redirect(action('ContactController@index'));
     }
 
     /**
@@ -73,7 +72,7 @@ class ContactController extends Controller
         if (empty($contact)) {
             Flash::error(Lang::get('app.general:missing-model'));
 
-            return redirect(route('contacts.index'));
+            return redirect(action('ContactController@index'));
         }
 
         return view('pages.contacts.show')->with('contact', $contact);
@@ -91,7 +90,7 @@ class ContactController extends Controller
         if (empty($contact)) {
             Flash::error(Lang::get('app.general:missing-model'));
 
-            return redirect(route('contacts.index'));
+            return redirect(action('ContactController@index'));
         }
 
         return view('pages.contacts.edit')->with(compact('contact', 'account', 'offices'));
@@ -108,7 +107,7 @@ class ContactController extends Controller
         if (empty($contact)) {
             Flash::error(Lang::get('app.general:missing-model'));
 
-            return redirect(route('contacts.index'));
+            return redirect(action('ContactController@index'));
         }
 
         if ($contact->update($input) && $contact->save()) {
@@ -123,12 +122,12 @@ class ContactController extends Controller
         } else {
 
             Flash::error(Lang::get('app.general:update-failed'));
-            return redirect(route('contacts.edit'));
+            return redirect(action('ContactController@edit'));
 
         }
 
 
-        return redirect(route('contacts.index'));
+        return redirect(action('ContactController@index'));
     }
 
     /**
@@ -141,13 +140,13 @@ class ContactController extends Controller
         if (empty($contact)) {
             Flash::error(Lang::get('app.general:missing-model'));
 
-            return redirect(route('contacts.index'));
+            return redirect(action('ContactController@index'));
         }
 
         $contact->delete();
 
         Flash::success(Lang::get('app.general:delete-success'));
 
-        return redirect(route('contacts.index'));
+        return redirect(action('ContactController@index'));
     }
 }

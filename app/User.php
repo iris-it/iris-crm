@@ -116,13 +116,4 @@ class User extends Authenticatable
         return $this->belongsTo('App\Organization');
     }
 
-    /**
-     * An user can be in many groups
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
-     */
-    public function groups()
-    {
-        return $this->belongsToMany('App\UserGroup', 'groups_users_pivot', 'user_id', 'group_id')->withTimestamps();
-    }
 }

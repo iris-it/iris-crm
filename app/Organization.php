@@ -75,15 +75,6 @@ class Organization extends Model
     }
 
     /**
-     * An organization has many groups
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
-     */
-    public function groups()
-    {
-        return $this->hasMany('App\UserGroup');
-    }
-
-    /**
      * An organization has one website
      * @return \Illuminate\Database\Eloquent\Relations\HasOne
      */
