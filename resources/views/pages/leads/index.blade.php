@@ -5,7 +5,7 @@
         <h1 class="pull-left text-purple">{{trans('app.general:leads')}}</h1>
         <h1 class="pull-right">
             <a class="btn btn-app bg-purple btn-flat create-button pull-right" href="#" @click="{{VueHelper::format('showModal', 'createLeadModal', [])}}">
-                <i class="fa fa-address-card"></i> {{trans('app.general:create')}}
+                <i class="fa fa-address-book-o"></i> {{trans('app.general:create')}}
             </a>
         </h1>
     </section>
@@ -27,8 +27,9 @@
                 <h3 class="box-title animated flash">{{trans('app.lead:no-leads-title')}}</h3>
                 <h4 class="animated fadeIn">{{trans('app.lead:no-leads-desc')}}</h4>
                 <div class="col-sm-12 text-center">
-                    <a class="btn btn-app bg-purple btn-flat animated pulse" style="font-size: 15px;" href="#" @click="{{VueHelper::format('showModal', 'createLeadModal', [])}}">
-                    <i class="fa fa-address-card"></i> {{trans('app.general:create')}} </a>
+                    <br>
+                    <a class="btn btn-app bg-purple btn-flat create-button animated pulse" href="#" @click="{{VueHelper::format('showModal', 'createLeadModal', [])}}">
+                    <i class="fa fa-address-book-o"></i> {{trans('app.general:create')}} </a>
                 </div>
             </div>
         @endif

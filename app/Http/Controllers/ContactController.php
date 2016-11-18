@@ -18,8 +18,11 @@ class ContactController extends Controller
     public function index()
     {
         $contacts = $this->organization->contacts;
-        $accounts = $this->organization->accounts->where('is_lead', false)->get();
-        $leads = $this->organization->accounts->where('is_lead', true)->get();
+        $accounts = $this->organization->accounts()->where('is_lead', false)->get()->pluck('name', 'id');
+        $leads = $this->organization->accounts()->where('is_lead', true)->get()->pluck('name', 'id');
+
+        $accounts->prepend('Aucun', 0);
+        $leads->prepend('Aucun', 0);
 
         return view('pages.contacts.index')->with(compact('contacts', 'accounts', 'leads'));
     }
