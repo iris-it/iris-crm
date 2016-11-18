@@ -1,129 +1,89 @@
 <div class="box box-primary">
     <div class="box-body">
-
+        <!-- Account Name Field -->
         <h4 class="box-title">{{trans('app.general:general-info')}}</h4>
         <hr>
-        <!-- Lead Name Field -->
         <div class="form-group col-sm-6">
-            {!! Form::label('name',  trans('app.general:name') . ' :', ['class' => 'h4 text-purple']) !!}
-            <span class="h4 text-bold">{!! $lead->name !!}</span>
-        </div>
-
-        <!-- Website Field -->
-        <div class="form-group col-sm-6">
-            {!! Form::label('website',  trans('app.general:website') . ' :', ['class' => 'h4 text-purple']) !!}
-            <span class="h4 text-bold">{!! $lead->website !!}</span>
-        </div>
-
-        <!-- Activity Sector Field -->
-        <div class="form-group col-sm-6">
-            {!! Form::label('activity_sector', trans('app.general:activity-sector') . ' :', ['class' => 'h4 text-purple']) !!}
-            <span class="h4 text-bold">{!! $lead->activity_sector !!}</span>
-        </div>
-
-        <!-- Workforce Field -->
-        <div class="form-group col-sm-6">
-            {!! Form::label('workforce',  trans('app.general:workforce') . ' :', ['class' => 'h4 text-purple'])  !!}
-            <span class="h4 text-bold">{!! $lead->workforce !!}</span>
-        </div>
-
-        <!-- Type Field -->
-        <div class="form-group col-sm-6">
-            {!! Form::label('type', trans('app.general:type') . ' :' , ['class' => 'h4 text-purple']) !!}
-            <span class="h4 text-bold">{!! $lead->type !!}</span>
-        </div>
-
-        <!-- Ape Number Field -->
-        <div class="form-group col-sm-6">
-            {!! Form::label('ape_number', trans('app.general:ape-number') . ' :', ['class' => 'h4 text-purple']) !!}
-            <span class="h4 text-bold">{!! $lead->ape_number !!}</span>
-        </div>
-
-        <!-- Siret Number Field -->
-        <div class="form-group col-sm-6">
-            {!! Form::label('siret_number', trans('app.general:siret-number') . ' :', ['class' => 'h4 text-purple']) !!}
-            <span class="h4 text-bold">{!! $lead->siret_number !!}</span>
-        </div>
-
-        <!-- Phone Number Field -->
-        <div class="form-group col-sm-6">
-            {!! Form::label('phone_number',  trans('app.general:phone-number') . ' :', ['class' => 'h4 text-purple'])  !!}
-            <span class="h4 text-bold">{!! $lead->phone_number !!}</span>
-        </div>
-
-        <!-- Status Field -->
-        <div class="form-group col-sm-6">
-            {!! Form::label('status',  trans('app.general:status') . ' :', ['class' => 'h4 text-purple']) !!}
-            <span class="h4 text-bold">{!! $lead->status !!}</span>
-        </div>
-
-        <!-- Free Label Field -->
-        <div class="form-group col-sm-6">
-            {!! Form::label('free_label', trans('app.general:free-input') . ' :', ['class' => 'h4 text-purple']) !!}
-            <span class="h4 text-bold">{!! $lead->free_label !!}</span>
+            {!! Form::label('name', trans('app.general:name') . ' :', ['class' => 'h4 text-purple']) !!}
+            <span class="h4 text-bold">  {!! $lead->name !!}</span>
         </div>
 
 
     </div>
 </div>
 
-<div class="box box-primary">
-    <div class="box-body">
-        <!-- Account Name Field -->
-        <h4 class="box-title">{{trans('app.general:address')}}</h4>
-        <hr>
-
-
-        <!-- Address Field -->
-        <div class="form-group col-sm-6">
-            {!! Form::label('address', trans('app.general:address') . ' :', ['class' => 'h4 text-purple']) !!}
-            <span class="h4 text-bold">{!! $lead->address !!}</span>
+@if($lead->offices->count() < 1)
+    <div class="form-group col-sm-10 text-center">
+        <h3 class="box-title animated flash">{{trans('app.account:no-offices-title')}}</h3>
+        <h4 class="animated fadeIn">{{trans('app.account:no-offices-desc')}}</h4>
+        <div class="col-sm-12 text-center">
+            <a class="btn btn-app bg-purple btn-flat animated pulse" style="font-size: 15px;" href="{{action('OfficeController@create', $lead->id)}}">
+                <i class="fa fa-building"></i> {{trans('app.general:create')}}
+            </a>
         </div>
-
-        <!-- Zipcode Field -->
-        <div class="form-group col-sm-6">
-            {!! Form::label('zipcode', trans('app.general:zipcode') . ' :', ['class' => 'h4 text-purple']) !!}
-            <span class="h4 text-bold">{!! $lead->zipcode !!}</span>
-        </div>
-
-        <!-- City Field -->
-        <div class="form-group col-sm-6">
-            {!! Form::label('city',  trans('app.general:city') . ' :', ['class' => 'h4 text-purple']) !!}
-            <span class="h4 text-bold">{!! $lead->city !!}</span>
-        </div>
-
-        <!-- Country Field -->
-        <div class="form-group col-sm-6">
-            {!! Form::label('country', trans('app.general:country') . ' :', ['class' => 'h4 text-purple']) !!}
-            <span class="h4 text-bold">{!! $lead->country !!}</span>
-        </div>
-
     </div>
-</div>
 
-<div class="box box-primary">
-    <div class="box-body">
-        <!-- Account Owner Field -->
-        <div class="form-group col-sm-6">
-            {!! Form::label('account_owner', trans('app.general:account-owner') . ' :', ['class' => 'h4 text-purple']) !!}
-            @if($lead->user)
-                <span class="h4 text-bold">{!! $lead->user->name !!}</span>
-            @else
-                <span class="h4 text-bold">{{trans('app.general:undefined')}}</span>
-            @endif
+@else
+    <div class="box box-primary">
+        <div class="box-body">
+            <h4 class="box-title">{{trans('app.general:offices')}}</h4>
+            <hr>
+            <table class="table table-bordered text-center">
+                <tbody>
+                <tr>
+                    @foreach($lead->offices as $office)
+                        <td>
+                            <button type="button" class="btn btn-lg btn-block btn-info btn-flat" @click="{{VueHelper::format('showTab', $office->name, $office->load('addresses'))}}">{{$office->name}}</button>
+                        </td>
+                    @endforeach
+
+                </tr>
+                </tbody>
+            </table>
+
+            @foreach($lead->offices as $office)
+                <office-tabcontent id="{{$office->name}}" title="{{$office->name}}">
+
+                    {!! Form::label('name', trans('app.general:name') . ' :', ['slot' => 'name-field', 'class' => 'h4 text-purple']) !!}
+
+                    {!! Form::label('type',trans('app.general:type') . ' :', ['slot' => 'type-field','class' => 'h4 text-purple']) !!}
+
+                    {!! Form::label('activity_sector', trans('app.general:activity-sector') . ' :', ['slot' => 'activity-sector-field', 'class' => 'h4 text-purple']) !!}
+
+                    {!! Form::label('workforce', trans('app.general:workforce') . ' :', ['slot' => 'workforce-field', 'class' => 'h4 text-purple']) !!}
+
+                    {!! Form::label('siret_number', trans('app.general:siret-number') . ' :', ['slot' => 'siret-field', 'class' => 'h4 text-purple']) !!}
+
+                    {!! Form::label('ape_number', trans('app.general:ape-number') . ' :', ['slot' => 'ape-field', 'class' => 'h4 text-purple']) !!}
+
+                    {!! Form::label('phone_number', trans('app.general:phone-number') . ' :', ['slot' => 'phone-field', 'class' => 'h4 text-purple']) !!}
+
+                    {!! Form::label('website', trans('app.general:website') . ' :', ['slot' => 'website-field', 'class' => 'h4 text-purple']) !!}
+
+                    {!! Form::label('is_active', trans('app.general:is-active') . ' :', ['slot' => 'is-active-field', 'class' => 'h4 text-purple']) !!}
+
+                    {!! Form::label('is_active', trans('app.office:is-main') . ' :', ['slot' => 'is-main-field', 'class' => 'h4 text-purple']) !!}
+
+                    {!! Form::label('created_at', trans('app.general:created-at') . ' :', ['slot' => 'created-at-field', 'class' => 'h4 text-purple']) !!}
+
+                    {!! Form::label('updated_at',  trans('app.general:updated-at') . ' :', ['slot' => 'updated-at-field', 'class' => 'h4 text-purple']) !!}
+
+                    {!! Form::label('name', trans('app.address:name') . ' :', ['slot' => 'address-name-field', 'class' => 'h4 text-purple']) !!}
+
+                    {!! Form::label('street_label', trans('app.address:street-label') . ' :', ['slot' => 'street-label-field', 'class' => 'h4 text-purple']) !!}
+
+                    {!! Form::label('street_detail', trans('app.address:street-detail') . ' :', ['slot' => 'street-detail-field', 'class' => 'h4 text-purple']) !!}
+
+                    {!! Form::label('zipcode', trans('app.general:zipcode') . ' :', ['slot' => 'zipcode-field', 'class' => 'h4 text-purple']) !!}
+
+                    {!! Form::label('city', trans('app.general:city') . ' :', ['slot' => 'city-field', 'class' => 'h4 text-purple']) !!}
+
+                    {!! Form::label('country', trans('app.general:country') . ' :', ['slot' => 'country-field', 'class' => 'h4 text-purple']) !!}
+
+                </office-tabcontent>
+
+            @endforeach
         </div>
-
-        <!-- Created At Field -->
-        <div class="form-group col-sm-6">
-            {!! Form::label('created_at', trans('app.general:created-at') . ' :', ['class' => 'h4 text-purple']) !!}
-            <span class="h4 text-bold">{!! $lead->created_at !!}</span>
-        </div>
-
-        <!-- Updated At Field -->
-        <div class="form-group col-sm-12">
-            {!! Form::label('updated_at', trans('app.general:updated-at') . ' :', ['class' => 'h4 text-purple']) !!}
-            <span class="h4 text-bold">{!! $lead->updated_at !!}</span>
-        </div>
-
     </div>
-</div>
+@endif
+
