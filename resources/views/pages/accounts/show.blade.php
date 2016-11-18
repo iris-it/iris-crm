@@ -6,7 +6,7 @@
 
         <h1 class="pull-right">
             <a class="btn btn-app bg-purple btn-flat pull-right" style="font-size: 15px; margin-top: -10px;margin-bottom: 5px" href="{{action('OfficeController@create', $account->id)}}">
-                <i class="fa fa-plus"></i> {{trans('app.general:create')}} </a>
+                <i class="fa fa-building"></i> {{trans('app.general:create')}} </a>
         </h1>
     </section>
 

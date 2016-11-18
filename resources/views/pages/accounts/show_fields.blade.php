@@ -8,7 +8,7 @@
             <span class="h4 text-bold">  {!! $account->name !!}</span>
         </div>
 
-        <!-- Free Label Field -->
+        <!-- Is Converted Field -->
         <div class="form-group col-sm-6">
             {!! Form::label('converted', trans('app.account:converted-field') . ' :', ['class' => 'h4 text-purple']) !!}
             @if($account->converted)
