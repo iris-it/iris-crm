@@ -27,7 +27,7 @@ class CreateRelationOfficesAccounts extends Migration
     public function down()
     {
         Schema::table('offices', function ($table) {
-            $table->dropForeign('establishments_account_id_foreign');
+            $table->dropForeign('offices_account_id_foreign');
             $table->dropColumn('account_id');
         });
     }

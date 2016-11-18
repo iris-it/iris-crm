@@ -27,7 +27,7 @@ class CreateRelationServicesOrganizations extends Migration
     public function down()
     {
         Schema::table('services', function ($table) {
-            $table->dropForeign('products_organization_id_foreign');
+            $table->dropForeign('services_organization_id_foreign');
             $table->dropColumn('organization_id');
         });
     }
