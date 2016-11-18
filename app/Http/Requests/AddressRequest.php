@@ -33,7 +33,7 @@ class AddressRequest extends Request
                         'name' => 'required|max:255',
                         'street_label' => 'required|max:255',
                         'street_detail' => 'max:255',
-                        'zipcode' => 'required|max:10|integer',
+                        'zipcode' => 'required|max:10|string',
                         'city' => 'required|max:255',
                         'country' => 'required|max:255',
                     ];
@@ -44,7 +44,7 @@ class AddressRequest extends Request
                         'name' => 'required|max:255',
                         'street_label' => 'required|max:255',
                         'street_detail' => 'max:255',
-                        'zipcode' => 'required|max:10|integer',
+                        'zipcode' => 'required|max:10|string',
                         'city' => 'required|max:255',
                         'country' => 'required|max:255',
                     ];
