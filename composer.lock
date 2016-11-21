@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "a2cf4a7e5b4cc8bf20a0690009fcdec8",
-    "content-hash": "312c0f750b8c5b006eb06fc685dc46b6",
+    "hash": "1e9629bceeff6653d45c23efc2424084",
+    "content-hash": "3d696931755bb29a706a0242208f4213",
     "packages": [
         {
             "name": "adamwathan/eloquent-oauth",
@@ -2252,6 +2252,55 @@
             ],
             "description": "SoundCloud provider for SocialNorm",
             "time": "2015-11-18 20:18:43"
+        },
+        {
+            "name": "spatie/geocoder",
+            "version": "2.3.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/spatie/geocoder.git",
+                "reference": "72256a0919bc3ce8568455b250fcdb3c8a2a1c9f"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/spatie/geocoder/zipball/72256a0919bc3ce8568455b250fcdb3c8a2a1c9f",
+                "reference": "72256a0919bc3ce8568455b250fcdb3c8a2a1c9f",
+                "shasum": ""
+            },
+            "require": {
+                "guzzlehttp/guzzle": "~6.0",
+                "illuminate/support": "^5.0",
+                "php": ">=5.4.0"
+            },
+            "require-dev": {
+                "phpspec/phpspec": "2.0.*@dev"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "Spatie\\Geocoder": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Freek Van der Herten",
+                    "email": "freek@spatie.be"
+                }
+            ],
+            "description": "Geocoding addresses to coordinates",
+            "homepage": "https://github.com/spatie/geocoder",
+            "keywords": [
+                "coordinate",
+                "geocode",
+                "laravel",
+                "location",
+                "map"
+            ],
+            "time": "2016-11-15 09:40:37"
         },
         {
             "name": "spatie/laravel-glide",

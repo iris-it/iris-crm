@@ -1,114 +1,27 @@
-<!-- Account Name Field -->
-<div class="form-group col-sm-6">
-    {!! Form::label('name',  trans('app.general:name') . ' :') !!}
-    {!! Form::text('name', null, ['class' => 'form-control']) !!}
-</div>
-
-<!-- Website Field -->
-<div class="form-group col-sm-6">
-    {!! Form::label('website', trans('app.general:website') . ' :') !!}
-    {!! Form::text('website', null, ['class' => 'form-control']) !!}
-</div>
-
-<!-- Activity Sector Field -->
-<div class="form-group col-sm-6">
-    {!! Form::label('activity_sector', trans('app.general:activity-sector') . ' :') !!}
-    {!! Form::text('activity_sector', null, ['class' => 'form-control']) !!}
-</div>
-
-<!-- Workforce Field -->
-<div class="form-group col-sm-6">
-    {!! Form::label('workforce', trans('app.general:workforce') . ' :') !!}
-    {!! Form::text('workforce', null, ['class' => 'form-control']) !!}
-</div>
-
-<!-- Type Field -->
-<div class="form-group col-sm-6">
-    {!! Form::label('type', trans('app.general:type') . ' :') !!}
-    {!! Form::text('type', null, ['class' => 'form-control']) !!}
-</div>
-
-<!-- Ape Number Field -->
-<div class="form-group col-sm-6">
-    {!! Form::label('ape_number', trans('app.general:ape-number') . ' :') !!}
-    {!! Form::text('ape_number', null, ['class' => 'form-control']) !!}
-</div>
-
-<!-- Siret Number Field -->
-<div class="form-group col-sm-6">
-    {!! Form::label('siret_number', trans('app.general:siret-number') . ' :') !!}
-    {!! Form::text('siret_number', null, ['class' => 'form-control']) !!}
-</div>
-
-<!-- Phone Number Field -->
-<div class="form-group col-sm-6">
-    {!! Form::label('phone_number', trans('app.general:phone-number') . ' :') !!}
-    {!! Form::text('phone_number', null, ['class' => 'form-control']) !!}
-</div>
-
-<!-- Is Active Field -->
-<div class="form-group col-sm-6">
-    {!! Form::label('is_active', trans('app.general:is-active') . ' :') !!}
-    <select class="form-control" id="is_active" name="is_active">
-        <option value=1>{{trans('app.general:yes')}}</option>
-        <option value=0>{{trans('app.general:no')}}</option>
-    </select>
-</div>
-
-<div class="col-sm-12">
-    <h4> {{trans('app.general:billing-address')}}</h4>
-    <!-- Billing Address Field -->
-    <div class="form-group col-sm-6">
-        {!! Form::label('billing_address', trans('app.general:address') . ' :') !!}
-        {!! Form::text('billing_address', null, ['class' => 'form-control']) !!}
+<div class="col-sm-6">
+    <!-- Account Name Field -->
+    <div class="form-group">
+        {!! Form::label('name',  trans('app.general:name') . ' :') !!}
+        {!! Form::text('name', null, ['class' => 'form-control']) !!}
     </div>
-    <!-- Billing Zipcode Field -->
-    <div class="form-group col-sm-6">
-        {!! Form::label('billing_zipcode', trans('app.general:zipcode') . ' :') !!}
-        {!! Form::text('billing_zipcode', null, ['class' => 'form-control']) !!}
-    </div>
-    <!-- Billing City Field -->
-    <div class="form-group col-sm-6">
-        {!! Form::label('billing_city', trans('app.general:city') . ' :') !!}
-        {!! Form::text('billing_city', null, ['class' => 'form-control']) !!}
-    </div>
-    <!-- Billing Country Field -->
-    <div class="form-group col-sm-6">
-        {!! Form::label('billing_country', trans('app.general:country') . ' :') !!}
-        {!! Form::text('billing_country', null, ['class' => 'form-control']) !!}
-    </div>
-</div>
-
-<div class="col-sm-12">
-    <h4> {{trans('app.general:delivery-address')}}</h4>
-    <!-- Delivery Address Field -->
-    <div class="form-group col-sm-6">
-        {!! Form::label('delivery_address', trans('app.general:address') . ' :') !!}
-        {!! Form::text('delivery_address', null, ['class' => 'form-control']) !!}
-    </div>
-    <!-- Delivery Zipcode Field -->
-    <div class="form-group col-sm-6">
-        {!! Form::label('delivery_zipcode', trans('app.general:zipcode') . ' :') !!}
-        {!! Form::text('delivery_zipcode', null, ['class' => 'form-control']) !!}
-    </div>
-    <!-- Delivery City Field -->
-    <div class="form-group col-sm-6">
-        {!! Form::label('delivery_city', trans('app.general:city') . ' :') !!}
-        {!! Form::text('delivery_city', null, ['class' => 'form-control']) !!}
-    </div>
-    <!-- Delivery Country Field -->
-    <div class="form-group col-sm-6">
-        {!! Form::label('delivery_country', trans('app.general:country') . ' :') !!}
-        {!! Form::text('delivery_country', null, ['class' => 'form-control']) !!}
+    <!-- Website Field -->
+    <div class="form-group">
+        {!! Form::label('website', trans('app.general:website') . ' :') !!}
+        {!! Form::text('website', null,['class' => 'form-control']) !!}
     </div>
 
 </div>
 
+<div class="col-sm-6">
+    <!-- Website Field -->
+    <div class="form-group">
+        {!! Form::label('logo', trans('app.general:logo') . ' :') !!}
+        <input type="file" name="logo" id="logo" onchange="loadFile(event)" class="form-control">
+    </div>
 
-<!-- Free Label Field -->
-<div class="form-group col-sm-6">
-    {!! Form::label('free_label', trans('app.general:free-input') . ' :') !!}
-    {!! Form::text('free_label', null, ['class' => 'form-control']) !!}
+    <!-- Image preview -->
+    <img id="logo-image" class="img img-responsive" width="100" height="100"/>
+
 </div>
 
 <!-- Submit Field -->
@@ -116,3 +29,17 @@
     {!! Form::submit( trans('app.general:save-changes'), ['class' => 'btn btn-primary']) !!}
     <a href="{!! action('AccountController@index') !!}" class="btn btn-default">{{trans('app.general:cancel')}}</a>
 </div>
+
+@section('scripts')
+    @parent
+    <script>
+        var loadFile = function (event) {
+            var reader = new FileReader();
+            reader.onload = function () {
+                var output = document.getElementById('logo-image');
+                output.src = reader.result;
+            };
+            reader.readAsDataURL(event.target.files[0]);
+        };
+    </script>
+@endsection

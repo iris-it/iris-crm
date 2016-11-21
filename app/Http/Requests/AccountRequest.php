@@ -31,6 +31,8 @@ class AccountRequest extends Request
                 return
                     [
                         'name' => 'required|max:255',
+                        'website' => 'max:255',
+                        'notes' => 'max:1000',
                         'is_lead' => 'boolean',
                         'converted' => 'boolean',
 
@@ -42,6 +44,8 @@ class AccountRequest extends Request
                 return
                     [
                         'name' => 'required|max:255',
+                        'website' => 'max:255',
+                        'notes' => 'max:1000',
                         'is_lead' => 'boolean',
                         'converted' => 'boolean',
 

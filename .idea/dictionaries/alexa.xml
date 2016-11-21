@@ -3,7 +3,10 @@
     <words>
       <w>adminlte</w>
       <w>dcos</w>
+      <w>geocoder</w>
+      <w>geodata</w>
       <w>livereload</w>
+      <w>zipcode</w>
     </words>
   </dictionary>
 </component>

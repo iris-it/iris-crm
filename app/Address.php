@@ -26,6 +26,8 @@ class Address extends Model
         'zipcode',
         'city',
         'country',
+        'lat',
+        'lng',
     ];
 
     /**

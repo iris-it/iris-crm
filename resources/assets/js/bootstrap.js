@@ -12,6 +12,8 @@ require('bootstrap-duallistbox');
 require('bootstrap-datepicker');
 require('admin-lte');
 require('chart.js');
+require('leaflet');
+require('leaflet.markercluster');
 
 window.IrisCrm = require('./crm');
 

@@ -21,7 +21,9 @@ var fonts = [
 
 elixir(mix => {
 
-    mix.copy(fonts, "./public/build/fonts");
+    mix.copy(fonts, "public/build/fonts");
+
+    mix.copy("resources/assets/img", "public/build/css/images");
 
     mix.sass('app.scss');
 

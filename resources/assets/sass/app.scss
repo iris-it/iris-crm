@@ -1,6 +1,5 @@
 // Fonts
 @import url(https://fonts.googleapis.com/css?family=Raleway:300,400,600);
-// Variables
 @import "variables";
 
 // Bootstrap
@@ -23,6 +22,11 @@ $icon-font-path: "../fonts/";
 
 //Animate
 @import "node_modules/animate.css/animate.min";
+
+// LeafLet
+@import "node_modules/leaflet/dist/leaflet";
+@import "node_modules/leaflet.markercluster/dist/MarkerCluster";
+@import "node_modules/leaflet.markercluster/dist/MarkerCluster.Default";
 
 /*
  * Modal.vue component style

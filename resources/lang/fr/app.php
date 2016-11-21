@@ -103,6 +103,7 @@ return  array(
 	'general:workforce'                 => 'Effectifs',
 	'general:yes'                       => 'Oui',
 	'general:zipcode'                   => 'Code postal',
+	'general:image'                     => 'Image',
 	'invoice:products-list'             => 'Produits inclus dans cette facture',
 	'invoice:services-list'             => 'Services inclus dans cette facture',
 	'lead:detail'                       => 'Détail du prospect',

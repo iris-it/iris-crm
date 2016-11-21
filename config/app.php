@@ -164,19 +164,17 @@ return [
         Illuminate\View\ViewServiceProvider::class,
 
         /*
-         * Package Service Providers...
-         */
-
-        //
-
-        /*
          * Application Service Providers...
          */
         App\Providers\AppServiceProvider::class,
         App\Providers\AuthServiceProvider::class,
-        // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
+        App\Providers\BroadcastServiceProvider::class,
+
+        /*
+         * Homemade
+         */
         App\Providers\EloquentOAuthCustomServiceProvider::class,
 
         /*
@@ -186,6 +184,7 @@ return [
         Spatie\MediaLibrary\MediaLibraryServiceProvider::class,
         DaveJamesMiller\Breadcrumbs\ServiceProvider::class,
         Philo\Translate\TranslateServiceProvider::class,
+        Spatie\Geocoder\GeocoderServiceProvider::class,
         Laracasts\Flash\FlashServiceProvider::class,
         Collective\Html\HtmlServiceProvider::class,
 
@@ -242,14 +241,15 @@ return [
          */
         'SocialAuth' => AdamWathan\EloquentOAuth\Facades\OAuth::class,
         'Breadcrumbs' => DaveJamesMiller\Breadcrumbs\Facade::class,
+        'Geocoder' => Spatie\Geocoder\GeocoderFacade::class,
         'Form' => Collective\Html\FormFacade::class,
         'Html' => Collective\Html\HtmlFacade::class,
         'Flash' => Laracasts\Flash\Flash::class,
         'Uuid' => Webpatser\Uuid\Uuid::class,
 
-       /*
-        * Homemade
-        */
+        /*
+         * Homemade
+         */
         'Stats' => App\Helpers\StatisticsHelper::class,
         'VueHelper' => App\Helpers\VueHelper::class,
     ],

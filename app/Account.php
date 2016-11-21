@@ -23,6 +23,9 @@ class Account extends Model
 
     public $fillable = [
         'name',
+        'website',
+        'logo',
+        'notes',
         'is_lead',
         'converted'
     ];
@@ -34,6 +37,8 @@ class Account extends Model
      */
     protected $casts = [
         'name' => 'string',
+        'website' => 'string',
+        'notes' => 'string',
         'is_lead' => 'boolean',
         'converted' => 'boolean',
     ];
@@ -51,17 +56,17 @@ class Account extends Model
 
     public function invoices()
     {
-        return $this->hasManyThrough('App\Invoice', 'App\Establishment');
+        return $this->hasManyThrough('App\Invoice', 'App\Office');
     }
 
     public function quotes()
     {
-        return $this->hasManyThrough('App\Quote', 'App\Establishment');
+        return $this->hasManyThrough('App\Quote', 'App\Office');
     }
 
     public function contacts()
     {
-        return $this->hasManyThrough('App\Contact', 'App\Establishment');
+        return $this->hasManyThrough('App\Contact', 'App\Office');
     }
 
 }

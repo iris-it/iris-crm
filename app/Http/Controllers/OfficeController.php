@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Account;
 use App\Address;
 use App\Http\Requests\OfficeRequest;
+use App\Jobs\GeocodeAddressJob;
 use App\Office;
 use App\Http\Requests\AccountRequest;
 use Illuminate\Support\Facades\Auth;
@@ -37,7 +38,7 @@ class OfficeController extends Controller
         $input = $request->all();
         $account = Account::findOrFail($id);
 
-        if(!$request->has('is_main')) {
+        if (!$request->has('is_main')) {
             $input['is_main'] = false;
         }
 
@@ -45,7 +46,8 @@ class OfficeController extends Controller
 
             foreach ($input["addresses"] as $address) {
                 if ($newAdd = Address::create($address)) {
-                        $office->addresses()->attach($newAdd->id, ['type' => $address['type']]);
+                    $office->addresses()->attach($newAdd->id, ['type' => $address['type']]);
+                    dispatch(new GeocodeAddressJob($newAdd));
                 }
             }
 
@@ -57,7 +59,7 @@ class OfficeController extends Controller
         } else {
 
             Flash::error(Lang::get('app.general:create-failed'));
-            return redirect(action('OfficeController@create', $account->id));
+            return redirect(action('AccountController@show', $account->id));
 
         }
 
@@ -75,7 +77,7 @@ class OfficeController extends Controller
         if (empty($account)) {
             Flash::error(Lang::get('app.general:missing-model'));
 
-            return redirect(action('AccountControllerindex'));
+            return redirect(action('AccountController@index'));
         }
 
         return view('pages.accounts.show')->with('account', $account);
@@ -92,7 +94,7 @@ class OfficeController extends Controller
         if (empty($account)) {
             Flash::error(Lang::get('app.general:missing-model'));
 
-            return redirect(action('AccountControllerindex'));
+            return redirect(action('AccountController@index'));
         }
 
         return view('pages.accounts.edit')->with('account', $account);
@@ -110,7 +112,7 @@ class OfficeController extends Controller
         if (empty($account)) {
             Flash::error(Lang::get('app.general:missing-model'));
 
-            return redirect(action('AccountControllerindex'));
+            return redirect(action('AccountController@index'));
         }
 
         if ($account->update($data) && $account->save()) {
@@ -120,10 +122,10 @@ class OfficeController extends Controller
         } else {
 
             Flash::error(Lang::get('app.general:update-failure'));
-            return redirect(action('AccountControlleredit'));
+            return redirect(action('AccountController@edit'));
         }
 
-        return redirect(action('AccountControllerindex'));
+        return redirect(action('AccountController@index'));
     }
 
     /**
@@ -140,13 +142,13 @@ class OfficeController extends Controller
         if (empty($account)) {
             Flash::error(Lang::get('app.general:missing-model'));
 
-            return redirect(action('AccountControllerindex'));
+            return redirect(action('AccountController@index'));
         }
 
         $account->delete();
 
         Flash::success(Lang::get('app.general:delete-success'));
 
-        return redirect(action('AccountControllerindex'));
+        return redirect(action('AccountController@index'));
     }
 }
