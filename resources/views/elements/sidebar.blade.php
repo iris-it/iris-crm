@@ -35,20 +35,3 @@
         </ul>
     </section>
 </aside>
-
-@section('scripts')
-    @parent
-    <script type="text/javascript">
-        $(function () {
-            var path = "{{Request::url()}}";
-            $(".sidebar-menu a").each(function () {
-                var href = $(this).attr('href');
-                if (path.substring(0, href.length) === href) {
-                    $(this).closest('li').addClass('active');
-                    $(this).closest('li').parent().closest('li').addClass('menu-open active');
-                    $(this).closest('li').parent().closest('li').parent().closest('li').addClass('menu-open active');
-                }
-            });
-        });
-    </script>
-@endsection
