@@ -1,3 +1,10 @@
+<div class="form-group col-sm-12 text-center">
+    {!! Form::label('office_id',  trans('app.contact:office-select') . " :") !!}
+    <br>
+    {!! Form::select('office_id', $offices, Request::get('office_id'), ['class' => 'form-control', (!Request::has('office_id'))?:'disabled']) !!}
+</div>
+
+
 <!-- Civility Field -->
 <div class="form-group col-sm-6">
     {!! Form::label('civility', trans('app.contact:civility') . ' :') !!}
@@ -34,54 +41,24 @@
     {!! Form::text('phone_number', null, ['class' => 'form-control']) !!}
 </div>
 
-<!-- Type Field -->
-
-    <contact-type accounts="{{json_encode($accounts)}}" leads="{{json_encode($leads)}}"></contact-type>
 
 
-            <!-- Contact Owner Field -->
-    <div class="form-group col-sm-6">
-        <label for="contact_owner">{{trans('app.contact:owner')}} :</label>
-        {!! Form::select('contact_owner_id', $users, null, ['class' => 'form-control']) !!}
-    </div>
-    <!-- Avatar Field -->
-    <div class="form-group col-sm-6">
-        {!! Form::label('avatar', trans('app.contact:avatar') . ' :') !!}
-        {!! Form::text('avatar', null, ['class' => 'form-control']) !!}
-    </div>
+<!-- Avatar Field -->
+<div class="form-group col-sm-6">
+{!! Form::label('avatar', trans('app.contact:avatar') . ' :') !!}
+{!! Form::text('avatar', null, ['class' => 'form-control']) !!}
+</div>
 
-    <!-- Address Field -->
-    <div class="form-group col-sm-6">
-        {!! Form::label('address', trans('app.general:address') . ' :') !!}
-        {!! Form::text('address', null, ['class' => 'form-control']) !!}
-    </div>
 
-    <!-- Zipcode Field -->
-    <div class="form-group col-sm-6">
-        {!! Form::label('zipcode', trans('app.general:zipcode') . ' :') !!}
-        {!! Form::text('zipcode', null, ['class' => 'form-control']) !!}
-    </div>
 
-    <!-- City Field -->
-    <div class="form-group col-sm-6">
-        {!! Form::label('city', trans('app.general:city') . ' :') !!}
-        {!! Form::text('city', null, ['class' => 'form-control']) !!}
-    </div>
+<!-- Free Label Field -->
+<div class="form-group col-sm-6">
+{!! Form::label('free_label', trans('app.general:free-input') . ' :') !!}
+{!! Form::text('free_label', null, ['class' => 'form-control']) !!}
+</div>
 
-    <!-- Country Field -->
-    <div class="form-group col-sm-6">
-        {!! Form::label('country', trans('app.general:country') . ' :') !!}
-        {!! Form::text('country', null, ['class' => 'form-control']) !!}
-    </div>
-
-    <!-- Free Label Field -->
-    <div class="form-group col-sm-6">
-        {!! Form::label('free_label', trans('app.general:free-input') . ' :') !!}
-        {!! Form::text('free_label', null, ['class' => 'form-control']) !!}
-    </div>
-
-    <!-- Submit Field -->
-    <div class="form-group col-sm-12">
-        {!! Form::submit( trans('app.general:save-changes'), ['class' => 'btn btn-primary']) !!}
-        <a href="{!! action('ContactController@index') !!}" class="btn btn-default">{{trans('app.general:cancel')}}</a>
-    </div>
+<!-- Submit Field -->
+<div class="form-group col-sm-12">
+{!! Form::submit( trans('app.general:save-changes'), ['class' => 'btn btn-primary']) !!}
+<a href="{!! action('ContactController@index') !!}" class="btn btn-default">{{trans('app.general:cancel')}}</a>
+</div>

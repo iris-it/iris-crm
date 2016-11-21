@@ -14,7 +14,7 @@ class CreateRelationContactsOffices extends Migration
     public function up()
     {
         Schema::table('contacts', function ($table) {
-            $table->integer('office_id')->after('type')->unsigned()->nullable()->index();
+            $table->integer('office_id')->after('avatar')->unsigned()->nullable()->index();
             $table->foreign('office_id')->references('id')->on('offices')->onDelete('set null');
         });
     }

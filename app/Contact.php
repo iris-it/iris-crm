@@ -27,12 +27,8 @@ class Contact extends Model
         'email',
         'phone_number',
         'avatar',
-        'address',
-        'zipcode',
-        'city',
-        'country',
-        'type',
-        'free_label'
+        'free_label',
+
     ];
 
     /**
@@ -48,11 +44,6 @@ class Contact extends Model
         'email' => 'string',
         'phone_number' => 'string',
         'avatar' => 'string',
-        'address' => 'string',
-        'zipcode' => 'string',
-        'city' => 'string',
-        'country' => 'string',
-        'type' => 'boolean',
         'free_label' => 'string'
     ];
 

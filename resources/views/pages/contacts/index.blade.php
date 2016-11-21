@@ -36,17 +36,12 @@
 
 
         <modal id="createContactModal" title="{{trans('app.contact:new')}}">
-            {!! Form::open(['action' => 'ContactController@store']) !!}
-            <div class="form-group col-sm-6 text-center">
+            {!! Form::open(['action' => 'ContactController@create', 'method' => 'GET']) !!}
+
+            <div class="form-group col-sm-12 text-center">
                 {!! Form::label('accountSelect',  trans('app.contact:accounts-select')) !!}
                 <br>
-                {!! Form::select('accountSelect', $accounts, ['class' => 'form-control']) !!}
-            </div>
-
-            <div class="form-group col-sm-6 text-center">
-                {!! Form::label('leadSelect',  trans('app.contact:leads-select')) !!}
-                <br>
-                {!! Form::select('leadSelect', $leads, ['class' => 'form-control']) !!}
+                {!! Form::select('account_id', $accounts, ['class' => 'form-control']) !!}
             </div>
 
             <!-- Submit Field -->

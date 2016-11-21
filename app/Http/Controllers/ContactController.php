@@ -6,6 +6,7 @@ use App\Account;
 use App\Contact;
 use App\Http\Requests\ContactRequest;
 use App\Office;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Lang;
 use Laracasts\Flash\Flash;
 
@@ -18,24 +19,40 @@ class ContactController extends Controller
     public function index()
     {
         $contacts = $this->organization->contacts;
-        $accounts = $this->organization->accounts()->where('is_lead', false)->get()->pluck('name', 'id');
-        $leads = $this->organization->accounts()->where('is_lead', true)->get()->pluck('name', 'id');
 
-        $accounts->prepend('Aucun', 0);
-        $leads->prepend('Aucun', 0);
+        $account_list = $this->organization->accounts()->where('is_lead', false)->get()->pluck('name', 'id')->toArray();
+        $lead_list = $this->organization->accounts()->where('is_lead', true)->get()->pluck('name', 'id')->toArray();
 
-        return view('pages.contacts.index')->with(compact('contacts', 'accounts', 'leads'));
+        $accounts = [
+            trans('app.general:accounts') => $account_list,
+            trans('app.general:leads') => $lead_list
+        ];
+
+
+        return view('pages.contacts.index')->with(compact('contacts', 'accounts'));
     }
 
     /**
      * Show the form for creating a new Contact.
      */
-    public function create($id)
+    public function create(Request $request)
     {
-        $account = Account::findOrFail($id);
-        $offices = $account->offices;
+        $account_id = $request->get('account_id');
 
-        return view('pages.contacts.create')->with(compact('account', 'offices'));
+        if (!Account::find($account_id)) {
+            return abort(403, 'unauthorized');
+        }
+
+        $account = Account::findOrFail($account_id);
+
+        $offices = $account->offices->pluck('name', 'id');
+
+        if ($offices->count() === 0) {
+            Flash::error(Lang::get('app.general:missing-office'));
+            return redirect(action('AccountController@show', $account_id));
+        }
+
+        return view('pages.contacts.create')->with(compact('offices'));
     }
 
     /**
@@ -49,6 +66,7 @@ class ContactController extends Controller
         if ($contact = Contact::create($input)) {
 
             $office = Office::findOrFail($request->office_id);
+            $contact->organization()->associate($this->organization);
             $contact->office()->associate($office);
 
             $contact->save();

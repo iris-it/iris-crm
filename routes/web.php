@@ -69,8 +69,6 @@ Route::group(['middleware' => 'auth'], function () {
 
         Route::resource('leads', 'LeadController');
 
-        Route::resource('contacts', 'ContactController');
-
         Route::resource('quotes', 'QuoteController');
 
         Route::resource('orders', 'OrderController');
@@ -91,6 +89,20 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('account/{id}/offices/{officeId}/show', 'OfficeController@show');
         Route::get('account/{id}/offices/{officeId}/edit', 'OfficeController@edit');
         Route::delete('account/{id}/offices/{officeId}', 'OfficeController@destroy');
+
+
+        /*
+         * Contact resources
+         */
+
+        Route::get('contacts/index', 'ContactController@index');
+        Route::get('contacts/create', 'ContactController@create');
+        Route::post('contacts/store', 'ContactController@store');
+        Route::get('contacts/{id}/show', 'ContactController@show');
+        Route::get('contacts/{id}/edit', 'ContactController@edit');
+        Route::put('contacts/{id}/update', 'ContactController@edit');
+        Route::delete('contacts/{id}/delete', 'ContactController@destroy');
+
 
     });
 });
