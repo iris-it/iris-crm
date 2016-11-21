@@ -25,7 +25,8 @@
                 <h3 class="box-title animated flash">{{trans('app.account:no-accounts-title')}}</h3>
                 <h4 class="animated fadeIn">{{trans('app.account:no-accounts-desc')}}</h4>
                 <div class="col-sm-12 text-center">
-                    <a class="btn btn-app bg-purple btn-flat animated pulse" style="font-size: 15px;" href="#" @click="{{VueHelper::format('showModal', 'createAccountModal', [])}}">
+                    <br>
+                    <a class="btn btn-app bg-purple btn-flat create-button animated pulse" href="#" @click="{{VueHelper::format('showModal', 'createAccountModal', [])}}">
                         <i class="fa fa-address-book"></i> {{trans('app.general:create')}} </a>
                 </div>
             </div>
