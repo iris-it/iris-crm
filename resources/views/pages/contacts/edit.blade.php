@@ -11,7 +11,7 @@
        <div class="box box-primary">
            <div class="box-body">
                <div class="row">
-                   {!! Form::model($contact, ['action' => ['ContactController@update', $contact->id], 'method' => 'patch']) !!}
+                   {!! Form::model($contact, ['action' => ['ContactController@update', $contact->id], 'method' => 'PUT']) !!}
 
                         @include('pages.contacts.fields')
 

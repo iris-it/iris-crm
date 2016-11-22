@@ -102,11 +102,10 @@ class ContactController extends Controller
     /**
      * Show the form for editing the specified Contact.
      */
-    public function edit($id, $accountId)
+    public function edit($id)
     {
         $contact = Contact::findOrFail($id);
-        $account = Account::findOrFail($accountId);
-        $offices = $account->offices;
+        $offices = $contact->office->account->offices->pluck('name', 'id');;
 
         if (empty($contact)) {
             Flash::error(Lang::get('app.general:missing-model'));
@@ -114,7 +113,7 @@ class ContactController extends Controller
             return redirect(action('ContactController@index'));
         }
 
-        return view('pages.contacts.edit')->with(compact('contact', 'account', 'offices'));
+        return view('pages.contacts.edit')->with(compact('contact', 'offices'));
     }
 
     /**
@@ -122,6 +121,7 @@ class ContactController extends Controller
      */
     public function update($id, ContactRequest $request)
     {
+
         $contact = Contact::findOrFail($id);
         $input = $request->all();
 

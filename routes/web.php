@@ -100,7 +100,7 @@ Route::group(['middleware' => 'auth'], function () {
         Route::post('contacts/store', 'ContactController@store');
         Route::get('contacts/{id}/show', 'ContactController@show');
         Route::get('contacts/{id}/edit', 'ContactController@edit');
-        Route::put('contacts/{id}/update', 'ContactController@edit');
+        Route::put('contacts/{id}/update', 'ContactController@update');
         Route::delete('contacts/{id}/delete', 'ContactController@destroy');
 
 

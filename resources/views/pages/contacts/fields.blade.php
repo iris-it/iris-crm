@@ -1,5 +1,9 @@
 <div class="form-group col-sm-12 text-center">
-    {!! Form::label('office_id',  trans('app.contact:office-select') . " :") !!}
+    @if(Request::has('office_id'))
+        {!! Form::label('office_id',  trans('app.contact:selected-office') . " :") !!}
+    @else
+        {!! Form::label('office_id',  trans('app.contact:office-select') . " :") !!}
+    @endif
     <br>
     {!! Form::select('office_id', $offices, Request::get('office_id'), ['class' => 'form-control', (!Request::has('office_id'))?:'disabled']) !!}
 </div>
@@ -42,23 +46,47 @@
 </div>
 
 
+<div class="col-sm-6">
+    <!-- Avatar Field -->
+    <div class="form-group">
+        {!! Form::label('avatar', trans('app.contact:avatar') . ' :') !!}
+        <input type="file" name="avatar" id="avatar" onchange="loadFile(event)" class="form-control">
+    </div>
 
-<!-- Avatar Field -->
-<div class="form-group col-sm-6">
-{!! Form::label('avatar', trans('app.contact:avatar') . ' :') !!}
-{!! Form::text('avatar', null, ['class' => 'form-control']) !!}
+    <!-- Image preview -->
+    <img id="avatar-image" class="img img-responsive" width="100" height="100"/>
+
 </div>
-
 
 
 <!-- Free Label Field -->
 <div class="form-group col-sm-6">
-{!! Form::label('free_label', trans('app.general:free-input') . ' :') !!}
-{!! Form::text('free_label', null, ['class' => 'form-control']) !!}
+    {!! Form::label('free_label', trans('app.general:free-input') . ' :') !!}
+    {!! Form::text('free_label', null, ['class' => 'form-control']) !!}
 </div>
+
+
+@if(Request::has('office_id'))
+    {!! Form::hidden('office_id', Request::get('office_id')) !!}
+@endif
 
 <!-- Submit Field -->
 <div class="form-group col-sm-12">
-{!! Form::submit( trans('app.general:save-changes'), ['class' => 'btn btn-primary']) !!}
-<a href="{!! action('ContactController@index') !!}" class="btn btn-default">{{trans('app.general:cancel')}}</a>
+    {!! Form::submit( trans('app.general:save-changes'), ['class' => 'btn btn-primary']) !!}
+    <a href="{!! action('ContactController@index') !!}" class="btn btn-default">{{trans('app.general:cancel')}}</a>
 </div>
+
+
+@section('scripts')
+    @parent
+    <script>
+        var loadFile = function (event) {
+            var reader = new FileReader();
+            reader.onload = function () {
+                var output = document.getElementById('avatar-image');
+                output.src = reader.result;
+            };
+            reader.readAsDataURL(event.target.files[0]);
+        };
+    </script>
+@endsection
