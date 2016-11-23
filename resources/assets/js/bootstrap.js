@@ -14,6 +14,7 @@ require('admin-lte');
 require('chart.js');
 require('leaflet');
 require('leaflet.markercluster');
+require('cropper');
 
 window.IrisCrm = require('./crm');
 

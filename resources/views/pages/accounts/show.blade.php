@@ -30,7 +30,7 @@
                     <div class="nav-tabs-custom">
                         <ul class="nav nav-tabs">
                             @foreach($account->offices as $office)
-                                <li class="{{($loop->first)?:'active'}}">
+                                <li class="{{(!$loop->first)?:'active'}}">
                                     <a href="#{{$office->id}}" data-toggle="tab">{{$office->name}}</a>
                                 </li>
                             @endforeach

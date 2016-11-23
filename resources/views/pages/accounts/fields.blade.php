@@ -16,11 +16,8 @@
     <!-- Website Field -->
     <div class="form-group">
         {!! Form::label('logo', trans('app.general:logo') . ' :') !!}
-        <input type="file" name="logo" id="logo" onchange="loadFile(event)" class="form-control">
+        @include('shared.partials.image_cropper',['base_image' => asset($account->logo), 'input_file_name' => 'image', 'input_crop_option'=> 'crop_options'])
     </div>
-
-    <!-- Image preview -->
-    <img id="logo-image" class="img img-responsive" width="100" height="100"/>
 
 </div>
 
@@ -30,16 +27,4 @@
     <a href="{!! action('AccountController@index') !!}" class="btn btn-default">{{trans('app.general:cancel')}}</a>
 </div>
 
-@section('scripts')
-    @parent
-    <script>
-        var loadFile = function (event) {
-            var reader = new FileReader();
-            reader.onload = function () {
-                var output = document.getElementById('logo-image');
-                output.src = reader.result;
-            };
-            reader.readAsDataURL(event.target.files[0]);
-        };
-    </script>
-@endsection
+

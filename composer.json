@@ -22,7 +22,9 @@
     "irisit/socialnorm-keycloak": "^0.0.1",
     "adamwathan/eloquent-oauth-l5": "^0.5.1",
     "davejamesmiller/laravel-breadcrumbs": "^3.0",
-    "spatie/geocoder": "^2.3"
+    "spatie/geocoder": "^2.3",
+    "intervention/image": "^2.3",
+    "intervention/imagecache": "^2.3"
   },
   "require-dev": {
     "fzaninotto/faker": "~1.4",

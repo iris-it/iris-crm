@@ -4,7 +4,6 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
 
 /**
  * Class Account
@@ -12,7 +11,7 @@ use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
  */
 class Account extends Model
 {
-    use SoftDeletes, HasMediaTrait;
+    use SoftDeletes;
 
 
     public $table = 'accounts';
@@ -25,7 +24,6 @@ class Account extends Model
         'name',
         'website',
         'logo',
-        'notes',
         'is_lead',
         'converted'
     ];
@@ -38,7 +36,6 @@ class Account extends Model
     protected $casts = [
         'name' => 'string',
         'website' => 'string',
-        'notes' => 'string',
         'is_lead' => 'boolean',
         'converted' => 'boolean',
     ];
@@ -68,5 +65,4 @@ class Account extends Model
     {
         return $this->hasManyThrough('App\Contact', 'App\Office');
     }
-
 }

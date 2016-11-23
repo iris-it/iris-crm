@@ -48,10 +48,6 @@ return [
             'root' => storage_path('app'),
         ],
 
-        'base' => [
-            'driver' => 'local',
-            'root' => base_path() . DIRECTORY_SEPARATOR,
-        ],
 
         'public' => [
             'driver' => 'local',
@@ -59,10 +55,14 @@ return [
             'visibility' => 'public',
         ],
 
-
         'media' => [
             'driver' => 'local',
             'root' => public_path('media'),
+        ],
+
+        'base' => [
+            'driver' => 'local',
+            'root' => base_path() . DIRECTORY_SEPARATOR,
         ],
 
         's3' => [

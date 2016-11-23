@@ -11,7 +11,9 @@
 |
 */
 
+use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\Route;
+use Intervention\Image\Facades\Image;
 
 Route::get('/', function () {
     return redirect(action('HomeController@index'));
@@ -105,6 +107,22 @@ Route::group(['middleware' => 'auth'], function () {
 
 
     });
+});
+
+/*
+|--------------------------------------------------------------------------
+| Image service
+|--------------------------------------------------------------------------
+|
+|
+*/
+Route::get('images/{dir}/{img}', function ($dir, $img) {
+    // serve an image with cache !
+    // determine a lifetime and return as object instead of string
+    $photo = Image::cache(function ($image) use ($dir, $img) {
+        return $image->make(storage_path() . '/app/images/' . $dir . '/' . $img);
+    }, 1, false);
+    return Response::make($photo, 200, array('Content-Type' => 'image/jpeg'));
 });
 
 
