@@ -91,6 +91,7 @@ return  array(
 	'general:no'                        => 'Non',
 	'general:none'                      => 'Aucun',
 	'general:offices'                   => 'Établissements',
+    'general:office'                    => 'Établissement',
 	'general:orders'                    => 'Commande',
 	'general:owner'                     => 'Propriétaire',
 	'general:phase'                     => 'Phase',
@@ -154,5 +155,10 @@ return  array(
 	'quote:owner'                       => 'Proprietaire du devis',
 	'quote:products-list'               => 'Produits inclus dans ce devis',
 	'quote:services-list'               => 'Services inclus dans ce devis',
+	'quote:list-by-account'             => 'Devis du compte : ',
+	'quote:list-by-lead'                => 'Devis du prospect : ',
+    'quote:no-quotes-desc'              => 'Créez votre premier devis grâce au bouton ci-dessous',
+    'quote:no-quotes-title'             => 'Aucun devis créé pour le moment !',
+    'quote:new'                         => 'Nouveau devis',
 	'sidebar:main-title'                => 'MENU PRINCIPAL',
 );

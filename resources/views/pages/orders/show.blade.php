@@ -9,7 +9,7 @@
     <div class="content">
 
         @include('pages.orders.show_fields')
-        <a href="{!! action('OrderController@index') !!}" class="btn btn-lg btn-flat bg-purple"><i class="fa fa-chevron-circle-left"></i> {{trans('app.general:back')}}</a>
+        <a href="{!! action('OrderController@index') !!}" class="btn btn-lg btn-flat bg-blue"><i class="fa fa-chevron-circle-left"></i> {{trans('app.general:back')}}</a>
 
     </div>
 @endsection

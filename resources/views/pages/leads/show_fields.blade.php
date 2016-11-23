@@ -17,7 +17,7 @@
         <h3 class="box-title animated flash">{{trans('app.account:no-offices-title')}}</h3>
         <h4 class="animated fadeIn">{{trans('app.account:no-offices-desc')}}</h4>
         <div class="col-sm-12 text-center">
-            <a class="btn btn-app bg-purple btn-flat animated pulse" style="font-size: 15px;" href="{{action('OfficeController@create', $lead->id)}}">
+            <a class="btn btn-app bg-blue btn-flat animated pulse" style="font-size: 15px;" href="{{action('OfficeController@create', $lead->id)}}">
                 <i class="fa fa-building"></i> {{trans('app.general:create')}}
             </a>
         </div>

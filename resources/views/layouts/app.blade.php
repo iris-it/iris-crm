@@ -3,7 +3,7 @@
 <head>
     @include('elements.head')
 </head>
-<body class="hold-transition skin-purple sidebar-mini">
+<body class="hold-transition skin-blue sidebar-mini">
 
 <div class="wrapper" id="app">
 

@@ -5,7 +5,7 @@
         <h1 class="pull-left text-purple">{{trans('app.account:detail')}} : </h1>
 
         <h1 class="pull-right">
-            <a class="btn btn-app create-button bg-purple btn-flat pull-right" href="{{action('OfficeController@create', $account->id)}}">
+            <a class="btn btn-app create-button bg-blue btn-flat pull-right" href="{{action('OfficeController@create', $account->id)}}">
                 <i class="fa fa-building"></i> {{trans('app.general:create')}} </a>
         </h1>
     </section>
@@ -38,7 +38,7 @@
                         <div class="tab-content">
                             @foreach($account->offices as $office)
                                 <div class="tab-pane {{($loop->first)?:'active'}}" id="{{$office->id}}">
-                                    <a class="btn bg-purple btn-flat pull-right" href="{{action('ContactController@create', ["account_id" => $account->id, "office_id" => $office->id])}}">
+                                    <a class="btn bg-blue btn-flat pull-right" href="{{action('ContactController@create', ["account_id" => $account->id, "office_id" => $office->id])}}">
                                         <i class="fa fa-address-card" style="margin-right:5px"> </i> {{trans('app.contact:office-add')}}
                                     </a>
                                     <br><br><br>
@@ -53,7 +53,7 @@
     </div>
 
     <div class="col-sm-12">
-        <a href="{!! action('AccountController@index') !!}" class="btn btn-lg btn-flat bg-purple"><i
+        <a href="{!! action('AccountController@index') !!}" class="btn btn-lg btn-flat bg-blue"><i
                 class="fa fa-chevron-circle-left"></i> {{trans('app.general:back')}}</a>
     </div>
 @endsection

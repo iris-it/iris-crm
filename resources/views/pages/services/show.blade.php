@@ -8,6 +8,6 @@
     </section>
     <div class="content">
         @include('pages.services.show_fields')
-        <a href="{!! action('ServiceController@index') !!}" class="btn btn-lg btn-flat bg-purple"><i class="fa fa-chevron-circle-left"></i> {{trans('app.general:back')}}</a>
+        <a href="{!! action('ServiceController@index') !!}" class="btn btn-lg btn-flat bg-blue"><i class="fa fa-chevron-circle-left"></i> {{trans('app.general:back')}}</a>
     </div>
 @endsection
