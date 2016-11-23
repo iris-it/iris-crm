@@ -16,12 +16,7 @@
     <!-- Website Field -->
     <div class="form-group">
         {!! Form::label('logo', trans('app.general:logo') . ' :') !!}
-        <input type="file" id="logo-input" name="image" class="form-control">
-        <input type="hidden" name="crop_options" id="crop_options"/>
-
-        <div class="cropper-wrapper" id="cropper-wrapper" style="height: 400px">
-            <img src="{{asset($account->logo)}}" class="img img-responsive">
-        </div>
+        @include('shared.partials.image_cropper',['base_image' => asset($account->logo), 'input_file_name' => 'image', 'input_crop_option'=> 'crop_options'])
     </div>
 
 </div>
@@ -32,42 +27,4 @@
     <a href="{!! action('AccountController@index') !!}" class="btn btn-default">{{trans('app.general:cancel')}}</a>
 </div>
 
-@section('scripts')
-    @parent
-    <script>
-        var $image = $('#cropper-wrapper > img');
 
-        $('#logo-input').change(function () {
-            if (this.files && this.files[0]) {
-                var reader = new FileReader();
-                reader.onload = function (e) {
-                    loadCropper(e);
-                };
-                reader.readAsDataURL(this.files[0]);
-            }
-        });
-
-        function loadCropper(e) {
-            $image.attr('src', e.target.result);
-            $image.cropper('destroy');
-            $image.cropper({});
-            $image.cropper('setAspectRatio', 1);
-            $image.cropper('setDragMode', 'move');
-            $image.on('zoom.cropper', function (e) {
-                saveAsDataUrl();
-            });
-            $image.on('built.cropper', function (e) {
-                saveAsDataUrl();
-            });
-            $image.on('cropend.cropper', function (e) {
-                saveAsDataUrl();
-            });
-
-        }
-
-        function saveAsDataUrl() {
-            var datacrop = $image.cropper("getData");
-            $("#crop_options").attr('value', JSON.stringify(datacrop));
-        }
-    </script>
-@endsection
