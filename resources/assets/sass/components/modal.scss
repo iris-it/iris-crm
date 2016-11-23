@@ -1,0 +1,35 @@
+/*
+ * Modal.vue component style
+ */
+
+.Modal__container {
+  max-width: 700px;
+  width: 90%;
+  background: white;
+  border-radius: 2px;
+  animation-duration: 0.3s;
+  animation-delay: 0s;
+}
+
+.Modal__header {
+  border-bottom: 1px solid white;
+  padding: 15px 10px;
+  background-color: silver;
+  color: white;
+  border-radius: 2px;
+}
+
+.Modal__header > h1 {
+  text-align: center;
+  font-size: 27px;
+  font-weight: normal;
+  margin: 0;
+}
+
+.Modal__content {
+  padding: 10px;
+}
+
+.Modal__footer {
+  padding: 5px;
+}

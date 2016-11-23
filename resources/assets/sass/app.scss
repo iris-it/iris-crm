@@ -1,98 +1,19 @@
-// Fonts
+// App's Fonts
 @import url(https://fonts.googleapis.com/css?family=Raleway:300,400,600);
-@import "variables";
 
-// Bootstrap
-/* override icon-font-path value and include scss */
-$icon-font-path: "../fonts/";
-@import "node_modules/bootstrap-sass/assets/stylesheets/bootstrap";
+// App's Variables
+@import "_variables";
 
-// Font Awesome
-@import "node_modules/font-awesome/scss/font-awesome.scss";
+// App's Libraries
+@import "_libraries";
 
-//Ionicons
-@import "node_modules/ionicons/dist/scss/ionicons.scss";
+// App's Pages
+@import "_pages";
 
-// Bootstrap Dual List Box
-@import "node_modules/bootstrap-duallistbox/src/bootstrap-duallistbox";
+// Vue Components
+@import "_components";
 
-// Admin LTE
-@import "node_modules/admin-lte/dist/css/AdminLTE.min";
-@import "node_modules/admin-lte/dist/css/skins/skin-purple.min";
+// App & Style Fixes
+@import "_fixes";
 
-//Animate
-@import "node_modules/animate.css/animate.min";
 
-// LeafLet
-@import "node_modules/leaflet/dist/leaflet";
-@import "node_modules/leaflet.markercluster/dist/MarkerCluster";
-@import "node_modules/leaflet.markercluster/dist/MarkerCluster.Default";
-
-// Cropper
-@import "node_modules/cropper/dist/cropper";
-
-/*
- * Modal.vue component style
- */
-
-.Modal__container {
-  max-width: 700px;
-  width: 90%;
-  background: white;
-  border-radius: 2px;
-  animation-duration: 0.3s;
-  animation-delay: 0s;
-}
-
-.Modal__header {
-  border-bottom: 1px solid white;
-  padding: 15px 10px;
-  background-color: silver;
-  color: white;
-  border-radius: 2px;
-}
-
-.Modal__header > h1 {
-  text-align: center;
-  font-size: 27px;
-  font-weight: normal;
-  margin: 0;
-}
-
-.Modal__content {
-  padding: 10px;
-}
-
-.Modal__footer {
-  padding: 5px;
-}
-
-.u-overlay {
-  position: fixed;
-  z-index: 1000;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.8);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.naked-link {
-  color: inherit;
-  text-decoration: inherit;
-}
-
-.checkbox-label {
-  position: relative;
-  left: 2em;
-  bottom: 1.2em;
-}
-
-.create-button {
-  font-size: 15px;
-  margin-top: -10px;
-  margin-bottom: 5px
-}
