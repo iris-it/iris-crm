@@ -1,3 +1,14 @@
+<div class="form-group col-sm-12 text-center">
+    @if(Request::has('office_id'))
+        {!! Form::label('office_id',  trans('app.contact:selected-office') . " :") !!}
+    @else
+        {!! Form::label('office_id',  trans('app.contact:office-select') . " :") !!}
+    @endif
+    <br>
+    {!! Form::select('office_id', $offices, Request::get('office_id'), ['class' => 'form-control', (!Request::has('office_id'))?:'disabled']) !!}
+</div>
+
+
 <!-- Civility Field -->
 <div class="form-group col-sm-6">
     {!! Form::label('civility', trans('app.contact:civility') . ' :') !!}
@@ -34,54 +45,48 @@
     {!! Form::text('phone_number', null, ['class' => 'form-control']) !!}
 </div>
 
-<!-- Type Field -->
 
-    <contact-type accounts="{{json_encode($accounts)}}" leads="{{json_encode($leads)}}"></contact-type>
-
-
-            <!-- Contact Owner Field -->
-    <div class="form-group col-sm-6">
-        <label for="contact_owner">{{trans('app.contact:owner')}} :</label>
-        {!! Form::select('contact_owner_id', $users, null, ['class' => 'form-control']) !!}
-    </div>
+<div class="col-sm-6">
     <!-- Avatar Field -->
-    <div class="form-group col-sm-6">
+    <div class="form-group">
         {!! Form::label('avatar', trans('app.contact:avatar') . ' :') !!}
-        {!! Form::text('avatar', null, ['class' => 'form-control']) !!}
+        <input type="file" name="avatar" id="avatar" onchange="loadFile(event)" class="form-control">
     </div>
 
-    <!-- Address Field -->
-    <div class="form-group col-sm-6">
-        {!! Form::label('address', trans('app.general:address') . ' :') !!}
-        {!! Form::text('address', null, ['class' => 'form-control']) !!}
-    </div>
+    <!-- Image preview -->
+    <img id="avatar-image" class="img img-responsive" width="100" height="100"/>
 
-    <!-- Zipcode Field -->
-    <div class="form-group col-sm-6">
-        {!! Form::label('zipcode', trans('app.general:zipcode') . ' :') !!}
-        {!! Form::text('zipcode', null, ['class' => 'form-control']) !!}
-    </div>
+</div>
 
-    <!-- City Field -->
-    <div class="form-group col-sm-6">
-        {!! Form::label('city', trans('app.general:city') . ' :') !!}
-        {!! Form::text('city', null, ['class' => 'form-control']) !!}
-    </div>
 
-    <!-- Country Field -->
-    <div class="form-group col-sm-6">
-        {!! Form::label('country', trans('app.general:country') . ' :') !!}
-        {!! Form::text('country', null, ['class' => 'form-control']) !!}
-    </div>
+<!-- Free Label Field -->
+<div class="form-group col-sm-6">
+    {!! Form::label('free_label', trans('app.general:free-input') . ' :') !!}
+    {!! Form::text('free_label', null, ['class' => 'form-control']) !!}
+</div>
 
-    <!-- Free Label Field -->
-    <div class="form-group col-sm-6">
-        {!! Form::label('free_label', trans('app.general:free-input') . ' :') !!}
-        {!! Form::text('free_label', null, ['class' => 'form-control']) !!}
-    </div>
 
-    <!-- Submit Field -->
-    <div class="form-group col-sm-12">
-        {!! Form::submit( trans('app.general:save-changes'), ['class' => 'btn btn-primary']) !!}
-        <a href="{!! action('ContactController@index') !!}" class="btn btn-default">{{trans('app.general:cancel')}}</a>
-    </div>
+@if(Request::has('office_id'))
+    {!! Form::hidden('office_id', Request::get('office_id')) !!}
+@endif
+
+<!-- Submit Field -->
+<div class="form-group col-sm-12">
+    {!! Form::submit( trans('app.general:save-changes'), ['class' => 'btn btn-primary']) !!}
+    <a href="{!! action('ContactController@index') !!}" class="btn btn-default">{{trans('app.general:cancel')}}</a>
+</div>
+
+
+@section('scripts')
+    @parent
+    <script>
+        var loadFile = function (event) {
+            var reader = new FileReader();
+            reader.onload = function () {
+                var output = document.getElementById('avatar-image');
+                output.src = reader.result;
+            };
+            reader.readAsDataURL(event.target.files[0]);
+        };
+    </script>
+@endsection

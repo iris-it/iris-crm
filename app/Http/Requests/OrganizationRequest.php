@@ -38,7 +38,7 @@ class OrganizationRequest extends Request
                     'status' => 'required|string|max:255',
                     'siren_number' => ["regex:/^[0-9]{3}[ \.\-]?[0-9]{3}[ \.\-]?[0-9]{3}$/im", Rule::unique('organizations', 'siren_number')],
                     'siret_number' => ['required', "regex:/^[0-9]{3}[ \.\-]?[0-9]{3}[ \.\-]?[0-9]{3}[ \.\-]?[0-9]{5}$/im", Rule::unique('organizations', 'siret_number')],
-                    'ape_number' => ['required', "regex:/(^[0-9]{1,2}\.[0-9]{1,2}[A-Z]$|^[0-9]{1,2}\.[0-9]{1,2})$/im"],
+                    'ape_number' => ['required', "regex:/^[0-9]{3,4}[a-zA-Z]{1}$/im"],
                     'tva_number' => ['required', "regex:/^[A-Z]{2}[ \.\-]?[0-9]{2}[ \.\-]?[0-9]{3}[ \.\-]?[0-9]{3}[ \.\-]?[0-9]{3}$/im"],
                 ];
             }
@@ -53,7 +53,7 @@ class OrganizationRequest extends Request
                     'status' => 'required|string|max:255',
                     'siren_number' => ["regex:/^[0-9]{3}[ \.\-]?[0-9]{3}[ \.\-]?[0-9]{3}$/im", Rule::unique('organizations', 'siren_number')],
                     'siret_number' => ['required', "regex:/^[0-9]{3}[ \.\-]?[0-9]{3}[ \.\-]?[0-9]{3}[ \.\-]?[0-9]{5}$/im", Rule::unique('organizations', 'siret_number')],
-                    'ape_number' => ['required', "regex:/(^[0-9]{1,2}\.[0-9]{1,2}[A-Z]$|^[0-9]{1,2}\.[0-9]{1,2})$/im"],
+                    'ape_number' => ['required', "regex:/^[0-9]{3,4}[a-zA-Z]{1}$/im"],
                     'tva_number' => ['required', "regex:/^[A-Z]{2}[ \.\-]?[0-9]{2}[ \.\-]?[0-9]{3}[ \.\-]?[0-9]{3}[ \.\-]?[0-9]{3}$/im"],
                 ];
             }

@@ -29,7 +29,6 @@ Vue.component('example', require('./components/Example.vue'));
 Vue.component('Login', require('./components/Auth/Login.vue'));
 Vue.component('Logout', require('./components/Auth/Logout.vue'));
 Vue.component('UserProfile', require('./components/Auth/UserProfile.vue'));
-Vue.component('ContactType', require('./components/Contact/ContactType.vue'));
 Vue.component('Modal', require('./components/Common/Modal.vue'));
 Vue.component('AddressForm', require('./components/Common/AddressForm.vue'));
 Vue.component('OfficeTabcontent', require('./components/Office/TabContent.vue'));

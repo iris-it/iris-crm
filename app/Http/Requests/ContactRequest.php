@@ -37,11 +37,6 @@ class ContactRequest extends Request
                     'email' => ['required', 'email', 'max:255', Rule::unique('contacts', 'email')],
                     'phone_number' => ["regex:/^\+?[0-9]{10,20}$/im"],
                     'avatar' => 'string',
-                    'address' => 'string|max:255|required',
-                    'zipcode' => 'string|max:255|required',
-                    'city' => 'string|max:255|required',
-                    'country' => 'string|max:255|required',
-                    'type' => 'boolean',
                     'free_label' => 'string',
 
                     /*Relations*/
@@ -51,21 +46,16 @@ class ContactRequest extends Request
 
                 ];
             }
-            case 'PATCH': {
+            case 'PUT': {
                 return [
 
                     'civility' => 'string|between:2,3|required',
                     'lastname' => 'string|max:255|required',
                     'firstname' => 'string|max:255|required',
                     'post' => 'string|max:255|required',
-                    'email' => ['required', 'email', 'max:255', Rule::unique('contacts', 'email')],
+                    'email' => ['required', 'email', 'max:255', Rule::unique('contacts', 'email')->ignore($this->id)],
                     'phone_number' => ["regex:/^\+?[0-9]{10,20}$/im"],
                     'avatar' => 'string',
-                    'address' => 'string|max:255|required',
-                    'zipcode' => 'string|max:255|required',
-                    'city' => 'string|max:255|required',
-                    'country' => 'string|max:255|required',
-                    'type' => 'boolean',
                     'free_label' => 'string',
 
                     /*Relations*/

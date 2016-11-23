@@ -3,13 +3,32 @@
 @section('content')
     <section class="content-header">
         <h1>
-            Détail du contact
+            {{trans('app.contact:detail')}}
         </h1>
     </section>
     <div class="content">
 
-        @include('pages.contacts.show_fields')
-        <a href="{!! action('ContactController@index') !!}" class="btn btn-lg btn-flat bg-purple"><i class="fa fa-chevron-circle-left"></i> {{trans('app.general:back')}}</a>
+        <div class="clearfix"></div>
+
+        @include('flash::message')
+
+        <div class="clearfix"></div>
+
+        <div class="row">
+            <div class="col-md-3">
+                @include('pages.contacts.partials.show_info')
+            </div>
+            <div class="col-md-9">
+
+                @include('pages.contacts.show_fields')
+
+            </div>
+
+        </div>
+
+        <div class="col-md-12">
+            <a href="{!! action('ContactController@index') !!}" class="btn btn-lg btn-flat bg-purple"><i class="fa fa-chevron-circle-left"></i> {{trans('app.general:back')}}</a>
+        </div>
 
     </div>
 @endsection

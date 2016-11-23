@@ -21,15 +21,8 @@ class CreateContactsTable extends Migration
             $table->string('post');
             $table->string('email');
             $table->string('phone_number');
-            $table->integer('boudable_id')->unsigned();
-            $table->string('boundable_type');
-            $table->string('avatar');
-            $table->string('address');
-            $table->string('zipcode');
-            $table->string('city');
-            $table->string('country');
-            $table->boolean('type');
-            $table->string('free_label');
+            $table->string('avatar')->nullable();
+            $table->string('free_label')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

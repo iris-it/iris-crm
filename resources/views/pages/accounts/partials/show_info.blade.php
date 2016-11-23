@@ -19,16 +19,16 @@
 
         <ul class="list-group list-group-unbordered">
             <li class="list-group-item">
-                <b>Bureaux</b> <a class="pull-right">{{$account->offices->count()}}</a>
+                <b>{{trans('app.general:offices')}}</b> <a class="pull-right">{{$account->offices->count()}}</a>
             </li>
             <li class="list-group-item">
-                <b>Contacts</b> <a class="pull-right">{{$account->contacts()->count()}}</a>
+                <b>{{trans('app.general:contacts')}}</b> <a class="pull-right">{{$account->contacts()->count()}}</a>
             </li>
             <li class="list-group-item">
-                <b>Devis</b> <a class="pull-right">{{$account->quotes()->count()}}</a>
+                <b>{{trans('app.general:quotes')}}</b> <a class="pull-right">{{$account->quotes()->count()}}</a>
             </li>
             <li class="list-group-item">
-                <b>Factures</b> <a class="pull-right">{{$account->invoices()->count()}}</a>
+                <b>{{trans('app.general:invoices')}}</b> <a class="pull-right">{{$account->invoices()->count()}}</a>
             </li>
         </ul>
     </div>
