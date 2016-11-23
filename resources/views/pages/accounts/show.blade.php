@@ -17,7 +17,6 @@
 
         <div class="clearfix"></div>
 
-
         <div class="row">
             <div class="col-md-3">
                 @include('pages.accounts.partials.show_info')
@@ -30,14 +29,14 @@
                     <div class="nav-tabs-custom">
                         <ul class="nav nav-tabs">
                             @foreach($account->offices as $office)
-                                <li class="{{($loop->first)?:'active'}}">
+                                <li class="{{(!$loop->first)?:'active'}}">
                                     <a href="#{{$office->id}}" data-toggle="tab">{{$office->name}}</a>
                                 </li>
                             @endforeach
                         </ul>
                         <div class="tab-content">
                             @foreach($account->offices as $office)
-                                <div class="tab-pane {{($loop->first)?:'active'}}" id="{{$office->id}}">
+                                <div class="tab-pane {{(!$loop->first)?:'active'}}" id="{{$office->id}}">
                                     @include('pages.accounts.partials.show_offices')
                                 </div>
                             @endforeach

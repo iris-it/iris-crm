@@ -185,6 +185,7 @@ return [
         DaveJamesMiller\Breadcrumbs\ServiceProvider::class,
         Philo\Translate\TranslateServiceProvider::class,
         Spatie\Geocoder\GeocoderServiceProvider::class,
+        Intervention\Image\ImageServiceProvider::class,
         Laracasts\Flash\FlashServiceProvider::class,
         Collective\Html\HtmlServiceProvider::class,
 
@@ -242,6 +243,7 @@ return [
         'SocialAuth' => AdamWathan\EloquentOAuth\Facades\OAuth::class,
         'Breadcrumbs' => DaveJamesMiller\Breadcrumbs\Facade::class,
         'Geocoder' => Spatie\Geocoder\GeocoderFacade::class,
+        'Image' => Intervention\Image\Facades\Image::class,
         'Form' => Collective\Html\FormFacade::class,
         'Html' => Collective\Html\HtmlFacade::class,
         'Flash' => Laracasts\Flash\Flash::class,

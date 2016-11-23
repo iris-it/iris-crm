@@ -1,6 +1,6 @@
 <strong><i class="fa fa-map-marker margin-r-5"></i> Location</strong>
 
-<div id="map_container" style="height: 180px;"></div>
+<div id="map_container" style="height: 250px;"></div>
 
 
 @section('scripts')

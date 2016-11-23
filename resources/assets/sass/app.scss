@@ -28,6 +28,9 @@ $icon-font-path: "../fonts/";
 @import "node_modules/leaflet.markercluster/dist/MarkerCluster";
 @import "node_modules/leaflet.markercluster/dist/MarkerCluster.Default";
 
+// Cropper
+@import "node_modules/cropper/dist/cropper";
+
 /*
  * Modal.vue component style
  */
@@ -93,4 +96,3 @@ $icon-font-path: "../fonts/";
   margin-top: -10px;
   margin-bottom: 5px
 }
-

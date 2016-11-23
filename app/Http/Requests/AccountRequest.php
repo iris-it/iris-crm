@@ -32,7 +32,8 @@ class AccountRequest extends Request
                     [
                         'name' => 'required|max:255',
                         'website' => 'max:255',
-                        'notes' => 'max:1000',
+                        'image' => 'image|mimes:jpg,jpeg,png,gif|max:50000',
+                        'crop_options' => 'string',
                         'is_lead' => 'boolean',
                         'converted' => 'boolean',
 
@@ -45,7 +46,8 @@ class AccountRequest extends Request
                     [
                         'name' => 'required|max:255',
                         'website' => 'max:255',
-                        'notes' => 'max:1000',
+                        'image' => 'image|mimes:jpg,jpeg,png,gif|max:50000',
+                        'crop_options' => 'string',
                         'is_lead' => 'boolean',
                         'converted' => 'boolean',
 

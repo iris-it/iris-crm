@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Account;
 use App\Http\Requests\AccountRequest;
+use App\Services\Base64ToImageService;
+use App\Services\ImageService;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Lang;
 use Laracasts\Flash\Flash;
@@ -100,12 +102,22 @@ class AccountController extends Controller
 
     /**
      * Update the specified Account in storage.
+     * @param $id
+     * @param AccountRequest $request
+     * @param Base64ToImageService $base64ToImage
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
 
-    public function update($id, AccountRequest $request)
+    public function update($id, AccountRequest $request, ImageService $imageService)
     {
         $account = Account::findOrFail($id);
+
         $data = $request->all();
+
+        if ($request->file('image')) {
+            $filename = $imageService->processTo('accounts/', $request);
+            $data['logo'] = $filename;
+        }
 
         if (empty($account)) {
             Flash::error(Lang::get('app.general:missing-model'));

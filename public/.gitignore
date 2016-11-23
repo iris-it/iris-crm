@@ -1,4 +1,7 @@
-/css
-/js
-/build/*
+css/
+js/
+build/
+css/**
+js/**
+build/**
 !.gitignore

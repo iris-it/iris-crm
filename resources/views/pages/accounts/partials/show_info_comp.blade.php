@@ -5,7 +5,5 @@
     <!-- /.box-header -->
     <div class="box-body">
         @include('pages.accounts.partials.show_map')
-        <hr>
-        @include('pages.accounts.partials.show_notes')
     </div>
 </div>
