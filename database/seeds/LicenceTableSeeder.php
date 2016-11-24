@@ -3,6 +3,7 @@
 use App\Licence;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Schema;
 
 class LicenceTableSeeder extends Seeder
 {
@@ -14,6 +15,9 @@ class LicenceTableSeeder extends Seeder
     public function run()
     {
         DB::table('licences')->delete();
+        $statement = "ALTER TABLE licences AUTO_INCREMENT = 1;";
+        DB::unprepared($statement);
+        Schema::disableForeignKeyConstraints();
 
         Licence::create([
             'identifier' => 'trial',

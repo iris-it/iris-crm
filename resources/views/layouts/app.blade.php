@@ -25,6 +25,8 @@
 
     @include('elements.footer')
 
+    @include('elements.control-sidebar')
+
 </div>
 
 @include('elements.scripts')

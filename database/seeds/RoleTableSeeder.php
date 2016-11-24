@@ -3,6 +3,7 @@
 use App\Role;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Schema;
 
 class RoleTableSeeder extends Seeder
 {
@@ -16,6 +17,7 @@ class RoleTableSeeder extends Seeder
         DB::table('roles')->delete();
         $statement = "ALTER TABLE roles AUTO_INCREMENT = 1;";
         DB::unprepared($statement);
+        Schema::disableForeignKeyConstraints();
 
         Role::create([
             'id' => '1',
