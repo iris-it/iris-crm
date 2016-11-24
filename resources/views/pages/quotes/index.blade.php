@@ -5,7 +5,7 @@
         <h1 class="pull-left text-purple">{{trans('app.general:quotes')}}</h1>
         <h1 class="pull-right">
             <a class="btn btn-app bg-blue btn-flat pull-right" style="font-size: 15px; margin-top: -10px;margin-bottom: 5px" href="#" @click="{{VueHelper::format('showModal', 'createQuoteModal', []) }}">
-                <i class="fa fa-file-text-o"></i> {{trans('app.general:create')}}
+                <i class="fa file-text-o"></i> {{trans('app.general:create')}}
             </a>
         </h1>
     </section>
@@ -22,7 +22,7 @@
                 <div class="col-sm-12 text-center">
                     <br>
                     <a class="btn btn-app bg-blue btn-flat create-button animated pulse" href="#" @click="{{VueHelper::format('showModal', 'createQuoteModal', []) }}">
-                    <i class="fa fa-file-text-o"></i> {{trans('app.general:create')}} </a>
+                    <i class="fa file-text-o"></i> {{trans('app.general:create')}} </a>
                 </div>
             </div>
         @else
@@ -48,30 +48,4 @@
         </modal>
 
     </div>
-@endsection
-
-@section('scripts')
-    @parent
-    <script type="text/javascript">
-
-        $(document).ready(function () {
-
-            $('#accountSelect').change(function () {
-
-                $('#leadSelect').val(0);
-
-            });
-
-            $('#leadSelect').change(function () {
-
-                $('#accountSelect').val(0);
-
-            });
-
-        });
-
-
-    </script>
-
-
 @endsection

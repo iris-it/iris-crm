@@ -22,13 +22,12 @@ class QuoteController extends Controller
      */
     public function index()
     {
-
+        $accountsAndLeads = $this->organization->accounts;
         $accounts = $this->organization->accounts()->where('is_lead', false)->get();
         $leads = $this->organization->accounts()->where('is_lead', true)->get();
-
         $noQuote = true;
 
-        foreach ($accounts as $account) {
+        foreach ($accountsAndLeads as $account) {
             if ($account->quotes->count() > 0) {
                 $noQuote = false;
             }
@@ -135,7 +134,6 @@ class QuoteController extends Controller
 
             $quote->ht_price = $htPrice;
             $quote->ttc_price = $price;
-
             $quote->save();
 
 
@@ -175,8 +173,7 @@ class QuoteController extends Controller
     {
         $quote = Quote::findOrFail($id);
 
-        $offices = $this->organization->offices;
-        $contacts = $this->organization->contacts;
+        $offices = $quote->office->account->offices->pluck('name', 'id');
         $products = $this->organization->products;
         $services = $this->organization->services;
 
@@ -186,7 +183,7 @@ class QuoteController extends Controller
             return redirect(action('QuoteController@index'));
         }
 
-        return view('pages.quotes.edit')->with(compact('quote', 'contacts', 'offices', 'products', 'services'));
+        return view('pages.quotes.edit')->with(compact('quote', 'offices', 'products', 'services'));
     }
 
     /**
@@ -208,58 +205,56 @@ class QuoteController extends Controller
             $price = 0;
 
             $office = Office::findOrFail($request->office_id);
-            $contact = Contact::findOrFail($request->contact_id);
-
             $quote->office()->associate($office);
 
-            if (!$request->has('products')) {
-                $input["products"] = [];
-            } else if (!$request->has('services')) {
-                $input["services"] = [];
-            }
+//            if (!$request->has('products')) {
+//                $input["products"] = [];
+//            } else if (!$request->has('services')) {
+//                $input["services"] = [];
+//            }
 
             // Serialize
 
-            foreach ($request->products as $product) {
-
-                $totalTaxes = 0;
-                $product = Product::findOrFail($product->id);
-
-                foreach ($product->taxes as $tax) {
-
-                    if ($tax->is_active) {
-                        $totalTaxes = $totalTaxes + ($product->ht_price * ($tax->value / 100));
-                    }
-                }
-
-                $productHtPrice = $product->ht_price;
-                $htPrice = $htPrice + $productHtPrice;
-
-                $productPrice = $product->ht_price + $totalTaxes;
-                $price = $price + $productPrice;
-
-            }
-
-            foreach ($request->services as $service) {
-
-                $totalTaxes = 0;
-                $service = Service::findOrFail($service->id);
-
-                foreach ($service->taxes as $tax) {
-
-                    if ($tax->is_active) {
-
-                        $totalTaxes = $totalTaxes + ($service->ht_price * ($tax->value / 100));
-                    }
-                }
-
-                $serviceHtPrice = $service->ht_price;
-                $servicePrice = $service->ht_price + $totalTaxes;
-
-                $htPrice = $htPrice + $serviceHtPrice;
-                $price = $price + $servicePrice;
-
-            }
+//            foreach ($request->products as $product) {
+//
+//                $totalTaxes = 0;
+//                $product = Product::findOrFail($product->id);
+//
+//                foreach ($product->taxes as $tax) {
+//
+//                    if ($tax->is_active) {
+//                        $totalTaxes = $totalTaxes + ($product->ht_price * ($tax->value / 100));
+//                    }
+//                }
+//
+//                $productHtPrice = $product->ht_price;
+//                $htPrice = $htPrice + $productHtPrice;
+//
+//                $productPrice = $product->ht_price + $totalTaxes;
+//                $price = $price + $productPrice;
+//
+//            }
+//
+//            foreach ($request->services as $service) {
+//
+//                $totalTaxes = 0;
+//                $service = Service::findOrFail($service->id);
+//
+//                foreach ($service->taxes as $tax) {
+//
+//                    if ($tax->is_active) {
+//
+//                        $totalTaxes = $totalTaxes + ($service->ht_price * ($tax->value / 100));
+//                    }
+//                }
+//
+//                $serviceHtPrice = $service->ht_price;
+//                $servicePrice = $service->ht_price + $totalTaxes;
+//
+//                $htPrice = $htPrice + $serviceHtPrice;
+//                $price = $price + $servicePrice;
+//
+//            }
 
             $quote->ht_price = $htPrice;
             $quote->ttc_price = $price;

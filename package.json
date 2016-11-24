@@ -22,6 +22,7 @@
     "bootstrap-datepicker": "^1.6.4",
     "bootstrap-duallistbox": "git+https://github.com/monkeyC/bootstrap-duallistbox.git",
     "chart.js": "^2.3.0",
+    "cropper": "^2.3.4",
     "font-awesome": "^4.7.0",
     "ionicons": "^3.0.0",
     "leaflet": "^1.0.1",

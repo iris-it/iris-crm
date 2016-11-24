@@ -22,7 +22,7 @@ class CreateInvoicesTable extends Migration
             $table->decimal('ht_price')->nullable();
             $table->decimal('ttc_price')->nullable();
             $table->string('special_conditions')->nullable();
-            $table->boolean('converted');
+            $table->boolean('converted')->nullable();
             $table->text('content_backup')->nullable();
             $table->text('content')->nullable();
             $table->timestamps();
