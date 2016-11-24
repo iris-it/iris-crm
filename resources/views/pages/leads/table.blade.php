@@ -28,7 +28,7 @@
                 {!! Form::open(['action' => ['LeadController@destroy', $lead->id], 'method' => 'delete']) !!}
                 <div class='btn-group'>
                     <a href="{!! action('LeadController@show', [$lead->id]) !!}" class='btn btn-info btn-flat'><i class="glyphicon glyphicon-eye-open"></i></a>
-                    <a href="{!! action('LeadController@edit', [$lead->id]) !!}" class='btn bg-purple btn-flat'><i class="glyphicon glyphicon-edit"></i></a>
+                    <a href="{!! action('LeadController@edit', [$lead->id]) !!}" class='btn bg-blue btn-flat'><i class="glyphicon glyphicon-edit"></i></a>
                     {!! Form::button('<i class="glyphicon glyphicon-trash"></i>', ['type' => 'submit', 'class' => 'btn btn-danger btn-flat', 'onclick' => "return confirm('Are you sure?')"]) !!}
                 </div>
                 {!! Form::close() !!}

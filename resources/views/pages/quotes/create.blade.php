@@ -3,7 +3,7 @@
 @section('content')
     <section class="content-header">
         <h1>
-            Création d'un devis
+            {{trans('app.quote:new')}}
         </h1>
     </section>
     <div class="content">
@@ -26,8 +26,5 @@
 @section('js-app-scope')
     @parent
     IrisCrm.initDatePicker('deadline');
-    IrisCrm.initDualListBox('products_list');
-    IrisCrm.initDualListBox('services_list');
-
 
 @endsection

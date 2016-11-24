@@ -28,10 +28,6 @@ class Quote extends Model
         'ht_price',
         'ttc_price',
         'special_conditions',
-        'address',
-        'zipcode',
-        'city',
-        'country',
         'content_backup',
         'content'
     ];
@@ -46,10 +42,6 @@ class Quote extends Model
         'phase' => 'string',
         'description' => 'string',
         'special_conditions' => 'string',
-        'address' => 'string',
-        'zipcode' => 'string',
-        'city' => 'string',
-        'country' => 'string',
         'content_backup' => 'array',
         'content' => 'array'
     ];

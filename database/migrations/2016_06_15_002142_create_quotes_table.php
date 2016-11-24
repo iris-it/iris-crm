@@ -18,14 +18,10 @@ class CreateQuotesTable extends Migration
             $table->string('topic');
             $table->string('phase');
             $table->timestamp('deadline')->nullable();
-            $table->string('description');
-            $table->decimal('ht_price');
-            $table->decimal('ttc_price');
-            $table->string('special_conditions');
-            $table->string('address');
-            $table->string('zipcode');
-            $table->string('city');
-            $table->string('country');
+            $table->string('description')->nullable();;
+            $table->decimal('ht_price')->nullable();
+            $table->decimal('ttc_price')->nullable();
+            $table->string('special_conditions')->nullable();;
             $table->text('content_backup')->nullable();
             $table->text('content')->nullable();
             $table->timestamps();

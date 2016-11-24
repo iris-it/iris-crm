@@ -4,7 +4,7 @@
     <section class="content-header">
         <h1 class="pull-left text-purple">{{trans('app.general:contacts')}}</h1>
         <h1 class="pull-right">
-            <a class="btn btn-app create-button bg-purple btn-flat pull-right" href="#" @click="{{VueHelper::format('showModal', 'createContactModal', []) }}">
+            <a class="btn btn-app create-button bg-blue btn-flat pull-right" href="#" @click="{{VueHelper::format('showModal', 'createContactModal', []) }}">
             <i class="fa fa-address-card"></i> {{trans('app.general:create')}}
             </a>
         </h1>
@@ -28,7 +28,7 @@
                 <h4 class="animated fadeIn">{{trans('app.contact:no-contacts-desc')}}</h4>
                 <div class="col-sm-12 text-center">
                     <br>
-                    <a class="btn btn-app bg-purple btn-flat create-button animated pulse" href="#" @click="{{VueHelper::format('showModal', 'createContactModal', []) }}">
+                    <a class="btn btn-app bg-blue btn-flat create-button animated pulse" href="#" @click="{{VueHelper::format('showModal', 'createContactModal', []) }}">
                     <i class="fa fa-address-card"></i> {{trans('app.general:create')}} </a>
                 </div>
             </div>

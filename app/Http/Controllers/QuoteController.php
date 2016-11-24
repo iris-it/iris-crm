@@ -9,6 +9,7 @@ use App\Office;
 use App\Product;
 use App\Quote;
 use App\Service;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Lang;
 use Laracasts\Flash\Flash;
@@ -19,95 +20,122 @@ class QuoteController extends Controller
     /**
      * Display a listing of the Quote.
      */
-    public function index($id)
+    public function index()
     {
-        //FIXME Les bonnes requetes vers l'organisation de l'utilisateur :)
 
-        $office = Office::findOrFail($id);
-        $quotes = $office->quotes;
+        $accounts = $this->organization->accounts()->where('is_lead', false)->get();
+        $leads = $this->organization->accounts()->where('is_lead', true)->get();
 
-        return view('pages.quotes.index')->with('quotes', $quotes);
+        $noQuote = true;
+
+        foreach ($accounts as $account) {
+            if ($account->quotes->count() > 0) {
+                $noQuote = false;
+            }
+        }
+
+        $account_list = $accounts->pluck('name', 'id')->toArray();
+        $lead_list = $leads->pluck('name', 'id')->toArray();
+
+        $accountsList = [
+            trans('app.general:accounts') => $account_list,
+            trans('app.general:leads') => $lead_list
+        ];
+
+        return view('pages.quotes.index')->with(compact('accounts', 'leads', 'noQuote', 'accountsList'));
     }
 
     /**
      * Show the form for creating a new Quote.
      */
-    public function create($id)
+    public function create(Request $request)
     {
 
-        $office = Office::findOrFail($id);
+        $account_id = $request->get('account_id');
 
-        $contacts = $office->contacts;
+        if (!Account::find($account_id)) {
+            return abort(403, 'unauthorized');
+        }
+
+        $account = Account::findOrFail($account_id);
+
+        $offices = $account->offices->pluck('name', 'id');
+
+        if ($offices->count() === 0) {
+            Flash::error(Lang::get('app.general:missing-office'));
+            return redirect(action('AccountController@show', $account_id));
+        }
+
         $products = $this->organization->products;
         $services = $this->organization->services;
 
-        return view('pages.quotes.create')->with(compact('office', 'contacts','products', 'services'));
+        return view('pages.quotes.create')->with(compact('offices', 'products', 'services'));
     }
 
     /**
      * Store a newly created Quote in storage.
      */
-    public function store($id, QuoteRequest $request)
+    public function store(QuoteRequest $request)
     {
 
         $input = $request->all();
 
-        $office = Office::findOrFail($id);
-
         if ($quote = Quote::create($input)) {
+
+            $office = Office::findOrFail($request->office_id);
+            $quote->office()->associate($office);
 
             $htPrice = 0;
             $price = 0;
-            $contact = Contact::findOrFail($request->contact_id);
-
-            $quote->office()->associate($office);
 
             // Serialize
 
-            foreach ($request->products as $product) {
-
-                $totalTaxes = 0;
-
-                $product = Product::findOrFail($product->id);
-
-                foreach ($product->taxes as $tax) {
-
-                    if ($tax->is_active) {
-                        $totalTaxes = $totalTaxes + ($product->ht_price * ($tax->value / 100));
-                    }
-                }
-
-                $productHtPrice = $product->ht_price;
-                $htPrice = $htPrice + $productHtPrice;
-
-                $productPrice = $product->ht_price + $totalTaxes;
-                $price = $price + $productPrice;
-
-            }
-
-            foreach ($request->services as $service) {
-
-                $totalTaxes = 0;
-
-                $service = Service::findOrFail($service->id);
-
-                foreach ($service->taxes as $tax) {
-
-                    if ($tax->is_active) {
-                        $totalTaxes = $totalTaxes + ($service->ht_price * ($tax->value / 100));
-                    }
-                }
-
-                $serviceHtPrice = $service->ht_price;
-                $servicePrice = $service->ht_price + $totalTaxes;
-
-                $htPrice = $htPrice + $serviceHtPrice;
-                $price = $price + $servicePrice;
-
-            }
+//            foreach ($request->products as $product) {
+//
+//                $totalTaxes = 0;
+//
+//                $product = Product::findOrFail($product->id);
+//
+//                foreach ($product->taxes as $tax) {
+//
+//                    if ($tax->is_active) {
+//                        $totalTaxes = $totalTaxes + ($product->ht_price * ($tax->value / 100));
+//                    }
+//                }
+//
+//                $productHtPrice = $product->ht_price;
+//                $htPrice = $htPrice + $productHtPrice;
+//
+//                $productPrice = $product->ht_price + $totalTaxes;
+//                $price = $price + $productPrice;
+//
+//            }
+//
+//            foreach ($request->services as $service) {
+//
+//                $totalTaxes = 0;
+//
+//                $service = Service::findOrFail($service->id);
+//
+//                foreach ($service->taxes as $tax) {
+//
+//                    if ($tax->is_active) {
+//                        $totalTaxes = $totalTaxes + ($service->ht_price * ($tax->value / 100));
+//                    }
+//                }
+//
+//                $serviceHtPrice = $service->ht_price;
+//                $servicePrice = $service->ht_price + $totalTaxes;
+//
+//                $htPrice = $htPrice + $serviceHtPrice;
+//                $price = $price + $servicePrice;
+//
+//            }
+//
 
             $quote->ht_price = $htPrice;
             $quote->ttc_price = $price;
+
             $quote->save();
 
 
