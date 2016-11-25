@@ -3,7 +3,7 @@
 @section('content')
     <section class="content-header">
         <h1>
-            Édition d'un contact
+            {{trans('app.contact:edit')}}
         </h1>
    </section>
    <div class="content">

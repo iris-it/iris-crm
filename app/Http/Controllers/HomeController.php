@@ -7,6 +7,7 @@ use App\Account;
 use App\Invoice;
 use App\Quote;
 use App\Receipt;
+use Illuminate\Database\Eloquent\Collection;
 
 class HomeController extends Controller
 {
@@ -18,15 +19,32 @@ class HomeController extends Controller
     public function index()
     {
 
-        //FIXME Les bonnes requetes vers l'organisation de l'utilisateur :)
-
-        $receipts = Receipt::all();
-        $quotes = Quote::all();
-        $invoices = Invoice::all();
-        $convertedAccounts = Account::where('converted', true);
+        //FIXME
 
 
-        return view('pages.home.index')->with(compact('organization', 'orders', 'convertedAccounts', 'quotes', 'invoices'));
+        $quotes = new Collection();
+        $receipts = new Collection();
+        $invoices = new Collection();
+
+        foreach ($this->organization->accounts as $account) {
+            if ($account->quotes->count() > 0) {
+                $quotes->push($account->quotes);
+            }
+            if ($account->invoices->count() > 0) {
+                $invoices->push($account->invoices);
+            }
+
+            foreach ($account->quotes as $quote) {
+                if ($quote->receipt) {
+                    $receipts->push($quote->receipt);
+                }
+            }
+        }
+
+        $convertedAccounts = $this->organization->accounts()->where('converted', true)->get();
+
+
+        return view('pages.home.index')->with(compact('organization', 'receipts', 'convertedAccounts', 'quotes', 'invoices'));
 
     }
 }

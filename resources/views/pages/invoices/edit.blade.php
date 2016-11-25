@@ -3,7 +3,7 @@
 @section('content')
     <section class="content-header">
         <h1>
-            Édition d'une facture
+            {{trans('app.invoice:edit')}}
         </h1>
    </section>
    <div class="content">
@@ -25,7 +25,5 @@
 @section('js-app-scope')
     @parent
     IrisCrm.initDatePicker('deadline');
-    IrisCrm.initDualListBox('products_list');
-    IrisCrm.initDualListBox('services_list');
 
 @endsection

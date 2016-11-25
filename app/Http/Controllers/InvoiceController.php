@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Account;
 use App\Contact;
 use App\Http\Requests\InvoiceRequest;
 use App\Invoice;
@@ -9,6 +10,7 @@ use App\Office;
 use App\Product;
 use App\Quote;
 use App\Service;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Lang;
 use Laracasts\Flash\Flash;
@@ -19,112 +21,123 @@ class InvoiceController extends Controller
     /**
      * Display a listing of the Invoice.
      */
-    public function index($id)
+    public function index()
     {
 
-        //FIXME Les bonnes requetes vers l'organisation de l'utilisateur :)
+        $accounts = $this->organization->accounts()->where('is_lead', false)->get();
+        $noInvoice = true;
 
-        $office = Office::findOrFail($id);
-        $invoices = $office->invoices;
+        foreach ($accounts as $account) {
+            if ($account->invoices->count() > 0) {
+                $noInvoice = false;
+            }
+        }
+
+        $accountsList = $accounts->pluck('name', 'id')->toArray();
 
 
-        return view('pages.invoices.index')->with('invoices', $invoices);
+        return view('pages.invoices.index')->with(compact('accounts', 'invoices', 'noInvoice', 'accountsList'));
     }
 
     /**
      * Show the form for creating a new Invoice.
      */
-    public function create($id)
+    public function create(Request $request)
     {
+        $account_id = $request->get('account_id');
 
-        //FIXME Les bonnes requetes vers l'organisation de l'utilisateur :)
+        if (!Account::find($account_id)) {
+            return abort(403, 'unauthorized');
+        }
 
-        $office = Office::findOrFail($id);
+        $account = Account::findOrFail($account_id);
 
-        $contacts = $office->contacts;
-        $quotes = $this->organization->quotes;
+        $offices = $account->offices->pluck('name', 'id');
+
+        if ($offices->count() === 0) {
+            Flash::error(Lang::get('app.general:missing-office'));
+            return redirect(action('AccountController@show', $account_id));
+        }
+
         $products = $this->organization->products;
         $services = $this->organization->services;
 
-        return view('pages.invoices.create')->with(compact('office', 'contacts', 'quotes', 'services', 'products'));
+        return view('pages.invoices.create')->with(compact('offices', 'services', 'products'));
     }
 
     /**
      * Store a newly created Invoice in storage.
      */
-    public function store($id, InvoiceRequest $request)
+    public function store(InvoiceRequest $request)
     {
 
-        //FIXME Les bonnes requetes vers l'organisation de l'utilisateur :)
-
         $input = $request->all();
-
-        $office = Office::findOrFail($id);
-
 
         if ($invoice = Invoice::create($input)) {
 
             $htPrice = 0;
             $price = 0;
-            $contact = Contact::findOrFail($request->contact_id);
 
+            $office = Office::findOrFail($request->office_id);
             $invoice->office()->associate($office);
 
-            if ($request->has('quote_id') && $request->quote_id != 0) {
-
-                $quote = Quote::findOrFail($request->quote_id);
-                $invoice->converted = true;
-
-            } else {
-                $invoice->converted = false;
-            }
-
-            // Serialize
-
-            foreach ($request->products as $product) {
-
-                $totalTaxes = 0;
-
-                $product = Product::findOrFail($product->id);
-
-                foreach ($product->taxes as $tax) {
-
-                    if ($tax->is_active) {
-                        $totalTaxes = $totalTaxes + ($product->ht_price * ($tax->value / 100));
-                    }
-                }
-
-                $productHtPrice = $product->ht_price;
-                $htPrice = $htPrice + $productHtPrice;
-
-                $productPrice = $product->ht_price + $totalTaxes;
-                $price = $price + $productPrice;
-
-            }
-
-            foreach ($request->services as $service) {
-
-                $totalTaxes = 0;
-                $service = Service::findOrFail($service->id);
-
-                foreach ($service->taxes as $tax) {
-
-                    if ($tax->is_active) {
-
-                        $totalTaxes = $totalTaxes + ($service->ht_price * ($tax->value / 100));
-                    }
-                }
-
-                $serviceHtPrice = $service->ht_price;
-                $servicePrice = $service->ht_price + $totalTaxes;
-
-                $htPrice = $htPrice + $serviceHtPrice;
-                $price = $price + $servicePrice;
-
-            }
+//            if ($request->has('quote_id') && $request->quote_id != 0) {
+//
+//                $quote = Quote::findOrFail($request->quote_id);
+//                $invoice->converted = true;
+//
+//            } else {
+//                $invoice->converted = false;
+//            }
+//
+//            // Serialize
+//
+//            foreach ($request->products as $product) {
+//
+//                $totalTaxes = 0;
+//
+//                $product = Product::findOrFail($product->id);
+//
+//                foreach ($product->taxes as $tax) {
+//
+//                    if ($tax->is_active) {
+//                        $totalTaxes = $totalTaxes + ($product->ht_price * ($tax->value / 100));
+//                    }
+//                }
+//
+//                $productHtPrice = $product->ht_price;
+//                $htPrice = $htPrice + $productHtPrice;
+//
+//                $productPrice = $product->ht_price + $totalTaxes;
+//                $price = $price + $productPrice;
+//
+//            }
+//
+//            foreach ($request->services as $service) {
+//
+//                $totalTaxes = 0;
+//                $service = Service::findOrFail($service->id);
+//
+//                foreach ($service->taxes as $tax) {
+//
+//                    if ($tax->is_active) {
+//
+//                        $totalTaxes = $totalTaxes + ($service->ht_price * ($tax->value / 100));
+//                    }
+//                }
+//
+//                $serviceHtPrice = $service->ht_price;
+//                $servicePrice = $service->ht_price + $totalTaxes;
+//
+//                $htPrice = $htPrice + $serviceHtPrice;
+//                $price = $price + $servicePrice;
+//
+//            }
 
             $invoice->ht_price = $htPrice;
             $invoice->ttc_price = $price;
+            $invoice->converted = false;
+
             $invoice->save();
 
             Flash::success(Lang::get('app.general:create-success'));
@@ -136,7 +149,7 @@ class InvoiceController extends Controller
 
         }
 
-        return redirect(action('invoices.index'));
+        return redirect(action('InvoiceController@index'));
     }
 
     /**
@@ -165,10 +178,7 @@ class InvoiceController extends Controller
     {
         $invoice = Invoice::findOrFail($id);
 
-        $offices = $this->organization->offices;
-        $contacts = $this->organization->contacts;
-        $quotes = $this->organization->quotes;
-
+        $offices = $invoice->office->account->offices->pluck('name', 'id');
         $products = $this->organization->products;
         $services = $this->organization->services;
 
@@ -178,7 +188,7 @@ class InvoiceController extends Controller
             return redirect(action('InvoiceController@index'));
         }
 
-        return view('pages.invoices.edit')->with(compact('invoice', 'contacts', 'offices', 'quotes', 'products', 'services'));
+        return view('pages.invoices.edit')->with(compact('invoice', 'offices', 'products', 'services'));
     }
 
     /**
@@ -202,68 +212,66 @@ class InvoiceController extends Controller
             $price = 0;
 
             $office = Office::findOrFail($request->office_id);
-            $contact = Contact::findOrFail($request->contact_id);
-
             $invoice->office()->associate($office);
 
-            if ($request->has('quote_id') && $request->quote_id != 0) {
-
-                $quote = Quote::findOrFail($request->quote_id);
-                $invoice->converted = true;
-
-
-            } else {
-                $invoice->converted = false;
-            }
-
-
-            if (!$request->has('products')) {
-                $input["products"] = [];
-            } else if (!$request->has('services')) {
-                $input["services"] = [];
-            }
-
-            // Serialize
-
-            foreach ($request->products as $product) {
-
-                $totalTaxes = 0;
-                $product = Product::findOrFail($product->id);
-
-                foreach ($product->taxes as $tax) {
-
-                    if ($tax->is_active) {
-                        $totalTaxes = $totalTaxes + ($product->ht_price * ($tax->value / 100));
-                    }
-                }
-
-                $productHtPrice = $product->ht_price;
-                $htPrice = $htPrice + $productHtPrice;
-
-                $productPrice = $product->ht_price + $totalTaxes;
-                $price = $price + $productPrice;
-
-            }
-
-            foreach ($request->services as $service) {
-
-                $totalTaxes = 0;
-                $service = Service::findOrFail($service->id);
-
-                foreach ($service->taxes as $tax) {
-
-                    if ($tax->is_active) {
-                        $totalTaxes = $totalTaxes + ($service->ht_price * ($tax->value / 100));
-                    }
-                }
-
-                $serviceHtPrice = $service->ht_price;
-                $servicePrice = $service->ht_price + $totalTaxes;
-
-                $htPrice = $htPrice + $serviceHtPrice;
-                $price = $price + $servicePrice;
-
-            }
+//            if ($request->has('quote_id') && $request->quote_id != 0) {
+//
+//                $quote = Quote::findOrFail($request->quote_id);
+//                $invoice->converted = true;
+//
+//
+//            } else {
+//                $invoice->converted = false;
+//            }
+//
+//
+//            if (!$request->has('products')) {
+//                $input["products"] = [];
+//            } else if (!$request->has('services')) {
+//                $input["services"] = [];
+//            }
+//
+//            // Serialize
+//
+//            foreach ($request->products as $product) {
+//
+//                $totalTaxes = 0;
+//                $product = Product::findOrFail($product->id);
+//
+//                foreach ($product->taxes as $tax) {
+//
+//                    if ($tax->is_active) {
+//                        $totalTaxes = $totalTaxes + ($product->ht_price * ($tax->value / 100));
+//                    }
+//                }
+//
+//                $productHtPrice = $product->ht_price;
+//                $htPrice = $htPrice + $productHtPrice;
+//
+//                $productPrice = $product->ht_price + $totalTaxes;
+//                $price = $price + $productPrice;
+//
+//            }
+//
+//            foreach ($request->services as $service) {
+//
+//                $totalTaxes = 0;
+//                $service = Service::findOrFail($service->id);
+//
+//                foreach ($service->taxes as $tax) {
+//
+//                    if ($tax->is_active) {
+//                        $totalTaxes = $totalTaxes + ($service->ht_price * ($tax->value / 100));
+//                    }
+//                }
+//
+//                $serviceHtPrice = $service->ht_price;
+//                $servicePrice = $service->ht_price + $totalTaxes;
+//
+//                $htPrice = $htPrice + $serviceHtPrice;
+//                $price = $price + $servicePrice;
+//
+//            }
 
             $invoice->ht_price = $htPrice;
             $invoice->ttc_price = $price;
