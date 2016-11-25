@@ -8,9 +8,9 @@
                 <!-- small box -->
                 <div class="small-box bg-aqua">
                     <div class="inner">
-                        @if(!empty($data['orders']))
-                            <h3>{{$orders->count()}}</h3>
-                            <p>{{trans_choice('app.general:orders', $orders->count())}}</p>
+                        @if(!empty($receipts) && $receipts->count() > 0)
+                            <h3>{{$receipts->count()}}</h3>
+                            <p>{{trans_choice('receipts', $receipts->count())}}</p>
                         @else
                             <h3>0</h3>
                             <p>{{trans('app.dashboard:no-order')}}</p>
@@ -30,7 +30,7 @@
                 <div class="small-box bg-light-blue">
                     <div class="inner">
 
-                        @if(!empty($data['orders']))
+                        @if(!empty($convertedAccounts) && $convertedAccounts->count() > 0)
                             <h3>{{$convertedAccounts->count()}}</h3>
 
                             <p>{{trans_choice('app.dashboard:converted-accounts', $convertedAccounts->count())}}</p>
@@ -52,8 +52,7 @@
                 <!-- small box -->
                 <div class="small-box bg-blue">
                     <div class="inner">
-
-                        @if(!empty($data['$invoices']))
+                        @if(!empty($invoices) && $invoices->count() > 0)
                             <h3>{{$invoices->count()}}</h3>
 
                             <p>{{trans_choice('app.dashboard:invoices', $invoices->count())}}</p>
@@ -75,7 +74,7 @@
                 <!-- small box -->
                 <div class="small-box bg-maroon">
                     <div class="inner">
-                        @if(!empty($data['$quotes']))
+                        @if(!empty($quotes) && $quotes->count() > 0)
                             <h3>{{$quotes->count()}}</h3>
 
                             <p>{{trans_choice('app.dashboard:quotes', $quotes->count())}}</p>

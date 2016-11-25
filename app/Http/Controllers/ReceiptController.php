@@ -13,13 +13,29 @@ class ReceiptController extends Controller
     /**
      * Display a listing of the Order.
      */
-    public function index($id)
+    public function index()
     {
 
-        $office = Office::findOrFail($id);
-        $receipts = $office->receipts;
+        $accountsAndLeads = $this->organization->accounts;
+        $accounts = $this->organization->accounts()->where('is_lead', false)->get();
+        $leads = $this->organization->accounts()->where('is_lead', true)->get();
+        $noQuote = true;
 
-        return view('pages.orders.index')->with('receipts', $receipts);
+        foreach ($accountsAndLeads as $account) {
+            if ($account->quotes->count() > 0) {
+                $noQuote = false;
+            }
+        }
+
+        $account_list = $accounts->pluck('name', 'id')->toArray();
+        $lead_list = $leads->pluck('name', 'id')->toArray();
+
+        $accountsList = [
+            trans('app.general:accounts') => $account_list,
+            trans('app.general:leads') => $lead_list
+        ];
+
+        return view('pages.receipts.index')->with(compact('accounts', 'leads', 'noQuote', 'accountsList'));
     }
 
     /**
@@ -31,7 +47,7 @@ class ReceiptController extends Controller
         $office = Office::findOrFail($id);
         $quotes = $office->quotes;
 
-        return view('pages.orders.create')->with('quotes', $quotes);
+        return view('pages.receipts.create')->with('quotes', $quotes);
     }
 
     /**
@@ -74,7 +90,7 @@ class ReceiptController extends Controller
             return redirect(action('OrderController@index'));
         }
 
-        return view('pages.orders.show')->with('receipt', $receipt);
+        return view('pages.receipts.show')->with('receipt', $receipt);
     }
 
     /**
@@ -90,7 +106,7 @@ class ReceiptController extends Controller
             return redirect(action('OrderController@index'));
         }
 
-        return view('pages.orders.edit')->with('receipt', $receipt);
+        return view('pages.receipts.edit')->with('receipt', $receipt);
     }
 
     /**

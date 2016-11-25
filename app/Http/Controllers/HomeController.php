@@ -41,6 +41,8 @@ class HomeController extends Controller
             }
         }
 
+        $quotes = $quotes[0];
+        $invoices = $invoices[0];
         $convertedAccounts = $this->organization->accounts()->where('converted', true)->get();
 
 

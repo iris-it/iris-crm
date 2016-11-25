@@ -13,7 +13,7 @@
             <li><a href="{{ action('QuoteController@index') }}"><i class="fa fa-file-text"></i>
                     <span>{{trans('app.general:quotes')}}</span></a></li>
             <li><a href="{{ action('OrderController@index') }}"><i class="fa fa-line-chart"></i>
-                    <span>{{trans('app.general:orders')}}</span></a></li>
+                    <span>{{trans('receipts')}}</span></a></li>
             <li><a href="{{ action('InvoiceController@index') }}"><i class="fa fa-archive"></i>
                     <span>{{trans('app.general:invoices')}}</span></a></li>
             <li><a href="{{ action('ProductController@index') }}"><i class="fa fa-cubes"></i>
