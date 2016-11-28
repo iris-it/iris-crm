@@ -34,10 +34,6 @@ class ReceiptRequest extends Request
                     'delivery_deadline' => 'required',
                     'description' => 'string',
                     'special_conditions' => 'string',
-                    'address' => 'required|string',
-                    'zipcode' => 'required|string',
-                    'city' => 'required|string',
-                    'country' => 'required|string',
 
                     'quote_id' => 'integer'
                 ];
@@ -50,10 +46,6 @@ class ReceiptRequest extends Request
                     'delivery_deadline' => 'required',
                     'description' => 'string',
                     'special_conditions' => 'string',
-                    'address' => 'required|string',
-                    'zipcode' => 'required|string',
-                    'city' => 'required|string',
-                    'country' => 'required|string',
 
                     'quote_id' => 'integer'
                 ];

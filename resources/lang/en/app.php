@@ -169,5 +169,11 @@ return  array(
     'quote:new'                         => 'New quote',
     'quote:detail'                      => 'Quote detail',
     'quote:edit'                        => 'Quote edition',
+    'receipt:no-quotes-title'           => 'No quote has been found',
+    'receipt:quotes-redirect'           => 'Access quote management',
+    'receipt:no-quotes-desc'            => 'A receipt is created from a quote. To create your first quote in order to generate a receipt, click the button below',
+    'receipt:no-receipts-title'         => 'No receipt has been found',
+    'receipt:no-receipts-desc'          => 'Receipts have to be generated from a quote. To access quote management, click on the button below',
+    'receipt:list-by-account'           => 'Receipts of : ',
     'sidebar:main-title'                => 'MAIN NAVIGATION',
 );

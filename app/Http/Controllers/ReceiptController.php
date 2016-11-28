@@ -16,26 +16,24 @@ class ReceiptController extends Controller
     public function index()
     {
 
-        $accountsAndLeads = $this->organization->accounts;
-        $accounts = $this->organization->accounts()->where('is_lead', false)->get();
-        $leads = $this->organization->accounts()->where('is_lead', true)->get();
-        $noQuote = true;
+        $accounts = $this->organization->accounts;
 
-        foreach ($accountsAndLeads as $account) {
+        $noQuote = true;
+        $noReceipt = true;
+
+        foreach ($accounts as $account) {
             if ($account->quotes->count() > 0) {
                 $noQuote = false;
+
+                foreach($account->quotes as $quote) {
+                    if ($quote->receipt) {
+                        $noReceipt = false;
+                    }
+                }
             }
         }
 
-        $account_list = $accounts->pluck('name', 'id')->toArray();
-        $lead_list = $leads->pluck('name', 'id')->toArray();
-
-        $accountsList = [
-            trans('app.general:accounts') => $account_list,
-            trans('app.general:leads') => $lead_list
-        ];
-
-        return view('pages.receipts.index')->with(compact('accounts', 'leads', 'noQuote', 'accountsList'));
+        return view('pages.receipts.index')->with(compact('accounts', 'noQuote', 'noReceipt'));
     }
 
     /**

@@ -73,7 +73,7 @@ Route::group(['middleware' => 'auth'], function () {
 
         Route::resource('quotes', 'QuoteController');
 
-        Route::resource('receipts', 'OrderController');
+        Route::resource('receipts', 'ReceiptController');
 
         Route::resource('invoices', 'InvoiceController');
 

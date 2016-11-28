@@ -2,6 +2,7 @@
 
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
 
 class CreateReceiptsTable extends Migration
 {
@@ -16,15 +17,11 @@ class CreateReceiptsTable extends Migration
         Schema::create('receipts', function (Blueprint $table) {
             $table->increments('id');
             $table->string('topic');
-            $table->string('supplier');
+            $table->string('supplier')->nullable();
             $table->timestamp('order_date')->nullable();
             $table->timestamp('delivery_deadline')->nullable();
-            $table->string('description');
-            $table->string('special_conditions');
-            $table->string('address');
-            $table->string('zipcode');
-            $table->string('city');
-            $table->string('country');
+            $table->string('description')->nullable();
+            $table->string('special_conditions')->nullable();
             $table->text('content')->nullable();
             $table->timestamps();
             $table->softDeletes();

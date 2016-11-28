@@ -27,10 +27,6 @@ class Receipt extends Model
         'delivery_deadline',
         'description',
         'special_conditions',
-        'address',
-        'zipcode',
-        'city',
-        'country',
         'content'
     ];
 
@@ -44,10 +40,6 @@ class Receipt extends Model
         'supplier' => 'string',
         'description' => 'string',
         'special_conditions' => 'string',
-        'address' => 'string',
-        'zipcode' => 'string',
-        'city' => 'string',
-        'country' => 'string',
         'content' => 'array'
     ];
 
