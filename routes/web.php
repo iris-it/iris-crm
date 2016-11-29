@@ -73,8 +73,6 @@ Route::group(['middleware' => 'auth'], function () {
 
         Route::resource('quotes', 'QuoteController');
 
-        Route::resource('receipts', 'ReceiptController');
-
         Route::resource('invoices', 'InvoiceController');
 
         Route::resource('products', 'ProductController');
@@ -104,6 +102,19 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('contacts/{id}/edit', 'ContactController@edit');
         Route::put('contacts/{id}/update', 'ContactController@update');
         Route::delete('contacts/{id}/delete', 'ContactController@destroy');
+
+
+        /*
+         * Contact resources
+         */
+
+        Route::get('receipts/index', 'ReceiptController@index');
+        Route::get('receipts/create', 'ReceiptController@create');
+        Route::post('receipts/store/{id}', 'ReceiptController@store');
+        Route::get('receipts/{id}/show', 'ReceiptController@show');
+        Route::get('receipts/{id}/edit', 'ReceiptController@edit');
+        Route::put('receipts/{id}/update', 'ReceiptController@update');
+        Route::delete('receipts/{id}/delete', 'ReceiptController@destroy');
 
 
     });

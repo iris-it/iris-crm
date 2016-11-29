@@ -26,10 +26,13 @@ class QuoteController extends Controller
         $accounts = $this->organization->accounts()->where('is_lead', false)->get();
         $leads = $this->organization->accounts()->where('is_lead', true)->get();
         $noQuote = true;
+        $quoteCounter = 0;
 
         foreach ($accountsAndLeads as $account) {
             if ($account->quotes->count() > 0) {
                 $noQuote = false;
+                $quoteCounter = $quoteCounter + $account->quotes->count();
+
             }
         }
 
@@ -41,7 +44,7 @@ class QuoteController extends Controller
             trans('app.general:leads') => $lead_list
         ];
 
-        return view('pages.quotes.index')->with(compact('accounts', 'leads', 'noQuote', 'accountsList'));
+        return view('pages.quotes.index')->with(compact('accounts', 'leads', 'noQuote', 'quoteCounter', 'accountsList'));
     }
 
     /**

@@ -26,17 +26,19 @@ class InvoiceController extends Controller
 
         $accounts = $this->organization->accounts()->where('is_lead', false)->get();
         $noInvoice = true;
+        $invoiceCounter = 0;
 
         foreach ($accounts as $account) {
             if ($account->invoices->count() > 0) {
                 $noInvoice = false;
+                $invoiceCounter = $invoiceCounter + $account->invoices->count();
             }
         }
 
         $accountsList = $accounts->pluck('name', 'id')->toArray();
 
 
-        return view('pages.invoices.index')->with(compact('accounts', 'invoices', 'noInvoice', 'accountsList'));
+        return view('pages.invoices.index')->with(compact('accounts', 'invoices', 'noInvoice', 'invoiceCounter', 'accountsList'));
     }
 
     /**

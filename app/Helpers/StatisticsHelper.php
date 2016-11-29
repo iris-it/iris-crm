@@ -35,6 +35,7 @@ class StatisticsHelper
         while ($from->diffInDays($to) != 0) {
             $x = $from->day;
             $y = $invoices->map(function ($item, $key) use ($from, $to) {
+
                 if ($item->created_at > $from->startOfDay() && $item->created_at < $from->endOfDay()) {
                     return $item->ttc_price;
                 }

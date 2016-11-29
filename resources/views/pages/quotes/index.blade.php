@@ -2,10 +2,14 @@
 
 @section('content')
     <section class="content-header">
-        <h1 class="pull-left text-purple">{{trans('app.general:quotes')}}</h1>
+        <h1 class="pull-left text-purple">{{trans('app.general:quotes')}}
+            @if(!$noQuote)
+                ({{$quoteCounter}})
+            @endif
+        </h1>
         <h1 class="pull-right">
             <a class="btn btn-app bg-blue btn-flat pull-right" style="font-size: 15px; margin-top: -10px;margin-bottom: 5px" href="#" @click="{{VueHelper::format('showModal', 'createQuoteModal', []) }}">
-                <i class="fa file-text-o"></i> {{trans('app.general:create')}}
+                <i class="fa fa-file-text-o"></i> {{trans('app.general:create')}}
             </a>
         </h1>
     </section>
@@ -22,7 +26,7 @@
                 <div class="col-sm-12 text-center">
                     <br>
                     <a class="btn btn-app bg-blue btn-flat create-button animated pulse" href="#" @click="{{VueHelper::format('showModal', 'createQuoteModal', []) }}">
-                    <i class="fa file-text-o"></i> {{trans('app.general:create')}} </a>
+                    <i class="fa fa-file-text-o"></i> {{trans('app.general:create')}} </a>
                 </div>
             </div>
         @else

@@ -2,7 +2,11 @@
 
 @section('content')
     <section class="content-header">
-        <h1 class="pull-left text-purple">{{trans('app.general:invoices')}}</h1>
+        <h1 class="pull-left text-purple">{{trans('app.general:invoices')}}
+            @if(!$noInvoice)
+                ({{$invoiceCounter}})
+            @endif
+        </h1>
         <h1 class="pull-right">
             <a class="btn btn-app bg-blue btn-flat pull-right"  style="font-size: 15px; margin-top: -10px;margin-bottom: 5px" href="#" @click="{{VueHelper::format('showModal', 'createInvoiceModal', []) }}">
                 <i class="fa fa-file-archive-o"></i> {{trans('app.general:create')}}

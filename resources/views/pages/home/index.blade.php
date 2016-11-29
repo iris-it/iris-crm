@@ -20,7 +20,7 @@
                     <div class="icon">
                         <i class="fa fa-line-chart"></i>
                     </div>
-                    <a href="{{ action('OrderController@index') }}"
+                    <a href="{{ action('ReceiptController@index') }}"
                        class="small-box-footer">{{trans('app.general:access')}} <i class="fa fa-arrow-circle-right"></i></a>
                 </div>
             </div>

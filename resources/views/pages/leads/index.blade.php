@@ -2,7 +2,11 @@
 
 @section('content')
     <section class="content-header">
-        <h1 class="pull-left text-purple">{{trans('app.general:leads')}}</h1>
+        <h1 class="pull-left text-purple">{{trans('app.general:leads')}}
+            @if($leads->count() > 0)
+                ({{$leads->count()}})
+            @endif
+        </h1>
         <h1 class="pull-right">
             <a class="btn btn-app bg-blue btn-flat create-button pull-right" href="#" @click="{{VueHelper::format('showModal', 'createLeadModal', [])}}">
                 <i class="fa fa-address-book-o"></i> {{trans('app.general:create')}}

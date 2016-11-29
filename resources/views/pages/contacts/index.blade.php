@@ -2,7 +2,11 @@
 
 @section('content')
     <section class="content-header">
-        <h1 class="pull-left text-purple">{{trans('app.general:contacts')}}</h1>
+        <h1 class="pull-left text-purple">{{trans('app.general:contacts')}}
+            @if($contacts->count() > 0)
+                ({{$contacts->count()}})
+            @endif
+        </h1>
         <h1 class="pull-right">
             <a class="btn btn-app create-button bg-blue btn-flat pull-right" href="#" @click="{{VueHelper::format('showModal', 'createContactModal', []) }}">
             <i class="fa fa-address-card"></i> {{trans('app.general:create')}}

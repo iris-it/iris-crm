@@ -19,30 +19,49 @@ class HomeController extends Controller
     public function index()
     {
 
-        //FIXME
-
-
-        $quotes = new Collection();
-        $receipts = new Collection();
-        $invoices = new Collection();
+        $quotes = null;
+        $receipts = null;
+        $invoices = null;
 
         foreach ($this->organization->accounts as $account) {
-            if ($account->quotes->count() > 0) {
-                $quotes->push($account->quotes);
+
+            $noQuotes = $account->quotes->count() < 1;
+            $noInvoices = $account->invoices->count() < 1;
+
+            $emptyQuotesCollec = $quotes == null;
+            $emptyInvoicesCollec = $invoices == null;
+
+
+            if (!$noQuotes && $emptyQuotesCollec) {
+                $quotes = $account->quotes;
+            } elseif (!$noQuotes && !$emptyQuotesCollec) {
+                $quotes = $quotes->merge($account->quotes);
+
             }
-            if ($account->invoices->count() > 0) {
-                $invoices->push($account->invoices);
+
+            if (!$noInvoices && $emptyInvoicesCollec) {
+                $invoices = $account->invoices;
+            } elseif (!$noInvoices && !$emptyInvoicesCollec) {
+                $invoices = $invoices->merge($account->invoices);
+
             }
 
             foreach ($account->quotes as $quote) {
-                if ($quote->receipt) {
+
+                $emptyReceiptsCollec = $receipts == null;
+
+                if ($quote->receipt && $emptyReceiptsCollec) {
+                    $receipts = $quote->receipt;
+
+                } elseif ($quote->receipt && !$emptyReceiptsCollec) {
                     $receipts->push($quote->receipt);
                 }
+
             }
+
         }
 
-        $quotes = $quotes[0];
-        $invoices = $invoices[0];
+
         $convertedAccounts = $this->organization->accounts()->where('converted', true)->get();
 
 

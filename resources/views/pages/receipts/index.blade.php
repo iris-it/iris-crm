@@ -2,7 +2,11 @@
 
 @section('content')
     <section class="content-header">
-        <h1 class="pull-left text-purple">{{trans('receipts')}}</h1>
+        <h1 class="pull-left text-purple">{{trans('app.general:receipts')}}
+            @if(!$noReceipt)
+                ({{$receiptCounter}})
+            @endif
+        </h1>
     </section>
     <div class="content">
         <div class="clearfix"></div>
@@ -16,8 +20,8 @@
                 <h4 class="animated fadeIn">{{trans('app.receipt:no-quotes-desc')}}</h4>
                 <div class="col-sm-12 text-center">
                     <br>
-                    <a class="btn btn-app bg-blue btn-flat create-button animated pulse" href="<{!! action('QuoteController@index') !!}">
-                        <i class="fa fa-file-archive-o"></i> {{trans('app.receipt:quotes-redirect')}} </a>
+                    <a class="btn btn-app bg-blue btn-flat create-button animated pulse" href="{{ action('QuoteController@index') }}">
+                        <i class="fa fa-file-text-o"></i> {{trans('app.receipt:quotes-redirect')}} </a>
                 </div>
             </div>
         @elseif($noReceipt)
@@ -26,8 +30,8 @@
                 <h4 class="animated fadeIn">{{trans('app.receipt:no-receipts-desc')}}</h4>
                 <div class="col-sm-12 text-center">
                     <br>
-                    <a class="btn btn-app bg-blue btn-flat create-button animated pulse" href="<{!! action('QuoteController@index') !!}">
-                        <i class="fa fa-file-archive-o"></i> {{trans('app.receipt:quotes-redirect')}} </a>
+                    <a class="btn btn-app bg-blue btn-flat create-button animated pulse" href="{{ action('QuoteController@index') }}">
+                        <i class="fa fa-file-text-o"></i> {{trans('app.receipt:quotes-redirect')}} </a>
                 </div>
             </div>
         @else

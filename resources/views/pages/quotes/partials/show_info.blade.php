@@ -21,6 +21,12 @@
                 <b>{{trans('app.general:updated-at')}} : </b> <span>{{$quote->updated_at}}</span>
             </li>
         </ul>
+
+        <a href="{{action('ReceiptController@store', $quote->id)}}" class="btn btn-app bg-blue btn-flat pull-right btn-create" data-method="POST" data-token="{{csrf_token()}}">
+            <i class="fa fa-files-o"></i> {{trans('app.receipt:generate')}}
+        </a>
+
+
     </div>
 </div>
 
