@@ -92,6 +92,7 @@ return  array(
 	'general:missing-model'             => 'Entité non trouvée',
 	'general:name'                      => 'Nom',
 	'general:no'                        => 'Non',
+    'account:of'                        => 'du compte',
 	'general:none'                      => 'Aucun',
 	'general:offices'                   => 'Établissements',
     'general:office'                    => 'Établissement',

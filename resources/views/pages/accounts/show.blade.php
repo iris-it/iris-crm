@@ -1,4 +1,4 @@
-@extends('layouts.app')
+*@extends('layouts.app')
 
 @section('content')
     <section class="content-header">
@@ -27,33 +27,27 @@
                 @if($account->offices->count() < 1)
                     @include('pages.accounts.partials.show_create_offices')
                 @else
-                    <div class="nav-tabs-custom">
-                        <ul class="nav nav-tabs">
-                            @foreach($account->offices as $office)
-                                <li class="{{(!$loop->first)?:'active'}}">
-                                    <a href="#{{$office->id}}" data-toggle="tab">{{$office->name}}</a>
-                                </li>
-                            @endforeach
-                        </ul>
-                        <div class="tab-content">
-                            @foreach($account->offices as $office)
-                                <div class="tab-pane {{($loop->first)?:'active'}}" id="{{$office->id}}">
-                                    <a class="btn bg-blue btn-flat pull-right" href="{{action('ContactController@create', ["account_id" => $account->id, "office_id" => $office->id])}}">
-                                        <i class="fa fa-address-card" style="margin-right:5px"> </i> {{trans('app.contact:office-add')}}
-                                    </a>
-                                    <br><br><br>
-                                    @include('pages.accounts.partials.show_offices')
-                                </div>
-                            @endforeach
+                    <div class="box box-primary">
+                        <div class="box-body">
+                            <h4 class="box-title">{{trans('app.general:offices')}} {{trans('app.account:of')}} {{$account->name}} : </h4>
+                            <ul class="nav nav-pills">
+                                @foreach($account->offices as $office)
+                                    <li class="{{(!$loop->first)?:'active'}}">
+                                        <a href="#{{$office->id}}" data-toggle="tab">{{$office->name}}</a>
+                                    </li>
+                                @endforeach
+                            </ul>
                         </div>
                     </div>
-                @endif
+                    @include('pages.accounts.partials.show_offices')
+
             </div>
+            @endif
         </div>
     </div>
 
     <div class="col-sm-12">
         <a href="{!! action('AccountController@index') !!}" class="btn btn-lg btn-flat bg-blue"><i
-                class="fa fa-chevron-circle-left"></i> {{trans('app.general:back')}}</a>
+                    class="fa fa-chevron-circle-left"></i> {{trans('app.general:back')}}</a>
     </div>
 @endsection

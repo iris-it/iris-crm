@@ -111,7 +111,7 @@
 
 
         <div class="box box-primary">
-            <div class="box-body">*
+            <div class="box-body">
 
                 <!-- Is Active Field -->
                 <div class="form-group col-sm-6">

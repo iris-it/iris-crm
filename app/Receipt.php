@@ -84,4 +84,5 @@ class Receipt extends Model
     {
         return $this->belongsTo('App\Quote');
     }
+
 }
