@@ -2,10 +2,7 @@
     <div class="box box-primary">
         <div class="box-body">
 
-            <h4 class="box-title pull-left"> {{ $office->name }} </h4>
-            <a class="btn bg-blue btn-flat pull-right" href="{{action('ContactController@create', ["account_id" => $account->id, "office_id" => $office->id])}}">
-                <i class="fa fa-address-card" style="margin-right:5px"> </i> {{trans('app.contact:office-add')}}
-            </a>
+            <h4 class="box-title pull-left"> <u>{{ $office->name }}</u> : {{trans('app.general:general-info')}}</h4>
             <br>
             <hr>
             <!-- Office Name Field -->
