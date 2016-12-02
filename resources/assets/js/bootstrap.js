@@ -15,6 +15,7 @@ require('chart.js');
 require('leaflet');
 require('leaflet.markercluster');
 require('cropper');
+// require('trumbowyg');
 
 window.IrisCrm = require('./crm');
 

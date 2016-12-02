@@ -32,6 +32,9 @@
 
             @endcan
 
+            <li class="header">{{ trans('app.sidebar:tools') }}</li>
+            <li><a href="{{ action('NoteController@index') }}"><i class="fa fa-circle-o text-aqua"></i> <span>Mes notes</span></a></li>
+
         </ul>
     </section>
 </aside>

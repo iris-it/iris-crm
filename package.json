@@ -21,6 +21,7 @@
     "animate.css": "^3.5.2",
     "bootstrap-datepicker": "^1.6.4",
     "bootstrap-duallistbox": "git+https://github.com/monkeyC/bootstrap-duallistbox.git",
+    "bootstrap-vertical-tabs": "git+https://github.com/dbtek/bootstrap-vertical-tabs.git",
     "chart.js": "^2.3.0",
     "cropper": "^2.3.4",
     "font-awesome": "^4.7.0",

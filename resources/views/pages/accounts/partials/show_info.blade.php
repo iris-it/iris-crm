@@ -1,6 +1,7 @@
 <div class="box box-primary">
     <div class="box-body box-profile">
         <img class="img-responsive center-block" src="{{asset($account->logo)}}" width="150">
+        <!-- //TODO Default image -->
 
         <h3 class="profile-username text-center">{{$account->name}}
             <a href="{!! action('AccountController@edit', [$account->id]) !!}" class='btn btn-flat'>

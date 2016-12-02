@@ -105,7 +105,7 @@ Route::group(['middleware' => 'auth'], function () {
 
 
         /*
-         * Contact resources
+         * Receipt resources
          */
 
         Route::get('receipts/index', 'ReceiptController@index');
@@ -116,6 +116,17 @@ Route::group(['middleware' => 'auth'], function () {
         Route::put('receipts/{id}/update', 'ReceiptController@update');
         Route::delete('receipts/{id}/delete', 'ReceiptController@destroy');
 
+        /*
+         * Notes resources
+         */
+
+        Route::get('notes/index', 'NoteController@index');
+        Route::get('notes/create', 'NoteController@create');
+        Route::post('notes/store', 'NoteController@store');
+        Route::get('notes/{id}/show', 'NoteController@show');
+        Route::get('notes/{id}/edit', 'NoteController@edit');
+        Route::put('notes/{id}/update', 'NoteController@update');
+        Route::delete('notes/{id}/delete', 'NoteController@destroy');
 
     });
 });

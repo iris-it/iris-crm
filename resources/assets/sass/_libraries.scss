@@ -2,7 +2,7 @@
 /* override icon-font-path value and include scss */
 $icon-font-path: "../fonts/";
 @import "node_modules/bootstrap-sass/assets/stylesheets/bootstrap";
-
+@import "node_modules/bootstrap-vertical-tabs/bootstrap.vertical-tabs";
 // Font Awesome
 @import "node_modules/font-awesome/scss/font-awesome.scss";
 
@@ -26,3 +26,6 @@ $icon-font-path: "../fonts/";
 
 // Cropper
 @import "node_modules/cropper/dist/cropper";
+
+// Summernote
+//@import "node_modules/trumbowyg/dist/ui/sass/trumbowyg.scss";

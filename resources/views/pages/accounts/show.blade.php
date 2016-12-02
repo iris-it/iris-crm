@@ -39,7 +39,13 @@
                             </ul>
                         </div>
                     </div>
-                    @include('pages.accounts.partials.show_offices')
+                    <div class="tab-content">
+                        @foreach($account->offices as $office)
+                            <div class="tab-pane fade {{($loop->first)?'active in':''}}" id="{{$office->id}}">
+                                @include('pages.accounts.partials.show_office_tabs')
+                            </div>
+                        @endforeach
+                    </div>
 
             </div>
             @endif
