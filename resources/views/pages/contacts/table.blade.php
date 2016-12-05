@@ -13,7 +13,7 @@
 
             <td class="text-bold">{!! $contact->post !!}</td>
 
-            <td class="text-bold">{!! $contact->office->account->name !!}</td>
+            <td class="text-bold"><a href="{{action('AccountController@show', $contact->office->account->id)}}"> {!! $contact->office->account->name !!} </a></td>
 
             <td class="text-bold">{!! $contact->office->name !!}</td>
 

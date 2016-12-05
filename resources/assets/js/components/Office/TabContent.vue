@@ -1,131 +1,61 @@
 <template>
 <transition name="custom-classes-transition" enter-active-class="animated fadeIn">
     <div v-show="isTabOpen">
-        <div class="box box-primary">
-            <div class="box-body">
 
-                    <header>
-                            <h4 class="box-title"> {{ title }} </h4>
-                    </header>
                 <hr>
-                  <!-- Office Name Field -->
+                  <!-- Topic Field -->
                 <div class="form-group col-sm-6">
-                    <slot name="name-field"> </slot>
-                    <span class="h4 text-bold">{{fields.name}}</span>
+                    <slot name="topic-field"> </slot>
+                    <span class="h4 text-bold">{{fields.topic}}</span>
                 </div>
 
-                <!-- Type Field -->
+                <!-- Phase Field -->
                 <div class="form-group col-sm-6">
-                    <slot name="type-field"> </slot>
-                    <span class="h4 text-bold">{{fields.type}}</span>
+                    <slot name="phase-field"> </slot>
+                    <span class="h4 text-bold">{{fields.phase}}</span>
                 </div>
 
-                <!-- Activity Sector Field -->
+                <!-- Deadline Field -->
                 <div class="form-group col-sm-6">
 
-                    <slot name="activity-sector-field"> </slot>
-                    <span class="h4 text-bold">{{fields.activity_sector}}</span>
+                    <slot name="deadline-field"> </slot>
+                    <span class="h4 text-bold">{{fields.deadline}}</span>
                 </div>
 
-                <!-- Workforce Field -->
+                <!-- Description Field -->
                 <div class="form-group col-sm-6">
-                    <slot name="workforce-field"> </slot>
-                    <span class="h4 text-bold">{{fields.workforce}}</span>
+                    <slot name="description-field"> </slot>
+                    <span class="h4 text-bold">{{fields.description}}</span>
                 </div>
 
-                <!-- Siret Number Field -->
+                <!-- HT Price Field -->
                 <div class="form-group col-sm-6">
-                    <slot name="siret-field"> </slot>
-                    <span class="h4 text-bold">{{fields.siret_number}}</span>
+                    <slot name="htprice-field"> </slot>
+                    <span class="h4 text-bold">{{fields.ht_price}}</span>
                 </div>
 
-                <!-- Ape Number Field -->
+                <!-- TTC Price Field -->
                 <div class="form-group col-sm-6">
-                    <slot name="ape-field"> </slot>
-                    <span class="h4 text-bold">{{fields.ape_number}}</span>
+                    <slot name="ttcprice-field"> </slot>
+                    <span class="h4 text-bold">{{fields.ttc_price}}</span>
                 </div>
 
-                <!-- Phone Number Field -->
+                <!-- Special Conditions Field -->
                 <div class="form-group col-sm-6">
-                    <slot name="phone-field"> </slot>
-                    <span class="h4 text-bold">{{fields.phone_number}}</span>
-                </div>
-
-
-                <!-- Website Field -->
-                <div class="form-group col-sm-6">
-                    <slot name="website-field"> </slot>
-                    <a :href="fields.website" class="h4 text-bold">{{fields.website}}</a>
-                </div>
-
-            </div>
-        </div>
-
-        <div class="box box-primary">
-            <div class="box-body">
-                <div v-for="address in fields.addresses">
-                    <h4 v-if="address.pivot.type == 'delivery'" class="box-title">Adresse de Livraison</h4>
-                    <h4 v-if="address.pivot.type == 'billing'" class="box-title">Adresse de Facturation</h4>
-                    <hr>
-
-                    <div class="form-group col-sm-6">
-                        <slot name="address-name-field"> </slot>
-                        <span class="h4 text-bold">{{address.name}}</span>
-                    </div>
-
-
-                    <div class="form-group col-sm-6">
-                        <slot name="street-label-field"> </slot>
-                        <span class="h4 text-bold">{{address.street_label}}</span>
-                    </div>
-
-
-                    <div class="form-group col-sm-6">
-                        <slot name="street-detail-field"> </slot>
-                        <span class="h4 text-bold">{{address.street_detail}}</span>
-                    </div>
-
-
-                    <div class="form-group col-sm-6">
-                        <slot name="zipcode-field"> </slot>
-                        <span class="h4 text-bold">{{address.zipcode}}</span>
-                    </div>
-
-
-                    <div class="form-group col-sm-6">
-                        <slot name="city-field"> </slot>
-                        <span class="h4 text-bold">{{address.city}}</span>
-                    </div>
-
-                    <div class="form-group col-sm-6">
-                        <slot name="country-field"> </slot>
-                        <span class="h4 text-bold">{{address.country}}</span>
-                    </div>
-
+                    <slot name="special-conditions-field"> </slot>
+                    <span class="h4 text-bold">{{fields.special_conditions}}</span>
                 </div>
 
 
-            </div>
-        </div>
+                <hr>
 
-
-
-        <div class="box box-primary">
-            <div class="box-body">
-
-                <!-- Is Active Field -->
-                <div class="form-group col-sm-6">
-                    <slot name="is-active-field"> </slot>
-                    <span v-if="fields.is_active" class="h4 text-bold">Oui</span>
+                <!-- Is Converted Field  -->
+                <div v-if='type == "invoice"' class="form-group col-sm-6">
+                    <slot name="converted-field"> </slot>
+                    <span v-if="fields.converted" class="h4 text-bold">Oui</span>
                     <span v-else class="h4 text-bold">Non</span>
                 </div>
 
-                <!-- Is Main Field -->
-                <div class="form-group col-sm-6">
-                    <slot name="is-main-field"> </slot>
-                    <span v-if="fields.is_main" class="h4 text-bold">Oui</span>
-                    <span v-else class="h4 text-bold">Non</span>
-                </div>
 
                 <!-- Created At Field -->
                 <div class="form-group col-sm-6">
@@ -139,8 +69,7 @@
                     <span class="h4 text-bold">{{fields.updated_at}}</span>
                 </div>
             </div>
-        </div>
-    </div>
+
     </transition>
 </template>
 
@@ -148,7 +77,7 @@
 
  export default {
 
-       props: ['id', 'title'],
+       props: ['id', 'title', 'type'],
 
        computed: {
 
@@ -168,19 +97,16 @@
 
                 fields : {
 
-                    name: "",
-                    type: "",
-                    activity_sector: "",
-                    workforce: "",
-                    siret_number: "",
-                    ape_number: "",
-                    phone_number: "",
-                    website: "",
-                    is_active: "",
-                    is_main: "",
+                    topic: "",
+                    phase: "",
+                    deadline: "",
+                    description: "",
+                    ht_price: "",
+                    ttc_price: "",
+                    special_conditions: "",
+                    converted: "",
                     created_at: "",
                     updated_at: "",
-                    addresses: []
 
                 },
             }

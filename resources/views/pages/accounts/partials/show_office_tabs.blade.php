@@ -7,11 +7,11 @@
             <br>
             <hr>
             <ul class="nav nav-pills nav-stacked">
-                <li class="active"><a href="#informations-{{$office->id}}" data-toggle="tab"><i class="fa fa-info-circle"></i> {{trans('app.general:general-info')}}</a></li>
-                <li><a href="#contacts-{{$office->id}}" data-toggle="tab"><i class="fa fa-address-card"></i> {{trans('app.general:contacts')}}</a></li>
-                <li><a href="#notes-{{$office->id}}" data-toggle="tab"><i class="fa fa-pencil-square"></i> {{trans('app.general:notes')}}</a></li>
-                <li><a href="#quotes-{{$office->id}}" data-toggle="tab"><i class="fa fa-file-text"></i> {{trans('app.general:quotes')}}</a></li>
-                <li><a href="#invoices-{{$office->id}}" data-toggle="tab"><i class="fa fa-file-archive-o"></i> {{trans('app.general:invoices')}}</a></li>
+                <li class="nav-item active"><a class="nav-link" href="#informations-{{$office->id}}" data-toggle="tab"><i class="fa fa-info-circle"></i> {{trans('app.general:general-info')}}</a></li>
+                <li class="nav-item"><a class="nav-link" href="#contacts-{{$office->id}}" data-toggle="tab"><i class="fa fa-address-card"></i> {{trans('app.general:contacts')}}</a></li>
+                <li class="nav-item"><a class="nav-link" href="#notes-{{$office->id}}" data-toggle="tab"><i class="fa fa-pencil-square"></i> {{trans('app.general:notes')}}</a></li>
+                <li class="nav-item"><a class="nav-link" href="#quotes-{{$office->id}}" data-toggle="tab"><i class="fa fa-file-text"></i> {{trans('app.general:quotes')}}</a></li>
+                <li class="nav-item"><a class="nav-link" href="#invoices-{{$office->id}}" data-toggle="tab"><i class="fa fa-file-archive-o"></i> {{trans('app.general:invoices')}}</a></li>
             </ul>
         </div>
     </div>
@@ -29,10 +29,10 @@
             @include('pages.accounts.partials.show_office_notes')
         </div>
         <div class="tab-pane fade in" id="quotes-{{$office->id}}">
-            @include('pages.accounts.partials.show_office_information')
+            @include('pages.accounts.partials.show_office_quotes')
         </div>
         <div class="tab-pane fade in" id="invoices-{{$office->id}}">
-            @include('pages.accounts.partials.show_office_information')
+            @include('pages.accounts.partials.show_office_invoices')
         </div>
     </div>
 </div>

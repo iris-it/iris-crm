@@ -32,8 +32,8 @@
                             <h4 class="box-title">{{trans('app.general:offices')}} {{trans('app.account:of')}} {{$account->name}} : </h4>
                             <ul class="nav nav-pills">
                                 @foreach($account->offices as $office)
-                                    <li class="{{(!$loop->first)?:'active'}}">
-                                        <a href="#{{$office->id}}" data-toggle="tab">{{$office->name}}</a>
+                                    <li class="nav-item {{(!$loop->first)?:'active'}}">
+                                        <a class="nav-link" href="#{{$office->id}}" data-toggle="tab">{{$office->name}}</a>
                                     </li>
                                 @endforeach
                             </ul>

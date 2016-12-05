@@ -17,7 +17,7 @@ class Quote extends Model
     public $table = 'quotes';
 
 
-    protected $dates = ['deleted_at', 'deadline'];
+    protected $dates = ['created_at', 'deleted_at', 'deadline'];
 
 
     public $fillable = [
