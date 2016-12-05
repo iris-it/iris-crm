@@ -71,7 +71,8 @@ return  array(
     'account:of'                        => 'of',
     'general:contacts'                  => 'Contacts',
 	'general:continue'                  => 'Continue',
-	'general:country'                   => 'Country',
+    'general:notes'                     => 'Notes',
+    'general:country'                   => 'Country',
 	'general:create'                    => 'Add new',
 	'general:create-failure'            => 'Creation has failed',
 	'general:create-success'            => 'Creation complete',
@@ -181,4 +182,6 @@ return  array(
     'receipt:supplier'                  => 'Supplier',
     'receipt:generate'                  => 'Generate receipt',
     'sidebar:main-title'                => 'MAIN NAVIGATION',
+    'sidebar:tools'                     => 'TOOLS',
+
 );

@@ -83,6 +83,7 @@ return  array(
 	'general:general-info'              => 'Informations générales',
 	'general:ht-price'                  => 'Prix HT',
 	'general:image'                     => 'Image',
+	'general:notes'                     => 'Notes',
 	'general:invoices'                  => 'Factures',
 	'general:is-active'                 => 'Actif',
     'general:account'                   => 'Compte',
@@ -181,5 +182,6 @@ return  array(
     'receipt:supplier'                  => 'Fournisseur',
     'receipt:generate'                  => 'Générer le bon de commande',
     'sidebar:main-title'                => 'MENU PRINCIPAL',
+    'sidebar:tools'                     => 'OUTILS',
 
 );
