@@ -139,6 +139,7 @@ return  array(
 	'login:welcome'                     => 'Connectez vous pour accéder aux fonctionnalités',
 	'office:create-title'               => 'Nouvel établissement',
 	'office:is-main'                    => 'Établissement principal de ce compte',
+    'office:edit'                       => 'Édition d\'un établissement',
 	'organization:address-field'        => 'Adresse',
 	'organization:address_comp-field'   => 'Adresse (complémentaire)',
 	'organization:ape-field'            => 'Numéro APE',
@@ -184,5 +185,6 @@ return  array(
     'receipt:generate'                  => 'Générer le bon de commande',
     'sidebar:main-title'                => 'MENU PRINCIPAL',
     'sidebar:tools'                     => 'OUTILS',
+    'warning:leads-forbidden'           => 'Remarque : Pour transférer un établissement d\'un compte client vers un prospect, aucune facture ne doit être attribuée à l\'établissement en question. <br> Dans le cas contraire, l\'ensemble de vos prospects n\'apparaitront pas dans la liste des comptes d\'affiliation.'
 
 );

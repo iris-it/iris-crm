@@ -60,6 +60,7 @@ class OfficeRequest extends Request
                     'is_active' => 'required|boolean',
                     'free_label' => 'string',
 
+                    'account_id' => 'integer',
                     'addresses.*' => '',
                 ];
             }

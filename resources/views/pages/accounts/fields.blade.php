@@ -13,7 +13,6 @@
 </div>
 
 <div class="col-sm-6">
-    <!-- Website Field -->
     <div class="form-group">
         {!! Form::label('logo', trans('app.general:logo') . ' :') !!}
         @include('shared.partials.image_cropper',['base_image' => asset($account->logo), 'input_file_name' => 'image', 'input_crop_option'=> 'crop_options'])

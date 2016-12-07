@@ -56,14 +56,20 @@ class OfficeController extends Controller
 
             Flash::success(Lang::get('app.general:create-success'));
 
-        } else {
 
+        } else {
             Flash::error(Lang::get('app.general:create-failed'));
-            return redirect(action('AccountController@show', $account->id));
 
         }
 
-        return view('pages.accounts.show')->with('account', $account);
+        if ($account->is_lead) {
+
+            return redirect(action('LeadController@show', $account->id));
+
+        } else {
+            return redirect(action('AccountController@show', $account->id));
+
+        }
     }
 
     /**
@@ -89,43 +95,81 @@ class OfficeController extends Controller
 
     public function edit($id)
     {
-        $account = Account::findOrFail($id);
+        $office = Office::findOrFail($id);
 
-        if (empty($account)) {
+        $account_list = $this->organization->accounts()->where('is_lead', false)->get()->pluck('name', 'id')->toArray();
+
+        if ($office->invoices->count() > 0) {
+            Flash::warning(Lang::get('app.warning:leads-forbidden'));
+
+            $accounts = [
+                trans('app.general:accounts') => $account_list,
+
+            ];
+
+        } else {
+            $lead_list = $this->organization->accounts()->where('is_lead', true)->get()->pluck('name', 'id')->toArray();
+
+            $accounts = [
+                trans('app.general:accounts') => $account_list,
+                trans('app.general:leads') => $lead_list
+            ];
+        }
+
+
+        if (empty($office)) {
             Flash::error(Lang::get('app.general:missing-model'));
 
             return redirect(action('AccountController@index'));
         }
 
-        return view('pages.accounts.edit')->with('account', $account);
+        return view('pages.offices.edit')->with(compact('office', 'accounts'));
+
+
     }
 
     /**
      * Update the specified Account in storage.
      */
 
-    public function update($id, AccountRequest $request)
+    public function update($id, OfficeRequest $request)
     {
-        $account = Account::findOrFail($id);
-        $data = $request->all();
 
-        if (empty($account)) {
-            Flash::error(Lang::get('app.general:missing-model'));
+        $input = $request->all();
+        $office = Office::findOrFail($id);
 
-            return redirect(action('AccountController@index'));
+        if (!$request->has('is_main')) {
+            $input['is_main'] = false;
         }
 
-        if ($account->update($data) && $account->save()) {
+        if ($office->update($input) && $office->save()) {
+
+            foreach ($input["addresses"] as $address) {
+                if ($newAdd = Address::create($address)) {
+                    $office->addresses()->attach($newAdd->id, ['type' => $address['type']]);
+                    dispatch(new GeocodeAddressJob($newAdd));
+                }
+            }
+
+            $office->account()->associate($input['office_id']);
+            $office->save();
 
             Flash::success(Lang::get('app.general:update-success'));
 
-        } else {
 
-            Flash::error(Lang::get('app.general:update-failure'));
-            return redirect(action('AccountController@edit'));
+        } else {
+            Flash::error(Lang::get('app.general:update-failed'));
+
         }
 
-        return redirect(action('AccountController@index'));
+        if ($office->account->is_lead) {
+
+            return redirect(action('LeadController@show', $office->account->id));
+
+        } else {
+            return redirect(action('AccountController@show', $office->account->id));
+
+        }
     }
 
     /**

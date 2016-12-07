@@ -3,17 +3,20 @@
 @section('content')
     <section class="content-header">
         <h1>
-            Édition d'un compte
+            {{trans('app.office:edit')}}
         </h1>
    </section>
    <div class="content">
+       <div class="clearfix"></div>
+
+       @include('flash::message')
        @include('errors.list')
        <div class="box box-primary">
            <div class="box-body">
                <div class="row">
-                   {!! Form::model($account, ['action' => ['AccountController@update', $account->id], 'method' => 'patch']) !!}
+                   {!! Form::model($office, ['action' => ['OfficeController@update', $office->id], 'method' => 'patch']) !!}
 
-                        @include('pages.accounts.fields')
+                        @include('pages.offices.edit_fields')
 
                    {!! Form::close() !!}
                </div>

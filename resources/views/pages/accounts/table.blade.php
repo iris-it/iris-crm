@@ -1,9 +1,11 @@
 <table class="table table-striped table-responsive" id="accounts-table">
     <thead>
     <th class="h4 text-purple text-uppercase">{{trans('app.general:name')}}</th>
-    <th class="h4 text-purple text-uppercase">{{trans('app.general:workforce')}}</th>
-    <th class="h4 text-purple text-uppercase">{{trans('app.general:type')}}</th>
-    <th class="h4 text-purple text-uppercase">{{trans('app.general:account-owner')}}</th>
+    <th class="h4 text-purple text-uppercase">{{trans('app.general:website')}}</th>
+    <th class="h4 text-purple text-uppercase">{{trans('app.general:offices')}}</th>
+    <th class="h4 text-purple text-uppercase">{{trans('app.general:contacts')}}</th>
+    <th class="h4 text-purple text-uppercase">{{trans('app.general:quotes')}}</th>
+    <th class="h4 text-purple text-uppercase">{{trans('app.general:invoices')}}</th>
     <th class="h4 text-purple text-uppercase">{{trans('app.account:converted')}}</th>
     <th class="h4 text-purple text-uppercase" colspan="3">Action</th>
     </thead>
@@ -11,15 +13,11 @@
     @foreach($accounts as $account)
         <tr>
             <td class="text-bold">{!! $account->name !!}</td>
-            <td class="text-bold">{!! $account->workforce !!}</td>
-            <td class="text-bold">{!! $account->type !!}</td>
-            <td class="text-bold">
-                @if($account->user)
-                    {!! $account->user->name !!}
-                @else
-                    {{trans('app.general:undefined')}}
-                @endif
-            </td>
+            <td class="text-bold">{!! $account->website !!}</td>
+            <td class="text-bold">{!! $account->offices->count() !!}</td>
+            <td class="text-bold">{!! $account->contacts->count() !!}</td>
+            <td class="text-bold">{!! $account->quotes->count() !!}</td>
+            <td class="text-bold">{!! $account->invoices->count() !!}</td>
             <td class="text-bold">
                 @if($account->converted)
                     {{trans('app.general:yes')}}

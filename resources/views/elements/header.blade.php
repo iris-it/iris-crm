@@ -4,7 +4,8 @@
         <span class="logo-lg"><b>Iris</b>CRM</span>
     </a>
     <nav class="navbar navbar-static-top">
-        <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
+
+        <a href="#" class="sidebar-toggle" style="margin-bottom:-1px" data-toggle="offcanvas" role="button">
             <span class="sr-only">Toggle navigation</span>
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>

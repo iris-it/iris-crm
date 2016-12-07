@@ -26,7 +26,7 @@ class OfficeController extends Controller
 
         $office = Office::findOrFail($id);
 
-        return json_encode($office->quotes);
+        return $office->quotes;
     }
 
 }

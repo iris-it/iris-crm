@@ -3,7 +3,7 @@
 @section('content')
     <section class="content-header">
         <h1>
-            Création d'un prospect
+            {{trans('app.account:create')}}
         </h1>
     </section>
     <div class="content">
@@ -12,7 +12,7 @@
 
             <div class="box-body">
                 <div class="row">
-                    {!! Form::open(['action' => 'LeadController@store']) !!}
+                    {!! Form::open(['action' => 'LeadController@store', 'files' => true]) !!}
 
                         @include('pages.leads.fields')
 

@@ -85,9 +85,11 @@ Route::group(['middleware' => 'auth'], function () {
          * Office resources
          */
         Route::get('account/{id}/offices/create', 'OfficeController@create');
-        Route::post('account/{id}/offices', 'OfficeController@store');
+        Route::post('accounts/{id}', 'OfficeController@store');
         Route::get('account/{id}/offices/{officeId}/show', 'OfficeController@show');
         Route::get('account/{id}/offices/{officeId}/edit', 'OfficeController@edit');
+        Route::put('offices/{id}/update', 'OfficeController@update');
+
         Route::delete('account/{id}/offices/{officeId}', 'OfficeController@destroy');
 
 

@@ -5,11 +5,11 @@
         <h1 class="pull-left text-purple">{{trans('app.account:detail')}} : </h1>
 
         <h1 class="pull-right">
-            <a class="btn btn-app bg-blue btn-flat pull-right" style="font-size: 15px; margin-top: -10px;margin-bottom: 5px" href="{{action('OfficeController@create', $lead->id)}}">
+            <a class="btn btn-app create-button bg-blue btn-flat pull-right" href="{{action('OfficeController@create', $lead->id)}}">
                 <i class="fa fa-building"></i> {{trans('app.general:create')}} </a>
         </h1>
-
     </section>
+
     <div class="content">
         <div class="clearfix"></div>
 
@@ -17,10 +17,43 @@
 
         <div class="clearfix"></div>
 
-        @include('pages.leads.show_fields')
 
+        <div class="row">
+            <div class="col-md-3">
+                @include('pages.leads.partials.show_info')
+                @include('pages.leads.partials.show_info_comp')
+            </div>
+            <div class="col-md-9">
+                @if($lead->offices->count() < 1)
+                    @include('pages.leads.partials.show_create_offices')
+                @else
+                    <div class="box box-primary">
+                        <div class="box-body">
+                            <h4 class="box-title">{{trans('app.general:offices')}} {{trans('app.account:of')}} {{$lead->name}} : </h4>
+                            <ul class="nav nav-pills">
+                                @foreach($lead->offices as $office)
+                                    <li class="nav-item {{(!$loop->first)?:'active'}}">
+                                        <a class="nav-link" href="#{{$office->id}}" data-toggle="tab">{{$office->name}}</a>
+                                    </li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="tab-content">
+                        @foreach($lead->offices as $office)
+                            <div class="tab-pane fade {{($loop->first)?'active in':''}}" id="{{$office->id}}">
+                                @include('pages.leads.partials.show_office_tabs')
+                            </div>
+                        @endforeach
+                    </div>
+
+            </div>
+            @endif
+        </div>
     </div>
+
     <div class="col-sm-12">
-        <a href="{!! action('LeadController@index') !!}" class="btn btn-lg btn-flat bg-blue"><i class="fa fa-chevron-circle-left"></i> {{trans('app.general:back')}}</a>
+        <a href="{!! action('LeadController@index') !!}" class="btn btn-lg btn-flat bg-blue"><i
+                    class="fa fa-chevron-circle-left"></i> {{trans('app.general:back')}}</a>
     </div>
 @endsection
