@@ -4,10 +4,11 @@
 
             <h4 class="box-title pull-left"> {{trans('app.general:general-info')}}</h4>
             <a class="btn bg-blue btn-flat pull-right" href="{{action('OfficeController@edit',["id" => $account->id, "officeId" => $office->id])}}">
-                <i class="fa fa-address-card" style="margin-right:5px"> </i> {{trans('app.general:edit')}}
+                <i class="fa fa-pencil" style="margin-right:5px"> </i> {{trans('app.general:edit')}}
             </a>
             <br>
             <hr>
+
             <!-- Office Name Field -->
             <div class="form-group col-sm-6">
                 {!! Form::label('name', trans('app.general:name') . ' :', ['class' => 'h4 text-purple']) !!}

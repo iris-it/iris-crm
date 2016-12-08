@@ -68,12 +68,13 @@ return  array(
 	'general:city'                      => 'Ville',
 	'general:contacts'                  => 'Contacts',
 	'general:continue'                  => 'Continuer',
+    'general:edit'                      => 'Édition',
 	'general:country'                   => 'Pays',
 	'general:create'                    => 'Nouveau',
 	'general:create-failure'            => 'Échec de la création',
 	'general:create-success'            => 'Création reussie',
 	'general:created-at'                => 'Créé le',
-	'general:dashboard'                 => 'Accueil',
+	'general:dashboard'                 => 'Tableau de bord',
 	'general:deadline'                  => 'Échéance',
 	'general:delete-success'            => 'Suppression réussie',
 	'general:delivery-address'          => 'Adresse de livraison',
@@ -185,6 +186,6 @@ return  array(
     'receipt:generate'                  => 'Générer le bon de commande',
     'sidebar:main-title'                => 'MENU PRINCIPAL',
     'sidebar:tools'                     => 'OUTILS',
-    'warning:leads-forbidden'           => 'Remarque : Pour transférer un établissement d\'un compte client vers un prospect, aucune facture ne doit être attribuée à l\'établissement en question. <br> Dans le cas contraire, l\'ensemble de vos prospects n\'apparaitront pas dans la liste des comptes d\'affiliation.'
+    'warning:leads-forbidden'           => 'Pour transférer un établissement d\'un compte client vers un prospect, aucune facture ne doit être attribuée à l\'établissement en question. Dans le cas contraire, l\'ensemble de vos prospects n\'apparaitront pas dans la liste des comptes d\'affiliation.'
 
 );

@@ -3,6 +3,9 @@
         <div class="box-body">
 
             <h4 class="box-title pull-left"> {{trans('app.general:general-info')}}</h4>
+            <a class="btn bg-blue btn-flat pull-right" href="{{action('OfficeController@edit',["id" => $lead->id, "officeId" => $office->id])}}">
+                <i class="fa fa-pencil" style="margin-right:5px"> </i> {{trans('app.general:edit')}}
+            </a>
             <br>
             <hr>
             <!-- Office Name Field -->

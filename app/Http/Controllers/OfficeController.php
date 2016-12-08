@@ -93,29 +93,25 @@ class OfficeController extends Controller
      * Show the form for editing the specified Account.
      */
 
-    public function edit($id)
+    public function edit($id, $officeId)
     {
-        $office = Office::findOrFail($id);
+        $office = Office::findOrFail($officeId);
 
         $account_list = $this->organization->accounts()->where('is_lead', false)->get()->pluck('name', 'id')->toArray();
 
         if ($office->invoices->count() > 0) {
-            Flash::warning(Lang::get('app.warning:leads-forbidden'));
 
-            $accounts = [
-                trans('app.general:accounts') => $account_list,
-
-            ];
+            $accounts = [trans('app.general:accounts') => $account_list];
 
         } else {
-            $lead_list = $this->organization->accounts()->where('is_lead', true)->get()->pluck('name', 'id')->toArray();
 
+            $lead_list = $this->organization->accounts()->where('is_lead', true)->get()->pluck('name', 'id')->toArray();
             $accounts = [
                 trans('app.general:accounts') => $account_list,
                 trans('app.general:leads') => $lead_list
             ];
-        }
 
+        }
 
         if (empty($office)) {
             Flash::error(Lang::get('app.general:missing-model'));
@@ -132,11 +128,11 @@ class OfficeController extends Controller
      * Update the specified Account in storage.
      */
 
-    public function update($id, OfficeRequest $request)
+    public function update($id, $officeId, OfficeRequest $request)
     {
 
         $input = $request->all();
-        $office = Office::findOrFail($id);
+        $office = Office::findOrFail($officeId);
 
         if (!$request->has('is_main')) {
             $input['is_main'] = false;
@@ -144,14 +140,21 @@ class OfficeController extends Controller
 
         if ($office->update($input) && $office->save()) {
 
-            foreach ($input["addresses"] as $address) {
-                if ($newAdd = Address::create($address)) {
-                    $office->addresses()->attach($newAdd->id, ['type' => $address['type']]);
-                    dispatch(new GeocodeAddressJob($newAdd));
+            foreach($office->addresses as $address) {
+
+                foreach($input["addresses"] as $key => $data) {
+
+                    if ($address->id == $key) {
+
+                        if($address->update($data)) {
+                            dispatch(new GeocodeAddressJob($address));
+                        }
+
+                    }
                 }
             }
 
-            $office->account()->associate($input['office_id']);
+            $office->account()->associate($input['account_id']);
             $office->save();
 
             Flash::success(Lang::get('app.general:update-success'));

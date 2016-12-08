@@ -1,16 +1,13 @@
 <header class="main-header">
     <a href="{{action('HomeController@index')}}" class="logo">
-        <span class="logo-mini"><b>I</b>CRM</span>
         <span class="logo-lg"><b>Iris</b>CRM</span>
     </a>
     <nav class="navbar navbar-static-top">
 
-        <a href="#" class="sidebar-toggle" style="margin-bottom:-1px" data-toggle="offcanvas" role="button">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-        </a>
+
+        <div class="navbar-custom-menu pull-left">
+                @yield('breadcrumbs')
+        </div>
 
         <div class="navbar-custom-menu">
             <ul class="nav navbar-nav">

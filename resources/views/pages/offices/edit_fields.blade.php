@@ -1,7 +1,8 @@
+
 <div class="form-group col-sm-12 text-center">
     {!! Form::label('accountSelect',  trans('app.contact:accounts-select')) !!}
     <br>
-    {!! Form::select('account_id', $accounts, ['class' => 'form-control']) !!}
+    {!! Form::select('account_id', $accounts, $office->account->id, ['class' => 'form-control']) !!}
 </div>
 
 <!-- Office Name Field -->
@@ -79,37 +80,39 @@
 
         <div class="form-group col-sm-6">
             {!! Form::label('name', trans('app.address:name') . ' :', ['slot' => 'name-field']) !!}
-            {!! Form::text('name', $address->name, ['name' => 'addresses[' . $address->pivot->type . '][name]', 'class' => 'form-control']) !!}
+            {!! Form::text('name', $address->name, ['name' => 'addresses[' . $address->id . '][name]', 'class' => 'form-control']) !!}
         </div>
 
         <div class="form-group col-sm-6">
 
             {!! Form::label('street_label', trans('app.address:street-label') . ' :', ['slot' => 'street-label-field']) !!}
-            {!! Form::text('street_label', $address->street_label, ['name' => 'addresses[' . $address->pivot->type . '][street_label]', 'class' => 'form-control']) !!}
+            {!! Form::text('street_label', $address->street_label, ['name' => 'addresses[' . $address->id . '][street_label]', 'class' => 'form-control']) !!}
 
 
         </div>
 
         <div class="form-group col-sm-6">
             {!! Form::label('street_detail', trans('app.address:street-detail') . ' :', ['slot' => 'street-detail-field']) !!}
-            {!! Form::text('street_detail', $address->street_detail, ['name' => 'addresses[' . $address->pivot->type . '][street_detail]', 'class' => 'form-control']) !!}
+            {!! Form::text('street_detail', $address->street_detail, ['name' => 'addresses[' . $address->id . '][street_detail]', 'class' => 'form-control']) !!}
 
         </div>
         <div class="form-group col-sm-6">
             {!! Form::label('zipcode', trans('app.general:zipcode') . ' :', ['slot' => 'zipcode-field']) !!}
-            {!! Form::text('zipcode', $address->zipcode, ['name' => 'addresses[' . $address->pivot->type . '][zipcode]', 'class' => 'form-control']) !!}
+            {!! Form::text('zipcode', $address->zipcode, ['name' => 'addresses[' . $address->id . '][zipcode]', 'class' => 'form-control']) !!}
 
         </div>
         <div class="form-group col-sm-6">
             {!! Form::label('city', trans('app.general:city') . ' :', ['slot' => 'city-field']) !!}
-            {!! Form::text('city', $address->city, ['name' => 'addresses[' . $address->pivot->type . '][city]', 'class' => 'form-control']) !!}
+            {!! Form::text('city', $address->city, ['name' => 'addresses[' . $address->id . '][city]', 'class' => 'form-control']) !!}
 
         </div>
         <div class="form-group col-sm-6">
             {!! Form::label('country', trans('app.general:country') . ' :', ['slot' => 'country-field']) !!}
-            {!! Form::text('country', $address->country, ['name' => 'addresses[' . $address->pivot->type . '][country]', 'class' => 'form-control']) !!}
+            {!! Form::text('country', $address->country, ['name' => 'addresses[' . $address->id . '][country]', 'class' => 'form-control']) !!}
 
         </div>
+
+            <input type="hidden" id="type" name={{'addresses[' . $address->id . '][type]'}} value={{$address->pivot->type}} class="form-control" >
 
     </div>
 @endforeach

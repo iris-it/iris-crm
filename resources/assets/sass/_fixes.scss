@@ -31,3 +31,28 @@
 .tab-pane:not(.active) {
   display: none;
 }
+
+.app-breadcrumb {
+
+  padding: 14px 15px;
+  margin-bottom: 0;
+  list-style: none;
+  background-color: transparent;
+
+  @extend .breadcrumb;
+}
+
+.app-breadcrumb > .active {
+  color: white;
+  font-weight: bold;
+
+}
+
+.app-breadcrumb > li {
+  color: white;
+}
+
+.app-breadcrumb > li > a {
+  color: white;
+  text-decoration : underline;
+}
