@@ -1,5 +1,9 @@
 @extends('layouts.app')
 
+@section('breadcrumbs')
+    {!! Breadcrumbs::render('edit-contact', $contact) !!}
+@endsection
+
 @section('content')
     <section class="content-header">
         <h1>

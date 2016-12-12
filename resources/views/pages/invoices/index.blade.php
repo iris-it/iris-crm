@@ -1,5 +1,10 @@
 @extends('layouts.app')
 
+
+@section('breadcrumbs')
+    {!! Breadcrumbs::render('invoices') !!}
+@endsection
+
 @section('content')
     <section class="content-header">
         <h1 class="pull-left text-purple">{{trans('app.general:invoices')}}

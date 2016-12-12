@@ -1,5 +1,13 @@
 @extends('layouts.app')
 
+@section('breadcrumbs')
+    @if($office->account->is_lead)
+        {!! Breadcrumbs::render('edit-lead-office', $office->account, $office) !!}
+    @else
+        {!! Breadcrumbs::render('edit-office', $office->account, $office) !!}
+    @endif
+@endsection
+
 @section('content')
     <section class="content-header">
         <h1>

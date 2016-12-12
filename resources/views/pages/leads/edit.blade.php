@@ -1,9 +1,13 @@
 @extends('layouts.app')
 
+@section('breadcrumbs')
+    {!! Breadcrumbs::render('edit-lead', $lead) !!}
+@endsection
+
 @section('content')
     <section class="content-header">
         <h1>
-            Édition d'un prospect
+            {{trans('app.lead:edit')}}
         </h1>
    </section>
    <div class="content">

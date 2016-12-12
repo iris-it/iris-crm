@@ -1,5 +1,13 @@
 @extends('layouts.app')
 
+@section('breadcrumbs')
+    @if($account->is_lead)
+        {!! Breadcrumbs::render('new-lead-office', $account) !!}
+    @else
+        {!! Breadcrumbs::render('new-office', $account) !!}
+    @endif
+@endsection
+
 @section('content')
     <section class="content-header">
         <h1>
@@ -14,7 +22,7 @@
                 <div class="row">
                     {!! Form::open(['action' => ['OfficeController@store', $account->id], 'method' => 'POST']) !!}
 
-                        @include('pages.offices.fields')
+                    @include('pages.offices.fields')
 
                     {!! Form::close() !!}
                 </div>

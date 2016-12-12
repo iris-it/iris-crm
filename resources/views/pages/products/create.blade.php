@@ -1,5 +1,9 @@
 @extends('layouts.app')
 
+@section('breadcrumbs')
+    {!! Breadcrumbs::render('new-product') !!}
+@endsection
+
 @section('content')
     <section class="content-header">
         <h1>

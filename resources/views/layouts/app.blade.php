@@ -14,10 +14,6 @@
 
     <div class="content-wrapper">
 
-        <section class="content-header">
-            @yield('breadcrumbs')
-        </section>
-
         @yield('content')
 
     </div>

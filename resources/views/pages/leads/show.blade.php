@@ -1,5 +1,9 @@
 @extends('layouts.app')
 
+@section('breadcrumbs')
+    {!! Breadcrumbs::render('lead', $lead) !!}
+@endsection
+
 @section('content')
     <section class="content-header">
         <h1 class="pull-left text-purple">{{trans('app.account:detail')}} : </h1>

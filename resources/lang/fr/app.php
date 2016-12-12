@@ -1,6 +1,7 @@
 <?php
 
 return  array(
+    'breadcrumb:edit'                   => 'édition',
 	'account:converted'                 => 'Converti depuis un prospect',
 	'account:converted-field'           => 'Origine',
 	'account:detail'                    => 'Détail du compte',

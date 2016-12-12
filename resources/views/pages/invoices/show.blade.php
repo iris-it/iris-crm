@@ -1,5 +1,9 @@
 @extends('layouts.app')
 
+@section('breadcrumbs')
+    {!! Breadcrumbs::render('invoice', $invoice) !!}
+@endsection
+
 @section('content')
     <section class="content-header">
         <h1>

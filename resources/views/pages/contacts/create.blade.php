@@ -1,5 +1,17 @@
 @extends('layouts.app')
 
+@section('breadcrumbs')
+    @if(isset($office))
+        @if($account->is_lead)
+            {!! Breadcrumbs::render('add-contact-lead-office', $account, $office) !!}
+        @else
+            {!! Breadcrumbs::render('add-contact-office', $account, $office) !!}
+        @endif
+    @else
+        {!! Breadcrumbs::render('new-contact') !!}
+    @endif
+@endsection
+
 @section('content')
     <section class="content-header">
         <h1>
@@ -14,7 +26,7 @@
                 <div class="row">
                     {!! Form::open(['action' => 'ContactController@store']) !!}
 
-                        @include('pages.contacts.fields')
+                    @include('pages.contacts.fields')
 
                     {!! Form::close() !!}
                 </div>

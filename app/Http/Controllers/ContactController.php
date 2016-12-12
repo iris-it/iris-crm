@@ -45,6 +45,10 @@ class ContactController extends Controller
 
         $account = Account::findOrFail($account_id);
 
+        if ($request->has('office_id')) {
+            $office = Office::findOrFail($request->get('office_id'));
+        }
+
         $offices = $account->offices->pluck('name', 'id');
 
         if ($offices->count() === 0) {
@@ -52,7 +56,7 @@ class ContactController extends Controller
             return redirect(action('AccountController@show', $account_id));
         }
 
-        return view('pages.contacts.create')->with(compact('offices'));
+        return view('pages.contacts.create')->with(compact('offices', 'office', 'account'));
     }
 
     /**

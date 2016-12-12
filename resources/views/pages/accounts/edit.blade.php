@@ -1,9 +1,13 @@
 @extends('layouts.app')
 
+@section('breadcrumbs')
+    {!! Breadcrumbs::render('edit-account', $account) !!}
+@endsection
+
 @section('content')
     <section class="content-header">
         <h1>
-            Édition d'un compte
+            {{trans('app.account:edit')}}
         </h1>
     </section>
     <div class="content">
