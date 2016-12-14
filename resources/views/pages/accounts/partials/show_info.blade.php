@@ -13,6 +13,10 @@
                 </a>
         </h3>
 
+        <div class="text-center">
+            <label>{{trans('app.general:website')}} :</label>
+            <a href="{{$account->website}}">{{$account->website}}</a>
+        </div>
         @if(!$account->is_lead)
             <div class="text-muted text-center">
                 <label>{{trans('app.account:converted-field')}} :</label>

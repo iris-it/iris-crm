@@ -15,7 +15,7 @@
     @foreach($accounts as $account)
         <tr>
             <td class="text-bold">{!! $account->name !!}</td>
-            <td class="text-bold">{!! $account->website !!}</td>
+            <td class="text-bold"><a href="{{$account->website}}">{!! $account->website !!}</a></td>
             <td class="text-bold">{!! $account->offices->count() !!}</td>
             <td class="text-bold">{!! $account->contacts->count() !!}</td>
             <td class="text-bold">{!! $account->quotes->count() !!}</td>

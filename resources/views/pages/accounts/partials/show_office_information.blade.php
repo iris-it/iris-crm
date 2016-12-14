@@ -55,7 +55,7 @@
             <!-- Website Field -->
             <div class="form-group col-sm-6">
                 {!! Form::label('website', trans('app.general:website') . ' :', ['class' => 'h4 text-purple']) !!}
-                <span class="h4 text-bold">{{$office->website}}</span>
+                <a href="{{$office->website}}" class="h4 text-bold">{{$office->website}}</a>
             </div>
 
         </div>

@@ -21,6 +21,8 @@ class StatisticsHelper
             $data[] = $from->formatLocalized('%d %B');
             $from = $from->addDay();
         }
+
+
         return json_encode($data);
     }
 

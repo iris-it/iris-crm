@@ -221,7 +221,6 @@
                                 fontStyle: "bold"
                             }
                         }
-
                     }
                 });
 
@@ -238,10 +237,8 @@
                                 fontStyle: "bold"
                             }
                         }
-
                     }
                 });
-
 
             };
 
