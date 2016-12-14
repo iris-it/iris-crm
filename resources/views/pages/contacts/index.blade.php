@@ -47,7 +47,7 @@
             {!! Form::open(['action' => 'ContactController@create', 'method' => 'GET']) !!}
 
             <div class="form-group col-sm-12 text-center">
-                {!! Form::label('accountSelect',  trans('app.contact:accounts-select')) !!}
+                {!! Form::label('accountSelect',  trans('app.contact:accounts-select') . ' :', ['class' => 'h4 text-purple']) !!}
                 <br>
                 {!! Form::select('account_id', $accounts, ['class' => 'form-control']) !!}
             </div>

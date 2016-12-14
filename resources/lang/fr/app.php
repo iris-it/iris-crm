@@ -112,7 +112,7 @@ return  array(
 	'general:special-conditions'        => 'Conditions spéciales',
 	'general:status'                    => 'Statut',
 	'general:taxes'                     => 'Taxes',
-	'general:topic'                     => 'Sujet',
+	'general:topic'                     => 'Objet',
 	'general:ttc-price'                 => 'Prix TTC',
 	'general:type'                      => 'Type',
 	'general:undefined'                 => 'Non défini',

@@ -2,7 +2,7 @@
     <div class="box box-primary">
         <div class="box-body">
             <h4 class="box-title pull-left">
-               <u>{{$office->name}} :</u>
+                <u>{{$office->name}} :</u>
             </h4>
             <br>
             <hr>
@@ -11,7 +11,9 @@
                 <li class="nav-item"><a class="nav-link" href="#contacts-{{$office->id}}" data-toggle="tab"><i class="fa fa-address-card"></i> {{trans('app.general:contacts')}}</a></li>
                 <li class="nav-item"><a class="nav-link" href="#notes-{{$office->id}}" data-toggle="tab"><i class="fa fa-pencil-square"></i> {{trans('app.general:notes')}}</a></li>
                 <li class="nav-item"><a class="nav-link" href="#quotes-{{$office->id}}" data-toggle="tab"><i class="fa fa-file-text"></i> {{trans('app.general:quotes')}}</a></li>
-                <li class="nav-item"><a class="nav-link" href="#invoices-{{$office->id}}" data-toggle="tab"><i class="fa fa-file-archive-o"></i> {{trans('app.general:invoices')}}</a></li>
+                @if(!$account->is_lead)
+                    <li class="nav-item"><a class="nav-link" href="#invoices-{{$office->id}}" data-toggle="tab"><i class="fa fa-file-archive-o"></i> {{trans('app.general:invoices')}}</a></li>
+                @endif
             </ul>
         </div>
     </div>
@@ -31,9 +33,11 @@
         <div class="tab-pane fade in" id="quotes-{{$office->id}}">
             @include('pages.accounts.partials.show_office_quotes')
         </div>
-        <div class="tab-pane fade in" id="invoices-{{$office->id}}">
-            @include('pages.accounts.partials.show_office_invoices')
-        </div>
+        @if(!$account->is_lead)
+            <div class="tab-pane fade in" id="invoices-{{$office->id}}">
+                @include('pages.accounts.partials.show_office_invoices')
+            </div>
+        @endif
     </div>
 </div>
 

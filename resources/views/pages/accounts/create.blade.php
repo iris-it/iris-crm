@@ -2,9 +2,15 @@
 
 @section('content')
     <section class="content-header">
-        <h1>
-            {{trans('app.account:create')}}
-        </h1>
+        @if(!$isLead)
+            <h1>
+                {{trans('app.account:create')}}
+            </h1>
+        @else
+            <h1>
+                {{trans('app.lead:create')}}
+            </h1>
+        @endif
     </section>
     <div class="content">
         @include('errors.list')
@@ -12,7 +18,11 @@
 
             <div class="box-body">
                 <div class="row">
-                    {!! Form::open(['action' => 'AccountController@store', 'files' => true]) !!}
+                    @if(!$isLead)
+                        {!! Form::open(['action' => 'AccountController@store', 'files' => true]) !!}
+                    @else
+                        {!! Form::open(['action' => 'LeadController@store', 'files' => true]) !!}
+                    @endif
 
                     @include('pages.accounts.fields')
 

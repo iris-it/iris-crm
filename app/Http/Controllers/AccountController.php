@@ -22,8 +22,10 @@ class AccountController extends Controller
     {
 
         $accounts = $this->organization->accounts()->where('is_lead', false)->get();
+        $isLead = false;
 
-        return view('pages.accounts.index')->with('accounts', $accounts);
+
+        return view('pages.accounts.index')->with(compact('accounts','isLead'));
 
     }
 
@@ -33,8 +35,8 @@ class AccountController extends Controller
 
     public function create()
     {
-
-        return view('pages.accounts.create');
+        $isLead = false;
+        return view('pages.accounts.create')->with('isLead', $isLead);
     }
 
     /**

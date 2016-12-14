@@ -1,7 +1,7 @@
 <template>
     <div class="col-sm-12">
         <header>
-                <h4> {{ title }} </h4>
+                <h4 class="text-bold"> {{ title }} </h4>
         </header>
 
         <div class="form-group col-sm-6">

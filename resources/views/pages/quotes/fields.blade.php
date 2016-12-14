@@ -1,8 +1,8 @@
 <div class="form-group col-sm-12 text-center">
     @if(Request::has('office_id'))
-        {!! Form::label('office_id',  trans('app.contact:selected-office') . " :") !!}
+        {!! Form::label('office_id',  trans('app.contact:selected-office') . " :", ['class' => 'h4 text-purple']) !!}
     @else
-        {!! Form::label('office_id',  trans('app.contact:office-select') . " :") !!}
+        {!! Form::label('office_id',  trans('app.contact:office-select') . " :", ['class' => 'h4 text-purple']) !!}
     @endif
     <br>
     {!! Form::select('office_id', $offices, Request::get('office_id'), ['class' => 'form-control', (!Request::has('office_id'))?:'disabled']) !!}
@@ -10,14 +10,14 @@
 
 <!-- Topic Field -->
 <div class="form-group col-sm-6">
-    {!! Form::label('topic', trans('app.general:topic') . " :" ) !!}
+    {!! Form::label('topic', trans('app.general:topic') . " :", ['class' => 'h4 text-purple'] ) !!}
     {!! Form::text('topic', null, ['class' => 'form-control']) !!}
 </div>
 
 
 <!-- Phase Field -->
 <div class="form-group col-sm-6">
-    {!! Form::label('phase', trans('app.general:phase') . " :" ) !!}
+    {!! Form::label('phase', trans('app.general:phase') . " :", ['class' => 'h4 text-purple'] ) !!}
     {!! Form::text('phase', null, ['class' => 'form-control']) !!}
 </div>
 
@@ -25,7 +25,7 @@
 
 {{--<!-- Deadline Field -->--}}
 {{--<div class="form-group col-sm-6">--}}
-    {{--{!! Form::label('deadline', trans('app.general:deadline') . " :" ) !!}--}}
+    {{--{!! Form::label('deadline', trans('app.general:deadline') . " :", ['class' => 'h4 text-purple'] ) !!}--}}
     {{--<div class="input-group date">--}}
         {{--<div class="input-group-addon">--}}
             {{--<i class="fa fa-calendar"></i>--}}
@@ -37,13 +37,13 @@
 
 <!-- Description Field -->
 <div class="form-group col-sm-6">
-    {!! Form::label('description', trans('app.general:description') . " :" )!!}
+    {!! Form::label('description', trans('app.general:description') . " :", ['class' => 'h4 text-purple'] )!!}
     {!! Form::text('description', null, ['class' => 'form-control']) !!}
 </div>
 
 <!-- Special Conditions Field -->
 <div class="form-group col-sm-6">
-    {!! Form::label('special_conditions', trans('app.general:special-conditions') . " :" ) !!}
+    {!! Form::label('special_conditions', trans('app.general:special-conditions') . " :", ['class' => 'h4 text-purple'] ) !!}
     {!! Form::text('special_conditions', null, ['class' => 'form-control']) !!}
 </div>
 

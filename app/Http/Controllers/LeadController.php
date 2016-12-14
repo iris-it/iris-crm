@@ -17,9 +17,10 @@ class LeadController extends Controller
      */
     public function index()
     {
-        $leads = $this->organization->accounts()->where('is_lead', true)->get();
+        $isLead = true;
+        $accounts = $this->organization->accounts()->where('is_lead', true)->get();
 
-        return view('pages.leads.index')->with('leads', $leads);
+        return view('pages.accounts.index')->with(compact('accounts', 'isLead'));
     }
 
     /**
@@ -27,7 +28,8 @@ class LeadController extends Controller
      */
     public function create()
     {
-        return view('pages.leads.create');
+        $isLead = true;
+        return view('pages.accounts.create')->with('isLead', $isLead);
     }
 
     /**
@@ -63,15 +65,15 @@ class LeadController extends Controller
      */
     public function show($id)
     {
-        $lead = Account::findOrFail($id);
+        $account = Account::findOrFail($id);
 
-        if (empty($lead)) {
+        if (empty($account)) {
             Flash::error(Lang::get('app.general:missing-model'));
 
             return redirect(action('LeadController@index'));
         }
 
-        return view('pages.leads.show')->with('lead', $lead);
+        return view('pages.accounts.show')->with('account', $account);
     }
 
     /**
@@ -79,15 +81,15 @@ class LeadController extends Controller
      */
     public function edit($id)
     {
-        $lead = Account::findOrFail($id);
+        $account = Account::findOrFail($id);
 
-        if (empty($lead)) {
+        if (empty($account)) {
             Flash::error(Lang::get('app.general:missing-model'));
 
             return redirect(action('LeadController@index'));
         }
 
-        return view('pages.leads.edit')->with('lead', $lead);
+        return view('pages.accounts.edit')->with('account', $account);
     }
 
     /**

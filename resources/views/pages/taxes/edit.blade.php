@@ -7,7 +7,7 @@
 @section('content')
     <section class="content-header">
         <h1>
-            Édition d'une taxe
+            {{trans('app.tax:edit')}}
         </h1>
    </section>
    <div class="content">

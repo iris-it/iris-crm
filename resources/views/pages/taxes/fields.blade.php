@@ -1,18 +1,18 @@
 <!-- Name Field -->
 <div class="form-group col-sm-6">
-    {!! Form::label('name', trans('app.general:name') . " :" ) !!}
+    {!! Form::label('name', trans('app.general:name') . " :", ['class' => 'h4 text-purple'] ) !!}
     {!! Form::text('name', null, ['class' => 'form-control']) !!}
 </div>
 
 <!-- Value Field -->
 <div class="form-group col-sm-6">
-    {!! Form::label('value', trans('app.general:value') . " :" ) !!}
+    {!! Form::label('value', trans('app.general:value') . " :", ['class' => 'h4 text-purple'] ) !!}
     {!! Form::text('value', null, ['class' => 'form-control']) !!}
 </div>
 
 <!-- Is Active Field -->
 <div class="form-group col-sm-6">
-    {!! Form::label('is_active', trans('app.general:is-active') . " :" ) !!}
+    {!! Form::label('is_active', trans('app.general:is-active') . " :", ['class' => 'h4 text-purple'] ) !!}
     {!! Form::checkbox('is_active', true, true) !!}
 </div>
 

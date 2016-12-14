@@ -1,12 +1,12 @@
 <!-- Product Name Field -->
 <div class="form-group col-sm-6">
-    {!! Form::label('product_name', trans('app.general:name') . " :" ) !!}
+    {!! Form::label('product_name', trans('app.general:name') . " :", ['class' => 'h4 text-purple'] ) !!}
     {!! Form::text('product_name', null, ['class' => 'form-control']) !!}
 </div>
 
 <!-- Is Active Field -->
 <div class="form-group col-sm-6">
-    {!! Form::label('is_active', trans('app.general:is-active') . " :" ) !!}
+    {!! Form::label('is_active', trans('app.general:is-active') . " :", ['class' => 'h4 text-purple'] ) !!}
     <div class="checkbox">
         <label>
             {!! Form::checkbox('is_active', null, true) !!}
@@ -17,19 +17,19 @@
 
 <!-- Category Field -->
 <div class="form-group col-sm-6">
-    {!! Form::label('category', trans('app.product:category') . " :" ) !!}
+    {!! Form::label('category', trans('app.product:category') . " :", ['class' => 'h4 text-purple'] ) !!}
     {!! Form::text('category', null, ['class' => 'form-control']) !!}
 </div>
 
 <!-- Ht Price Field -->
 <div class="form-group col-sm-6">
-    {!! Form::label('ht_price', trans('app.product:ht-price') . " :" ) !!}
+    {!! Form::label('ht_price', trans('app.product:ht-price') . " :", ['class' => 'h4 text-purple'] ) !!}
     {!! Form::text('ht_price', null, ['class' => 'form-control']) !!}
 </div>
 
 <!-- Taxes Field -->
 <div class="form-group col-sm-6">
-    {!! Form::label('ttc_price', trans('app.product:active-taxes') . " :") !!}
+    {!! Form::label('ttc_price', trans('app.product:active-taxes') . " :", ['class' => 'h4 text-purple']) !!}
 
     <hr>
     <div>
@@ -51,19 +51,19 @@
 
 <!-- Stock Disponibility Field -->
 <div class="form-group col-sm-6">
-    {!! Form::label('stock_disponibility', trans('app.product:stock-dispo') . " :") !!}
+    {!! Form::label('stock_disponibility', trans('app.product:stock-dispo') . " :", ['class' => 'h4 text-purple']) !!}
     {!! Form::text('stock_disponibility', null, ['class' => 'form-control']) !!}
 </div>
 
 <!-- Product Avatar Field -->
 <div class="form-group col-sm-6">
-    {!! Form::label('product_avatar', trans('app.product:avatar') . " :") !!}
+    {!! Form::label('product_avatar', trans('app.product:avatar') . " :", ['class' => 'h4 text-purple']) !!}
     {!! Form::text('product_avatar', null, ['class' => 'form-control']) !!}
 </div>
 
 <!-- Sale Datestart Field -->
 <div class="form-group col-sm-6">
-    {!! Form::label('sale_datestart', trans('app.product:date-start') . " :") !!}
+    {!! Form::label('sale_datestart', trans('app.product:date-start') . " :", ['class' => 'h4 text-purple']) !!}
     <div class="input-group date">
         <div class="input-group-addon">
             <i class="fa fa-calendar"></i>
@@ -74,7 +74,7 @@
 
 <!-- Sale Dateend Field -->
 <div class="form-group col-sm-6">
-    {!! Form::label('sale_dateend', trans('app.product:date-end') . " :") !!}
+    {!! Form::label('sale_dateend', trans('app.product:date-end') . " :", ['class' => 'h4 text-purple']) !!}
     <div class="input-group date">
         <div class="input-group-addon">
             <i class="fa fa-calendar"></i>
@@ -85,13 +85,13 @@
 
 <!-- Product Notice Field -->
 <div class="form-group col-sm-6">
-    {!! Form::label('product_notice', trans('app.product:notice') . " :") !!}
+    {!! Form::label('product_notice', trans('app.product:notice') . " :", ['class' => 'h4 text-purple']) !!}
     {!! Form::text('product_notice', null, ['class' => 'form-control']) !!}
 </div>
 
 <!-- Description Field -->
 <div class="form-group col-sm-6">
-    {!! Form::label('description', trans('app.general:description') . " :") !!}
+    {!! Form::label('description', trans('app.general:description') . " :", ['class' => 'h4 text-purple']) !!}
     {!! Form::text('description', null, ['class' => 'form-control']) !!}
 </div>
 
