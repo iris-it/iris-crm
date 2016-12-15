@@ -24,7 +24,7 @@
 
             <div class="box-body">
                 <div class="row">
-                    {!! Form::open(['action' => 'ContactController@store']) !!}
+                    {!! Form::open(['action' => 'ContactController@store', 'method' => 'POST', 'files' => true]) !!}
 
                     @include('pages.contacts.fields')
 

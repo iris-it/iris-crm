@@ -50,11 +50,12 @@
     <!-- Avatar Field -->
     <div class="form-group">
         {!! Form::label('avatar', trans('app.contact:avatar') . ' :', ['class' => 'h4 text-purple']) !!}
-        <input type="file" name="avatar" id="avatar" onchange="loadFile(event)" class="form-control">
+        @if(isset($contact))
+            @include('shared.partials.image_cropper',['base_image' => asset($contact->avatar), 'input_file_name' => 'avatar', 'input_crop_option'=> 'crop_options'])
+        @else
+            @include('shared.partials.image_cropper',['base_image' => '', 'input_file_name' => 'avatar', 'input_crop_option'=> 'crop_options'])
+        @endif
     </div>
-
-    <!-- Image preview -->
-    <img id="avatar-image" class="img img-responsive" width="100" height="100"/>
 
 </div>
 
@@ -75,18 +76,3 @@
     {!! Form::submit( trans('app.general:save-changes'), ['class' => 'btn btn-primary']) !!}
     <a href="{!! action('ContactController@index') !!}" class="btn btn-default">{{trans('app.general:cancel')}}</a>
 </div>
-
-
-@section('scripts')
-    @parent
-    <script>
-        var loadFile = function (event) {
-            var reader = new FileReader();
-            reader.onload = function () {
-                var output = document.getElementById('avatar-image');
-                output.src = reader.result;
-            };
-            reader.readAsDataURL(event.target.files[0]);
-        };
-    </script>
-@endsection

@@ -1,6 +1,6 @@
 <div class="box box-primary">
     <div class="box-body box-profile">
-        <img class="img-responsive" src="{{$contact->avatar}}">
+        <img class="img-responsive center-block" src="{{asset($contact->avatar)}}" width="150">
 
         <h3 class="profile-username text-center">{{$contact->firstname . " " . $contact->lastname}}
             <a href="{!! action('ContactController@edit', $contact->id) !!}" class='btn btn-flat'>

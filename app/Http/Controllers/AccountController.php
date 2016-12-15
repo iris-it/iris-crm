@@ -44,10 +44,14 @@ class AccountController extends Controller
      *
      */
 
-    public function store(AccountRequest $request)
+    public function store(AccountRequest $request, ImageService $imageService)
     {
         $input = $request->all();
 
+        if ($request->file('image')) {
+            $filename = $imageService->processTo('accounts/', $request);
+            $data['logo'] = $filename;
+        }
 
         if ($account = Account::create($input)) {
 

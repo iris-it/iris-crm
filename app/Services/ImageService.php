@@ -23,15 +23,15 @@ class ImageService
      * @param $request
      * @return string
      */
-    public function processTo($folder, $request)
+    public function processTo($folder, $request, $input_name = 'image')
     {
         $this->directory = storage_path() . '/app/images/' . $folder;
 
         //set the name
-        $this->originalImageName = 'original-' . md5(microtime()) . '.' . $request->file('image')->getClientOriginalExtension();
+        $this->originalImageName = 'original-' . md5(microtime()) . '.' . $request->file($input_name)->getClientOriginalExtension();
 
         //upload and save
-        $this->store($request->file('image'));
+        $this->store($request->file($input_name));
 
         ///crop image
         if ($request->has('crop_options')) {

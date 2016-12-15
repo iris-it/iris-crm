@@ -43,7 +43,6 @@ class Contact extends Model
         'post' => 'string',
         'email' => 'string',
         'phone_number' => 'string',
-        'avatar' => 'string',
         'free_label' => 'string'
     ];
 

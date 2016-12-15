@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 
 use App\Account;
 use App\Http\Requests\AccountRequest;
+use App\Services\ImageService;
 use Illuminate\Support\Facades\Lang;
 use Laracasts\Flash\Flash;
 
@@ -36,9 +37,14 @@ class LeadController extends Controller
      * Store a newly created Lead in storage.
      *
      */
-    public function store(AccountRequest $request)
+    public function store(AccountRequest $request, ImageService $imageService)
     {
         $input = $request->all();
+
+        if ($request->file('image')) {
+            $filename = $imageService->processTo('leads/', $request);
+            $input['logo'] = $filename;
+        }
 
         if ($lead = Account::create($input)) {
 
@@ -95,10 +101,15 @@ class LeadController extends Controller
     /**
      * Update the specified Lead in storage.
      */
-    public function update($id, AccountRequest $request)
+    public function update($id, AccountRequest $request, ImageService $imageService)
     {
         $lead = Account::findOrFail($id);
         $data = $request->all();
+
+        if ($request->file('image')) {
+            $filename = $imageService->processTo('leads/', $request);
+            $data['logo'] = $filename;
+        }
 
         if (empty($lead)) {
             Flash::error(Lang::get('app.general:missing-model'));

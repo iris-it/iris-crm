@@ -9,19 +9,19 @@
         <h1>
             {{trans('app.contact:edit')}}
         </h1>
-   </section>
-   <div class="content">
-       @include('errors.list')
-       <div class="box box-primary">
-           <div class="box-body">
-               <div class="row">
-                   {!! Form::model($contact, ['action' => ['ContactController@update', $contact->id], 'method' => 'PUT']) !!}
+    </section>
+    <div class="content">
+        @include('errors.list')
+        <div class="box box-primary">
+            <div class="box-body">
+                <div class="row">
+                    {!! Form::model($contact, ['action' => ['ContactController@update', $contact->id], 'method' => 'PUT', 'files' => true]) !!}
 
-                        @include('pages.contacts.fields')
+                    @include('pages.contacts.fields')
 
-                   {!! Form::close() !!}
-               </div>
-           </div>
-       </div>
-   </div>
+                    {!! Form::close() !!}
+                </div>
+            </div>
+        </div>
+    </div>
 @endsection

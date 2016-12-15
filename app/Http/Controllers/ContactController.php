@@ -6,6 +6,7 @@ use App\Account;
 use App\Contact;
 use App\Http\Requests\ContactRequest;
 use App\Office;
+use App\Services\ImageService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Lang;
 use Laracasts\Flash\Flash;
@@ -63,9 +64,14 @@ class ContactController extends Controller
      * Store a newly created Contact in storage.
      */
 
-    public function store(ContactRequest $request)
+    public function store(ContactRequest $request, ImageService $imageService)
     {
         $input = $request->all();
+
+        if ($request->file('avatar')) {
+            $filename = $imageService->processTo('contacts/', $request, 'avatar');
+            $input['avatar'] = $filename;
+        }
 
         if ($contact = Contact::create($input)) {
 
@@ -123,11 +129,16 @@ class ContactController extends Controller
     /**
      * Update the specified Contact in storage.
      */
-    public function update($id, ContactRequest $request)
+    public function update($id, ContactRequest $request, ImageService $imageService)
     {
 
         $contact = Contact::findOrFail($id);
         $input = $request->all();
+
+        if ($request->file('avatar')) {
+            $filename = $imageService->processTo('contacts/', $request, 'avatar');
+            $input['avatar'] = $filename;
+        }
 
         if (empty($contact)) {
             Flash::error(Lang::get('app.general:missing-model'));

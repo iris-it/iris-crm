@@ -34,9 +34,10 @@ class ContactRequest extends Request
                     'lastname' => 'string|max:255|required',
                     'firstname' => 'string|max:255|required',
                     'post' => 'string|max:255|required',
-                    'email' => ['required', 'email', 'max:255', Rule::unique('contacts', 'email')],
+                    'email' => ['required', 'email', 'max:255', Rule::unique('contacts', 'email')->ignore('deleted_at')],
                     'phone_number' => ["regex:/^\+?[0-9]{10,20}$/im"],
-                    'avatar' => 'string',
+                    'avatar' => 'image|mimes:jpg,jpeg,png,gif|max:50000',
+                    'crop_options' => 'string',
                     'free_label' => 'string',
 
                     /*Relations*/
@@ -53,9 +54,10 @@ class ContactRequest extends Request
                     'lastname' => 'string|max:255|required',
                     'firstname' => 'string|max:255|required',
                     'post' => 'string|max:255|required',
-                    'email' => ['required', 'email', 'max:255', Rule::unique('contacts', 'email')->ignore($this->id)],
+                    'email' => ['required', 'email', 'max:255', Rule::unique('contacts', 'email')->ignore($this->id,'deleted_at')],
                     'phone_number' => ["regex:/^\+?[0-9]{10,20}$/im"],
-                    'avatar' => 'string',
+                    'avatar' => 'image|mimes:jpg,jpeg,png,gif|max:50000',
+                    'crop_options' => 'string',
                     'free_label' => 'string',
 
                     /*Relations*/
