@@ -64,42 +64,17 @@
 </div>
 
 
-<address-form id="deliveryAddress" title="{{trans('app.general:delivery-address')}}" type="delivery">
+@include('pages.accounts.partials.address_form', ['title' => trans('app.general:delivery-address'), 'type' => 'delivery', 'id' => 'deliveryAddress'])
 
-    {!! Form::label('name', trans('app.address:name') . ' :', ['class' => 'h4 text-purple','slot' => 'name-field']) !!}
 
-    {!! Form::label('street_label', trans('app.address:street-label') . ' :', ['class' => 'h4 text-purple','slot' => 'street-label-field']) !!}
-
-    {!! Form::label('street_detail', trans('app.address:street-detail') . ' :', ['class' => 'h4 text-purple','slot' => 'street-detail-field']) !!}
-
-    {!! Form::label('zipcode', trans('app.general:zipcode') . ' :', ['class' => 'h4 text-purple','slot' => 'zipcode-field']) !!}
-
-    {!! Form::label('city', trans('app.general:city') . ' :', ['class' => 'h4 text-purple','slot' => 'city-field']) !!}
-
-    {!! Form::label('country', trans('app.general:country') . ' :', ['class' => 'h4 text-purple','slot' => 'country-field']) !!}
-
-</address-form>
 <div class="col-sm-12">
     <div class="form-group col-sm-6">
-        <button type="button" class="btn btn-info btn-flat" @click="{{ VueHelper::format('duplicateAddress', 'deliveryAddress', ['billingAddress']) }}"><i class="fa fa-files-o"></i> {{trans('app.address:use-same-btn')}}</button>
+        <button type="button" id="btn-duplicate" class="btn btn-info btn-flat" data-source="deliveryAddress" data-dest="billingAddress"><i class="fa fa-files-o"></i> {{trans('app.address:use-same-btn')}}</button>
     </div>
 </div>
 
-<address-form id="billingAddress" title="{{trans('app.general:billing-address')}}" type="billing">
 
-    {!! Form::label('name', trans('app.address:name') . ' :', ['class' => 'h4 text-purple','slot' => 'name-field']) !!}
-
-    {!! Form::label('street_label', trans('app.address:street-label') . ' :', ['class' => 'h4 text-purple','slot' => 'street-label-field']) !!}
-
-    {!! Form::label('street_detail', trans('app.address:street-detail') . ' :', ['class' => 'h4 text-purple','slot' => 'street-detail-field']) !!}
-
-    {!! Form::label('zipcode', trans('app.general:zipcode') . ' :', ['class' => 'h4 text-purple','slot' => 'zipcode-field']) !!}
-
-    {!! Form::label('city', trans('app.general:city') . ' :', ['class' => 'h4 text-purple','slot' => 'city-field']) !!}
-
-    {!! Form::label('country', trans('app.general:country') . ' :', ['class' => 'h4 text-purple','slot' => 'country-field']) !!}
-
-</address-form>
+@include('pages.accounts.partials.address_form', ['title' => trans('app.general:billing-address'), 'type' => 'billing', 'id' => 'billingAddress'])
 
 
 <!-- Free Label Field -->
@@ -113,3 +88,31 @@
     {!! Form::submit( trans('app.general:save-changes'), ['class' => 'btn btn-primary']) !!}
     <a href="{!! action('AccountController@index') !!}" class="btn btn-default">{{trans('app.general:cancel')}}</a>
 </div>
+
+@section('scripts')
+    @parent
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+
+            $('#btn-duplicate').click(function() {
+
+                var source = $('#' + $(this).data('source'));
+                var dest = $('#' + $(this).data('dest'));
+
+                dest.find('#name').val(source.find('#name').val());
+                dest.find('#street_label').val(source.find('#street_label').val());
+                dest.find('#street_detail').val(source.find('#street_detail').val());
+                dest.find('#zipcode').val(source.find('#zipcode').val());
+                dest.find('#city').val(source.find('#city').val());
+                dest.find('#country').val(source.find('#country').val());
+
+            });
+
+        });
+
+
+    </script>
+
+
+@endsection

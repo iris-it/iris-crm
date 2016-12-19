@@ -71,50 +71,7 @@
 </div>
 
 @foreach($office->addresses as $address)
-    <div class="col-sm-12">
-        @if($address->pivot->type == "delivery")
-            <h4 class="text-bold"> {{trans('app.general:delivery-address')}}</h4>
-        @elseif($address->pivot->type == "billing")
-            <h4 class="text-bold"> {{trans('app.general:billing-address')}}</h4>
-        @endif
-
-        <div class="form-group col-sm-6">
-            {!! Form::label('name', trans('app.address:name') . ' :', ['class' => 'h4 text-purple', 'slot' => 'name-field']) !!}
-            {!! Form::text('name', $address->name, ['name' => 'addresses[' . $address->id . '][name]', 'class' => 'form-control']) !!}
-        </div>
-
-        <div class="form-group col-sm-6">
-
-            {!! Form::label('street_label', trans('app.address:street-label') . ' :', ['class' => 'h4 text-purple', 'slot' => 'street-label-field']) !!}
-            {!! Form::text('street_label', $address->street_label, ['name' => 'addresses[' . $address->id . '][street_label]', 'class' => 'form-control']) !!}
-
-
-        </div>
-
-        <div class="form-group col-sm-6">
-            {!! Form::label('street_detail', trans('app.address:street-detail') . ' :', ['class' => 'h4 text-purple', 'slot' => 'street-detail-field']) !!}
-            {!! Form::text('street_detail', $address->street_detail, ['name' => 'addresses[' . $address->id . '][street_detail]', 'class' => 'form-control']) !!}
-
-        </div>
-        <div class="form-group col-sm-6">
-            {!! Form::label('zipcode', trans('app.general:zipcode') . ' :', ['class' => 'h4 text-purple', 'slot' => 'zipcode-field']) !!}
-            {!! Form::text('zipcode', $address->zipcode, ['name' => 'addresses[' . $address->id . '][zipcode]', 'class' => 'form-control']) !!}
-
-        </div>
-        <div class="form-group col-sm-6">
-            {!! Form::label('city', trans('app.general:city') . ' :', ['class' => 'h4 text-purple', 'slot' => 'city-field']) !!}
-            {!! Form::text('city', $address->city, ['name' => 'addresses[' . $address->id . '][city]', 'class' => 'form-control']) !!}
-
-        </div>
-        <div class="form-group col-sm-6">
-            {!! Form::label('country', trans('app.general:country') . ' :', ['class' => 'h4 text-purple', 'slot' => 'country-field']) !!}
-            {!! Form::text('country', $address->country, ['name' => 'addresses[' . $address->id . '][country]', 'class' => 'form-control']) !!}
-
-        </div>
-
-            <input type="hidden" id="type" name={{'addresses[' . $address->id . '][type]'}} value={{$address->pivot->type}} class="form-control" >
-
-    </div>
+    @include('pages.accounts.partials.address_form', ['title' => ($address->pivot->type == "delivery") ? trans("app.general:delivery-address") : trans("app.general:billing-address")  , 'id' => $address->id , 'address' => $address])
 @endforeach
 
 <!-- Free Label Field -->

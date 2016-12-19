@@ -12,7 +12,7 @@ class StatisticsHelper
     {
         $data = [];
 
-        setlocale(LC_TIME, 'French');
+        setlocale(LC_TIME, 'fr_FR.utf8');
 
         $from = Carbon::today()->startOfMonth();
         $to = Carbon::today()->endOfMonth();
@@ -21,7 +21,6 @@ class StatisticsHelper
             $data[] = $from->formatLocalized('%d %B');
             $from = $from->addDay();
         }
-
 
         return json_encode($data);
     }

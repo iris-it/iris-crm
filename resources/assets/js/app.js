@@ -11,10 +11,9 @@ require('./legacy');
  * Next, Vuex stores are loaded
  */
 
-import addressStore from './stores/address';
 const store = new Vuex.Store({
   modules: {
-    addressStore
+
   }
 });
 
@@ -71,18 +70,6 @@ const app = new Vue({
         }
 
         this.$set(this.tabState, id, true);
-
-    },
-
-    duplicateAddress: function (srcId, destIdArray) {
-
-      destIdArray.forEach(function (item) {
-
-        app.addressData[item] = Object.assign({}, app.addressData[item], app.addressData[srcId]);
-        store.commit('COPY', item);
-
-      });
-
 
     },
 
