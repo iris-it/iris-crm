@@ -34,9 +34,9 @@
     <hr>
     <div>
         @if(isset($product))
-            {!! Form::select('taxes[]', $taxes, array_pluck($product->taxes, 'id'), ['multiple', 'id'=> 'taxes_list', 'style' => 'height: 306px'] ) !!}
+            {!! Form::select('taxes[]', $taxes, array_pluck($product->taxes, 'id'), ['class' => 'form-control','multiple' => 'multiple'] ) !!}
         @else
-            {!! Form::select('taxes[]', $taxes, null, ['multiple', 'id'=> 'taxes_list', 'style' => 'height: 306px']) !!}
+            {!! Form::select('taxes[]', $taxes, null, ['class' => 'form-control','multiple' => 'multiple']) !!}
         @endif
     </div>
 

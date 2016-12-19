@@ -26,8 +26,9 @@ class ProductController extends Controller
     public function create()
     {
         $contacts = $this->organization->contacts;
-        $taxes = $this->organization->taxes;
+        $taxes = $this->organization->taxes->pluck('name' . ' : ' . 'value' . ' %', 'id');
 
+        dd($taxes);
 
         return view('pages.products.create')->with(compact('contacts', 'taxes'));
     }
