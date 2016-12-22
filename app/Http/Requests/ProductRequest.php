@@ -36,7 +36,8 @@ class ProductRequest extends Request
                     'ht_price' => 'numeric|required',
                     'ttc_price' => 'numeric',
                     'stock_disponibility' => 'integer|required',
-                    'product_avatar' => 'string',
+                    'product_avatar' => 'image|mimes:jpg,jpeg,png,gif|max:50000',
+                    'crop_options' => 'string',
                     'sale_datestart' => 'required',
                     'sale_dateend' => 'required',
                     'product_notice' => 'string',
@@ -44,8 +45,7 @@ class ProductRequest extends Request
 
                     /*Relations*/
 
-                    'taxes.*' => '',
-                    'manutention_officer_id' => 'integer',
+                    'taxes.*' => 'required',
 
                 ];
             }
@@ -58,7 +58,8 @@ class ProductRequest extends Request
                     'ht_price' => 'numeric|required',
                     'ttc_price' => 'numeric',
                     'stock_disponibility' => 'integer|required',
-                    'product_avatar' => 'string',
+                    'product_avatar' => 'image|mimes:jpg,jpeg,png,gif|max:50000',
+                    'crop_options' => 'string',
                     'sale_datestart' => 'required',
                     'sale_dateend' => 'required',
                     'product_notice' => 'string',
@@ -66,8 +67,7 @@ class ProductRequest extends Request
 
                     /*Relations*/
 
-                    'taxes.*' => '',
-                    'manutention_officer_id' => 'integer',
+                    'taxes.*' => 'required',
 
                 ];
             }

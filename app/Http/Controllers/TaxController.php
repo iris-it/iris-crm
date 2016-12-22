@@ -40,6 +40,8 @@ class TaxController extends Controller
         if ($tax = Tax::create($input)) {
 
             Flash::success(Lang::get('app.general:create-success'));
+            $tax->organization()->associate($this->organization);
+            $tax->save();
 
         } else {
 

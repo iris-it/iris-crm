@@ -12,9 +12,13 @@
 
 <!-- Is Active Field -->
 <div class="form-group col-sm-6">
-    {!! Form::label('is_active', trans('app.general:is-active') . " :", ['class' => 'h4 text-purple'] ) !!}
-    {!! Form::checkbox('is_active', true, true) !!}
+    {!! Form::label('is_active', trans('app.general:is-active') . ' :', ['class' => 'h4 text-purple']) !!}
+    <select class="form-control" id="is_active" name="is_active">
+        <option {{(!isset($tax)) ?: (!$tax->is_active ?: "selected")}} value=1>{{trans('app.general:yes')}}</option>
+        <option {{(!isset($tax)) ?: ($tax->is_active ?: "selected")}} value=0>{{trans('app.general:no')}}</option>
+    </select>
 </div>
+
 
 <!-- Submit Field -->
 <div class="form-group col-sm-12">

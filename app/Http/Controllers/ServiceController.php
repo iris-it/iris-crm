@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\ServiceRequest;
 use App\Service;
+use App\Services\ImageService;
 use Illuminate\Support\Facades\Lang;
 use Laracasts\Flash\Flash;
 
@@ -25,7 +26,7 @@ class ServiceController extends Controller
      */
     public function create()
     {
-        $taxes = $this->organization->taxes;
+        $taxes = $this->organization->taxes()->where('is_active', true)->get();
 
         return view('pages.services.create')->with(compact('taxes'));
     }
@@ -33,15 +34,20 @@ class ServiceController extends Controller
     /**
      * Store a newly created Service in storage.
      */
-    public function store(ServiceRequest $request)
+    public function store(ServiceRequest $request, ImageService $imageService)
     {
         $input = $request->all();
-        $totalTaxes = 0;
+
+        if ($request->file('service_avatar')) {
+            $filename = $imageService->processTo('services/', $request, 'service_avatar');
+            $input['service_avatar'] = $filename;
+        }
 
         if ($service = Service::create($input)) {
 
+            $totalTaxes = 0;
+
             $service->taxes()->sync($input["taxes"] ?: []);
-            $service->save();
 
             foreach ($service->taxes as $tax) {
 
@@ -51,6 +57,7 @@ class ServiceController extends Controller
             }
 
             $service->ttc_price = $service->ht_price + $totalTaxes;
+            $service->organization()->associate($this->organization);
             $service->save();
 
 
@@ -89,7 +96,7 @@ class ServiceController extends Controller
     public function edit($id)
     {
         $service = Service::findOrFail($id);
-        $taxes = $this->organization->taxes;
+        $taxes = $this->organization->taxes()->where('is_active', true)->get();
 
 
         if (empty($service)) {
@@ -104,11 +111,16 @@ class ServiceController extends Controller
     /**
      * Update the specified Service in storage.
      */
-    public function update($id, ServiceRequest $request)
+    public function update($id, ServiceRequest $request, ImageService $imageService)
     {
         $input = $request->all();
         $service = Service::findOrFail($id);
         $totalTaxes = 0;
+
+        if ($request->file('service_avatar')) {
+            $filename = $imageService->processTo('services/', $request, 'service_avatar');
+            $input['service_avatar'] = $filename;
+        }
 
         if (empty($service)) {
             Flash::error(Lang::get('app.general:missing-model'));

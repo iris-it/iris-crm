@@ -28,7 +28,6 @@ class Product extends Model
         'ttc_price',
         'stock_disponibility',
         'product_avatar',
-        'officer',
         'sale_datestart',
         'sale_dateend',
         'product_notice',
@@ -46,7 +45,6 @@ class Product extends Model
         'category' => 'string',
         'stock_disponibility' => 'integer',
         'product_avatar' => 'string',
-        'officer' => 'string',
         'product_notice' => 'string',
         'description' => 'string'
     ];

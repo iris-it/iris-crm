@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Contact;
 use App\Http\Requests\ProductRequest;
 use App\Product;
+use App\Services\ImageService;
 use Illuminate\Support\Facades\Lang;
 use Laracasts\Flash\Flash;
 
@@ -25,27 +26,28 @@ class ProductController extends Controller
      */
     public function create()
     {
-        $contacts = $this->organization->contacts;
-        $taxes = $this->organization->taxes->pluck('name' . ' : ' . 'value' . ' %', 'id');
 
-        dd($taxes);
+        $taxes = $this->organization->taxes()->where('is_active', true)->get();
 
-        return view('pages.products.create')->with(compact('contacts', 'taxes'));
+        return view('pages.products.create')->with(compact('taxes'));
     }
 
     /**
      * Store a newly created Product in storage.
      */
-    public function store(ProductRequest $request)
+    public function store(ProductRequest $request, ImageService $imageService)
     {
         $input = $request->all();
+
+        if ($request->file('product_avatar')) {
+            $filename = $imageService->processTo('products/', $request, 'product_avatar');
+            $input['product_avatar'] = $filename;
+        }
 
         if ($product = Product::create($input)) {
 
             $totalTaxes = 0;
 
-            $contact = Contact::findOrFail($request->manutention_officer_id);
-            $product->officer = $contact->firstname . " " . $contact->lastname;
             $product->taxes()->sync($input["taxes"] ?: []);
 
             foreach ($product->taxes as $tax) {
@@ -56,6 +58,7 @@ class ProductController extends Controller
             }
 
             $product->ttc_price = $product->ht_price + $totalTaxes;
+            $product->organization()->associate($this->organization);
             $product->save();
 
             Flash::success(Lang::get('app.general:create-success'));
@@ -67,7 +70,7 @@ class ProductController extends Controller
 
         }
 
-        return redirect(action('products.index'));
+        return redirect(action('ProductController@index'));
     }
 
     /**
@@ -94,8 +97,7 @@ class ProductController extends Controller
     public function edit($id)
     {
         $product = Product::findOrFail($id);
-        $contacts = $this->organization->contacts;
-        $taxes = $this->organization->taxes;
+        $taxes = $this->organization->taxes()->where('is_active', true)->get();
 
         if (empty($product)) {
 
@@ -104,19 +106,22 @@ class ProductController extends Controller
             return redirect(action('ProductController@index'));
         }
 
-        return view('pages.products.edit')->with(compact('product', 'contacts', 'taxes'));
+        return view('pages.products.edit')->with(compact('product', 'taxes'));
     }
 
     /**
      * Update the specified Product in storage.
      */
-    public function update($id, ProductRequest $request)
+    public function update($id, ProductRequest $request, ImageService $imageService)
     {
         $product = Product::findOrFail($id);
         $input = $request->all();
         $totalTaxes = 0;
 
-        $contact = Contact::findOrFail($request->manutention_officer_id);
+        if ($request->file('product_avatar')) {
+            $filename = $imageService->processTo('products/', $request, 'product_avatar');
+            $input['product_avatar'] = $filename;
+        }
 
         if (empty($product)) {
             Flash::error(Lang::get('app.general:missing-model'));
@@ -131,7 +136,6 @@ class ProductController extends Controller
             }
 
             $product->taxes()->sync($input["taxes"] ?: []);
-            $product->officer = $contact->firstname . " " . $contact->lastname;
 
             foreach ($product->taxes as $tax) {
 

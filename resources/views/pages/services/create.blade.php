@@ -1,6 +1,5 @@
 @extends('layouts.app')
 
-
 @section('breadcrumbs')
     {!! Breadcrumbs::render('new-service') !!}
 @endsection
@@ -9,7 +8,7 @@
 @section('content')
     <section class="content-header">
         <h1>
-            Création d'un service
+            {{trans('app.service:new')}}
         </h1>
     </section>
     <div class="content">
@@ -18,7 +17,7 @@
 
             <div class="box-body">
                 <div class="row">
-                    {!! Form::open(['action' => 'ServiceController@store']) !!}
+                    {!! Form::open(['action' => 'ServiceController@store', 'method' => 'POST', 'files' => true]) !!}
 
                         @include('pages.services.fields')
 
@@ -29,10 +28,13 @@
     </div>
 @endsection
 
-@section('js-app-scope')
+@section('scripts')
+    @parent
+    <script type="text/javascript">
 
-    IrisCrm.initDualListBox('taxes_list');
-    IrisCrm.initDatePicker('sale_datestart');
-    IrisCrm.initDatePicker('sale_dateend');
+        IrisCrm.initDatePicker('sale_datestart');
+        IrisCrm.initDatePicker('sale_dateend');
+
+    </script>
 
 @endsection

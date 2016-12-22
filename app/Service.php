@@ -29,6 +29,7 @@ class Service extends Model
         'ttc_price',
         'sale_datestart',
         'sale_dateend',
+        'service_avatar',
         'description'
     ];
 

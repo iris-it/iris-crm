@@ -6,14 +6,13 @@
 
 <!-- Is Active Field -->
 <div class="form-group col-sm-6">
-    {!! Form::label('is_active', trans('app.general:is-active') . " :", ['class' => 'h4 text-purple'] ) !!}
-    <div class="checkbox">
-        <label>
-            {!! Form::checkbox('is_active', null, true) !!}
-        </label>
-    </div>
-
+    {!! Form::label('is_active', trans('app.general:is-active') . ' :', ['class' => 'h4 text-purple']) !!}
+    <select class="form-control" id="is_active" name="is_active">
+        <option value=1>{{trans('app.general:yes')}}</option>
+        <option value=0>{{trans('app.general:no')}}</option>
+    </select>
 </div>
+
 
 <!-- Category Field -->
 <div class="form-group col-sm-6">
@@ -29,24 +28,15 @@
 
 <!-- Taxes Field -->
 <div class="form-group col-sm-6">
-    {!! Form::label('ttc_price', trans('app.product:active-taxes') . " :", ['class' => 'h4 text-purple']) !!}
-
-    <hr>
+    {!! Form::label('taxes', trans('app.product:active-taxes') . " :", ['class' => 'h4 text-purple']) !!}
     <div>
-        @if(isset($product))
-            {!! Form::select('taxes[]', $taxes, array_pluck($product->taxes, 'id'), ['class' => 'form-control','multiple' => 'multiple'] ) !!}
-        @else
-            {!! Form::select('taxes[]', $taxes, null, ['class' => 'form-control','multiple' => 'multiple']) !!}
-        @endif
+        <select name="taxes[]" id="taxes" class="form-control" multiple>
+            @foreach($taxes as $tax)
+                <option value="{{$tax->id}}" {{(!isset($product)) ?: ((!in_array($tax->id, $product->taxes->pluck('id')->toArray()) ?: "selected"))}}>{{$tax->name}} : {{$tax->value}} %</option>
+            @endforeach
+        </select>
     </div>
 
-</div>
-
-
-<!-- Manutention Officer Field -->
-<div class="form-group col-sm-6">
-    <label for="manutention_officer_id">{{trans('app.product:manu-officer')}} :</label>
-    {!! Form::select('manutention_officer_id', $contacts, null, ['class' => 'form-control']) !!}
 </div>
 
 <!-- Stock Disponibility Field -->
@@ -55,11 +45,6 @@
     {!! Form::text('stock_disponibility', null, ['class' => 'form-control']) !!}
 </div>
 
-<!-- Product Avatar Field -->
-<div class="form-group col-sm-6">
-    {!! Form::label('product_avatar', trans('app.product:avatar') . " :", ['class' => 'h4 text-purple']) !!}
-    {!! Form::text('product_avatar', null, ['class' => 'form-control']) !!}
-</div>
 
 <!-- Sale Datestart Field -->
 <div class="form-group col-sm-6">
@@ -68,7 +53,7 @@
         <div class="input-group-addon">
             <i class="fa fa-calendar"></i>
         </div>
-        {!! Form::text('sale_datestart', null, ['class' => 'form-control', 'id' => 'sale_datestart']) !!}
+        {!! Form::text('sale_datestart', null, ['class' => 'form-control']) !!}
     </div>
 </div>
 
@@ -79,7 +64,7 @@
         <div class="input-group-addon">
             <i class="fa fa-calendar"></i>
         </div>
-        {!! Form::text('sale_dateend', null, ['class' => 'form-control', 'id' => 'sale_dateend']) !!}
+        {!! Form::text('sale_dateend', null, ['class' => 'form-control']) !!}
     </div>
 </div>
 
@@ -95,8 +80,19 @@
     {!! Form::text('description', null, ['class' => 'form-control']) !!}
 </div>
 
+<!-- Product Avatar Field -->
+<div class="form-group col-sm-6">
+    {!! Form::label('product_avatar', trans('app.product:avatar') . ' :', ['class' => 'h4 text-purple']) !!}
+    @if(isset($product))
+        @include('shared.partials.image_cropper',['base_image' => asset($product->product_avatar), 'input_file_name' => 'product_avatar', 'input_crop_option'=> 'crop_options'])
+    @else
+        @include('shared.partials.image_cropper',['base_image' => '', 'input_file_name' => 'product_avatar', 'input_crop_option'=> 'crop_options'])
+    @endif
+</div>
+
 <!-- Submit Field -->
 <div class="form-group col-sm-12">
     {!! Form::submit( trans('app.general:save-changes'), ['class' => 'btn btn-primary']) !!}
     <a href="{!! action('ProductController@index') !!}" class="btn btn-default">{{trans('app.general:cancel')}}</a>
 </div>
+

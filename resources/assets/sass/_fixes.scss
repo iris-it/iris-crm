@@ -55,3 +55,22 @@
 .app-breadcrumb > li > a {
   color: white;
 }
+
+.datepicker-switch {
+
+  color: #605ca8 !important;
+}
+
+.datepicker table tr td.today {
+  color: #000;
+  background-color: darkturquoise;
+  border-color: black;
+}
+
+.datepicker table tr td.old {
+  color: silver;
+}
+
+.datepicker table tr td.new {
+  color: silver;
+}

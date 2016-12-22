@@ -15,7 +15,7 @@
        <div class="box box-primary">
            <div class="box-body">
                <div class="row">
-                   {!! Form::model($product, ['action' => ['ProductController@update', $product->id], 'method' => 'patch']) !!}
+                   {!! Form::model($product, ['action' => ['ProductController@update', $product->id], 'method' => 'patch', 'files' => true]) !!}
 
                         @include('pages.products.fields')
 

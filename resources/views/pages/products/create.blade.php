@@ -7,7 +7,7 @@
 @section('content')
     <section class="content-header">
         <h1>
-            Création d'un produit
+            {{trans('app.product:new')}}
         </h1>
     </section>
     <div class="content">
@@ -16,7 +16,7 @@
 
             <div class="box-body">
                 <div class="row">
-                    {!! Form::open(['action' => 'ProductController@store']) !!}
+                    {!! Form::open(['action' => 'ProductController@store', 'method' => 'POST', 'files' => true]) !!}
 
                     @include('pages.products.fields')
 
@@ -27,10 +27,13 @@
     </div>
 @endsection
 
-@section('js-app-scope')
+@section('scripts')
+    @parent
+    <script type="text/javascript">
 
-    IrisCrm.initDualListBox('taxes_list');
-    IrisCrm.initDatePicker('sale_datestart');
-    IrisCrm.initDatePicker('sale_dateend');
+        IrisCrm.initDatePicker('sale_datestart');
+        IrisCrm.initDatePicker('sale_dateend');
+
+    </script>
 
 @endsection

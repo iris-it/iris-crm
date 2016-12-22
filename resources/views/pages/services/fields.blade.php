@@ -4,6 +4,14 @@
     {!! Form::text('service_name', null, ['class' => 'form-control']) !!}
 </div>
 
+<!-- Is Active Field -->
+<div class="form-group col-sm-6">
+    {!! Form::label('is_active', trans('app.general:is-active') . ' :', ['class' => 'h4 text-purple']) !!}
+    <select class="form-control" id="is_active" name="is_active">
+        <option value=1>{{trans('app.general:yes')}}</option>
+        <option value=0>{{trans('app.general:no')}}</option>
+    </select>
+</div>
 
 <!-- Category Field -->
 <div class="form-group col-sm-6">
@@ -23,17 +31,17 @@
     {!! Form::text('ht_price', null, ['class' => 'form-control']) !!}
 </div>
 
-<!-- Ttc Price Field -->
+<!-- Taxes Field -->
 <div class="form-group col-sm-6">
-    {!! Form::label('ttc_price', trans('app.product:active-taxes') . " :", ['class' => 'h4 text-purple']) !!}
-    <hr>
+    {!! Form::label('taxes', trans('app.product:active-taxes') . " :", ['class' => 'h4 text-purple']) !!}
     <div>
-        @if(isset($service))
-            {!! Form::select('taxes[]', $taxes, array_pluck($service->taxes, 'id'), ['multiple', 'id'=> 'taxes_list', 'style' => 'height: 306px'] ) !!}
-        @else
-            {!! Form::select('taxes[]', $taxes, null, ['multiple', 'id'=> 'taxes_list', 'style' => 'height: 306px']) !!}
-        @endif
+        <select name="taxes[]" id="taxes" class="form-control" multiple>
+            @foreach($taxes as $tax)
+                <option value="{{$tax->id}}" {{(!isset($service)) ?: ((!in_array($tax->id, $service->taxes->pluck('id')->toArray()) ?: "selected"))}}>{{$tax->name}} : {{$tax->value}} %</option>
+            @endforeach
+        </select>
     </div>
+
 </div>
 
 <!-- Sale Datestart Field -->
@@ -64,19 +72,18 @@
     {!! Form::text('description', null, ['class' => 'form-control']) !!}
 </div>
 
-<!-- Is Active Field -->
+<!-- Service Avatar Field -->
 <div class="form-group col-sm-6">
-    {!! Form::label('is_active', trans('app.general:is-active') . " :", ['class' => 'h4 text-purple'] )  !!}
-    <div class="checkbox">
-        <label>
-            {!! Form::checkbox('is_active', null, true) !!}
-        </label>
-    </div>
+    {!! Form::label('service_avatar', trans('app.service:avatar') . ' :', ['class' => 'h4 text-purple']) !!}
+    @if(isset($service))
+        @include('shared.partials.image_cropper',['base_image' => asset($service->service_avatar), 'input_file_name' => 'service_avatar', 'input_crop_option'=> 'crop_options'])
+    @else
+        @include('shared.partials.image_cropper',['base_image' => '', 'input_file_name' => 'service_avatar', 'input_crop_option'=> 'crop_options'])
+    @endif
 </div>
-
 
 <!-- Submit Field -->
 <div class="form-group col-sm-12">
     {!! Form::submit( trans('app.general:save-changes'), ['class' => 'btn btn-primary']) !!}
-    <a href="{!! action('ServiceController@index') !!}" class="btn btn-default">Cancel</a>
+    <a href="{!! action('ServiceController@index') !!}" class="btn btn-default">{{trans('app.general:cancel')}}</a>
 </div>

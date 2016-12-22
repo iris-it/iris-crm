@@ -14,7 +14,7 @@
 
         <!-- Is Active Field -->
         <div class="form-group col-sm-6">
-            {!! Form::label('is_active', trans('app.general:is-active') . " :" , ['class' => 'h4 text-purple']) !!}
+            {!! Form::label('is_active', trans('app.general:is-active') . " :"  , ['class' => 'h4 text-purple']) !!}
             @if($tax->is_active)
                 <span class="h4 text-bold">{{trans('app.general:yes')}}</span>
             @else

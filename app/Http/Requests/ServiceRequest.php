@@ -37,11 +37,13 @@ class ServiceRequest extends Request
                     'ttc_price' => 'numeric',
                     'sale_datestart' => 'required',
                     'sale_dateend' => 'required',
+                    'service_avatar' => 'image|mimes:jpg,jpeg,png,gif|max:50000',
+                    'crop_options' => 'string',
                     'description' => 'string',
 
                     /*Relations*/
 
-                    'taxes.*' => ''
+                    'taxes.*' => 'required'
                 ];
             }
             case 'PATCH': {
@@ -55,11 +57,13 @@ class ServiceRequest extends Request
                     'ttc_price' => 'numeric',
                     'sale_datestart' => 'required',
                     'sale_dateend' => 'required',
+                    'service_avatar' => 'image|mimes:jpg,jpeg,png,gif|max:50000',
+                    'crop_options' => 'string',
                     'description' => 'string',
 
                     /*Relations*/
 
-                    'taxes.*' => ''
+                    'taxes.*' => 'required'
                 ];
             }
         }

@@ -2,11 +2,6 @@
     <div class="box-body">
         <h4 class="box-title">{{trans('app.general:general-info')}}</h4>
         <hr>
-        <!-- Service Name Field -->
-        <div class="form-group col-sm-6">
-            {!! Form::label('service_name', trans('app.general:name') . " :" , ['class' => 'h4 text-purple']) !!}
-            <span class="h4 text-bold">{!! $service->service_name !!}</span>
-        </div>
 
         <!-- Is Active Field -->
         <div class="form-group col-sm-6">
@@ -18,29 +13,23 @@
             @endif
         </div>
 
-        <!-- Category Field -->
-        <div class="form-group col-sm-6">
-            {!! Form::label('category',  trans('app.product:category') . " :" , ['class' => 'h4 text-purple']) !!}
-            <span class="h4 text-bold">{!! $service->category !!}</span>
-        </div>
-
-
-        <!-- Description Field -->
-        <div class="form-group col-sm-6">
-            {!! Form::label('description', trans('app.general:description') . " :" , ['class' => 'h4 text-purple']) !!}
-            <span class="h4 text-bold">{!! $service->description !!}</span>
-        </div>
 
         <!-- Ht Price Field -->
         <div class="form-group col-sm-6">
             {!! Form::label('ht_price', trans('app.product:ht-price') . " :" , ['class' => 'h4 text-purple']) !!}
-            <span class="h4 text-bold">{!! $service->ht_price !!}</span>
+            <span class="h4 text-bold">{!! $service->ht_price !!} €</span>
         </div>
 
-        <!-- TTC Price Field -->
+        <!-- Sale Datestart Field -->
         <div class="form-group col-sm-6">
-            {!! Form::label('ttc_price', trans('app.general:ttc-price') . " :" , ['class' => 'h4 text-purple'])  !!}
-            <span class="h4 text-bold">{!! $service->ttc_price !!}</span>
+            {!! Form::label('sale_datestart', trans('app.product:date-start') . " :" , ['class' => 'h4 text-purple']) !!}
+            <span class="h4 text-bold">{!! $service->sale_datestart !!}</span>
+        </div>
+
+        <!-- Sale Dateend Field -->
+        <div class="form-group col-sm-6">
+            {!! Form::label('sale_dateend', trans('app.product:date-end') . " :" , ['class' => 'h4 text-purple']) !!}
+            <span class="h4 text-bold">{!! $service->sale_dateend !!}</span>
         </div>
 
     </div>
@@ -64,23 +53,12 @@
             @endif
         </div>
 
-        <!-- Sale Unit Field -->
+        <!-- Description Field -->
         <div class="form-group col-sm-6">
-            {!! Form::label('sale_unit', trans('app.order:sale-unit') . " :" , ['class' => 'h4 text-purple']) !!}
-            <span class="h4 text-bold">{!! $service->sale_unit !!}</span>
+            {!! Form::label('description', trans('app.general:description') . " :" , ['class' => 'h4 text-purple']) !!}
+            <span class="h4 text-bold">{!! $service->description !!}</span>
         </div>
 
-        <!-- Sale Datestart Field -->
-        <div class="form-group col-sm-6">
-            {!! Form::label('sale_datestart', trans('app.product:date-start') . " :" , ['class' => 'h4 text-purple']) !!}
-            <span class="h4 text-bold">{!! $service->sale_datestart !!}</span>
-        </div>
-
-        <!-- Sale Dateend Field -->
-        <div class="form-group col-sm-6">
-            {!! Form::label('sale_dateend', trans('app.product:date-end') . " :" , ['class' => 'h4 text-purple']) !!}
-            <span class="h4 text-bold">{!! $service->sale_dateend !!}</span>
-        </div>
     </div>
 </div>
 

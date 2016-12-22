@@ -20,10 +20,11 @@ class CreateServicesTable extends Migration
             $table->string('category');
             $table->string('sale_unit');
             $table->decimal('ht_price');
-            $table->decimal('ttc_price');
+            $table->decimal('ttc_price')->nullable();;
             $table->timestamp('sale_datestart')->nullable();
             $table->timestamp('sale_dateend')->nullable();
-            $table->string('description');
+            $table->string('service_avatar')->nullable();
+            $table->string('description')->nullable();;
             $table->timestamps();
             $table->softDeletes();
         });

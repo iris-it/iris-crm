@@ -12,8 +12,8 @@
             @endif
         </h1>
         <h1 class="pull-right">
-            <a class="btn btn-app bg-blue btn-flat pull-right"  style="font-size: 15px; margin-top: -10px;margin-bottom: 5px" href="{!! action('TaxController@create') !!}">
-                <i class="fa fa-plus"></i> {{trans('app.general:create')}}
+            <a class="btn btn-app bg-blue create-button btn-flat pull-right"  href="{!! action('TaxController@create') !!}">
+                <i class="fa fa-percent"></i> {{trans('app.general:create')}}
             </a>
         </h1>
     </section>
@@ -23,11 +23,26 @@
         @include('flash::message')
 
         <div class="clearfix"></div>
-        <div class="box box-primary">
-            <div class="box-body">
+
+        @if($taxes->count() > 0)
+            <div class="box box-primary">
+                <div class="box-body">
                     @include('pages.taxes.table')
+                </div>
             </div>
-        </div>
+        @else
+            <div class="form-group col-sm-10 text-center">
+                <h3 class="box-title animated flash">{{trans('app.tax:no-taxes-title')}}</h3>
+                <h4 class="animated fadeIn">{{trans('app.tax:no-taxes-desc')}}</h4>
+                <div class="col-sm-12 text-center">
+                    <br>
+                    <a class="btn btn-app bg-blue btn-flat create-button animated pulse" href="{!! action('TaxController@create') !!}">
+                    <i class="fa fa-percent"></i> {{trans('app.general:create')}} </a>
+                </div>
+            </div>
+        @endif
+
+
     </div>
 @endsection
 

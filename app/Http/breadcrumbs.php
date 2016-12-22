@@ -231,13 +231,13 @@ Breadcrumbs::register('new-product', function ($breadcrumbs) {
 //  > Products > Product
 Breadcrumbs::register('product', function ($breadcrumbs, $product) {
     $breadcrumbs->parent('products');
-    $breadcrumbs->push($product->name, action('ProductController@show', $product->id));
+    $breadcrumbs->push($product->product_name, action('ProductController@show', $product->id));
 });
 
 //  > Products > Product > Edit
 Breadcrumbs::register('edit-product', function ($breadcrumbs, $product) {
     $breadcrumbs->parent('product', $product);
-    $breadcrumbs->push($product->name . " : " . trans('app.breadcrumb:edit'));
+    $breadcrumbs->push($product->product_name . " : " . trans('app.breadcrumb:edit'));
 });
 
 ///////////////////////////////////////////////////////////////////////////
@@ -272,25 +272,25 @@ Breadcrumbs::register('edit-service', function ($breadcrumbs, $service) {
 //  Taxes                                                               //
 ///////////////////////////////////////////////////////////////////////////
 
-//  >  Products
+//  >  Taxes
 Breadcrumbs::register('taxes', function ($breadcrumbs) {
     $breadcrumbs->parent('home');
     $breadcrumbs->push(trans('app.general:taxes'), action('TaxController@index'));
 });
 
-//  > Products > New
+//  > Taxes > New
 Breadcrumbs::register('new-tax', function ($breadcrumbs) {
     $breadcrumbs->parent('taxes');
     $breadcrumbs->push(trans('app.tax:new'));
 });
 
-//  > Products > Product
+//  > Taxes > Tax
 Breadcrumbs::register('tax', function ($breadcrumbs, $tax) {
     $breadcrumbs->parent('taxes');
     $breadcrumbs->push($tax->name, action('TaxController@show', $tax->id));
 });
 
-//  > Products > Product > Edit
+//  > Taxes > Tax > Edit
 Breadcrumbs::register('edit-tax', function ($breadcrumbs, $tax) {
     $breadcrumbs->parent('tax', $tax);
     $breadcrumbs->push($tax->name . " : " . trans('app.breadcrumb:edit'));
