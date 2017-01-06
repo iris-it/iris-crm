@@ -4,15 +4,15 @@
     @include('elements.head')
 </head>
 
-<body class="hold-transition login-page" id="app">
+<body class="hold-transition login-page">
 
-<div class="login-box">
+<div class="col-md-6 col-md-offset-3" style="margin-top:15%" id="app">
 
     <div class="login-logo">
-        <a href="#"><b>Iris</b>pass</a>
+        <p style="font-size:2em"><b>Iris</b>-PASS</p>
     </div>
 
-    <div class="login-box-body">
+    <div class="col-md-12">
         @yield('content')
     </div>
 

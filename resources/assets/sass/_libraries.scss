@@ -1,0 +1,29 @@
+// Bootstrap
+/* override icon-font-path value and include scss */
+$icon-font-path: "../fonts/";
+@import "node_modules/bootstrap-sass/assets/stylesheets/bootstrap";
+@import "node_modules/bootstrap-vertical-tabs/bootstrap.vertical-tabs";
+@import "node_modules/bootstrap-datepicker/dist/css/bootstrap-datepicker3.min";
+// Font Awesome
+@import "node_modules/font-awesome/scss/font-awesome.scss";
+
+//Ionicons
+@import "node_modules/ionicons/dist/scss/ionicons.scss";
+
+// Admin LTE
+@import "node_modules/admin-lte/dist/css/AdminLTE.min";
+@import "node_modules/admin-lte/dist/css/skins/skin-blue.min";
+
+//Animate
+@import "node_modules/animate.css/animate.min";
+
+// LeafLet
+@import "node_modules/leaflet/dist/leaflet";
+@import "node_modules/leaflet.markercluster/dist/MarkerCluster";
+@import "node_modules/leaflet.markercluster/dist/MarkerCluster.Default";
+
+// Cropper
+@import "node_modules/cropper/dist/cropper";
+
+// Summernote
+//@import "node_modules/trumbowyg/dist/ui/sass/trumbowyg.scss";

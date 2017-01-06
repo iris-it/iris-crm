@@ -1,0 +1,104 @@
+.u-overlay {
+  position: fixed;
+  z-index: 1000;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.naked-link {
+  color: inherit;
+  text-decoration: inherit;
+}
+
+.checkbox-label {
+  position: relative;
+  left: 2em;
+  bottom: 1.2em;
+}
+
+.create-button {
+  font-size: 15px;
+  margin-top: -10px;
+  margin-bottom: 5px
+}
+
+.tab-pane:not(.active) {
+  display: none;
+}
+
+.app-breadcrumb {
+
+  padding: 14px 15px;
+  margin-bottom: 0;
+  list-style: none;
+  background-color: transparent;
+
+  @extend .breadcrumb;
+}
+
+.app-breadcrumb > .active {
+  color: white;
+  font-weight: bold;
+
+}
+
+.app-breadcrumb > li {
+  color: white;
+}
+
+.app-breadcrumb > li > a {
+  color: white;
+}
+
+.datepicker-switch {
+
+  color: #605ca8 !important;
+}
+
+.datepicker table tr td.today {
+  color: #000;
+  background-color: darkturquoise;
+  border-color: black;
+}
+
+.datepicker table tr td.old {
+  color: silver;
+}
+
+.datepicker table tr td.new {
+  color: silver;
+}
+
+/**
+ * Style Stuff ( background etc )
+ */
+
+.content-wrapper {
+  background: url(../../../img/blur.jpg) no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+
+.login-page {
+  background: url(../../../img/blur.jpg) no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+
+.login-logo {
+  color: white;
+}
+
+.text-white {
+  color: white;
+}

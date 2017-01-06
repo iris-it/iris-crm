@@ -1,9 +1,0 @@
-{
-  "name": "iris-crm",
-  "private": true,
-  "dependencies": {
-    "AdminLTE": "admin-lte#^2.3.3",
-    "bootstrap": "^3.3.6",
-    "font-awesome": "^4.6.3"
-  }
-}

@@ -2,7 +2,13 @@
   <dictionary name="alexa">
     <words>
       <w>adminlte</w>
+      <w>cropend</w>
+      <w>dcos</w>
+      <w>geocoder</w>
+      <w>geodata</w>
       <w>livereload</w>
+      <w>zipcode</w>
+      <w>zoomable</w>
     </words>
   </dictionary>
 </component>

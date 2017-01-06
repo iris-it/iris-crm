@@ -1,10 +1,22 @@
-var Vue = require('vue');
+/**
+ * First we will load all of this project's JavaScript dependencies
+ */
 
-import Login from './components/Auth/Login.vue';
-import Logout from './components/Auth/Logout.vue';
-import UserProfile from './components/Auth/UserProfile.vue';
+window._ = require('lodash');
+window.$ = window.jQuery = require('jquery');
 
-new Vue({
-    el: '#app',
-    components: {Login, Logout, UserProfile}
-});
+require('bootstrap-sass');
+require('bootstrap-datepicker');
+require('admin-lte');
+require('chart.js');
+require('leaflet');
+require('leaflet.markercluster');
+require('cropper');
+// require('trumbowyg');
+
+/**
+ * Application specific
+ */
+window.IrisCrm = require('./crm');
+require('./general');
+

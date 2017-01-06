@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use AdamWathan\EloquentOAuth\Facades\OAuth;
-use App\Http\Requests;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 
@@ -23,8 +22,12 @@ class AuthController extends Controller
     public function handleCallback()
     {
         OAuth::login('keycloak', function ($user, $details) {
-            $user->name = $details->nickname;
-            $user->email = $details->email;
+            $user->sub                  = $details->raw['sub'];
+            $user->preferred_username   = $details->nickname;
+            $user->given_name           = $details->raw['given_name'];
+            $user->family_name          = $details->raw['family_name'];
+            $user->name                 = $details->full_name;
+            $user->email                = $details->email;
             $user->save();
         });
 
