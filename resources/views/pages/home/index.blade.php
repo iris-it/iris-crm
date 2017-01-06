@@ -99,7 +99,7 @@
 
         <div class="row">
             <div class="col-md-12">
-                <div class="box">
+                <div class="box box-primary">
                     <div class="box-header with-border">
                         <h2 class="box-title text-uppercase">{{trans('app.dashboard:sales-chart-title')}}</h2>
 
