@@ -12,9 +12,9 @@
             @endif
         </h1>
         <h1 class="pull-right">
-            <a class="btn btn-app create-button bg-blue btn-flat pull-right" href="#" @click="{{VueHelper::format('showModal', 'createContactModal', []) }}">
-            <i class="fa fa-address-card"></i> {{trans('app.general:create')}}
-            </a>
+            <button class="btn btn-app bg-blue btn-flat pull-right" style="font-size: 15px; margin-top: -10px;margin-bottom: 5px" type="button" data-toggle="modal" data-target="#contactModal">
+                <i class="fa fa-address-card"></i> {{trans('app.general:create')}}
+            </button>
         </h1>
     </section>
     <div class="content">
@@ -36,32 +36,46 @@
                 <h4 class="animated fadeIn">{{trans('app.contact:no-contacts-desc')}}</h4>
                 <div class="col-sm-12 text-center">
                     <br>
-                    <a class="btn btn-app bg-blue btn-flat create-button animated pulse" href="#" @click="{{VueHelper::format('showModal', 'createContactModal', []) }}">
-                    <i class="fa fa-address-card"></i> {{trans('app.general:create')}} </a>
+                    <button class="btn btn-app bg-blue btn-flat create-button animated pulse" type="button" data-toggle="modal" data-target="#contactModal">
+                        <i class="fa fa-address-card"></i> {{trans('app.general:create')}}
+                    </button>
                 </div>
             </div>
         @endif
 
+    </div>
+@endsection
 
-        <modal id="createContactModal" title="{{trans('app.contact:new')}}">
-            {!! Form::open(['action' => 'ContactController@create', 'method' => 'GET']) !!}
+@section('footer')
+    @parent
+    <div class="modal fade fadeInDown" id="contactModal" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                {!! Form::open(['action' => 'ContactController@create', 'method' => 'GET']) !!}
 
-            <div class="form-group col-sm-12 text-center">
-                {!! Form::label('accountSelect',  trans('app.contact:accounts-select') . ' :', ['class' => 'h4 text-purple']) !!}
-                <br>
-                {!! Form::select('account_id', $accounts, ['class' => 'form-control']) !!}
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <h1>{{trans('app.contact:new')}}</h1>
+                </div>
+
+                <div class="modal-body">
+                    <div class="form-group col-sm-12 text-center">
+                        {!! Form::label('accountSelect',  trans('app.contact:accounts-select') . ' :', ['class' => 'h4 text-purple']) !!}
+                        <br>
+                        {!! Form::select('account_id', $accounts, ['class' => 'form-control']) !!}
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default pull-left" data-dismiss="modal">{{trans('app.general:cancel')}}</button>
+                    {!! Form::submit( trans('app.general:continue'), ['id' => 'leadSelect', 'class' => 'btn btn-primary pull-right']) !!}
+                </div>
+
+                {!! Form::close() !!}
             </div>
-
-
-            <!-- Submit Field -->
-            <div class="form-group col-sm-12 text-center">
-                {!! Form::submit( trans('app.general:continue'), ['id' => 'leadSelect', 'class' => 'btn btn-primary']) !!}
-                <a href="{!! action('ContactController@index') !!}" class="btn btn-default">{{trans('app.general:cancel')}}</a>
-            </div>
-
-            {!! Form::close() !!}
-        </modal>
-
+        </div>
     </div>
 @endsection
 
@@ -72,21 +86,14 @@
         $(document).ready(function () {
 
             $('#accountSelect').change(function () {
-
                 $('#leadSelect').val(0);
-
             });
 
             $('#leadSelect').change(function () {
-
                 $('#accountSelect').val(0);
-
             });
 
         });
 
-
     </script>
-
-
 @endsection

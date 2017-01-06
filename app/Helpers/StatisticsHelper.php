@@ -28,6 +28,8 @@ class StatisticsHelper
     public static function generateRevenuesByMonth($invoices)
     {
 
+        if (!$invoices) return null;
+
         $data = [];
 
         $from = Carbon::today()->startOfMonth();
@@ -65,6 +67,9 @@ class StatisticsHelper
 
     public static function generateConvertedInvoices($invoices)
     {
+
+        if (!$invoices) return null;
+
         $data = [];
 
         $from = Carbon::today()->startOfMonth();
@@ -89,6 +94,9 @@ class StatisticsHelper
 
     public static function generateProductsServicesRate($invoices)
     {
+
+        if (!$invoices) return null;
+
         $data = [];
         $from = Carbon::today()->startOfMonth();
         $to = Carbon::today()->endOfMonth();

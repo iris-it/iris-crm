@@ -38,11 +38,6 @@ Route::get('keycloak/callback', "AuthController@handleCallback");
 Route::group(['middleware' => 'auth'], function () {
 
     /*
-     * Homepage (Dashboard)
-     */
-    Route::get('/home', 'HomeController@index');
-
-    /*
      * Authentication actions
      */
     Route::get('keycloak/profile', "AuthController@userProfile");
@@ -55,6 +50,11 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('organization', array('uses' => 'OrganizationController@store'));
 
     Route::group(['middleware' => 'hasOrganization'], function () {
+
+        /*
+         * Homepage (Dashboard)
+         */
+        Route::get('/home', 'HomeController@index');
 
         /*
          * Organization resources

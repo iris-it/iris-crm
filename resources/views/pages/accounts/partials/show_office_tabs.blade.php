@@ -42,4 +42,4 @@
 </div>
 
 
-<!-- //TODO Selector tab in tab with Jquery like the current one but nested see : assets/js/legacy.js -->
+<!-- //TODO Selector tab in tab with Jquery like the current one but nested see : assets/js/general.js -->

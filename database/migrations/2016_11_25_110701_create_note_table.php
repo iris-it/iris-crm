@@ -19,7 +19,6 @@ class CreateNoteTable extends Migration
             $table->text('body')->nullable();
             $table->boolean('private')->default(false);
             $table->boolean('entity')->default(false);
-            $table->boolean('private')->default(false);
             $table->timestamps();
         });
     }
