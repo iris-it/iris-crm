@@ -6,7 +6,7 @@
 
 
         <div class="navbar-custom-menu pull-left">
-                @yield('breadcrumbs')
+            @yield('breadcrumbs')
         </div>
 
         <div class="navbar-custom-menu">
@@ -18,10 +18,10 @@
                     <ul class="dropdown-menu">
                         <li class="user-footer">
                             <div class="pull-left">
-                                <user-profile action="{{action('AuthController@userProfile')}}"></user-profile>
+                                <a class="btn btn-default btn-flat" href="{{action('AuthController@userProfile')}}">Mon Profil</a>
                             </div>
                             <div class="pull-right">
-                                <logout action="{{action('AuthController@logout')}}"></logout>
+                                <a class="btn btn-default btn-flat" href="{{action('AuthController@logout')}}">Déconnexion</a>
                             </div>
                         </li>
                     </ul>

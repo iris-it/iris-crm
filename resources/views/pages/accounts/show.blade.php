@@ -2,9 +2,9 @@
 
 @section('breadcrumbs')
     @if(!$account->is_lead)
-    {!! Breadcrumbs::render('account', $account) !!}
+        {!! Breadcrumbs::render('account', $account) !!}
     @else
-    {!! Breadcrumbs::render('lead', $account) !!}
+        {!! Breadcrumbs::render('lead', $account) !!}
     @endif
 @endsection
 
@@ -58,16 +58,20 @@
             </div>
             @endif
         </div>
+
+        <div class="row">
+            @if(!$account->is_lead)
+                <div class="col-sm-12">
+                    <a href="{!! action('AccountController@index') !!}" class="btn btn-lg btn-flat bg-blue"><i
+                                class="fa fa-chevron-circle-left"></i> {{trans('app.general:back')}}</a>
+                </div>
+            @else
+                <div class="col-sm-12">
+                    <a href="{!! action('LeadController@index') !!}" class="btn btn-lg btn-flat bg-blue"><i
+                                class="fa fa-chevron-circle-left"></i> {{trans('app.general:back')}}</a>
+                </div>
+            @endif
+        </div>
+
     </div>
-    @if(!$account->is_lead)
-        <div class="col-sm-12">
-            <a href="{!! action('AccountController@index') !!}" class="btn btn-lg btn-flat bg-blue"><i
-                        class="fa fa-chevron-circle-left"></i> {{trans('app.general:back')}}</a>
-        </div>
-    @else
-        <div class="col-sm-12">
-            <a href="{!! action('LeadController@index') !!}" class="btn btn-lg btn-flat bg-blue"><i
-                        class="fa fa-chevron-circle-left"></i> {{trans('app.general:back')}}</a>
-        </div>
-    @endif
 @endsection

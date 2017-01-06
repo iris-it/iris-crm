@@ -11,6 +11,7 @@
 @section('content')
     <section class="content-header">
         <h1 class="pull-left text-purple">
+
             @if(!$isLead)
                 {{trans('app.general:accounts')}}
             @else
@@ -22,17 +23,13 @@
             @endif
         </h1>
         <h1 class="pull-right">
-            @if(!$isLead)
-                <a class="btn btn-app bg-blue btn-flat create-button pull-right" href="#" @click="{{VueHelper::format('showModal', 'createAccountModal', [])}}">
-                <i class="fa fa-address-book"></i>
-            @else
-                <a class="btn btn-app bg-blue btn-flat create-button pull-right" href="#" @click="{{VueHelper::format('showModal', 'createLeadModal', [])}}">
-                <i class="fa fa-address-book-o"></i>
-            @endif
-                {{trans('app.general:create')}}</a>
+            <button class="btn btn-app bg-blue btn-flat pull-right" style="font-size: 15px; margin-top: -10px;margin-bottom: 5px" type="button" data-toggle="modal" data-target="#{{($isLead)?'leadModal':'accountModal'}}">
+                <i class="fa fa-address-book-o"></i>{{trans('app.general:create')}}
+            </button>
         </h1>
     </section>
     <div class="content">
+
         <div class="clearfix"></div>
 
         @include('flash::message')
@@ -52,60 +49,87 @@
                     <h4 class="animated fadeIn">{{trans('app.account:no-accounts-desc')}}</h4>
                     <div class="col-sm-12 text-center">
                         <br>
-                        <a class="btn btn-app bg-blue btn-flat create-button animated pulse" href="#" @click="{{VueHelper::format('showModal', 'createAccountModal', [])}}">
-                        <i class="fa fa-address-book"></i> {{trans('app.general:create')}} </a>
+                        <button class="btn btn-app bg-blue btn-flat create-button animated pulse" type="button" data-toggle="modal" data-target="#accountModal">
+                            <i class="fa fa-address-book-o"></i>{{trans('app.general:create')}}
+                        </button>
                     </div>
                 @else
                     <h3 class="box-title animated flash">{{trans('app.lead:no-leads-title')}}</h3>
                     <h4 class="animated fadeIn">{{trans('app.lead:no-leads-desc')}}</h4>
                     <div class="col-sm-12 text-center">
                         <br>
-                        <a class="btn btn-app bg-blue btn-flat create-button animated pulse" href="#" @click="{{VueHelper::format('showModal', 'createLeadModal', [])}}">
-                        <i class="fa fa-address-book-o"></i> {{trans('app.general:create')}} </a>
+                        <button class="btn btn-app bg-blue btn-flat create-button animated pulse" type="button" data-toggle="modal" data-target="#leadModal">
+                            <i class="fa fa-address-book-o"></i>{{trans('app.general:create')}}
+                        </button>
                     </div>
                 @endif
 
             </div>
         @endif
 
-        @if(!$isLead)
-            <modal id="createAccountModal" title="{{trans('app.account:new')}}">
-
-                {!! Form::open(['action' => 'AccountController@store']) !!}
-
-                <div class="form-group col-sm-12">
-                    {!! Form::label('name',  trans('app.general:name') . ' :', ['class' => 'h4 text-purple']) !!}
-                    {!! Form::text('name', null, ['class' => 'form-control']) !!}
-                </div>
-
-                <!-- Submit Field -->
-                <div class="form-group col-sm-12">
-                    {!! Form::submit( trans('app.general:save-changes'), ['class' => 'btn btn-primary']) !!}
-                    <a href="{!! action('AccountController@index') !!}" class="btn btn-default">{{trans('app.general:cancel')}}</a>
-                </div>
-
-                {!! Form::close() !!}
-            </modal>
-        @else
-            <modal id="createLeadModal" title="{{trans('app.lead:new')}}">
-                {!! Form::open(['action' => 'LeadController@store']) !!}
-
-                <div class="form-group col-sm-12">
-                    {!! Form::label('name',  trans('app.general:name') . ' :', ['class' => 'h4 text-purple']) !!}
-                    {!! Form::text('name', null, ['class' => 'form-control']) !!}
-                </div>
-
-                <!-- Submit Field -->
-                <div class="form-group col-sm-12">
-                    {!! Form::submit( trans('app.general:save-changes'), ['class' => 'btn btn-primary']) !!}
-                    <a href="{!! action('LeadController@index') !!}" class="btn btn-default">{{trans('app.general:cancel')}}</a>
-                </div>
-
-                {!! Form::close() !!}
-            </modal>
-        @endif
     </div>
-
-
 @endsection
 
+@section('footer')
+    @parent
+    <div class="modal fade fadeInDown" id="accountModal" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                {!! Form::open(['action' => 'AccountController@store']) !!}
+
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <h1>{{trans('app.account:new')}}</h1>
+                </div>
+
+                <div class="modal-body">
+                    <div class="form-group col-sm-12">
+                        {!! Form::label('name',  trans('app.general:name') . ' :', ['class' => 'h4 text-purple']) !!}
+                        {!! Form::text('name', null, ['class' => 'form-control']) !!}
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default pull-left" data-dismiss="modal">{{trans('app.general:cancel')}}</button>
+                    {!! Form::submit( trans('app.general:save-changes'), ['class' => 'btn btn-primary pull-right']) !!}
+                </div>
+
+                {!! Form::close() !!}
+            </div>
+        </div>
+    </div>
+@endsection
+
+@section('footer')
+    @parent
+    <div class="modal fade fadeInDown" id="leadModal" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                {!! Form::open(['action' => 'LeadController@store']) !!}
+
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <h1>{{trans('app.lead:new')}}</h1>
+                </div>
+
+                <div class="modal-body">
+                    <div class="form-group col-sm-12">
+                        {!! Form::label('name',  trans('app.general:name') . ' :', ['class' => 'h4 text-purple']) !!}
+                        {!! Form::text('name', null, ['class' => 'form-control']) !!}
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default pull-left" data-dismiss="modal">{{trans('app.general:cancel')}}</button>
+                    {!! Form::submit( trans('app.general:save-changes'), ['class' => 'btn btn-primary pull-right']) !!}
+                </div>
+
+                {!! Form::close() !!}
+            </div>
+        </div>
+    </div>
+@endsection

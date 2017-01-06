@@ -4,33 +4,83 @@
         <h4 class="box-title pull-left"> {{trans('app.general:quotes')}}</h4>
         <br>
         <hr>
-        <ul class="nav nav-pills">
-            @foreach($office->quotes as $quote)
-                <li class="nav-item">
-                    <a class="nav-link" href="" @click="{{VueHelper::format('showTab', $quote->id, $quote)}}" data-toggle="tab">{{$quote->topic}}</a>
-                </li>
-            @endforeach
-        </ul>
 
         @foreach ($office->quotes as $quote)
 
-            <office-sub-tab title="{{trans('app.general:quote')}}" id="{{$quote->id}}" type="quote">
+            {{--{{trans('app.general:quote')}} ???? --}}
 
-                <label class="h4 text-purple" slot="topic-field"> {{trans('app.general:topic')}} : </label>
-                <label class="h4 text-purple" slot="phase-field"> {{trans('app.general:phase')}} :  </label>
-                <label class="h4 text-purple" slot="deadline-field">  {{trans('app.general:deadline')}} : </label>
-                <label class="h4 text-purple" slot="description-field">  {{trans('app.general:description')}} : </label>
-                <label class="h4 text-purple" slot="htprice-field">  {{trans('app.general:ht-price')}} : </label>
-                <label class="h4 text-purple" slot="ttcprice-field">  {{trans('app.general:ttc-price')}} : </label>
-                <label class="h4 text-purple" slot="special-conditions-field">  {{trans('app.general:special-conditions')}} : </label>
-                <label class="h4 text-purple" slot="converted-field">  {{trans('app.invoice:converted')}} : </label>
-                <label class="h4 text-purple" slot="created-at-field">  {{trans('app.general:created-at')}} : </label>
-                <label class="h4 text-purple" slot="updated-at-field">  {{trans('app.general:updated-at')}} : </label>
+            <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+                <div class="panel panel-default">
+                    <div class="panel-heading" role="tab" id="quote-head-{{$quote->id}}">
+                        <h4 class="panel-title">
+                            <a role="button" data-toggle="collapse" data-parent="#accordion" href="#quote-{{$quote->id}}" aria-expanded="true" aria-controls="quote-{{$quote->id}}">
+                                {{$quote->topic}}
+                            </a>
+                        </h4>
+                    </div>
+                    <div id="quote-{{$quote->id}}" class="panel-collapse collapse" role="tabpanel" aria-labelledby="quote-head-{{$quote->id}}">
+                        <div class="panel-body">
+                            <!-- Topic Field -->
+                            <div class="form-group col-sm-6">
+                                <label class="h4 text-purple">{{trans('app.general:topic')}} : </label>
+                                <span class="h4 text-bold">{{$quote->topic}}</span>
+                            </div>
 
+                            <!-- Phase Field -->
+                            <div class="form-group col-sm-6">
+                                <label class="h4 text-purple">{{trans('app.general:phase')}} : </label>
+                                <span class="h4 text-bold">{{$quote->phase}}</span>
+                            </div>
 
-            </office-sub-tab>
+                            <!-- Deadline Field -->
+                            <div class="form-group col-sm-6">
+
+                                <label class="h4 text-purple">{{trans('app.general:deadline')}} : </label>
+                                <span class="h4 text-bold">{{$quote->deadline}}</span>
+                            </div>
+
+                            <!-- Description Field -->
+                            <div class="form-group col-sm-6">
+                                <label class="h4 text-purple">{{trans('app.general:description')}} : </label>
+                                <span class="h4 text-bold">{{$quote->description}}</span>
+                            </div>
+
+                            <!-- HT Price Field -->
+                            <div class="form-group col-sm-6">
+                                <label class="h4 text-purple">{{trans('app.general:ht-price')}} : </label>
+                                <span class="h4 text-bold">{{$quote->ht_price}}</span>
+                            </div>
+
+                            <!-- TTC Price Field -->
+                            <div class="form-group col-sm-6">
+                                <label class="h4 text-purple">{{trans('app.general:ttc-price')}} : </label>
+                                <span class="h4 text-bold">{{$quote->ttc_price}}</span>
+                            </div>
+
+                            <!-- Special Conditions Field -->
+                            <div class="form-group col-sm-6">
+                                <label class="h4 text-purple">{{trans('app.general:special-conditions')}} : </label>
+                                <span class="h4 text-bold">{{$quote->special_conditions}}</span>
+                            </div>
+
+                            <hr>
+
+                            <!-- Created At Field -->
+                            <div class="form-group col-sm-6">
+                                <label class="h4 text-purple">{{trans('app.general:created-at')}} : </label>
+                                <span class="h4 text-bold">{{$quote->created_at}}</span>
+                            </div>
+
+                            <!-- Updated At Field -->
+                            <div class="form-group col-sm-6">
+                                <label class="h4 text-purple">{{trans('app.general:updated-at')}} : </label>
+                                <span class="h4 text-bold">{{$quote->updated_at}}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
         @endforeach
-
     </div>
 </div>
