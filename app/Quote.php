@@ -73,6 +73,6 @@ class Quote extends Model
 
     public function receipt()
     {
-        return $this->hasOne(('App\Receipt'));
+        return $this->hasOne('App\Receipt');
     }
 }
