@@ -15,6 +15,7 @@
   "dependencies": {
     "admin-lte": "^2.3.6",
     "animate.css": "^3.5.2",
+    "bloodhound-js": "^1.2.1",
     "bootstrap-datepicker": "^1.6.4",
     "bootstrap-duallistbox": "git+https://github.com/monkeyC/bootstrap-duallistbox.git",
     "bootstrap-vertical-tabs": "git+https://github.com/dbtek/bootstrap-vertical-tabs.git",
@@ -23,6 +24,7 @@
     "font-awesome": "^4.7.0",
     "ionicons": "^3.0.0",
     "leaflet": "^1.0.1",
-    "leaflet.markercluster": "^1.0.0"
+    "leaflet.markercluster": "^1.0.0",
+    "typeahead.js": "^0.11.1"
   }
 }

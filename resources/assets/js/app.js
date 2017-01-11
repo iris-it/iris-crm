@@ -12,6 +12,9 @@ require('chart.js');
 require('leaflet');
 require('leaflet.markercluster');
 require('cropper');
+require('typeahead.js');
+window.Bloodhound = require('bloodhound-js');
+
 // require('trumbowyg');
 
 /**
@@ -19,4 +22,3 @@ require('cropper');
  */
 window.IrisCrm = require('./crm');
 require('./general');
-

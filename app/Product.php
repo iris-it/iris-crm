@@ -15,7 +15,7 @@ class Product extends Model
     use SoftDeletes;
 
     public $table = 'products';
-    
+
 
     protected $dates = ['deleted_at', 'sale_datestart', 'sale_dateend'];
 
@@ -48,6 +48,19 @@ class Product extends Model
         'product_notice' => 'string',
         'description' => 'string'
     ];
+
+    //SCOPES
+    public function scopeSearchByKeyword($query, $keyword)
+    {
+        if ($keyword != '') {
+            $query->where(function ($query) use ($keyword) {
+                $query->where("product_name", "LIKE", "%$keyword%")
+                    ->orWhere("category", "LIKE", "%$keyword%")
+                    ->orWhere("description", "LIKE", "%$keyword%");
+            });
+        }
+        return $query;
+    }
 
 
     //MUTATORS
@@ -95,7 +108,7 @@ class Product extends Model
 
     public function organization()
     {
-        return $this->belongsTo('App\Organization');
+        return $this->belongsTo('App\Organization', 'organization_id');
     }
 
     public function taxes()

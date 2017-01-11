@@ -46,6 +46,21 @@ class Service extends Model
         'description' => 'string'
     ];
 
+
+    // SCOPES
+    public function scopeSearchByKeyword($query, $keyword)
+    {
+        if ($keyword != '') {
+            $query->where(function ($query) use ($keyword) {
+                $query->where("service_name", "LIKE", "%$keyword%")
+                    ->orWhere("category", "LIKE", "%$keyword%")
+                    ->orWhere("description", "LIKE", "%$keyword%");
+            });
+        }
+        return $query;
+    }
+
+
     //MUTATORS
     /**
      * Mutate deadline to FR with Carbon
@@ -89,7 +104,7 @@ class Service extends Model
 
     public function organization()
     {
-        return $this->belongsTo('App\Organization');
+        return $this->belongsTo('App\Organization', 'organization_id');
     }
 
     public function taxes()
