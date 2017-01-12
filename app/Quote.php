@@ -42,8 +42,8 @@ class Quote extends Model
         'phase' => 'string',
         'description' => 'string',
         'special_conditions' => 'string',
-        'content_backup' => 'array',
-        'content' => 'array'
+        'content_backup' => 'json',
+        'content' => 'json'
     ];
 
     //MUTATORS

@@ -26,13 +26,13 @@ class ItemSearchController extends Controller
 
         switch ($type) {
             case 'products': {
-                return Product::select('id', 'product_name', 'ht_price')
+                return Product::select('id', 'product_name', 'ht_price', 'category', 'description')
                     ->SearchByKeyword($query)
                     ->where('organization_id', $this->organization->id)
                     ->get();
             }
             case 'services': {
-                return Service::select('id', 'service_name', 'ht_price')
+                return Service::select('id', 'service_name', 'ht_price', 'category', 'description')
                     ->SearchByKeyword($query)
                     ->where('organization_id', $this->organization->id)
                     ->get();
@@ -47,7 +47,7 @@ class ItemSearchController extends Controller
     {
 
         if (!$request->user()) {
-            return ['no-auth'];
+            return ['no - auth'];
         }
 
         switch ($type) {

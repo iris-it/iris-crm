@@ -9,21 +9,32 @@
         <h1>
             {{trans('app.quote:edit')}}
         </h1>
-   </section>
-   <div class="content">
-       @include('errors.list')
-       <div class="box box-primary">
-           <div class="box-body">
-               <div class="row">
-                   {!! Form::model($quote, ['action' => ['QuoteController@update', $quote->id], 'method' => 'patch']) !!}
+    </section>
+    <div class="content">
+        @include('errors.list')
+        <div class="box box-primary">
+            <div class="box-body">
+                <div class="row">
+                    {!! Form::model($quote, ['action' => ['QuoteController@update', $quote->id], 'method' => 'patch']) !!}
 
-                        @include('pages.quotes.fields')
+                    <input type="hidden" name="content" value="{{json_encode($quote->content)}}"/>
 
-                   {!! Form::close() !!}
-               </div>
-           </div>
-       </div>
-   </div>
+                    @include('pages.quotes.fields')
+
+                    {!! Form::close() !!}
+                </div>
+            </div>
+        </div>
+
+        <div class="box box-primary">
+            <div class="box-body">
+                <div class="row">
+                    @include('shared.quote-invoice-product-table-input', ['type' => 'quote'])
+                </div>
+            </div>
+        </div>
+
+    </div>
 @endsection
 
 @section('scripts')

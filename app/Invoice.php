@@ -44,8 +44,8 @@ class Invoice extends Model
         'description' => 'string',
         'special_conditions' => 'string',
         'converted' => 'boolean',
-        'content_backup' => 'array',
-        'content' => 'array'
+        'content_backup' => 'json',
+        'content' => 'json'
     ];
 
 
