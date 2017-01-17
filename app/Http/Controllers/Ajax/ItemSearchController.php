@@ -26,13 +26,12 @@ class ItemSearchController extends Controller
 
         switch ($type) {
             case 'products': {
-                return Product::select('id', 'product_name', 'ht_price', 'category', 'description')
-                    ->SearchByKeyword($query)
+                return Product::SearchByKeyword($query)
                     ->where('organization_id', $this->organization->id)
-                    ->get();
+                    ->get(['id', 'product_name', 'ht_price', 'category', 'description', 'type']);
             }
             case 'services': {
-                return Service::select('id', 'service_name', 'ht_price', 'category', 'description')
+                return Service::select('id', 'service_name', 'ht_price', 'category', 'description', 'type')
                     ->SearchByKeyword($query)
                     ->where('organization_id', $this->organization->id)
                     ->get();

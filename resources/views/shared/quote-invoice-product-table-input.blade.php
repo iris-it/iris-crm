@@ -113,6 +113,7 @@
 
             $('#search-input').bind('typeahead:select', function (ev, suggestion) {
                 $current_selection = suggestion.id;
+                console.log(suggestion);
             });
 
 

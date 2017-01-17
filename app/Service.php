@@ -63,6 +63,15 @@ class Service extends Model
 
     //MUTATORS
     /**
+     * Custom properties
+     * @return string
+     */
+    public function getTypeAttribute()
+    {
+        return 'service';
+    }
+
+    /**
      * Mutate deadline to FR with Carbon
      * @param $date
      * @return string

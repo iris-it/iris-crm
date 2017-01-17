@@ -64,6 +64,16 @@ class Product extends Model
 
 
     //MUTATORS
+
+    /**
+     * Custom properties
+     * @return string
+     */
+    public function getTypeAttribute()
+    {
+        return 'product';
+    }
+
     /**
      * Mutate deadline to FR with Carbon
      * @param $date
