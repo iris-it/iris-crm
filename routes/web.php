@@ -64,6 +64,13 @@ Route::group(['middleware' => 'auth'], function () {
         Route::patch('organization/edit', array('uses' => 'OrganizationController@update'));
 
         /*
+         * Templates resources
+         */
+
+        Route::get('organization/templates', array('uses' => 'TemplateController@index'));
+
+
+        /*
          * General resources
          */
 

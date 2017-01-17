@@ -12,6 +12,7 @@ require('chart.js');
 require('leaflet');
 require('leaflet.markercluster');
 require('cropper');
+require('fabric');
 // require('trumbowyg');
 
 /**

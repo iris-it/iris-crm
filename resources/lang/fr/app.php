@@ -125,6 +125,7 @@ return  array(
 	'general:workforce'                 => 'Effectifs',
 	'general:yes'                       => 'Oui',
 	'general:zipcode'                   => 'Code postal',
+    'general:config'                    => 'Paramètres',
 	'invoice:products-list'             => 'Produits inclus dans cette facture',
 	'invoice:services-list'             => 'Services inclus dans cette facture',
     'invoice:no-invoices-desc'          => 'Créez votre première facture grâce au bouton ci-dessous',
@@ -154,6 +155,7 @@ return  array(
 	'organization:status-field'         => 'Statut',
 	'organization:table-tva'            => 'Numéro de TVA',
 	'organization:website-field'        => 'Site web',
+	'organization:quotes-templates'     => 'Format des devis et factures',
 	'product:active-taxes'              => 'Taxes appliquées',
 	'product:avatar'                    => 'Image de produit',
 	'product:category'                  => 'Catégorie',
@@ -200,6 +202,6 @@ return  array(
     'tax:no-taxes-desc'                => 'Enregistrez votre première taxe à l\'aide du bouton ci-dessous',
     'sidebar:main-title'                => 'MENU PRINCIPAL',
     'sidebar:tools'                     => 'OUTILS',
-    'warning:leads-forbidden'           => 'Pour transférer un établissement d\'un compte client vers un prospect, aucune facture ne doit être attribuée à l\'établissement en question. Dans le cas contraire, l\'ensemble de vos prospects n\'apparaitront pas dans la liste des comptes d\'affiliation.'
-
+    'warning:leads-forbidden'           => 'Pour transférer un établissement d\'un compte client vers un prospect, aucune facture ne doit être attribuée à l\'établissement en question. Dans le cas contraire, l\'ensemble de vos prospects n\'apparaitront pas dans la liste des comptes d\'affiliation.',
+    'template:manage'                   => 'Accéder à la gestion des templates',
 );

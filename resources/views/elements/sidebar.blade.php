@@ -22,6 +22,8 @@
                     <span>{{trans('app.general:services')}}</span></a></li>
             <li><a href="{{ action('TaxController@index') }}"><i class="fa fa-percent text-aqua"></i>
                     <span>{{trans('app.general:taxes')}}</span></a></li>
+            <li><a href="{{ action('OrganizationController@edit') }}"><i class="fa fa-cog text-aqua"></i>
+                    <span>{{trans('app.general:config')}}</span></a></li>
 
             @if(env('STANDALONE_MODE'))
                 {{--<li><a href="{{ action('Admin\OrganizationController@index') }}">{{trans('menu.admin-organizations-link')}}</a></li>--}}
