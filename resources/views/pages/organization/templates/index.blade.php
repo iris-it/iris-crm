@@ -224,6 +224,8 @@
 
             fabric.Image.fromURL("{{asset("img/logo-placeholder.png")}}", function (image) {
                 let logoImage = image.set({
+                    iris_type: "image",
+                    iris_identifier: "orga_logo",
                     left: 610,
                     top: 150,
                     originX: "center",
@@ -236,6 +238,8 @@
 
             fabric.Image.fromURL("{{asset("img/fr-content-ph.png")}}", function (image) {
                 let contentImage = image.set({
+                    iris_type: "content",
+                    iris_identifier: "content_ph",
                     left: 610,
                     top: 700,
                     originX: "center",
@@ -248,6 +252,49 @@
 
             });
 
+            // add delete button
+
+            function addDeleteBtn(x, y) {
+                $(".deleteBtn").remove();
+                var btnLeft = x - 10;
+                var btnTop = y - 10;
+                var deleteBtn = '<img src="{{asset("img/close-button.png")}}" class="deleteBtn" style="position:absolute;top:' + btnTop + 'px;left:' + btnLeft + 'px;cursor:pointer;width:20px;height:20px;"/>';
+                $(".canvas-container").append(deleteBtn);
+            }
+
+            canvas.on('object:selected', function (e) {
+                if (e.target.iris_identifier !== "content_ph") {
+                    addDeleteBtn(e.target.oCoords.tr.x, e.target.oCoords.tr.y);
+                }
+            });
+
+            canvas.on('mouse:down', function (e) {
+                if (!canvas.getActiveObject()) {
+                    $(".deleteBtn").remove();
+                }
+            });
+
+            canvas.on('object:modified', function (e) {
+                if (e.target.iris_identifier !== "content_ph") {
+                    addDeleteBtn(e.target.oCoords.tr.x, e.target.oCoords.tr.y);
+                }
+            });
+
+            canvas.on('object:scaling', function (e) {
+                $(".deleteBtn").remove();
+            });
+            canvas.on('object:moving', function (e) {
+                $(".deleteBtn").remove();
+            });
+            canvas.on('object:rotating', function (e) {
+                $(".deleteBtn").remove();
+            });
+            $(document).on('click', ".deleteBtn", function () {
+                if (canvas.getActiveObject()) {
+                    canvas.remove(canvas.getActiveObject());
+                    $(".deleteBtn").remove();
+                }
+            });
 
             // snap to grid
 
