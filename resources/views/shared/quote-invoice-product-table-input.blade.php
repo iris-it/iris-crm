@@ -18,19 +18,17 @@
 
         <div class="form-group col-xs-4">
             <label class="h4 text-purple">{{trans('app.product:quantity')}} :</label>
-
             <div class="input-group">
-                <select class="form-control" id="">
-                    <option>1</option>
-                    <option>2</option>
-                    <option>3</option>
-                    <option>4</option>
-                    <option>5</option>
+                <select class="form-control" id="search-quantity-input">
+                    <option selected>0</option>
                 </select>
-                <span class="input-group-addon" id="">Unités</span>
+                <span class="input-group-addon" id="search-quantity-unit">Unités</span>
             </div>
+        </div>
 
-
+        <div class="form-group col-xs-4">
+            <label class="h4 text-purple">{{trans('app.general:action')}} :</label>
+            <a href="#" class="btn btn-success btn-block" id="search-submit-add">Ajouter</a>
         </div>
 
     </div>
@@ -40,6 +38,10 @@
     @parent
     <script type="text/javascript">
         $(function () {
+
+            /*
+             *  Variables
+             */
 
             let $products_endpoint = "{{action('Ajax\ItemSearchController@search', ['products'])}}";
             let $services_endpoint = "{{action('Ajax\ItemSearchController@search', ['services'])}}";
@@ -68,6 +70,10 @@
                     wildcard: '%QUERY%'
                 }
             });
+
+            /*
+             * Initialization
+             */
 
             $('#search-input').typeahead({
                 hint: true,
@@ -109,13 +115,60 @@
                 }
             });
 
+
+            setDisableAttribute('search-quantity-input');
+            setDisableAttribute('search-submit-add');
+
+            /*
+             * Event Handling
+             */
+
             let $current_selection = null;
 
             $('#search-input').bind('typeahead:select', function (ev, suggestion) {
+
+                if (suggestion.hasOwnProperty('sale_unit')) {
+                    clearSelectValues('search-quantity-input');
+                    addRangeSelect(25, 'search-quantity-input');
+                    $('#search-quantity-unit').html(suggestion.sale_unit);
+                } else {
+                    clearSelectValues('search-quantity-input');
+                    addRangeSelect(suggestion.stock_disponibility, 'search-quantity-input');
+                    $('#search-quantity-unit').html('Unités');
+                }
+
+                setDisableAttribute('search-quantity-input', false);
+                setDisableAttribute('search-submit-add', false);
+
                 $current_selection = suggestion.id;
+
                 console.log(suggestion);
             });
 
+            /*
+             * Functions
+             */
+            function addRangeSelect(number, target) {
+                for (let i = 1; i < number; i++) {
+                    addSelectValue(i, target);
+                }
+            }
+
+            function addSelectValue(value, target) {
+                $('<option value="' + value + '">' + value + '</option>').appendTo('#' + target);
+            }
+
+            function clearSelectValues(target) {
+                $('#' + target).find("option").remove();
+            }
+
+            function setDisableAttribute(target, disable = true) {
+                if (disable) {
+                    $('#' + target).attr('disabled', 'disabled');
+                } else {
+                    $('#' + target).removeAttr('disabled');
+                }
+            }
 
         });
     </script>

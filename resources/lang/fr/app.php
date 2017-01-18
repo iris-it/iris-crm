@@ -125,6 +125,7 @@ return  array(
 	'general:workforce'                 => 'Effectifs',
 	'general:yes'                       => 'Oui',
 	'general:zipcode'                   => 'Code postal',
+	'general:action'                   =>  'Action',
 	'invoice:products-list'             => 'Produits inclus dans cette facture',
 	'invoice:services-list'             => 'Services inclus dans cette facture',
     'invoice:no-invoices-desc'          => 'Créez votre première facture grâce au bouton ci-dessous',
@@ -218,7 +219,6 @@ return  array(
     'search:type'                       => 'Tapez pour rechercher ...',
     'search:results'                    => 'Résultats de la recherche',
     'search:all-items'                  => 'Tout items',
-    'search:no-results'                 => 'Aucun résulat'
-
+    'search:no-results'                 => 'Aucun résulat',
 
 );
