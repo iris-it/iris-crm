@@ -3,11 +3,33 @@
 @section('content')
 
     <section class="content">
+        <h3 class="title"> {{trans('app.template:new')}}</h3>
+        <br>
+        <div class="box box-primary">
+            <div class="box-header with-border">
+                <h3 class="box-title">{{trans('app.general:general-info') }}</h3>
+            </div>
+            <div class="box-body">
+
+                @include('errors.list')
+
+                {!! Form::open(['action' => 'OrganizationController@store','method' => 'POST']) !!}
+
+                <div class="form-group col-sm-6">
+                    {!! Form::label('name', trans('app.template:name') . " :", ['class' => 'h4 text-purple'] ) !!}
+                    {!! Form::text('name', null, ['class' => 'form-control']) !!}
+                </div>
+
+                {!! Form::close() !!}
+
+            </div>
+        </div>
 
         <div class="box box-primary">
             <div class="box-header with-border">
-                <h3 class="box-title">{{trans('app.template:manage') }}</h3>
+                <h3 class="box-title">{{trans('app.template:customization')}}</h3>
             </div>
+
             <div class="box-body">
                 <canvas id="c" width="1220" height="1237" style="border: 1px solid rgb(204, 204, 204); position: absolute; width: 1200px; height: 700px; left: 0px; top: 0px; user-select: none;" class="lower-canvas"></canvas>
             </div>
@@ -29,16 +51,10 @@
 
             });
 
-            let grid = 15;
-
             // create grid
+            let grid_size = 15;
 
-            for (let i = 0; i < (1220 / grid); i++) {
-                canvas.add(new fabric.Line([i * grid, 0, i * grid, 1220], {stroke: '#fff', selectable: false}));
-                canvas.add(new fabric.Line([0, i * grid, 1237, i * grid], {stroke: '#fff', selectable: false}))
-            }
-
-
+            //create elements
             let texts = [
                 {
                     value: "Numéro d'identification",
@@ -300,10 +316,20 @@
 
             canvas.on('object:moving', function (options) {
                 options.target.set({
-                    left: Math.round(options.target.left / grid) * grid,
-                    top: Math.round(options.target.top / grid) * grid
+                    left: Math.round(options.target.left / grid_size) * grid_size,
+                    top: Math.round(options.target.top / grid_size) * grid_size
                 });
             });
+
+            // JSON without default values
+            canvas.includeDefaultValues = false;
+
+            let json = canvas.toJSON(['iris_identifier', 'iris_type']);
+
+            console.log(json);
+
+
+            //console.log(JSON.stringify(json));
 
         });
 

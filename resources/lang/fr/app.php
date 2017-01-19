@@ -204,4 +204,7 @@ return  array(
     'sidebar:tools'                     => 'OUTILS',
     'warning:leads-forbidden'           => 'Pour transférer un établissement d\'un compte client vers un prospect, aucune facture ne doit être attribuée à l\'établissement en question. Dans le cas contraire, l\'ensemble de vos prospects n\'apparaitront pas dans la liste des comptes d\'affiliation.',
     'template:manage'                   => 'Accéder à la gestion des templates',
+    'template:new'                      => 'Nouveau template',
+    'template:name'                     => 'Nom du template',
+    'template:customization'                  => 'Personnalisation',
 );
