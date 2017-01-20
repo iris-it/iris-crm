@@ -28,32 +28,14 @@ class ItemSearchController extends Controller
             case 'products': {
                 return Product::SearchByKeyword($query)
                     ->where('organization_id', $this->organization->id)
-                    ->get(['id', 'product_name', 'ht_price', 'category', 'description', 'stock_disponibility']);
+                    ->with('taxes')
+                    ->get();
             }
             case 'services': {
                 return Service::SearchByKeyword($query)
                     ->where('organization_id', $this->organization->id)
-                    ->get(['id', 'service_name', 'ht_price', 'category', 'description', 'sale_unit']);
-            }
-            default : {
-                return [];
-            }
-        }
-    }
-
-    public function get(Request $request, $type, $id)
-    {
-
-        if (!$request->user()) {
-            return ['no - auth'];
-        }
-
-        switch ($type) {
-            case 'products': {
-                return Product::findOrFail($id);
-            }
-            case 'services': {
-                return Service::findOrFail($id);
+                    ->with('taxes')
+                    ->get();
             }
             default : {
                 return [];

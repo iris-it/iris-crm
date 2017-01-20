@@ -18,6 +18,4 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::get('search/item/{type}', 'ItemSearchController@search');
 
-    Route::get('get/item/{type}/{id}', 'ItemSearchController@get');
-
 });

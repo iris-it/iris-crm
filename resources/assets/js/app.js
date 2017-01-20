@@ -4,6 +4,8 @@
 
 window._ = require('lodash');
 window.$ = window.jQuery = require('jquery');
+window.Bloodhound = require('bloodhound-js');
+window.Sortable = require('sortablejs');
 
 require('bootstrap-sass');
 require('bootstrap-datepicker');
@@ -13,7 +15,6 @@ require('leaflet');
 require('leaflet.markercluster');
 require('cropper');
 require('typeahead.js');
-window.Bloodhound = require('bloodhound-js');
 
 // require('trumbowyg');
 

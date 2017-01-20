@@ -26,13 +26,7 @@
             </div>
         </div>
 
-        <div class="box box-primary">
-            <div class="box-body">
-                <div class="row">
-                    @include('shared.quote-invoice-product-table-input', ['type' => 'quote'])
-                </div>
-            </div>
-        </div>
+        @include('shared.quote-invoice-product-table-input', ['type' => 'quote'])
 
     </div>
 @endsection

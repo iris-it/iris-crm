@@ -25,6 +25,7 @@
     "ionicons": "^3.0.0",
     "leaflet": "^1.0.1",
     "leaflet.markercluster": "^1.0.0",
+    "sortablejs": "^1.5.0-rc1",
     "typeahead.js": "^0.11.1"
   }
 }
