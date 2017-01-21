@@ -7,9 +7,11 @@
     <div class="box-body">
 
         <div class="form-group col-sm-6">
-            {!! Form::label('name', trans('app.template:name') . " :", ['class' => 'h4 text-purple'] ) !!}
+            {!! Form::label('name', trans('app.template:name') . " :", ['class' => 'h4 text-purple', 'id' => 'name-label'] ) !!}
             {!! Form::text('name', null, ['class' => 'form-control']) !!}
         </div>
+
+        <input type="hidden" id="content" name="content"/>
 
     </div>
 </div>
@@ -24,6 +26,13 @@
         <div class="col-md-12" style="margin-left:10%">
             <canvas id="c" width="1220" height="1237" style="border: 1px solid rgb(204, 204, 204); position: absolute; width: 1200px; height: 700px; left: 0px; top: 0px; user-select: none;" class="lower-canvas"></canvas>
         </div>
+        <div class="row">
+            <!-- Submit Field -->
+            <div class="form-group col-sm-12">
+                {!! Form::submit( trans('app.general:save-changes'), ['class' => 'btn btn-primary']) !!}
+                <a href="{!! action('TemplateController@index') !!}" class="btn btn-default">{{trans('app.general:cancel')}}</a>
+            </div>
+        </div>
     </div>
 </div>
 
@@ -32,6 +41,13 @@
     <script type="text/javascript">
 
         $(document).ready(function () {
+
+            $("#name").focusin(function () {
+
+                $('#name-warning').fadeOut(800, function () {
+                    $(this).remove();
+                });
+            });
 
             let canvas = new fabric.Canvas('c', {
                 imageSmoothingEnabled: false,
@@ -314,12 +330,27 @@
 
             let json = canvas.toJSON(['iris_identifier', 'iris_type']);
 
-            console.log(json);
+            $('#content').val(JSON.stringify(json));
 
 
-            //console.log(JSON.stringify(json));
+            $("#template-form").submit(function (e) {
 
-        });
+                e.preventDefault();
+
+                if ($('#name').val() == "") {
+                    $("html, body").animate({scrollTop: 0}, "slow");
+                    $('#name-label').prepend('<p class="h5 text-red animated flash" id="name-warning"> Un nom doit être renseigné pour ce template</p>');
+                    return false;
+                }
+
+                let json = canvas.toJSON(['iris_identifier', 'iris_type']);
+                $('#content').val(JSON.stringify(json));
+
+                this.submit();
+            });
+
+        })
+        ;
 
 
     </script>

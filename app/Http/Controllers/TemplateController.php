@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 
 use App\Http\Requests\TemplateRequest;
+use App\Template;
 use Illuminate\Support\Facades\Lang;
 use Laracasts\Flash\Flash;
 
@@ -42,7 +43,6 @@ class TemplateController extends Controller
         $input = $request->all();
 
         if ($template = Template::create($input)) {
-
 
             $template->organization()->associate($this->organization);
             $template->save();

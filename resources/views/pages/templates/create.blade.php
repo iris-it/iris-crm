@@ -11,7 +11,7 @@
     <div class="content">
         @include('errors.list')
 
-        {!! Form::open(['action' => 'TemplateController@store', 'method' => 'POST']) !!}
+        {!! Form::open(['action' => 'TemplateController@store', 'method' => 'POST', 'id' => 'template-form']) !!}
 
         @include('pages.templates.fields')
 
