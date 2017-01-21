@@ -1,43 +1,31 @@
-@extends('layouts.app')
+<div class="box box-primary">
 
-@section('content')
+    <div class="box-header with-border">
+        <h3 class="box-title">{{trans('app.general:general-info') }}</h3>
+    </div>
 
-    <section class="content">
-        <h3 class="title"> {{trans('app.template:new')}}</h3>
-        <br>
-        <div class="box box-primary">
-            <div class="box-header with-border">
-                <h3 class="box-title">{{trans('app.general:general-info') }}</h3>
-            </div>
-            <div class="box-body">
+    <div class="box-body">
 
-                @include('errors.list')
-
-                {!! Form::open(['action' => 'OrganizationController@store','method' => 'POST']) !!}
-
-                <div class="form-group col-sm-6">
-                    {!! Form::label('name', trans('app.template:name') . " :", ['class' => 'h4 text-purple'] ) !!}
-                    {!! Form::text('name', null, ['class' => 'form-control']) !!}
-                </div>
-
-                {!! Form::close() !!}
-
-            </div>
+        <div class="form-group col-sm-6">
+            {!! Form::label('name', trans('app.template:name') . " :", ['class' => 'h4 text-purple'] ) !!}
+            {!! Form::text('name', null, ['class' => 'form-control']) !!}
         </div>
 
-        <div class="box box-primary">
-            <div class="box-header with-border">
-                <h3 class="box-title">{{trans('app.template:customization')}}</h3>
-            </div>
+    </div>
+</div>
 
-            <div class="box-body">
-                <canvas id="c" width="1220" height="1237" style="border: 1px solid rgb(204, 204, 204); position: absolute; width: 1200px; height: 700px; left: 0px; top: 0px; user-select: none;" class="lower-canvas"></canvas>
-            </div>
+<div class="box box-primary">
+
+    <div class="box-header with-border">
+        <h3 class="box-title">{{trans('app.template:customization')}}</h3>
+    </div>
+
+    <div class="box-body">
+        <div class="col-md-12" style="margin-left:10%">
+            <canvas id="c" width="1220" height="1237" style="border: 1px solid rgb(204, 204, 204); position: absolute; width: 1200px; height: 700px; left: 0px; top: 0px; user-select: none;" class="lower-canvas"></canvas>
         </div>
-
-    </section>
-
-@endsection
+    </div>
+</div>
 
 @section('scripts')
     @parent

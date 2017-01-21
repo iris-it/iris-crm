@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 
+use App\Http\Requests\TemplateRequest;
 use Illuminate\Support\Facades\Lang;
 use Laracasts\Flash\Flash;
 
@@ -17,7 +18,8 @@ class TemplateController extends Controller
     public function index()
     {
 
-        return view('pages.organization.templates.index');
+        $templates = $this->organization->templates;
+        return view('pages.templates.index')->with('templates', $templates);
 
     }
 
@@ -27,7 +29,7 @@ class TemplateController extends Controller
 
     public function create()
     {
-
+        return view('pages.templates.create');
     }
 
     /**
@@ -35,9 +37,26 @@ class TemplateController extends Controller
      *
      */
 
-    public function store()
+    public function store(TemplateRequest $request)
     {
+        $input = $request->all();
 
+        if ($template = Template::create($input)) {
+
+
+            $template->organization()->associate($this->organization);
+            $template->save();
+
+            Flash::success(Lang::get('app.general:create-success'));
+
+        } else {
+
+            Flash::error(Lang::get('app.general:create-failed'));
+            return redirect(action('TemplateController@create'));
+
+        }
+
+        return redirect(action('TemplateController@index'));
     }
 
     /**

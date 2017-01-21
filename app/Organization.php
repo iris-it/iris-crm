@@ -122,6 +122,11 @@ class Organization extends Model
         return $this->hasMany('App\Tax');
     }
 
+    public function templates()
+    {
+        return $this->hasMany('App\Template');
+    }
+
 
 
 }

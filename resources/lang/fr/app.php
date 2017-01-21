@@ -207,4 +207,6 @@ return  array(
     'template:new'                      => 'Nouveau template',
     'template:name'                     => 'Nom du template',
     'template:customization'                  => 'Personnalisation',
+    'template:no-templates-title'         => 'Aucun template créé pour le moment !',
+    'template:no-templates-desc'          => 'Créez votre premiere structure de devis / facture à l\'aide du bouton ci-dessous',
 );
