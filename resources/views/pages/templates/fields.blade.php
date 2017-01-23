@@ -23,8 +23,12 @@
     </div>
 
     <div class="box-body">
-        <div class="col-md-12" style="margin-left:10%">
-            <canvas id="c" width="1220" height="1237" style="border: 1px solid rgb(204, 204, 204); position: absolute; width: 1200px; height: 700px; left: 0px; top: 0px; user-select: none;" class="lower-canvas"></canvas>
+        <div class="col-md-9">
+            <canvas id="render" width="1220" height="1237" style="border: 1px solid rgb(204, 204, 204); position: absolute; width: 1200px; height: 1237px; left: 0px; top: 0px; user-select: none;" class="lower-canvas"></canvas>
+        </div>
+        <div class="col-md-2" style="margin-left:3%">
+            <canvas id="items" width="300" height="1237" style="border: 1px solid rgb(204, 204, 204); position: absolute; width: 300px; height: 1237px; left: 0px; top: 0px; user-select: none;" class="lower-canvas"></canvas>
+
         </div>
         <div class="row">
             <!-- Submit Field -->
@@ -49,11 +53,18 @@
                 });
             });
 
-            let canvas = new fabric.Canvas('c', {
+            let canvas = new fabric.Canvas('render', {
                 imageSmoothingEnabled: false,
                 enableRetinaScaling: true,
 
             });
+
+            let itemsCanvas = new fabric.Canvas('items', {
+                imageSmoothingEnabled: false,
+                enableRetinaScaling: true,
+
+            });
+
 
             // create grid
             let grid_size = 15;
@@ -67,6 +78,9 @@
                     left: 50,
                     top: 20,
                     fontSize: 20,
+                    menu_left: 10,
+                    menu_top: 20,
+                    menu_fontSize: 20,
                     fontFamily: 'Calibri',
                     fontWeight: 'normal',
                     hasRotatingPoint: false
@@ -79,8 +93,12 @@
                     left: 50,
                     top: 250,
                     fontSize: 25,
-                    fontFamily: 'Calibri',
                     fontWeight: 'bold',
+                    menu_left: 10,
+                    menu_top: 50,
+                    menu_fontSize: 20,
+                    fontFamily: 'Calibri',
+                    menu_fontWeight: 'normal',
                     hasRotatingPoint: false
                 },
 
@@ -272,19 +290,12 @@
 
             });
 
-            // add delete button
-
-            function addDeleteBtn(x, y) {
-                $(".deleteBtn").remove();
-                var btnLeft = x - 10;
-                var btnTop = y - 10;
-                var deleteBtn = '<img src="{{asset("img/close-button.png")}}" class="deleteBtn" style="position:absolute;top:' + btnTop + 'px;left:' + btnLeft + 'px;cursor:pointer;width:20px;height:20px;"/>';
-                $(".canvas-container").append(deleteBtn);
-            }
 
             canvas.on('object:selected', function (e) {
                 if (e.target.iris_identifier !== "content_ph") {
-                    addDeleteBtn(e.target.oCoords.tr.x, e.target.oCoords.tr.y);
+                    var container = e.target.canvas.contextContainer.canvas.offsetParent;
+                    addDeleteBtn(container, e.target.oCoords.tr.x, e.target.oCoords.tr.y);
+
                 }
             });
 
@@ -311,6 +322,8 @@
             });
             $(document).on('click', ".deleteBtn", function () {
                 if (canvas.getActiveObject()) {
+
+                    cloneItem(canvas.getActiveObject(), itemsCanvas, "remove");
                     canvas.remove(canvas.getActiveObject());
                     $(".deleteBtn").remove();
                 }
@@ -327,10 +340,6 @@
 
             // JSON without default values
             canvas.includeDefaultValues = false;
-
-            let json = canvas.toJSON(['iris_identifier', 'iris_type']);
-
-            $('#content').val(JSON.stringify(json));
 
 
             $("#template-form").submit(function (e) {
@@ -349,8 +358,49 @@
                 this.submit();
             });
 
-        })
-        ;
+
+            // add delete button
+
+            function addDeleteBtn(container, x, y) {
+                $(".deleteBtn").remove();
+                var btnLeft = x - 10;
+                var btnTop = y - 10;
+                var deleteBtn = '<img src="{{asset("img/close-button.png")}}" class="deleteBtn" style="position:absolute;top:' + btnTop + 'px;left:' + btnLeft + 'px;cursor:pointer;width:20px;height:20px;"/>';
+                $(container).append(deleteBtn);
+            }
+
+            // clone item to another canvas
+
+            function cloneItem(item, destCanvas, type) {
+
+                let result = texts.filter(function (obj) {
+                    return obj.iris_identifier == item.iris_identifier;
+                });
+
+                let model = result[0];
+
+                var clone = fabric.util.object.clone(item);
+
+                if (type === "remove") {
+                    clone.set({left: model.menu_left, top: model.menu_top});
+
+                    if (item.iris_type == "label") {
+                        clone.set({fontSize: model.menu_fontSize, fontWeight: model.menu_fontWeight});
+                    }
+                }
+                else if (type === "add") {
+                    clone.set({left: model.left, top: model.top});
+
+                    if (item.iris_type == "label") {
+                        clone.set({fontSize: model.fontSize, fontWeight: model.fontWeight});
+                    }
+                }
+
+                destCanvas.add(clone);
+
+            }
+
+        });
 
 
     </script>

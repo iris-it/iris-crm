@@ -22,7 +22,7 @@
         @if($templates->count() > 0)
             <div class="box box-primary">
                 <div class="box-body">
-                    @include('templates.products.table')
+                    @include('pages.templates.table')
                 </div>
             </div>
         @else

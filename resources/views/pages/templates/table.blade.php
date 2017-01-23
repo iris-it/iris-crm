@@ -1,8 +1,8 @@
 <table class="table table-striped table-responsive" id="products-table">
     <thead>
     <th class="h4 text-purple text-uppercase">{{trans('app.general:name')}}</th>
-    <th class="h4 text-purple text-uppercase">{{trans('app.product:created_at')}}</th>
-    <th class="h4 text-purple text-uppercase">{{ trans('app.product:updated_at') }}</th>
+    <th class="h4 text-purple text-uppercase">{{trans('app.general:created-at')}}</th>
+    <th class="h4 text-purple text-uppercase">{{ trans('app.general:updated-at') }}</th>
 
     <th class="h4 text-purple text-uppercase" colspan="3">Action</th>
     </thead>
