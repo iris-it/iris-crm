@@ -110,6 +110,9 @@
                     top: 300,
                     fontSize: 19,
                     fontFamily: 'Calibri',
+                    menu_left: 10,
+                    menu_top: 80,
+                    menu_fontSize: 20,
                     hasRotatingPoint: false
                 },
 
@@ -121,6 +124,9 @@
                     top: 330,
                     fontSize: 19,
                     fontFamily: 'Calibri',
+                    menu_left: 10,
+                    menu_top: 110,
+                    menu_fontSize: 20,
                     hasRotatingPoint: false
                 },
 
@@ -132,6 +138,9 @@
                     top: 360,
                     fontSize: 19,
                     fontFamily: 'Calibri',
+                    menu_left: 10,
+                    menu_top: 140,
+                    menu_fontSize: 20,
                     hasRotatingPoint: false
                 },
 
@@ -143,6 +152,9 @@
                     top: 390,
                     fontSize: 19,
                     fontFamily: 'Calibri',
+                    menu_left: 10,
+                    menu_top: 170,
+                    menu_fontSize: 20,
                     hasRotatingPoint: false
                 },
 
@@ -154,6 +166,9 @@
                     top: 420,
                     fontSize: 19,
                     fontFamily: 'Calibri',
+                    menu_left: 10,
+                    menu_top: 200,
+                    menu_fontSize: 20,
                     hasRotatingPoint: false
                 },
 
@@ -165,6 +180,9 @@
                     top: 450,
                     fontSize: 19,
                     fontFamily: 'Calibri',
+                    menu_left: 10,
+                    menu_top: 230,
+                    menu_fontSize: 20,
                     hasRotatingPoint: false
                 },
 
@@ -176,6 +194,9 @@
                     top: 250,
                     fontSize: 25,
                     fontFamily: 'Calibri',
+                    menu_left: 10,
+                    menu_top: 260,
+                    menu_fontSize: 20,
                     hasRotatingPoint: false,
                     fontWeight: 'bold'
                 },
@@ -189,6 +210,9 @@
                     top: 300,
                     fontSize: 19,
                     fontFamily: 'Calibri',
+                    menu_left: 10,
+                    menu_top: 290,
+                    menu_fontSize: 20,
                     hasRotatingPoint: false
                 },
 
@@ -200,6 +224,9 @@
                     top: 330,
                     fontSize: 19,
                     fontFamily: 'Calibri',
+                    menu_left: 10,
+                    menu_top: 320,
+                    menu_fontSize: 20,
                 },
 
                 {
@@ -210,6 +237,9 @@
                     top: 360,
                     fontSize: 19,
                     fontFamily: 'Calibri',
+                    menu_left: 10,
+                    menu_top: 350,
+                    menu_fontSize: 20,
                 },
 
                 {
@@ -220,6 +250,9 @@
                     top: 390,
                     fontSize: 19,
                     fontFamily: 'Calibri',
+                    menu_left: 10,
+                    menu_top: 380,
+                    menu_fontSize: 20,
                 },
 
                 {
@@ -230,6 +263,9 @@
                     top: 420,
                     fontSize: 19,
                     fontFamily: 'Calibri',
+                    menu_left: 10,
+                    menu_top: 410,
+                    menu_fontSize: 20,
                 },
 
                 {
@@ -240,6 +276,9 @@
                     top: 450,
                     fontSize: 19,
                     fontFamily: 'Calibri',
+                    menu_left: 10,
+                    menu_top: 440,
+                    menu_fontSize: 20,
                 },
 
                 {
@@ -250,6 +289,9 @@
                     top: 1000,
                     fontSize: 19,
                     fontFamily: 'Calibri',
+                    menu_left: 10,
+                    menu_top: 470,
+                    menu_fontSize: 20,
                 },
 
 
@@ -307,7 +349,8 @@
 
             canvas.on('object:modified', function (e) {
                 if (e.target.iris_identifier !== "content_ph") {
-                    addDeleteBtn(e.target.oCoords.tr.x, e.target.oCoords.tr.y);
+                    var container = e.target.canvas.contextContainer.canvas.offsetParent;
+                    addDeleteBtn(container,e.target.oCoords.tr.x, e.target.oCoords.tr.y);
                 }
             });
 
@@ -326,6 +369,43 @@
                     cloneItem(canvas.getActiveObject(), itemsCanvas, "remove");
                     canvas.remove(canvas.getActiveObject());
                     $(".deleteBtn").remove();
+                }
+            });
+
+
+            itemsCanvas.on('object:selected', function (e) {
+                    var container = e.target.canvas.contextContainer.canvas.offsetParent;
+                    addAddBtn(container, e.target.oCoords.tr.x, e.target.oCoords.tr.y);
+
+            });
+
+            itemsCanvas.on('mouse:down', function (e) {
+                if (!itemsCanvas.getActiveObject()) {
+                    $(".addBtn").remove();
+                }
+            });
+
+            itemsCanvas.on('object:modified', function (e) {
+                    var container = e.target.canvas.contextContainer.canvas.offsetParent;
+                    addAddBtn(container, e.target.oCoords.tr.x, e.target.oCoords.tr.y);
+            });
+
+            itemsCanvas.on('object:scaling', function (e) {
+                $(".addBtn").remove();
+            });
+            itemsCanvas.on('object:moving', function (e) {
+                $(".addBtn").remove();
+            });
+            itemsCanvas.on('object:rotating', function (e) {
+                $(".addBtn").remove();
+            });
+
+            $(document).on('click', ".addBtn", function () {
+                if (itemsCanvas.getActiveObject()) {
+
+                    cloneItem(itemsCanvas.getActiveObject(), canvas, "add");
+                    itemsCanvas.remove(itemsCanvas.getActiveObject());
+                    $(".addBtn").remove();
                 }
             });
 
@@ -367,6 +447,16 @@
                 var btnTop = y - 10;
                 var deleteBtn = '<img src="{{asset("img/close-button.png")}}" class="deleteBtn" style="position:absolute;top:' + btnTop + 'px;left:' + btnLeft + 'px;cursor:pointer;width:20px;height:20px;"/>';
                 $(container).append(deleteBtn);
+            }
+
+            // add add button
+
+            function addAddBtn(container, x, y) {
+                $(".addBtn").remove();
+                var btnLeft = x - 10;
+                var btnTop = y - 10;
+                var addBtn = '<img src="{{asset("img/add-button.png")}}" class="addBtn" style="position:absolute;top:' + btnTop + 'px;left:' + btnLeft + 'px;cursor:pointer;width:20px;height:20px;"/>';
+                $(container).append(addBtn);
             }
 
             // clone item to another canvas
