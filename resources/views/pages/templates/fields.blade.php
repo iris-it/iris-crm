@@ -166,6 +166,7 @@
                     top: 420,
                     fontSize: 19,
                     fontFamily: 'Calibri',
+                    menu_value: "Adresse de votre entreprise",
                     menu_left: 10,
                     menu_top: 200,
                     menu_fontSize: 20,
@@ -224,6 +225,7 @@
                     top: 330,
                     fontSize: 19,
                     fontFamily: 'Calibri',
+                    menu_value: "N° SIRET client",
                     menu_left: 10,
                     menu_top: 320,
                     menu_fontSize: 20,
@@ -263,6 +265,7 @@
                     top: 420,
                     fontSize: 19,
                     fontFamily: 'Calibri',
+                    menu_value: "Adresse client",
                     menu_left: 10,
                     menu_top: 410,
                     menu_fontSize: 20,
@@ -289,35 +292,34 @@
                     top: 1000,
                     fontSize: 19,
                     fontFamily: 'Calibri',
+                    menu_value: "Date et lieu du document",
                     menu_left: 10,
                     menu_top: 470,
                     menu_fontSize: 20,
                 },
 
-
             ];
 
-            texts.forEach(function (textObject) {
-                canvas.add(new fabric.Text(textObject.value, textObject));
-            });
-
-
-            fabric.Image.fromURL("{{asset("img/logo-placeholder.png")}}", function (image) {
-                let logoImage = image.set({
+            let images = [
+                {
+                    value: "{{asset("img/logo-placeholder.png")}}",
                     iris_type: "image",
                     iris_identifier: "orga_logo",
                     left: 610,
                     top: 150,
+                    width: 240,
+                    height: 160,
                     originX: "center",
                     originY: "center",
+                    menu_left: 80,
+                    menu_top: 580,
+                    menu_width: 120,
+                    menu_height: 80,
                     hasRotatingPoint: false
-                });
-                canvas.add(logoImage);
+                },
 
-            });
-
-            fabric.Image.fromURL("{{asset("img/fr-content-ph.png")}}", function (image) {
-                let contentImage = image.set({
+                {
+                    value: "{{asset("img/fr-content-ph.png")}}",
                     iris_type: "content",
                     iris_identifier: "content_ph",
                     left: 610,
@@ -327,10 +329,66 @@
                     hasBorders: false,
                     hasControls: false,
                     hasRotatingPoint: false
+                }
+
+            ];
+
+            texts.forEach(function (textObject) {
+                canvas.add(new fabric.Text(textObject.value, textObject));
+            });
+
+            images.forEach(function (imageObject) {
+                fabric.Image.fromURL(imageObject.value, function (image) {
+
+                    let item = image.set({
+                        iris_type: imageObject.iris_type,
+                        iris_identifier: imageObject.iris_identifier,
+                        left: imageObject.left,
+                        top: imageObject.top,
+                        originX: imageObject.originX,
+                        originY: imageObject.originY,
+                        hasBorders: imageObject.hasBorders,
+                        hasControls: imageObject.hasControls,
+                        hasRotatingPoint: imageObject.hasRotatingPoint
+                    });
+
+                    canvas.add(item);
                 });
-                canvas.add(contentImage);
 
             });
+
+
+            {{--fabric.Image.fromURL("{{asset("img/logo-placeholder.png")}}", function (image) {--}}
+                {{--let logoImage = image.set({--}}
+                    {{--iris_type: "image",--}}
+                    {{--iris_identifier: "orga_logo",--}}
+                    {{--left: 610,--}}
+                    {{--top: 150,--}}
+                    {{--menu_width: 50 ,--}}
+                    {{--menu_height: 50,--}}
+                    {{--originX: "center",--}}
+                    {{--originY: "center",--}}
+                    {{--hasRotatingPoint: false--}}
+                {{--});--}}
+                {{--canvas.add(logoImage);--}}
+
+            {{--});--}}
+
+            {{--fabric.Image.fromURL("{{asset("img/fr-content-ph.png")}}", function (image) {--}}
+                {{--let contentImage = image.set({--}}
+                    {{--iris_type: "content",--}}
+                    {{--iris_identifier: "content_ph",--}}
+                    {{--left: 610,--}}
+                    {{--top: 700,--}}
+                    {{--originX: "center",--}}
+                    {{--originY: "center",--}}
+                    {{--hasBorders: false,--}}
+                    {{--hasControls: false,--}}
+                    {{--hasRotatingPoint: false--}}
+                {{--});--}}
+                {{--canvas.add(contentImage);--}}
+
+            {{--});--}}
 
 
             canvas.on('object:selected', function (e) {
@@ -350,7 +408,7 @@
             canvas.on('object:modified', function (e) {
                 if (e.target.iris_identifier !== "content_ph") {
                     var container = e.target.canvas.contextContainer.canvas.offsetParent;
-                    addDeleteBtn(container,e.target.oCoords.tr.x, e.target.oCoords.tr.y);
+                    addDeleteBtn(container, e.target.oCoords.tr.x, e.target.oCoords.tr.y);
                 }
             });
 
@@ -374,8 +432,8 @@
 
 
             itemsCanvas.on('object:selected', function (e) {
-                    var container = e.target.canvas.contextContainer.canvas.offsetParent;
-                    addAddBtn(container, e.target.oCoords.tr.x, e.target.oCoords.tr.y);
+                var container = e.target.canvas.contextContainer.canvas.offsetParent;
+                addAddBtn(container, e.target.oCoords.tr.x, e.target.oCoords.tr.y);
 
             });
 
@@ -386,8 +444,8 @@
             });
 
             itemsCanvas.on('object:modified', function (e) {
-                    var container = e.target.canvas.contextContainer.canvas.offsetParent;
-                    addAddBtn(container, e.target.oCoords.tr.x, e.target.oCoords.tr.y);
+                var container = e.target.canvas.contextContainer.canvas.offsetParent;
+                addAddBtn(container, e.target.oCoords.tr.x, e.target.oCoords.tr.y);
             });
 
             itemsCanvas.on('object:scaling', function (e) {
@@ -463,11 +521,20 @@
 
             function cloneItem(item, destCanvas, type) {
 
-                let result = texts.filter(function (obj) {
-                    return obj.iris_identifier == item.iris_identifier;
-                });
+                if (item.iris_type == "label") {
+                    var result = texts.filter(function (obj) {
+                        return obj.iris_identifier == item.iris_identifier;
+                    });
+                }
+                else if (item.iris_type == "image") {
+                    var result = images.filter(function(obj) {
+                        return obj.iris_identifier == item.iris_identifier;
+                    })
+                }
 
                 let model = result[0];
+
+
 
                 var clone = fabric.util.object.clone(item);
 
@@ -475,7 +542,15 @@
                     clone.set({left: model.menu_left, top: model.menu_top});
 
                     if (item.iris_type == "label") {
+
                         clone.set({fontSize: model.menu_fontSize, fontWeight: model.menu_fontWeight});
+                        if (model.menu_value) {
+                            clone.setText(model.menu_value);
+                        }
+                    }
+
+                    else if(item.iris_type == "image") {
+                        clone.set({width: model.menu_width, height: model.menu_height, top: model.menu_top, left: model.menu_left});
                     }
                 }
                 else if (type === "add") {
@@ -483,9 +558,13 @@
 
                     if (item.iris_type == "label") {
                         clone.set({fontSize: model.fontSize, fontWeight: model.fontWeight});
+                        clone.setText(model.value);
+                    }
+                    else if(item.iris_type == "image") {
+                        clone.set({width: model.width, height: model.height, top: model.top, left: model.left});
+
                     }
                 }
-
                 destCanvas.add(clone);
 
             }
