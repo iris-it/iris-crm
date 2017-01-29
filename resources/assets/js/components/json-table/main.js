@@ -20,23 +20,50 @@ export default class {
 
         this.tbody = $(this.parameters.target + ' tbody')[0];
 
+        this.fieldFactory = new FieldFactory();
+
     }
+
+    //
+    // REGISTER EVENTS
+    //
+
+    /**
+     *
+     *  TODO
+     *
+     */
+
+    //
+    // PUBLIC METHODS
+    //
 
     buildTable() {
         this._buildTableHeader();
         this._buildTableBody();
+        // TRIGGER EVENT
     }
+
+    addRow(data) {
+        this._buildTableRows(data);
+        // TRIGGER EVENT
+    }
+
+
+    //
+    // PRIVATE METHODS
+    //
 
     _buildTableHeader() {
 
         let row = $('<tr></tr>').appendTo(this.thead);
 
         this.parameters.columns.forEach(function (column) {
-            row.append($('<th>' + column.name + '</th>'));
+            row.append($('<th>').append(column.name));
         });
 
         if (this.parameters.editable) {
-            row.append($('<th><i class="fa fa-pencil"></i></th>'));
+            row.append($('<th>').append('<i class="fa fa-pencil">'));
         }
     }
 
@@ -46,9 +73,8 @@ export default class {
         if (rows.length > 0) {
             rows.forEach(function (row) {
                 this._buildTableRows(row);
-            }, this)
+            }, this);
         }
-
     }
 
     _buildTableRows(data) {
@@ -56,12 +82,37 @@ export default class {
         let row = $('<tr></tr>').appendTo(this.tbody);
 
         this.parameters.columns.forEach(function (column) {
+            row.append($('<td>').append(
+                this.fieldFactory.create(column.type, data, column.args)
+            ));
+        }, this);
 
-            let content = data[column.key];
+        if (this.parameters.editable) {
+            //bind events (update) on click
+            row.append($('<td>').append('<i class="fa fa-pencil">'));
+            //
+            // on click set editable the editable fields
+            //
+            //
+            //
+            //
+            //
+            //
 
-            row.append($('<td>' + content + '</td>'));
-        });
+            //add shadow json column
+            row.append($('<td class="row-data" style="display:none"></td>'));
+        }
 
+    }
+
+    _updateTableJson() {
+        // go through all the TR and get the JSON
+
+        // Make an array of objects
+
+        // Replace the main data attribute
+
+        // Rebuild the table Rows
     }
 
 

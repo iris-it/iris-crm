@@ -95,45 +95,89 @@
 
 
             let search = new SearchService(search_parameters);
+
             search.registerInput();
+
             search.handleSelect(function (suggestion) {
                 $current_selection = suggestion;
             });
 
+
             let table_parameters = {
                 target: '#item-table',
                 editable: true,
-                data: [
+                data: [],
+                columns: [  //'string|input|select|range|customs'
                     {
-                        var1: 'test',
-                        var2: 'testing'
-                    },
-                    {
-                        var1: 'test 1',
-                        var2: 'testing 2'
-                    }
-                ],
-                columns: [
-                    {
-                        name: 'Nom Fr',
-                        key: 'var1',
-                        value: '1',
-                        type: 'text|input|select|range|aggregate'
-                    },
-                    {
-                        name: 'Nom Fr 2',
-                        key: 'var2',
-                        value: '2',
-                        type: 'text|input|select|range|aggregate',
-                        aggregate: function (row) {
-                            return row.price * row.quantity
+                        name: 'Désignation',
+                        type: 'string',
+                        args: {
+                            key: 'name'
                         }
-                    }
+                    }, {
+                        name: 'Description',
+                        type: 'textarea',
+                        editable: true,
+                        args: {
+                            key: 'description'
+                        }
+                    }, {
+                        name: 'Quantités',
+                        type: 'range',
+                        editable: true,
+                        args: {
+                            key: 'quantity',
+                            min: 1,
+                            max: function (row) {
+                                return row.stock_disponibility || 25
+                            }
+                        }
+                    }, {
+                        name: 'Unités',
+                        type: 'custom',
+                        args: function (row) {
+                            return row.sale_unit || 'Unité'
+                        }
+                    }, {
+                        name: 'Prix Unitaire HT',
+                        type: 'string',
+                        args: {
+                            key: 'ht_price'
+                        }
+                    }, {
+                        name: 'Taxe(s) %',
+                        type: 'custom',
+                        args: function (row) {
+                            return row.taxes.map(function (obj) {
+                                return obj.value;
+                            }).join('&nbsp;-&nbsp;');
+                        }
+                    }, {
+                        name: 'Prix HT',
+                        type: 'custom',
+                        args: function (row) {
+                            return row.ht_price * row.quantity;
+                        }
+                    }, {
+                        name: 'Prix HT',
+                        type: 'custom',
+                        args: function (row) {
+                            return row.ttc_price * row.quantity;
+                        }
+                    },
                 ]
             };
 
             let jsontable = new JsonTable(table_parameters);
+
             jsontable.buildTable();
+
+
+            $('#search-submit-add').click(function () {
+                jsontable.addRow($.extend($current_selection, {
+                    quantity: 1
+                }));
+            });
 
 
 //

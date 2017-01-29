@@ -1,10 +1,11 @@
-const AbstractField = require('./abstract-field');
+const AbstractField = require('./types/abstract-field');
 
-const aggregateField = require('./aggregate');
-const inputField = require('./input');
-const rangeField = require('./range');
-const selectField = require('./select');
-const stringField = require('./string');
+const customField = require('./types/custom');
+const inputField = require('./types/input');
+const textareaField = require('./types/textarea');
+const rangeField = require('./types/range');
+const selectField = require('./types/select');
+const stringField = require('./types/string');
 
 let FieldFactory = function () {
 };

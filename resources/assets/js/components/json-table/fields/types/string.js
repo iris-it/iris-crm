@@ -9,7 +9,7 @@ StringField.prototype = new AbstractField();
 
 // extends
 StringField.prototype.build = function (row, args) {
-    return 'string';
+    return row[args.key];
 };
 
 module.exports = StringField;

@@ -9,7 +9,7 @@ InputField.prototype = new AbstractField();
 
 // extends
 InputField.prototype.build = function (row, args) {
-    return 'input';
+    return '<input type="text" value="' + String(row[args.key]) + '">';
 };
 
 module.exports = InputField;
