@@ -1,7 +1,7 @@
 <!-- Product Name Field -->
 <div class="form-group col-sm-6">
-    {!! Form::label('product_name', trans('app.general:name') . " :", ['class' => 'h4 text-purple'] ) !!}
-    {!! Form::text('product_name', null, ['class' => 'form-control']) !!}
+    {!! Form::label('name', trans('app.general:name') . " :", ['class' => 'h4 text-purple'] ) !!}
+    {!! Form::text('name', null, ['class' => 'form-control']) !!}
 </div>
 
 <!-- Is Active Field -->
@@ -45,6 +45,11 @@
     {!! Form::text('stock_disponibility', null, ['class' => 'form-control']) !!}
 </div>
 
+<!-- Stock Disponibility Field -->
+<div class="form-group col-sm-6">
+    {!! Form::label('sale_unit', trans('app.product:sale-unit') . " :", ['class' => 'h4 text-purple']) !!}
+    {!! Form::text('sale_unit', null, ['class' => 'form-control']) !!}
+</div>
 
 <!-- Sale Datestart Field -->
 <div class="form-group col-sm-6">

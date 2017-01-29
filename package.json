@@ -23,6 +23,7 @@
     "cropper": "^2.3.4",
     "font-awesome": "^4.7.0",
     "ionicons": "^3.0.0",
+    "jsgrid": "^1.5.3",
     "leaflet": "^1.0.1",
     "leaflet.markercluster": "^1.0.0",
     "sortablejs": "^1.5.0-rc1",

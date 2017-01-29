@@ -5,8 +5,8 @@
         <hr>
         <!-- Product Name Field -->
         <div class="form-group col-sm-6">
-            {!! Form::label('product_name', trans('app.general:name') . " :"  , ['class' => 'h4 text-purple'])  !!}
-            <span class="h4 text-bold">{!! $product->product_name !!}</span>
+            {!! Form::label('name', trans('app.general:name') . " :"  , ['class' => 'h4 text-purple'])  !!}
+            <span class="h4 text-bold">{!! $product->name !!}</span>
         </div>
 
         <!-- Is Active Field -->

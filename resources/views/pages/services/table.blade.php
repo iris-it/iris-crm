@@ -15,7 +15,7 @@
     <tbody>
     @foreach($services as $service)
         <tr>
-            <td class="text-bold">{!! $service->service_name !!}</td>
+            <td class="text-bold">{!! $service->name !!}</td>
             @if($service->is_active == true)
                 <td class="text-bold">{{trans('app.general:yes')}}</td>
             @else

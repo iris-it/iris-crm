@@ -21,7 +21,7 @@ class Service extends Model
 
 
     public $fillable = [
-        'service_name',
+        'name',
         'is_active',
         'category',
         'sale_unit',
@@ -39,7 +39,7 @@ class Service extends Model
      * @var array
      */
     protected $casts = [
-        'service_name' => 'string',
+        'name' => 'string',
         'is_active' => 'boolean',
         'category' => 'string',
         'sale_unit' => 'string',
@@ -52,7 +52,7 @@ class Service extends Model
     {
         if ($keyword != '') {
             $query->where(function ($query) use ($keyword) {
-                $query->where("service_name", "LIKE", "%$keyword%")
+                $query->where("name", "LIKE", "%$keyword%")
                     ->orWhere("category", "LIKE", "%$keyword%")
                     ->orWhere("description", "LIKE", "%$keyword%");
             });

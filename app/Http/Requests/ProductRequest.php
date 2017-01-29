@@ -30,12 +30,13 @@ class ProductRequest extends Request
             case 'POST': {
                 return [
 
-                    'product_name' => 'string|max:255|required',
+                    'name' => 'string|max:255|required',
                     'is_active' => '',
                     'category' => 'string|max:255|required',
                     'ht_price' => 'numeric|required',
                     'ttc_price' => 'numeric',
                     'stock_disponibility' => 'integer|required',
+                    'sale_unit' => 'string|max:255',
                     'product_avatar' => 'image|mimes:jpg,jpeg,png,gif|max:50000',
                     'crop_options' => 'string',
                     'sale_datestart' => 'required',
@@ -52,12 +53,13 @@ class ProductRequest extends Request
             case 'PATCH': {
                 return [
 
-                    'product_name' => 'string|max:255|required',
+                    'name' => 'string|max:255|required',
                     'is_active' => '',
                     'category' => 'string|max:255|required',
                     'ht_price' => 'numeric|required',
                     'ttc_price' => 'numeric',
                     'stock_disponibility' => 'integer|required',
+                    'sale_unit' => 'string|max:255|required',
                     'product_avatar' => 'image|mimes:jpg,jpeg,png,gif|max:50000',
                     'crop_options' => 'string',
                     'sale_datestart' => 'required',
