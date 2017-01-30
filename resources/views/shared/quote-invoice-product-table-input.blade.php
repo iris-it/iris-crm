@@ -127,7 +127,8 @@
                         editable: true,
                         args: {
                             key: 'quantity',
-                            min: 1,
+                            step: 0.01,
+                            min: 0,
                             max: function (row) {
                                 return row.stock_disponibility || 25
                             }
@@ -156,13 +157,13 @@
                         name: 'Prix HT',
                         type: 'custom',
                         args: function (row) {
-                            return row.ht_price * row.quantity;
+                            return (row.ht_price * row.quantity).toFixed(2) + "€";
                         }
                     }, {
                         name: 'Prix HT',
                         type: 'custom',
                         args: function (row) {
-                            return row.ttc_price * row.quantity;
+                            return (row.ttc_price * row.quantity).toFixed(2) + "€";
                         }
                     },
                 ]

@@ -1,15 +1,13 @@
-/*
- *
- * https://github.com/sroucheray/event-class
- *
- *
- *
- */
 const $ = require('jquery');
+
+const _ = require('lodash');
 
 const Sortable = require('sortablejs');
 
+const EventClass = require('event-class').default;
+
 const FieldFactory = require('./fields/field-factory');
+
 
 export default class {
 
@@ -22,17 +20,102 @@ export default class {
 
         this.fieldFactory = new FieldFactory();
 
+        this.sort_handle_class = "__sort_handle";
+        this.edit_class = "__table_edit";
+        this.edit_cancel_class = "__table_cancel_edit";
+        this.edit_validate_class = "__table_valid_edit";
+
+        this.events = null;
+
+        this._registerEvents();
     }
 
-    //
-    // REGISTER EVENTS
-    //
 
-    /**
-     *
-     *  TODO
-     *
-     */
+    //
+    // EVENTS
+    //
+    _registerEvents() {
+
+        this.events = new EventClass();
+
+        this.events.on("OnBuild", () => {
+            this._registerClickEditEvent();
+        });
+
+        this.events.on("OnAddRow", () => {
+            this.buildTable();
+            this._registerClickEditEvent();
+        });
+
+        this.events.on("OnEditRow", () => {
+            this._updateTableJson();
+            this._registerClickEditEvent();
+        });
+
+        Sortable.create(this.tbody, {
+            animation: 150,
+            handle: '.' + this.sort_handle_class,
+            onEnd: () => {
+                this.events.trigger("OnEditRow");
+            }
+        });
+    }
+
+    _registerClickEditEvent() {
+        $('.' + this.edit_class).off().on("click", (event) => {
+
+            let edit_button = $(event.currentTarget);
+            let edit_cancel_button = edit_button.siblings('.' + this.edit_cancel_class).first();
+            let edit_validate_button = edit_button.siblings('.' + this.edit_validate_class).first();
+
+            edit_button.hide();
+
+            this._enableInputsInRow(edit_button);
+
+            this._registerClickEditCancelEvent(edit_cancel_button);
+            this._registerClickEditValidateEvent(edit_validate_button);
+
+        });
+    }
+
+    _registerClickEditCancelEvent(context) {
+        context.show();
+
+        context.off().on("click", () => {
+            this.events.trigger("OnEditRow");
+        });
+    }
+
+    _registerClickEditValidateEvent(context) {
+        context.show();
+
+        context.off().on("click", () => {
+
+            let tr = $(context).closest('tr').first();
+
+            let json = JSON.parse($(tr).find("td.row-data").html());
+
+            $("td", tr).each(function () {
+
+                let current_element = $(this).children(":first");
+
+                let current_identifier = current_element.data('identifier');
+
+                if (_.startsWith(current_identifier, '__field_')) {
+
+                    let attribute = _.split(current_identifier, '__field_')[1];
+
+                    json[attribute] = current_element.val();
+                }
+
+            });
+
+            $(tr).find("td.row-data").html(JSON.stringify(json));
+
+            this.events.trigger("OnEditRow");
+
+        });
+    }
 
     //
     // PUBLIC METHODS
@@ -41,12 +124,14 @@ export default class {
     buildTable() {
         this._buildTableHeader();
         this._buildTableBody();
-        // TRIGGER EVENT
+
+        this.events.trigger("OnBuild");
     }
 
     addRow(data) {
-        this._buildTableRows(data);
-        // TRIGGER EVENT
+        this.parameters.data.push(data);
+
+        this.events.trigger("OnAddRow");
     }
 
 
@@ -56,7 +141,12 @@ export default class {
 
     _buildTableHeader() {
 
+        $(this.thead).empty();
+
         let row = $('<tr></tr>').appendTo(this.thead);
+
+        //add handle for drag and drop
+        row.append($('<th>').append(''));
 
         this.parameters.columns.forEach(function (column) {
             row.append($('<th>').append(column.name));
@@ -68,6 +158,9 @@ export default class {
     }
 
     _buildTableBody() {
+
+        $(this.tbody).empty();
+
         let rows = this.parameters.data;
 
         if (rows.length > 0) {
@@ -81,6 +174,9 @@ export default class {
 
         let row = $('<tr></tr>').appendTo(this.tbody);
 
+        //add handle for drag and drop
+        row.append($('<td class="' + this.sort_handle_class + '"><i class="fa fa-arrows-v"></i></td>'));
+
         this.parameters.columns.forEach(function (column) {
             row.append($('<td>').append(
                 this.fieldFactory.create(column.type, data, column.args)
@@ -89,75 +185,41 @@ export default class {
 
         if (this.parameters.editable) {
             //bind events (update) on click
-            row.append($('<td>').append('<i class="fa fa-pencil">'));
-            //
-            // on click set editable the editable fields
-            //
-            //
-            //
-            //
-            //
-            //
+            row.append($('<td class="row-edit">')
+                .append($('<button class="' + this.edit_class + '">').append('<i class="fa fa-pencil">'))
+                .append($('<button class="' + this.edit_validate_class + '">').hide().append('<i class="fa fa-check text-green">'))
+                .append($('<button class="' + this.edit_cancel_class + '">').hide().append('<i class="fa fa-times text-red">'))
+            );
 
             //add shadow json column
-            row.append($('<td class="row-data" style="display:none"></td>'));
+            row.append($('<td class="row-data" style="display:none">' + JSON.stringify(data) + '</td>'));
+
         }
 
     }
 
     _updateTableJson() {
-        // go through all the TR and get the JSON
 
-        // Make an array of objects
+        let updated_data = [];
 
-        // Replace the main data attribute
+        $('tr', this.tbody).each(function (row) {
+            let json = JSON.parse($(this).find("td.row-data").html());
 
-        // Rebuild the table Rows
+            updated_data.push(json);
+        });
+
+        this.parameters.data = updated_data;
+
+        this.buildTable();
+    }
+
+    _enableInputsInRow(context) {
+        let tr = $(context).closest('tr').first();
+
+        tr.find("input, select, textarea").each(function () {
+            $(this).prop('disabled', false);
+        })
     }
 
 
 }
-
-function initialize(target) {
-
-    let dummy = {
-        key1: 'test',
-        key2: 'test test',
-        key3: 2,
-        key4: 5,
-        key5: 10
-    };
-
-    let factory = new FieldFactory();
-
-    console.log(factory.create('aggregate', dummy, function (row) {
-        return row.key4 * row.key5
-    }));
-
-    console.log(factory.create('input', dummy, {selector: 'key1'}));
-
-    console.log(factory.create('range', dummy, {selector: 'key1', min: 1, max: 20}));
-
-    console.log(factory.create('select', dummy, {selector: 'key1', values: ['A', 'B', 'C']}));
-
-    console.log(factory.create('string', dummy, {selector: 'key2'}));
-
-
-    // Sortable.create(target, {
-    //     animation: 150
-    // });
-
-}
-
-
-//
-// build table =>
-//   Mapper => field => type (select or input)
-//          => select ? type range or data ( number or array )
-//          => if not field => nothing
-//
-//   Json by line =>
-//
-//   on edit => rebuild Data from TR order
-//   edit buttons mapped to the current TR line
-//

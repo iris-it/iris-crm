@@ -9,7 +9,13 @@ InputField.prototype = new AbstractField();
 
 // extends
 InputField.prototype.build = function (row, args) {
-    return '<input type="text" value="' + String(row[args.key]) + '">';
+
+    //TODO Add readonly property
+
+    return '<input type="text" ' +
+        'class="form-control" ' +
+        'data-identifier="' + this.class_prefix + args.key + '" ' +
+        'value="' + String(row[args.key]) + '" disabled>';
 };
 
 module.exports = InputField;

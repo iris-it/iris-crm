@@ -21,6 +21,7 @@
     "bootstrap-vertical-tabs": "git+https://github.com/dbtek/bootstrap-vertical-tabs.git",
     "chart.js": "^2.3.0",
     "cropper": "^2.3.4",
+    "event-class": "^0.1.3",
     "font-awesome": "^4.7.0",
     "ionicons": "^3.0.0",
     "jsgrid": "^1.5.3",

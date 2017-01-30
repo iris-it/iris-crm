@@ -9,7 +9,12 @@ TextareaField.prototype = new AbstractField();
 
 // extends
 TextareaField.prototype.build = function (row, args) {
-    return '<textarea>' + String(row[args.key]) + '</textarea>';
+
+    //TODO Add readonly property
+
+    return '<textarea ' +
+        'class="form-control" ' +
+        'data-identifier="' + this.class_prefix + args.key + '" disabled>' + String(row[args.key]) + '</textarea>';
 };
 
 module.exports = TextareaField;

@@ -21,8 +21,6 @@
     {!! Form::text('phase', null, ['class' => 'form-control']) !!}
 </div>
 
-<!-- TODO : Fix datepicker -->
-
 <!-- Deadline Field -->
 <div class="form-group col-sm-6">
     {!! Form::label('deadline', trans('app.general:deadline') . " :", ['class' => 'h4 text-purple'] ) !!}

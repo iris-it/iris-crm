@@ -12,7 +12,8 @@ RangeField.prototype.build = function (row, args) {
 
     let defaults = {
         min: 0,
-        max: 100
+        max: 100,
+        step: 1,
     };
 
     args = Object.assign({}, defaults, args);
@@ -25,9 +26,15 @@ RangeField.prototype.build = function (row, args) {
         args.max = args.max.call(null, row);
     }
 
-    console.log(args);
+    //TODO Add readonly property
 
-    return '<input type="number" min="' + String(args.min) + '" max="' + String(args.max) + '" value="' + String(row[args.key]) + '">';
+    return '<input type="number" ' +
+        'class="form-control" ' +
+        'data-identifier="' + this.class_prefix + args.key + '" ' +
+        'min="' + String(args.min) + '" ' +
+        'max="' + String(args.max) + '" ' +
+        'step="' + args.step + '" ' +
+        'value="' + String(row[args.key]) + '" disabled>';
 };
 
 module.exports = RangeField;
