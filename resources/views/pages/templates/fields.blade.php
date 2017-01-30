@@ -36,25 +36,17 @@
                 <br>
 
                 <div class="form-group col-md-12">
-                    <h4 class="text-purple text-center">{{trans('app.general:text')}}</h4>
-                    <label for="text-value">{{trans('app.general:value')}} : </label>
+                    <h4 class="text-purple text-center">{{trans('app.general:text')}} : </h4>
+                    <br>
                     <input type="text" class="form-control" id="text-value">
-                    <br>
-                    <label for="text-identifier">{{trans('app.general:identifier')}} : </label>
-                    <input type="text" class="form-control" id="text-identifier">
-                    <br>
-                    <button type="button" class="btn btn-primary btn-flat pull-right" id="custom-text-btn"> {{trans('app.general:add')}} </button>
+                    <button type="button" class="btn btn-primary btn-flat pull-right" id="custom-text-btn" style="margin-top:4%"> {{trans('app.general:add')}} </button>
                 </div>
 
                 <div class="form-group col-md-12">
-                    <h4 class="text-purple text-center">{{trans('app.general:image')}}</h4>
-                    <label for="image-file">{{trans('app.document:file')}} : </label>
+                    <h4 class="text-purple text-center">{{trans('app.general:image')}} : </h4>
+                    <br>
                     <input type="file" id="image-file"/>
                     <br>
-                    <label for="image-identifier">{{trans('app.general:identifier')}} : </label>
-                    <input type="text" class="form-control" id="image-identifier">
-                    <br>
-                    <button type="button" class="btn btn-primary btn-flat pull-right" id="custom-img-btn"> {{trans('app.general:add')}} </button>
                 </div>
 
             </div>
@@ -421,20 +413,20 @@
                 $(".deleteBtn").remove();
             });
             canvas.on('object:rotating', function (e) {
-                $(
-                        ".deleteBtn").remove();
+                $(".deleteBtn").remove();
             });
 
             $(document).on('click', ".deleteBtn", function () {
 
-                if (canvas.getActiveObject()) {
+                target = canvas.getActiveObject();
 
-                    if (canvas.getActiveObject().iris_type != "custom") {
-                        cloneItem(canvas.getActiveObject(), itemsCanvas, "remove");
+                if (target) {
+
+                    if (target.iris_type != "custom" && target.iris_type != "custom-image") {
+                        cloneItem(target, itemsCanvas, "remove");
                     }
 
-                    canvas.remove(canvas.getActiveObject());
-
+                    canvas.remove(target);
                     $(".deleteBtn").remove();
                 }
             });
@@ -460,13 +452,8 @@
 
             });
 
-            $(document).on('click', '#custom-img-btn', function() {
-
-
-            });
-
-
             $('#image-file').change(function(e) {
+
                 var reader = new FileReader();
                 reader.onload = function (event){
                     var imgObj = new Image();
@@ -474,17 +461,22 @@
                     imgObj.onload = function () {
                         var image = new fabric.Image(imgObj);
                         image.set({
-                            angle: 0,
-                            padding: 10,
-                            cornersize:10,
-                            height:110,
-                            width:110,
+                            iris_type: "custom-image",
+                            left: 610,
+                            top: 350,
+                            width: 240,
+                            height: 160,
+                            originX: "center",
+                            originY: "center",
+                            hasControls: true,
+                            hasRotatingPoint: false,
+                            selectable: true
                         });
-                        canvas.centerObject(image);
+
                         canvas.add(image);
-                        canvas.renderAll();
                     }
-                }
+                };
+
                 reader.readAsDataURL(e.target.files[0]);
             });
 
