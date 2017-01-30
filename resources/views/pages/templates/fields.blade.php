@@ -19,7 +19,8 @@
 <div class="box box-primary">
 
     <div class="box-header with-border">
-        <h3 class="box-title">{{trans('app.template:customization')}}</h3>
+        <h3 class="box-title text-purple" style="margin-left:35%">{{trans('app.template:customization')}}</h3>
+        <h3 class="box-title text-purple" style="margin-left:42.5%">{{trans('app.template:items')}}</h3>
     </div>
 
     <div class="box-body">
@@ -27,7 +28,36 @@
             <canvas id="render" width="1220" height="1237" style="border: 1px solid rgb(204, 204, 204); position: absolute; width: 1200px; height: 1237px; left: 0px; top: 0px; user-select: none;" class="lower-canvas"></canvas>
         </div>
         <div class="col-md-2" style="margin-left:3%">
-            <canvas id="items" width="300" height="1237" style="border: 1px solid rgb(204, 204, 204); position: absolute; width: 300px; height: 1237px; left: 0px; top: 0px; user-select: none;" class="lower-canvas"></canvas>
+            <canvas id="items" width="300" height="640" style="border: 1px solid rgb(204, 204, 204); position: absolute; width: 300px; height: 640px; left: 0px; top: 0px; user-select: none;" class="lower-canvas"></canvas>
+            <div id="custom-items" style="border: 1px solid rgb(204, 204, 204); position: absolute; width: 300px; height: 588px; left: 15px; top: 650px; user-select: none;" class="lower-canvas">
+
+                <h4 class="text-purple text-center">{{trans('app.template:custom-items')}}</h4>
+
+                <br>
+
+                <div class="form-group col-md-12">
+                    <h4 class="text-purple text-center">{{trans('app.general:text')}}</h4>
+                    <label for="text-value">{{trans('app.general:value')}} : </label>
+                    <input type="text" class="form-control" id="text-value">
+                    <br>
+                    <label for="text-identifier">{{trans('app.general:identifier')}} : </label>
+                    <input type="text" class="form-control" id="text-identifier">
+                    <br>
+                    <button type="button" class="btn btn-primary btn-flat pull-right" id="custom-text-btn"> {{trans('app.general:add')}} </button>
+                </div>
+
+                <div class="form-group col-md-12">
+                    <h4 class="text-purple text-center">{{trans('app.general:image')}}</h4>
+                    <label for="image-file">{{trans('app.document:file')}} : </label>
+                    <input type="file" id="image-file"/>
+                    <br>
+                    <label for="image-identifier">{{trans('app.general:identifier')}} : </label>
+                    <input type="text" class="form-control" id="image-identifier">
+                    <br>
+                    <button type="button" class="btn btn-primary btn-flat pull-right" id="custom-img-btn"> {{trans('app.general:add')}} </button>
+                </div>
+
+            </div>
 
         </div>
         <div class="row">
@@ -315,7 +345,9 @@
                     menu_top: 580,
                     menu_width: 120,
                     menu_height: 80,
-                    hasRotatingPoint: false
+                    hasControls: true,
+                    hasRotatingPoint: false,
+                    selectable: true
                 },
 
                 {
@@ -328,7 +360,8 @@
                     originY: "center",
                     hasBorders: false,
                     hasControls: false,
-                    hasRotatingPoint: false
+                    hasRotatingPoint: false,
+                    selectable: false
                 }
 
             ];
@@ -349,7 +382,8 @@
                         originY: imageObject.originY,
                         hasBorders: imageObject.hasBorders,
                         hasControls: imageObject.hasControls,
-                        hasRotatingPoint: imageObject.hasRotatingPoint
+                        hasRotatingPoint: imageObject.hasRotatingPoint,
+                        selectable: imageObject.selectable
                     });
 
                     canvas.add(item);
@@ -358,41 +392,9 @@
             });
 
 
-            {{--fabric.Image.fromURL("{{asset("img/logo-placeholder.png")}}", function (image) {--}}
-                {{--let logoImage = image.set({--}}
-                    {{--iris_type: "image",--}}
-                    {{--iris_identifier: "orga_logo",--}}
-                    {{--left: 610,--}}
-                    {{--top: 150,--}}
-                    {{--menu_width: 50 ,--}}
-                    {{--menu_height: 50,--}}
-                    {{--originX: "center",--}}
-                    {{--originY: "center",--}}
-                    {{--hasRotatingPoint: false--}}
-                {{--});--}}
-                {{--canvas.add(logoImage);--}}
-
-            {{--});--}}
-
-            {{--fabric.Image.fromURL("{{asset("img/fr-content-ph.png")}}", function (image) {--}}
-                {{--let contentImage = image.set({--}}
-                    {{--iris_type: "content",--}}
-                    {{--iris_identifier: "content_ph",--}}
-                    {{--left: 610,--}}
-                    {{--top: 700,--}}
-                    {{--originX: "center",--}}
-                    {{--originY: "center",--}}
-                    {{--hasBorders: false,--}}
-                    {{--hasControls: false,--}}
-                    {{--hasRotatingPoint: false--}}
-                {{--});--}}
-                {{--canvas.add(contentImage);--}}
-
-            {{--});--}}
-
-
             canvas.on('object:selected', function (e) {
-                if (e.target.iris_identifier !== "content_ph") {
+                if (e.target.iris_identifier !== "content_ph" && !e.target._objects) {
+
                     var container = e.target.canvas.contextContainer.canvas.offsetParent;
                     addDeleteBtn(container, e.target.oCoords.tr.x, e.target.oCoords.tr.y);
 
@@ -419,19 +421,77 @@
                 $(".deleteBtn").remove();
             });
             canvas.on('object:rotating', function (e) {
-                $(".deleteBtn").remove();
+                $(
+                        ".deleteBtn").remove();
             });
+
             $(document).on('click', ".deleteBtn", function () {
+
                 if (canvas.getActiveObject()) {
 
-                    cloneItem(canvas.getActiveObject(), itemsCanvas, "remove");
+                    if (canvas.getActiveObject().iris_type != "custom") {
+                        cloneItem(canvas.getActiveObject(), itemsCanvas, "remove");
+                    }
+
                     canvas.remove(canvas.getActiveObject());
+
                     $(".deleteBtn").remove();
                 }
             });
 
+            $(document).on('click', "#custom-text-btn", function () {
+
+                let value = $('#text-value').val();
+                let identifier = $('#text-identifier').val();
+
+                canvas.add(new fabric.Text(value, {
+
+                    iris_type: "custom",
+                    iris_identifier: identifier,
+                    left: 880,
+                    top: 70,
+                    originX: "center",
+                    originY: "center",
+                    fontSize: 19,
+                    fontFamily: 'Calibri',
+                }));
+
+                $("html, body").animate({scrollTop: 100}, "slow");
+
+            });
+
+            $(document).on('click', '#custom-img-btn', function() {
+
+
+            });
+
+
+            $('#image-file').change(function(e) {
+                var reader = new FileReader();
+                reader.onload = function (event){
+                    var imgObj = new Image();
+                    imgObj.src = event.target.result;
+                    imgObj.onload = function () {
+                        var image = new fabric.Image(imgObj);
+                        image.set({
+                            angle: 0,
+                            padding: 10,
+                            cornersize:10,
+                            height:110,
+                            width:110,
+                        });
+                        canvas.centerObject(image);
+                        canvas.add(image);
+                        canvas.renderAll();
+                    }
+                }
+                reader.readAsDataURL(e.target.files[0]);
+            });
+
+
 
             itemsCanvas.on('object:selected', function (e) {
+
                 var container = e.target.canvas.contextContainer.canvas.offsetParent;
                 addAddBtn(container, e.target.oCoords.tr.x, e.target.oCoords.tr.y);
 
@@ -527,13 +587,12 @@
                     });
                 }
                 else if (item.iris_type == "image") {
-                    var result = images.filter(function(obj) {
+                    var result = images.filter(function (obj) {
                         return obj.iris_identifier == item.iris_identifier;
                     })
                 }
 
                 let model = result[0];
-
 
 
                 var clone = fabric.util.object.clone(item);
@@ -549,7 +608,7 @@
                         }
                     }
 
-                    else if(item.iris_type == "image") {
+                    else if (item.iris_type == "image") {
                         clone.set({width: model.menu_width, height: model.menu_height, top: model.menu_top, left: model.menu_left});
                     }
                 }
@@ -560,7 +619,7 @@
                         clone.set({fontSize: model.fontSize, fontWeight: model.fontWeight});
                         clone.setText(model.value);
                     }
-                    else if(item.iris_type == "image") {
+                    else if (item.iris_type == "image") {
                         clone.set({width: model.width, height: model.height, top: model.top, left: model.left});
 
                     }

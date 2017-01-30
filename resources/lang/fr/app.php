@@ -85,6 +85,7 @@ return  array(
 	'general:general-info'              => 'Informations générales',
 	'general:ht-price'                  => 'Prix HT',
 	'general:image'                     => 'Image',
+	'general:identifier'                => 'Identifiant',
 	'general:notes'                     => 'Notes',
 	'general:invoices'                  => 'Factures',
 	'general:is-active'                 => 'Actif',
@@ -126,6 +127,8 @@ return  array(
 	'general:yes'                       => 'Oui',
 	'general:zipcode'                   => 'Code postal',
     'general:config'                    => 'Paramètres',
+    'general:text'                      => 'Texte',
+    'general:add'                       => 'Ajouter',
 	'invoice:products-list'             => 'Produits inclus dans cette facture',
 	'invoice:services-list'             => 'Services inclus dans cette facture',
     'invoice:no-invoices-desc'          => 'Créez votre première facture grâce au bouton ci-dessous',
@@ -210,4 +213,6 @@ return  array(
     'template:no-templates-title'         => 'Aucun template créé pour le moment !',
     'template:no-templates-desc'          => 'Créez votre premiere structure de devis / facture à l\'aide du bouton ci-dessous',
     'template:name-warning'             => 'Un nom doit être renseigné pour ce template',
+    'template:items'                    => 'Éléments',
+    'template:custom-items'             => 'Éléments additionels',
 );
