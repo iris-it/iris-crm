@@ -12,21 +12,21 @@ let FieldFactory = function () {
 
 FieldFactory.prototype.create = function (id, row, args) {
 
-    let strategyName = id + 'Field';
+    let strategyName = `${id}Field`;
 
     let strategy;
 
     try {
-        strategy = eval('new ' + strategyName + '()');
+        strategy = eval(`new ${strategyName}()`);
     }
     catch (err) {
-        console.log('Null Strategy: ' + err.message);
+        console.log(err.message);
     }
 
     if (strategy instanceof AbstractField) {
         return strategy.build(row, args);
     } else {
-        console.log(strategyName + ' not is a prototype of AbstractField.');
+        console.log(`${strategyName} is not is a prototype of AbstractField`);
     }
 };
 

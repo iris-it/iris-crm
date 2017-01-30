@@ -1,14 +1,32 @@
 const AbstractField = require('./abstract-field');
 
 let RangeField = function () {
-    // constructor
+    /*
+     * Constructor
+     */
 };
 
-// inherit
+/*
+ * Inherit
+ */
 RangeField.prototype = new AbstractField();
 
-// extends
+/*
+ * Extends
+ */
 RangeField.prototype.build = function (row, args) {
+
+    /*
+     * the required parameters are
+     * {
+     *    key: 'a selector for an element in the row object'
+     * }
+     *
+     * The 'min' and 'max' can be callback with the context of the row
+     * or integers
+     *
+     * 'step' is integer or float
+     */
 
     let defaults = {
         min: 0,
@@ -26,15 +44,12 @@ RangeField.prototype.build = function (row, args) {
         args.max = args.max.call(null, row);
     }
 
-    //TODO Add readonly property
-
-    return '<input type="number" ' +
-        'class="form-control" ' +
-        'data-identifier="' + this.class_prefix + args.key + '" ' +
-        'min="' + String(args.min) + '" ' +
-        'max="' + String(args.max) + '" ' +
-        'step="' + args.step + '" ' +
-        'value="' + String(row[args.key]) + '" disabled>';
+    return `<input type="number" class="form-control" 
+                data-identifier="${this.class_prefix}${args.key}" 
+                min="${String(args.min)}" 
+                max="${String(args.max)}" 
+                step="${args.step}" 
+                value="${String(row[args.key])}" disabled>`;
 };
 
 module.exports = RangeField;

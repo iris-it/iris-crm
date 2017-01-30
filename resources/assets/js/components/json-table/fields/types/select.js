@@ -1,13 +1,19 @@
 const AbstractField = require('./abstract-field');
 
 let SelectField = function () {
-    // constructor
+    /*
+     * Constructor
+     */
 };
 
-// inherit
+/*
+ * Inherit
+ */
 SelectField.prototype = new AbstractField();
 
-// extends
+/*
+ * Extends
+ */
 SelectField.prototype.build = function (row, args) {
 
     // IF 1D

@@ -1,21 +1,29 @@
 const AbstractField = require('./abstract-field');
 
 let InputField = function () {
-    // constructor
+    /*
+     * Constructor
+     */
 };
 
-// inherit
+/*
+ * Inherit
+ */
 InputField.prototype = new AbstractField();
 
-// extends
+/*
+ * Extends
+ */
 InputField.prototype.build = function (row, args) {
 
-    //TODO Add readonly property
+    /*
+     * the required parameters are
+     * {
+     *    key: 'a selector for an element in the row object'
+     * }
+     */
 
-    return '<input type="text" ' +
-        'class="form-control" ' +
-        'data-identifier="' + this.class_prefix + args.key + '" ' +
-        'value="' + String(row[args.key]) + '" disabled>';
+    return `<input type="text" class="form-control" data-identifier="${this.class_prefix}${args.key}" value="${String(row[args.key])}" disabled>`;
 };
 
 module.exports = InputField;

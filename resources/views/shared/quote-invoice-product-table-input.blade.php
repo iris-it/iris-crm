@@ -79,17 +79,17 @@
                 datasets: [
                     {
                         name: '{{trans('app.product:products')}}',
+                        header: '{{trans('app.product:list')}}',
                         endpoint: '{{action('Ajax\ItemSearchController@search', ['products'])}}',
                     },
                     {
                         name: '{{trans('app.service:services')}}',
+                        header: '{{trans('app.service:list')}}',
                         endpoint: '{{action('Ajax\ItemSearchController@search', ['services'])}}',
                     }
                 ],
                 translations: {
-                    not_found: "{{trans('app.search:no-results')}}",
-                    products_list: "{{trans('app.product:list')}}",
-                    services_list: "{{trans('app.service:list')}}",
+                    not_found: "{{trans('app.search:no-results')}}"
                 }
             };
 
@@ -117,14 +117,12 @@
                     }, {
                         name: 'Description',
                         type: 'textarea',
-                        editable: true,
                         args: {
                             key: 'description'
                         }
                     }, {
                         name: 'Quantités',
                         type: 'range',
-                        editable: true,
                         args: {
                             key: 'quantity',
                             step: 0.01,

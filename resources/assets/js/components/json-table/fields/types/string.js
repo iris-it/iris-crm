@@ -1,15 +1,29 @@
 const AbstractField = require('./abstract-field');
 
 let StringField = function () {
-    // constructor
+    /*
+     * Constructor
+     */
 };
 
-// inherit
+/*
+ * Inherit
+ */
 StringField.prototype = new AbstractField();
 
-// extends
+/*
+ * Extends
+ */
 StringField.prototype.build = function (row, args) {
-    return '<span>' + row[args.key] + '</span>';
+
+    /*
+     * the required parameters are
+     * {
+     *    key: 'a selector for an element in the row object'
+     * }
+     */
+
+    return `<span>${row[args.key]}</span>`;
 };
 
 module.exports = StringField;

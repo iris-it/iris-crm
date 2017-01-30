@@ -1,14 +1,27 @@
 const AbstractField = require('./abstract-field');
 
 let CustomField = function () {
-    // constructor
+    /*
+     * Constructor
+     */
 };
 
-// inherit
+/*
+ * Inherit
+ */
 CustomField.prototype = new AbstractField();
 
-// extends
+/*
+ * Extends
+ */
 CustomField.prototype.build = function (row, callback) {
+
+    /*
+     * the required parameters are a callback
+     * function, the callback has access
+     * to the current row data
+     */
+
     return callback(row);
 };
 

@@ -1,20 +1,29 @@
 const AbstractField = require('./abstract-field');
 
 let TextareaField = function () {
-    // constructor
+    /*
+     * Constructor
+     */
 };
 
-// inherit
+/*
+ * Inherit
+ */
 TextareaField.prototype = new AbstractField();
 
-// extends
+/*
+ * Extends
+ */
 TextareaField.prototype.build = function (row, args) {
 
-    //TODO Add readonly property
+    /*
+     * the required parameters are
+     * {
+     *    key: 'a selector for an element in the row object'
+     * }
+     */
 
-    return '<textarea ' +
-        'class="form-control" ' +
-        'data-identifier="' + this.class_prefix + args.key + '" disabled>' + String(row[args.key]) + '</textarea>';
+    return `<textarea class="form-control" data-identifier="${this.class_prefix}${args.key}" disabled>${String(row[args.key])}</textarea>`;
 };
 
 module.exports = TextareaField;
