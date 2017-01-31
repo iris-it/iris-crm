@@ -25,10 +25,5 @@ $icon-font-path: "../fonts/";
 // Cropper
 @import "node_modules/cropper/dist/cropper";
 
-// JsGrid
-@import "node_modules/jsgrid/css/jsgrid";
-@import "node_modules/jsgrid/css/theme";
-
-
-// Summernote
-//@import "node_modules/trumbowyg/dist/ui/sass/trumbowyg.scss";
+// Datatables
+@import "node_modules/datatables.net-bs/css/dataTables.bootstrap";

@@ -1,13 +1,9 @@
 const $ = require('jquery');
-
 const _ = require('lodash');
-
 const Sortable = require('sortablejs');
 
 const EventClass = require('event-class').default;
-
 const FieldFactory = require('./fields/field-factory');
-
 
 export default class {
 

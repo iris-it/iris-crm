@@ -72,6 +72,10 @@
             /*
              *  Variables
              */
+
+
+            let search_modal = new SearchModal({});
+
             let $current_selection = null;
 
             let search_parameters = {
@@ -170,7 +174,6 @@
             let jsontable = new JsonTable(table_parameters);
 
             jsontable.buildTable();
-
 
             $('#search-submit-add').click(function () {
                 jsontable.addRow($.extend($current_selection, {

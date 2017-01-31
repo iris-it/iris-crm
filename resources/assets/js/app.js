@@ -12,11 +12,6 @@ require('chart.js');
 require('leaflet');
 require('leaflet.markercluster');
 require('cropper');
-require('typeahead.js');
-require('sortablejs');
-
-require('jsgrid');
-// require('trumbowyg');
 
 /**
  * Application specific
@@ -28,5 +23,7 @@ window.IrisCrm = require('./crm');
 window.SearchService = require('./components/remote-typeahead-search/main').default;
 
 window.JsonTable = require('./components/json-table/main').default;
+
+window.SearchModal = require('./components/search-modal/main').default;
 
 require('./general');

@@ -1,5 +1,6 @@
 const $ = require('jquery');
 const Bloodhound = require('bloodhound-js');
+require('typeahead.js');
 
 export default class {
 
