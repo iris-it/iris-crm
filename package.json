@@ -24,6 +24,7 @@
     "font-awesome": "^4.7.0",
     "ionicons": "^3.0.0",
     "leaflet": "^1.0.1",
-    "leaflet.markercluster": "^1.0.0"
+    "leaflet.markercluster": "^1.0.0",
+    "toastr": "^2.1.2"
   }
 }

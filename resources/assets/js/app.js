@@ -13,6 +13,7 @@ require('leaflet');
 require('leaflet.markercluster');
 require('cropper');
 require('fabric');
+require('toastr');
 // require('trumbowyg');
 
 /**

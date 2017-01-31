@@ -389,6 +389,7 @@
 
                     var container = e.target.canvas.contextContainer.canvas.offsetParent;
                     addDeleteBtn(container, e.target.oCoords.tr.x, e.target.oCoords.tr.y);
+                    addZIndexButtons(container, e.target.oCoords.tr.x, e.target.oCoords.tr.y);
 
                 }
             });
@@ -396,6 +397,8 @@
             canvas.on('mouse:down', function (e) {
                 if (!canvas.getActiveObject()) {
                     $(".deleteBtn").remove();
+                    $(".upBtn").remove();
+                    $(".downBtn").remove();
                 }
             });
 
@@ -403,17 +406,25 @@
                 if (e.target.iris_identifier !== "content_ph") {
                     var container = e.target.canvas.contextContainer.canvas.offsetParent;
                     addDeleteBtn(container, e.target.oCoords.tr.x, e.target.oCoords.tr.y);
+                    addZIndexButtons(container, e.target.oCoords.tr.x, e.target.oCoords.tr.y);
+
                 }
             });
 
             canvas.on('object:scaling', function (e) {
                 $(".deleteBtn").remove();
+                $(".upBtn").remove();
+                $(".downBtn").remove();
             });
             canvas.on('object:moving', function (e) {
                 $(".deleteBtn").remove();
+                $(".upBtn").remove();
+                $(".downBtn").remove();
             });
             canvas.on('object:rotating', function (e) {
                 $(".deleteBtn").remove();
+                $(".upBtn").remove();
+                $(".downBtn").remove();
             });
 
             $(document).on('click', ".deleteBtn", function () {
@@ -427,8 +438,28 @@
                     }
 
                     canvas.remove(target);
+                    $(".upBtn").remove();
+                    $(".downBtn").remove();
                     $(".deleteBtn").remove();
                 }
+            });
+
+            $(document).on('click', ".upBtn", function () {
+
+                target = canvas.getActiveObject();
+                target.bringForward();
+                console.log(canvas.getObjects().indexOf(target));
+                toastr.success('Have fun storming the castle!', 'Miracle Max Says')
+
+
+            });
+
+            $(document).on('click', ".downBtn", function () {
+
+                target = canvas.getActiveObject();
+                target.sendBackwards();
+                console.log(canvas.getObjects().indexOf(target));
+
             });
 
             $(document).on('click', "#custom-text-btn", function () {
@@ -452,10 +483,10 @@
 
             });
 
-            $('#image-file').change(function(e) {
+            $('#image-file').change(function (e) {
 
                 var reader = new FileReader();
-                reader.onload = function (event){
+                reader.onload = function (event) {
                     var imgObj = new Image();
                     imgObj.src = event.target.result;
                     imgObj.onload = function () {
@@ -479,7 +510,6 @@
 
                 reader.readAsDataURL(e.target.files[0]);
             });
-
 
 
             itemsCanvas.on('object:selected', function (e) {
@@ -519,6 +549,7 @@
                 }
             });
 
+
             // snap to grid
 
             canvas.on('object:moving', function (options) {
@@ -557,6 +588,23 @@
                 var btnTop = y - 10;
                 var deleteBtn = '<img src="{{asset("img/close-button.png")}}" class="deleteBtn" style="position:absolute;top:' + btnTop + 'px;left:' + btnLeft + 'px;cursor:pointer;width:20px;height:20px;"/>';
                 $(container).append(deleteBtn);
+            }
+
+            // add up and down button for z-index control
+
+            function addZIndexButtons(container, x, y) {
+                $(".upBtn").remove();
+                $(".downBtn").remove();
+                var upBtnLeft = x - 40;
+                var upBtnTop = y - 10;
+                var downBtnLeft = x - 60;
+                var downBtnTop = y - 10;
+
+                var upBtn = '<img src="{{asset("img/up-button.png")}}" class="upBtn" style="position:absolute;top:' + upBtnTop + 'px;left:' + upBtnLeft + 'px;cursor:pointer;width:20px;height:20px;"/>';
+                var downBtn = '<img src="{{asset("img/down-button.png")}}" class="downBtn" style="position:absolute;top:' + downBtnTop + 'px;left:' + downBtnLeft + 'px;cursor:pointer;width:20px;height:20px;"/>';
+                $(container).append(upBtn);
+                $(container).append(downBtn);
+
             }
 
             // add add button
