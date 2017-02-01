@@ -257,6 +257,9 @@ export default class {
     // PUBLIC METHODS                                                                          //
     /////////////////////////////////////////////////////////////////////////////////////////////
 
+    //TODO add callback to call when the build / edit / add / is done
+    //For calculate totals
+
     /**
      * Builds the table
      *

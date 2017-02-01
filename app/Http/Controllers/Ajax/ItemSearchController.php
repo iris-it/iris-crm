@@ -13,12 +13,34 @@ class ItemSearchController extends Controller
 
     /**
      * Search input for ajax requests
-     * @param Request $request
      * @param $type
-     * @param $query
      * @return array
      */
+    public function all($type)
+    {
+        switch ($type) {
+            case 'products': {
+                return Product::where('organization_id', $this->organization->id)
+                    ->with('taxes')
+                    ->get();
+            }
+            case 'services': {
+                return Service::where('organization_id', $this->organization->id)
+                    ->with('taxes')
+                    ->get();
+            }
+            default : {
+                return [];
+            }
+        }
+    }
 
+    /**
+     * Search input for ajax requests
+     * @param Request $request
+     * @param $type
+     * @return array
+     */
     public function search(Request $request, $type)
     {
 

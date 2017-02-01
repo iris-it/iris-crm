@@ -13,14 +13,12 @@
     <div class="box-body">
         <div class="row">
             <div class="col-sm-12">
-                <div class="form-group col-xs-8">
-                    <label class="h4 text-purple">{{trans('app.search:product-service')}} :</label>
-                    <input type="text" class="form-control" id="search-input" placeholder="{{trans('app.search:type')}}" autocomplete="off"/>
-                </div>
-                <div class="form-group col-xs-4">
-                    <label class="h4 text-purple">{{trans('app.general:action')}} :</label>
-                    <a class="btn btn-success btn-block" id="search-submit-add">Ajouter</a>
-                </div>
+                <a class="btn btn-info btn-flat" id="product-add">
+                    <i class="fa fa-cubes"></i> {{trans('app.product:add-alt')}}
+                </a>
+                <a class="btn btn-info btn-flat" id="service-add">
+                    <i class="fa fa-handshake-o"></i>{{trans('app.service:add-alt')}}
+                </a>
             </div>
         </div>
     </div>
@@ -72,40 +70,6 @@
             /*
              *  Variables
              */
-
-
-            let search_modal = new SearchModal({});
-
-            let $current_selection = null;
-
-            let search_parameters = {
-                target: '#search-input',
-                datasets: [
-                    {
-                        name: '{{trans('app.product:products')}}',
-                        header: '{{trans('app.product:list')}}',
-                        endpoint: '{{action('Ajax\ItemSearchController@search', ['products'])}}',
-                    },
-                    {
-                        name: '{{trans('app.service:services')}}',
-                        header: '{{trans('app.service:list')}}',
-                        endpoint: '{{action('Ajax\ItemSearchController@search', ['services'])}}',
-                    }
-                ],
-                translations: {
-                    not_found: "{{trans('app.search:no-results')}}"
-                }
-            };
-
-
-            let search = new SearchService(search_parameters);
-
-            search.registerInput();
-
-            search.handleSelect(function (suggestion) {
-                $current_selection = suggestion;
-            });
-
 
             let table_parameters = {
                 target: '#item-table',
@@ -172,13 +136,50 @@
             };
 
             let jsontable = new JsonTable(table_parameters);
-
             jsontable.buildTable();
 
-            $('#search-submit-add').click(function () {
-                jsontable.addRow($.extend($current_selection, {
-                    quantity: 1
-                }));
+
+
+            let products_modal = new SearchModal({
+                button_target: '#product-add',
+                source: '{{action('Ajax\ItemSearchController@all', ['products'])}}',
+                table_columns: [
+                    {data: "name", title: "Nom"},
+                    {data: "description", title: "Description"},
+                    {data: "category", title: "Category"},
+                    {data: "sale_unit", title: "Unité de vente"},
+                    {data: "stock_disponibility", title: "Stock disponible"},
+                    {data: "ht_price", title: "Prix HT"}
+                ],
+                onSubmit: function (items) {
+
+                    console.log(items);
+
+                    items.forEach(function (item) {
+                        jsontable.addRow($.extend(item, {
+                            quantity: 1
+                        }));
+                    });
+                }
+            });
+
+            let services_modal = new SearchModal({
+                button_target: '#service-add',
+                source: '{{action('Ajax\ItemSearchController@all', ['services'])}}',
+                table_columns: [
+                    {data: "name", title: "Nom"},
+                    {data: "description", title: "Description"},
+                    {data: "category", title: "Category"},
+                    {data: "sale_unit", title: "Unité de vente"},
+                    {data: "ht_price", title: "Prix HT"}
+                ],
+                onSubmit: function (items) {
+                    items.forEach(function (item) {
+                        jsontable.addRow($.extend(item, {
+                            quantity: 1
+                        }));
+                    });
+                }
             });
 
 

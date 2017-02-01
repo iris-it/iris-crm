@@ -7,7 +7,7 @@
 
 <title></title>
 
-<link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet'  type='text/css'>
+<link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
 
 <link href="{{ elixir("css/app.css") }}" rel="stylesheet">
 
