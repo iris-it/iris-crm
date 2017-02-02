@@ -18,12 +18,17 @@
                 <div class="row">
                     {!! Form::open(['action' => 'QuoteController@store']) !!}
 
+                    <input type="hidden" name="content" id="content_field" value="[]"/>
+
                     @include('pages.quotes.fields')
 
                     {!! Form::close() !!}
                 </div>
             </div>
         </div>
+
+        @include('shared.quote-invoice-product-table-input', ['content_id' => 'content_field'])])
+
     </div>
 @endsection
 

@@ -9,21 +9,26 @@
         <h1>
             {{trans('app.invoice:edit')}}
         </h1>
-   </section>
-   <div class="content">
-       @include('errors.list')
-       <div class="box box-primary">
-           <div class="box-body">
-               <div class="row">
-                   {!! Form::model($invoice, ['action' => ['InvoiceController@update', $invoice->id], 'method' => 'patch']) !!}
+    </section>
+    <div class="content">
+        @include('errors.list')
+        <div class="box box-primary">
+            <div class="box-body">
+                <div class="row">
+                    {!! Form::model($invoice, ['action' => ['InvoiceController@update', $invoice->id], 'method' => 'patch']) !!}
 
-                        @include('pages.invoices.fields')
+                    <input type="hidden" name="content" id="content_field" value="{{$invoice->content}}"/>
 
-                   {!! Form::close() !!}
-               </div>
-           </div>
-       </div>
-   </div>
+                    @include('pages.invoices.fields')
+
+                    {!! Form::close() !!}
+                </div>
+            </div>
+        </div>
+
+        @include('shared.quote-invoice-product-table-input', ['content_id' => 'content_field'])])
+
+    </div>
 @endsection
 
 @section('scripts')

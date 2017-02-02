@@ -48,8 +48,6 @@
     {!! Form::hidden('office_id', Request::get('office_id')) !!}
 @endif
 
-@include('shared.quote-invoice-product-table-input', ['entity' => $invoice, 'type' => 'invoice'])
-
 <!-- Submit Field -->
 <div class="form-group col-sm-12">
     {!! Form::submit( trans('app.general:save-changes'), ['class' => 'btn btn-primary']) !!}
