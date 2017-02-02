@@ -6,9 +6,20 @@
 
     <div class="box-body">
 
-        <div class="form-group col-sm-6">
+        <div class="form-group col-sm-4">
             {!! Form::label('name', trans('app.template:name') . " :", ['class' => 'h4 text-purple', 'id' => 'name-label'] ) !!}
             {!! Form::text('name', null, ['class' => 'form-control']) !!}
+        </div>
+
+        <div class="form-group col-sm-4">
+            <label for="text-color" class="h4 text-purple">{{trans('app.template:text-color')}} : </label>
+            <br>
+            <input type='text' id="text-color"/>
+        </div>
+        <div class="form-group col-sm-4">
+            <label for="bg-color" class="h4 text-purple">{{trans('app.template:bg-color')}} : </label>
+            <br>
+            <input type='text' id="bg-color"/>
         </div>
 
         <input type="hidden" id="content" name="content"/>
@@ -100,6 +111,7 @@
                     left: 50,
                     top: 20,
                     fontSize: 20,
+                    fill: "black",
                     menu_left: 10,
                     menu_top: 20,
                     menu_fontSize: 20,
@@ -115,6 +127,7 @@
                     left: 50,
                     top: 250,
                     fontSize: 25,
+                    fill: "black",
                     fontWeight: 'bold',
                     menu_left: 10,
                     menu_top: 50,
@@ -131,6 +144,7 @@
                     left: 50,
                     top: 300,
                     fontSize: 19,
+                    fill: "black",
                     fontFamily: 'Calibri',
                     menu_left: 10,
                     menu_top: 80,
@@ -145,6 +159,7 @@
                     left: 50,
                     top: 330,
                     fontSize: 19,
+                    fill: "black",
                     fontFamily: 'Calibri',
                     menu_left: 10,
                     menu_top: 110,
@@ -159,6 +174,7 @@
                     left: 50,
                     top: 360,
                     fontSize: 19,
+                    fill: "black",
                     fontFamily: 'Calibri',
                     menu_left: 10,
                     menu_top: 140,
@@ -173,6 +189,7 @@
                     left: 50,
                     top: 390,
                     fontSize: 19,
+                    fill: "black",
                     fontFamily: 'Calibri',
                     menu_left: 10,
                     menu_top: 170,
@@ -187,6 +204,7 @@
                     left: 50,
                     top: 420,
                     fontSize: 19,
+                    fill: "black",
                     fontFamily: 'Calibri',
                     menu_value: "Adresse de votre entreprise",
                     menu_left: 10,
@@ -202,6 +220,7 @@
                     left: 50,
                     top: 450,
                     fontSize: 19,
+                    fill: "black",
                     fontFamily: 'Calibri',
                     menu_left: 10,
                     menu_top: 230,
@@ -216,6 +235,7 @@
                     left: 850,
                     top: 250,
                     fontSize: 25,
+                    fill: "black",
                     fontFamily: 'Calibri',
                     menu_left: 10,
                     menu_top: 260,
@@ -232,6 +252,7 @@
                     left: 850,
                     top: 300,
                     fontSize: 19,
+                    fill: "black",
                     fontFamily: 'Calibri',
                     menu_left: 10,
                     menu_top: 290,
@@ -246,6 +267,7 @@
                     left: 850,
                     top: 330,
                     fontSize: 19,
+                    fill: "black",
                     fontFamily: 'Calibri',
                     menu_value: "N° SIRET client",
                     menu_left: 10,
@@ -260,6 +282,7 @@
                     left: 850,
                     top: 360,
                     fontSize: 19,
+                    fill: "black",
                     fontFamily: 'Calibri',
                     menu_left: 10,
                     menu_top: 350,
@@ -273,6 +296,7 @@
                     left: 850,
                     top: 390,
                     fontSize: 19,
+                    fill: "black",
                     fontFamily: 'Calibri',
                     menu_left: 10,
                     menu_top: 380,
@@ -286,6 +310,7 @@
                     left: 850,
                     top: 420,
                     fontSize: 19,
+                    fill: "black",
                     fontFamily: 'Calibri',
                     menu_value: "Adresse client",
                     menu_left: 10,
@@ -300,6 +325,7 @@
                     left: 850,
                     top: 450,
                     fontSize: 19,
+                    fill: "black",
                     fontFamily: 'Calibri',
                     menu_left: 10,
                     menu_top: 440,
@@ -313,6 +339,7 @@
                     left: 850,
                     top: 1000,
                     fontSize: 19,
+                    fill: "black",
                     fontFamily: 'Calibri',
                     menu_value: "Date et lieu du document",
                     menu_left: 10,
@@ -433,7 +460,7 @@
 
                 if (target) {
 
-                    if (target.iris_type != "custom" && target.iris_type != "custom-image") {
+                    if (target.iris_identifier != "custom") {
                         cloneItem(target, itemsCanvas, "remove");
                     }
 
@@ -448,8 +475,7 @@
 
                 target = canvas.getActiveObject();
                 target.bringForward();
-                console.log(canvas.getObjects().indexOf(target));
-                toastr.success('Have fun storming the castle!', 'Miracle Max Says')
+                showToast('Élément élevé au plan n° ' + canvas.getObjects().indexOf(target));
 
 
             });
@@ -458,19 +484,18 @@
 
                 target = canvas.getActiveObject();
                 target.sendBackwards();
-                console.log(canvas.getObjects().indexOf(target));
+                showToast('Élément ramené au plan n° ' + canvas.getObjects().indexOf(target));
 
             });
 
             $(document).on('click', "#custom-text-btn", function () {
 
                 let value = $('#text-value').val();
-                let identifier = $('#text-identifier').val();
 
                 canvas.add(new fabric.Text(value, {
 
-                    iris_type: "custom",
-                    iris_identifier: identifier,
+                    iris_type: "label",
+                    iris_identifier: "custom",
                     left: 880,
                     top: 70,
                     originX: "center",
@@ -492,7 +517,8 @@
                     imgObj.onload = function () {
                         var image = new fabric.Image(imgObj);
                         image.set({
-                            iris_type: "custom-image",
+                            iris_type: "image",
+                            iris_identifier: "custom",
                             left: 610,
                             top: 350,
                             width: 240,
@@ -511,6 +537,26 @@
                 reader.readAsDataURL(e.target.files[0]);
             });
 
+            $('#text-color').change(function (e) {
+
+                canvas._objects.forEach(function(object) {
+                    if(object.iris_type == "label") {
+                        object.setColor($('#text-color').val());
+                    }
+
+                    canvas.renderAll();
+                });
+
+            });
+
+            $('#bg-color').change(function (e) {
+
+                canvas.backgroundColor = $('#bg-color').val();
+                canvas.renderAll();
+                console.log(canvas);
+
+
+            });
 
             itemsCanvas.on('object:selected', function (e) {
 
@@ -617,6 +663,28 @@
                 $(container).append(addBtn);
             }
 
+            // color pickers
+
+            $("#text-color").spectrum({
+                color: "black",
+                showInput: true,
+                showPalette: true,
+                palette: [],
+                showButtons: false,
+                preferredFormat: "hex",
+
+            });
+
+            $("#bg-color").spectrum({
+                color: "white",
+                showInput: true,
+                showPalette: true,
+                palette: [],
+                showButtons: false,
+                preferredFormat: "hex",
+
+
+            });
             // clone item to another canvas
 
             function cloneItem(item, destCanvas, type) {
@@ -642,30 +710,40 @@
 
                     if (item.iris_type == "label") {
 
-                        clone.set({fontSize: model.menu_fontSize, fontWeight: model.menu_fontWeight});
+                        clone.set({fontSize: model.menu_fontSize, fontWeight: model.menu_fontWeight, fill: model.fill});
+                        console.log(clone);
                         if (model.menu_value) {
                             clone.setText(model.menu_value);
                         }
                     }
 
                     else if (item.iris_type == "image") {
-                        clone.set({width: model.menu_width, height: model.menu_height, top: model.menu_top, left: model.menu_left});
+                        clone.set({top: model.menu_top, left: model.menu_left});
+                        clone.scaleToWidth(model.menu_width);
+                        clone.scaleToHeight(model.menu_height);
                     }
                 }
                 else if (type === "add") {
                     clone.set({left: model.left, top: model.top});
 
                     if (item.iris_type == "label") {
-                        clone.set({fontSize: model.fontSize, fontWeight: model.fontWeight});
+                        clone.set({fontSize: model.fontSize, fontWeight: model.fontWeight, fill: $('#text-color').val()});
                         clone.setText(model.value);
                     }
                     else if (item.iris_type == "image") {
-                        clone.set({width: model.width, height: model.height, top: model.top, left: model.left});
-
+                        clone.set({top: model.top, left: model.left});
+                        clone.scaleToWidth(model.width);
+                        clone.scaleToHeight(model.height);
                     }
                 }
                 destCanvas.add(clone);
 
+            }
+
+            function showToast(message) {
+                toastr.clear();
+                toastr.options = {timeOut: 2500, preventDuplicates: true, positionClass: "toast-bottom-full-width"};
+                toastr.info(message);
             }
 
         });

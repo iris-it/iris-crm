@@ -4,6 +4,7 @@
 
 window._ = require('lodash');
 window.$ = window.jQuery = require('jquery');
+window.toastr = require('toastr');
 
 require('bootstrap-sass');
 require('bootstrap-datepicker');
@@ -13,7 +14,9 @@ require('leaflet');
 require('leaflet.markercluster');
 require('cropper');
 require('fabric');
-require('toastr');
+require('spectrum-colorpicker');
+
+
 // require('trumbowyg');
 
 /**

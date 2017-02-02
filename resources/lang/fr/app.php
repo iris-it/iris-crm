@@ -215,4 +215,6 @@ return  array(
     'template:name-warning'             => 'Un nom doit être renseigné pour ce template',
     'template:items'                    => 'Éléments',
     'template:custom-items'             => 'Éléments additionels',
+    'template:text-color'             => 'Couleur du texte',
+    'template:bg-color'             => 'Couleur du fond',
 );
