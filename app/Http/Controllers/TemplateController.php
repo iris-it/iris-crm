@@ -71,9 +71,11 @@ class TemplateController extends Controller
      * Show the form for editing the specified Template.
      */
 
-    public function edit()
+    public function edit($id)
     {
+        $template = Template::findOrFail($id);
 
+        return view('pages.templates.edit')->with('template', $template);
     }
 
     /**
