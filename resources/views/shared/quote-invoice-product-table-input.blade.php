@@ -6,7 +6,6 @@
     |
 
     +-->
-
 <!-- Search Scope -->
 
 <div class="box box-primary">
@@ -70,11 +69,12 @@
             /*
              *  Variables
              */
+            let table_data = JSON.parse($('#{{$content_id}}').val()) || [];
 
             let table_parameters = {
                 target: '#item-table',
                 editable: true,
-                data: [],
+                data: table_data,
                 columns: [  //'string|input|select|range|customs'
                     {name: 'Désignation', type: 'string', args: {key: 'name'}},
                     {name: 'Description', type: 'textarea', args: {key: 'description'}},
@@ -140,9 +140,9 @@
             };
 
             let jsontable = new JsonTable(table_parameters);
-
             jsontable.onDataChange(function (data) {
                 calculateTotal(data);
+                $('#{{$content_id}}').val(JSON.stringify(data));
             });
 
             let products_modal = new SearchModal(product_modal_parameters);
@@ -165,27 +165,22 @@
 
 
             function calculateTotal(data) {
-
                 let taxes = [];
                 let total_ht = 0;
                 let total_vat = 0;
                 let total_ttc = 0;
 
                 data.forEach(function (item) {
-
                     total_ht += (item.ht_price * item.quantity);
                     total_ttc += (item.ttc_price * item.quantity);
-
                     item.taxes.forEach(function (tax) {
                         let value = ((parseFloat(tax.value) / 100) * (item.ht_price * item.quantity));
                         taxes[tax.value] = (typeof taxes[tax.value] === 'undefined') ? value : taxes[tax.value] + value;
                         total_vat += value;
                     });
-
                 });
 
                 $("#table-vat-single").html("");
-
                 for (let key in taxes) {
                     if (taxes.hasOwnProperty(key)) {
                         $("#table-vat-single").append('<dt>Tva ' + key + '%</dt><dd><span>' + taxes[key] + '</span>€</dd>');
@@ -195,7 +190,6 @@
                 $('#table-sub-total').text(parseFloat(total_ht).toFixed(2));
                 $('#table-total').text(parseFloat(total_ttc).toFixed(2));
                 $('#table-vat').text(parseFloat(total_vat).toFixed(2));
-
             }
 
 

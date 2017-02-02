@@ -15,9 +15,9 @@
         <div class="box box-primary">
             <div class="box-body">
                 <div class="row">
-                    {!! Form::model($quote, ['action' => ['QuoteController@update', $quote->id], 'method' => 'patch']) !!}
+                    {!! Form::model($quote, ['action' => ['QuoteController@update', $quote->id], 'method' => 'patch', 'id' => 'quote_form']) !!}
 
-                    <input type="hidden" name="content" value="{{json_encode($quote->content)}}"/>
+                    <input type="hidden" name="content" id="content_field" value="{{$quote->content}}"/>
 
                     @include('pages.quotes.fields')
 
@@ -26,7 +26,7 @@
             </div>
         </div>
 
-        @include('shared.quote-invoice-product-table-input', ['type' => 'quote'])
+        @include('shared.quote-invoice-product-table-input', ['form_id' => 'quote_form', 'content_id' => 'content_field'])])
 
     </div>
 @endsection
