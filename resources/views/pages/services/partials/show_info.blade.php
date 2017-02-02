@@ -2,7 +2,7 @@
     <div class="box-body box-profile">
         <img class="img-responsive center-block" src="{{asset($service->service_avatar)}}" width="150">
 
-        <h3 class="profile-username text-center">{{$service->service_name}}
+        <h3 class="profile-username text-center">{{$service->name}}
             <a href="{!! action('ServiceController@edit', $service->id) !!}" class='btn btn-flat'>
                 <i class="glyphicon glyphicon-edit"></i>
             </a>

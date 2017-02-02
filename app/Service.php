@@ -21,7 +21,7 @@ class Service extends Model
 
 
     public $fillable = [
-        'service_name',
+        'name',
         'is_active',
         'category',
         'sale_unit',
@@ -39,14 +39,38 @@ class Service extends Model
      * @var array
      */
     protected $casts = [
-        'service_name' => 'string',
+        'name' => 'string',
         'is_active' => 'boolean',
         'category' => 'string',
         'sale_unit' => 'string',
         'description' => 'string'
     ];
 
+
+    // SCOPES
+    public function scopeSearchByKeyword($query, $keyword)
+    {
+        if ($keyword != '') {
+            $query->where(function ($query) use ($keyword) {
+                $query->where("name", "LIKE", "%$keyword%")
+                    ->orWhere("category", "LIKE", "%$keyword%")
+                    ->orWhere("description", "LIKE", "%$keyword%");
+            });
+        }
+        return $query;
+    }
+
+
     //MUTATORS
+    /**
+     * Custom properties
+     * @return string
+     */
+    public function getTypeAttribute()
+    {
+        return 'service';
+    }
+
     /**
      * Mutate deadline to FR with Carbon
      * @param $date
@@ -89,7 +113,7 @@ class Service extends Model
 
     public function organization()
     {
-        return $this->belongsTo('App\Organization');
+        return $this->belongsTo('App\Organization', 'organization_id');
     }
 
     public function taxes()

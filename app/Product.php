@@ -15,18 +15,19 @@ class Product extends Model
     use SoftDeletes;
 
     public $table = 'products';
-    
+
 
     protected $dates = ['deleted_at', 'sale_datestart', 'sale_dateend'];
 
 
     public $fillable = [
-        'product_name',
+        'name',
         'is_active',
         'category',
         'ht_price',
         'ttc_price',
         'stock_disponibility',
+        'sale_unit',
         'product_avatar',
         'sale_datestart',
         'sale_dateend',
@@ -40,17 +41,41 @@ class Product extends Model
      * @var array
      */
     protected $casts = [
-        'product_name' => 'string',
+        'name' => 'string',
         'is_active' => 'boolean',
         'category' => 'string',
         'stock_disponibility' => 'integer',
+        'sale_unit' => 'string',
         'product_avatar' => 'string',
         'product_notice' => 'string',
         'description' => 'string'
     ];
 
+    //SCOPES
+    public function scopeSearchByKeyword($query, $keyword)
+    {
+        if ($keyword != '') {
+            $query->where(function ($query) use ($keyword) {
+                $query->where("name", "LIKE", "%$keyword%")
+                    ->orWhere("category", "LIKE", "%$keyword%")
+                    ->orWhere("description", "LIKE", "%$keyword%");
+            });
+        }
+        return $query;
+    }
+
 
     //MUTATORS
+
+    /**
+     * Custom properties
+     * @return string
+     */
+    public function getTypeAttribute()
+    {
+        return 'product';
+    }
+
     /**
      * Mutate deadline to FR with Carbon
      * @param $date
@@ -95,7 +120,7 @@ class Product extends Model
 
     public function organization()
     {
-        return $this->belongsTo('App\Organization');
+        return $this->belongsTo('App\Organization', 'organization_id');
     }
 
     public function taxes()

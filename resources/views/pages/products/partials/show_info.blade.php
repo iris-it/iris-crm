@@ -2,7 +2,7 @@
     <div class="box-body box-profile">
         <img class="img-responsive center-block" src="{{asset($product->product_avatar)}}" width="150">
 
-        <h3 class="profile-username text-center">{{$product->product_name}}
+        <h3 class="profile-username text-center">{{$product->name}}
             <a href="{!! action('ProductController@edit', $product->id) !!}" class='btn btn-flat'>
                 <i class="glyphicon glyphicon-edit"></i>
             </a>

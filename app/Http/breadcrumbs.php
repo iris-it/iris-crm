@@ -231,13 +231,13 @@ Breadcrumbs::register('new-product', function ($breadcrumbs) {
 //  > Products > Product
 Breadcrumbs::register('product', function ($breadcrumbs, $product) {
     $breadcrumbs->parent('products');
-    $breadcrumbs->push($product->product_name, action('ProductController@show', $product->id));
+    $breadcrumbs->push($product->name, action('ProductController@show', $product->id));
 });
 
 //  > Products > Product > Edit
 Breadcrumbs::register('edit-product', function ($breadcrumbs, $product) {
     $breadcrumbs->parent('product', $product);
-    $breadcrumbs->push($product->product_name . " : " . trans('app.breadcrumb:edit'));
+    $breadcrumbs->push($product->name . " : " . trans('app.breadcrumb:edit'));
 });
 
 ///////////////////////////////////////////////////////////////////////////

@@ -21,18 +21,16 @@
     {!! Form::text('phase', null, ['class' => 'form-control']) !!}
 </div>
 
-<!-- TODO : Fix datepicker -->
-
-{{--<!-- Deadline Field -->--}}
-{{--<div class="form-group col-sm-6">--}}
-    {{--{!! Form::label('deadline', trans('app.general:deadline') . " :", ['class' => 'h4 text-purple'] ) !!}--}}
-    {{--<div class="input-group date">--}}
-        {{--<div class="input-group-addon">--}}
-            {{--<i class="fa fa-calendar"></i>--}}
-        {{--</div>--}}
-        {{--{!! Form::text('deadline', null, ['class' => 'form-control']) !!}--}}
-    {{--</div>--}}
-{{--</div>--}}
+<!-- Deadline Field -->
+<div class="form-group col-sm-6">
+    {!! Form::label('deadline', trans('app.general:deadline') . " :", ['class' => 'h4 text-purple'] ) !!}
+    <div class="input-group date">
+        <div class="input-group-addon">
+            <i class="fa fa-calendar"></i>
+        </div>
+        {!! Form::text('deadline', null, ['class' => 'form-control']) !!}
+    </div>
+</div>
 
 
 <!-- Description Field -->
@@ -56,4 +54,3 @@
     {!! Form::submit( trans('app.general:save-changes'), ['class' => 'btn btn-primary']) !!}
     <a href="{!! action('QuoteController@index') !!}" class="btn btn-default">Cancel</a>
 </div>
-

@@ -29,7 +29,7 @@ class ServiceRequest extends Request
             case 'POST': {
                 return [
 
-                    'service_name' => 'string|max:255|required',
+                    'name' => 'string|max:255|required',
                     'is_active' => '',
                     'category' => 'string|max:255|required',
                     'sale_unit' => 'string|max:255|required',
@@ -49,7 +49,7 @@ class ServiceRequest extends Request
             case 'PATCH': {
                 return [
 
-                    'service_name' => 'string|max:255|required',
+                    'name' => 'string|max:255|required',
                     'is_active' => '',
                     'category' => 'string|max:255|required',
                     'sale_unit' => 'string|max:255|required',

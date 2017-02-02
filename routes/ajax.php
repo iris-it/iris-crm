@@ -14,10 +14,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::group(['middleware' => 'auth:api'], function () {
+Route::group(['middleware' => 'auth'], function () {
 
+    Route::get('list/item/{type}', 'ItemSearchController@all');
     Route::get('search/item/{type}', 'ItemSearchController@search');
-
-    Route::get('get/item/{type}/{id}', 'ItemSearchController@get');
 
 });

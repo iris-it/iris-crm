@@ -12,7 +12,7 @@
     <tbody>
     @foreach($products as $product)
         <tr>
-            <td class="text-bold">{!! $product->product_name !!}</td>
+            <td class="text-bold">{!! $product->name !!}</td>
             <td class="text-bold">{!! $product->category !!}</td>
             <td class="text-bold">{!! $product->ht_price !!}</td>
             <td class="text-bold">{!! $product->ttc_price !!}</td>

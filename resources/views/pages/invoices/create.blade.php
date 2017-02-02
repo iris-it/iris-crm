@@ -18,17 +18,25 @@
                 <div class="row">
                     {!! Form::open(['action' => 'InvoiceController@store']) !!}
 
-                        @include('pages.invoices.fields')
+                    <input type="hidden" name="content" id="content_field" value="[]"/>
+
+                    @include('pages.invoices.fields')
 
                     {!! Form::close() !!}
                 </div>
             </div>
         </div>
+
+        @include('shared.quote-invoice-product-table-input', ['content_id' => 'content_field'])])
+
     </div>
 @endsection
 
-@section('js-app-scope')
+@section('scripts')
     @parent
-    IrisCrm.initDatePicker('deadline');
+    <script type="text/javascript">
 
+        IrisCrm.initDatePicker('deadline');
+
+    </script>
 @endsection
