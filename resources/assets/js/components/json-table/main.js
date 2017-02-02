@@ -23,6 +23,7 @@ export default class {
      *
      */
     constructor(parameters) {
+
         /*
          * Save the parameters in the current instance
          */
@@ -38,10 +39,11 @@ export default class {
          * Classes for events handlers ( onclick / drag end )
          */
         this.style_classes = {
-            sort_handle: "__sort_handle",
-            edit: "__table_edit",
-            edit_cancel: "__table_cancel_edit",
-            edit_validate: "__table_valid_edit"
+            sort_handle: "__sort_row_handle",
+            edit: "__table_row_edit",
+            edit_cancel: "__table_row_cancel_edit",
+            edit_validate: "__table_row_valid_edit",
+            delete: "__table_row_delete"
         };
 
         /*
@@ -52,7 +54,13 @@ export default class {
         /*
          * The are registered on the object initialization
          */
+        this.events = new EventClass();
         this._registerEvents();
+
+        /*
+         * Trigger the table construction, obvious
+         */
+        this._buildTable();
     }
 
 
@@ -72,21 +80,21 @@ export default class {
      */
     _registerEvents() {
 
-        this.events = new EventClass();
-
         /*
          * When the table is built ( with or without data )
          */
         this.events.on("OnBuild", () => {
             this._registerClickEditEvent();
+            this._registerClickRemoveEvent();
         });
 
         /*
          * When a row is added to the table
          */
         this.events.on("OnAddRow", () => {
-            this.buildTable();
+            this._buildTable();
             this._registerClickEditEvent();
+            this._registerClickRemoveEvent();
         });
 
         /*
@@ -95,6 +103,16 @@ export default class {
         this.events.on("OnEditRow", () => {
             this._updateTableJson();
             this._registerClickEditEvent();
+            this._registerClickRemoveEvent();
+        });
+
+        /*
+         * When a row is removed
+         */
+        this.events.on("OnRemoveRow", () => {
+            this._updateTableJson();
+            this._registerClickEditEvent();
+            this._registerClickRemoveEvent();
         });
 
         /*
@@ -146,14 +164,13 @@ export default class {
             this._enableInputsInRow(edit_button);
 
             /*
-             * We registers the events for cancel and validate
+             * We registers the events for cancel, validate and delete
              *
              * Note : we pass the context of the buttons in order
              * to listen to the events
              */
             this._registerClickEditCancelEvent(edit_cancel_button);
             this._registerClickEditValidateEvent(edit_validate_button);
-
         });
     }
 
@@ -253,25 +270,55 @@ export default class {
         });
     }
 
+    /**
+     *
+     * @private
+     */
+    _registerClickRemoveEvent() {
+        $(`.${this.style_classes.delete}`).off().on("click", (event) => {
+
+            console.log('gotcha!');
+
+            /*
+             * delete_button : Button for delete a row
+             */
+            let delete_button = $(event.currentTarget);
+
+            /*
+             * The user has to confirm the deletion
+             */
+            if (window.confirm(this.parameters.trans.confirm_delete)) {
+                /*
+                 * We get the current row the the <tr>
+                 */
+                let tr = $(delete_button).closest('tr').first();
+
+                /*
+                 * We remove the row and notify for update
+                 */
+                tr.remove();
+
+                this.events.trigger("OnRemoveRow");
+            }
+
+        });
+    }
+
+    /////////////////////////////////////////////////////////////////////////////////////////////
+    // CALLBACKS                                                                               //
+    /////////////////////////////////////////////////////////////////////////////////////////////
+
+    onDataChange(callback) {
+        this.events.on("OnBuild OnAddRow OnEditRow OnRemoveRow", () => {
+            if (typeof callback == 'function') {
+                callback.call(this, this.parameters.data);
+            }
+        });
+    }
+
     /////////////////////////////////////////////////////////////////////////////////////////////
     // PUBLIC METHODS                                                                          //
     /////////////////////////////////////////////////////////////////////////////////////////////
-
-    //TODO add callback to call when the build / edit / add / is done
-    //For calculate totals
-
-    /**
-     * Builds the table
-     *
-     * Note : the data source is in the parameters of the current instance
-     *
-     * @public
-     */
-    buildTable() {
-        this._buildTableHeader();
-        this._buildTableBody();
-        this.events.trigger("OnBuild");
-    }
 
     /**
      * Add a row at the end of the table
@@ -291,6 +338,19 @@ export default class {
     /////////////////////////////////////////////////////////////////////////////////////////////
     // PRIVATE METHODS                                                                         //
     /////////////////////////////////////////////////////////////////////////////////////////////
+
+    /**
+     * Builds the table
+     *
+     * Note : the data source is in the parameters of the current instance
+     *
+     * @public
+     */
+    _buildTable() {
+        this._buildTableHeader();
+        this._buildTableBody();
+        this.events.trigger("OnBuild");
+    }
 
     /**
      * Builds the table header based on the definition in
@@ -398,9 +458,12 @@ export default class {
         if (this.parameters.editable) {
             //bind events (update) on click
             row.append($('<td class="row-edit">')
-                .append($(`<button class="${this.style_classes.edit}">`).append('<i class="fa fa-pencil">'))
-                .append($(`<button class="${this.style_classes.edit_validate}">`).hide().append('<i class="fa fa-check text-green">'))
-                .append($(`<button class="${this.style_classes.edit_cancel}">`).hide().append('<i class="fa fa-times text-red">'))
+                .append($('<div class="btn-group">')
+                    .append($(`<button class="${this.style_classes.edit} btn btn-primary btn-flat">`).append('<i class="fa fa-pencil">'))
+                    .append($(`<button class="${this.style_classes.edit_validate} btn btn-success btn-flat">`).hide().append('<i class="fa fa-check">'))
+                    .append($(`<button class="${this.style_classes.edit_cancel} btn btn-warning btn-flat">`).hide().append('<i class="fa fa-times">'))
+                    .append($(`<button class="${this.style_classes.delete} btn btn-danger btn-flat">`).append('<i class="fa fa-trash">'))
+                )
             );
 
             /*
@@ -446,7 +509,7 @@ export default class {
         /*
          * And trigger a rebuild of the table
          */
-        this.buildTable();
+        this._buildTable();
     }
 
     /**

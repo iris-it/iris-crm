@@ -76,71 +76,45 @@
                 editable: true,
                 data: [],
                 columns: [  //'string|input|select|range|customs'
+                    {name: 'Désignation', type: 'string', args: {key: 'name'}},
+                    {name: 'Description', type: 'textarea', args: {key: 'description'}},
                     {
-                        name: 'Désignation',
-                        type: 'string',
-                        args: {
-                            key: 'name'
+                        name: 'Quantités', type: 'range', args: {
+                        key: 'quantity', step: 0.01, min: 0, max: function (row) {
+                            return row.stock_disponibility || 25
                         }
-                    }, {
-                        name: 'Description',
-                        type: 'textarea',
-                        args: {
-                            key: 'description'
-                        }
-                    }, {
-                        name: 'Quantités',
-                        type: 'range',
-                        args: {
-                            key: 'quantity',
-                            step: 0.01,
-                            min: 0,
-                            max: function (row) {
-                                return row.stock_disponibility || 25
-                            }
-                        }
-                    }, {
-                        name: 'Unités',
-                        type: 'custom',
-                        args: function (row) {
-                            return row.sale_unit || 'Unité'
-                        }
-                    }, {
-                        name: 'Prix Unitaire HT',
-                        type: 'string',
-                        args: {
-                            key: 'ht_price'
-                        }
-                    }, {
-                        name: 'Taxe(s) %',
-                        type: 'custom',
-                        args: function (row) {
-                            return row.taxes.map(function (obj) {
-                                return obj.value;
-                            }).join('&nbsp;-&nbsp;');
-                        }
-                    }, {
-                        name: 'Prix HT',
-                        type: 'custom',
-                        args: function (row) {
-                            return (row.ht_price * row.quantity).toFixed(2) + "€";
-                        }
-                    }, {
-                        name: 'Prix HT',
-                        type: 'custom',
-                        args: function (row) {
-                            return (row.ttc_price * row.quantity).toFixed(2) + "€";
-                        }
+                    }
                     },
-                ]
+                    {
+                        name: 'Unités', type: 'custom', args: function (row) {
+                        return row.sale_unit || 'Unité'
+                    }
+                    },
+                    {name: 'Prix Unitaire HT', type: 'string', args: {key: 'ht_price'}},
+                    {
+                        name: 'Taxe(s) %', type: 'custom', args: function (row) {
+                        return row.taxes.map(function (obj) {
+                            return obj.value;
+                        }).join('&nbsp;-&nbsp;');
+                    }
+                    },
+                    {
+                        name: 'Prix HT', type: 'custom', args: function (row) {
+                        return (row.ht_price * row.quantity).toFixed(2) + "€";
+                    }
+                    },
+                    {
+                        name: 'Prix TTC', type: 'custom', args: function (row) {
+                        return (row.ttc_price * row.quantity).toFixed(2) + "€";
+                    }
+                    }
+                ],
+                trans: {
+                    confirm_delete: "Voulez vous supprimer cet item du tableau ?"
+                }
             };
 
-            let jsontable = new JsonTable(table_parameters);
-            jsontable.buildTable();
-
-
-
-            let products_modal = new SearchModal({
+            let product_modal_parameters = {
                 button_target: '#product-add',
                 source: '{{action('Ajax\ItemSearchController@all', ['products'])}}',
                 table_columns: [
@@ -150,20 +124,10 @@
                     {data: "sale_unit", title: "Unité de vente"},
                     {data: "stock_disponibility", title: "Stock disponible"},
                     {data: "ht_price", title: "Prix HT"}
-                ],
-                onSubmit: function (items) {
+                ]
+            };
 
-                    console.log(items);
-
-                    items.forEach(function (item) {
-                        jsontable.addRow($.extend(item, {
-                            quantity: 1
-                        }));
-                    });
-                }
-            });
-
-            let services_modal = new SearchModal({
+            let service_modal_parameters = {
                 button_target: '#service-add',
                 source: '{{action('Ajax\ItemSearchController@all', ['services'])}}',
                 table_columns: [
@@ -172,125 +136,67 @@
                     {data: "category", title: "Category"},
                     {data: "sale_unit", title: "Unité de vente"},
                     {data: "ht_price", title: "Prix HT"}
-                ],
-                onSubmit: function (items) {
-                    items.forEach(function (item) {
-                        jsontable.addRow($.extend(item, {
-                            quantity: 1
-                        }));
-                    });
-                }
+                ]
+            };
+
+            let jsontable = new JsonTable(table_parameters);
+
+            jsontable.onDataChange(function (data) {
+                calculateTotal(data);
+            });
+
+            let products_modal = new SearchModal(product_modal_parameters);
+            products_modal.onSubmit(function (items) {
+                items.forEach(function (item) {
+                    jsontable.addRow($.extend(item, {
+                        quantity: 1
+                    }));
+                });
+            });
+
+            let services_modal = new SearchModal(service_modal_parameters);
+            services_modal.onSubmit(function (items) {
+                items.forEach(function (item) {
+                    jsontable.addRow($.extend(item, {
+                        quantity: 1
+                    }));
+                });
             });
 
 
-//
-//            $('#search-submit-add').click(function () {
-//                if (!$current_selection) {
-//                    return null;
-//                }
-//
-//                addLineToTable('table-tbody', $current_selection, $('#search-quantity-input').val());
-//
-//                $current_selection = null;
-//                clearSelectValues('search-quantity-input');
-//                $('#search-input').typeahead('val', '');
-//
-//            });
-//
-//            /*
-//             * Functions
-//             */
-//            function addRangeSelect(number, target) {
-//                for (let i = 1; i < number; i++) {
-//                    addSelectValue(i, target);
-//                }
-//            }
-//
-//            function addSelectValue(value, target) {
-//                $('<option value="' + value + '">' + value + '</option>').appendTo('#' + target);
-//            }
-//
-//            function clearSelectValues(target) {
-//                $('#' + target).find("option").remove();
-//            }
-//
-//            function addLineToTable(target, item_source, quantity) {
-//
-//                var item = {
-//                    total_ttc_price: item_source.ttc_price * quantity,
-//                    total_ht_price: item_source.ht_price * quantity,
-//                    ttc_price: item_source.ttc_price,
-//                    ht_price: item_source.ht_price,
-//                    quantity: quantity,
-//                    taxes: [],
-//                };
-//
-//                if (item_source.hasOwnProperty('name')) {
-//                    item.name = item_source.name
-//                } else if (item_source.hasOwnProperty('name')) {
-//                    item.name = item_source.name
-//                }
-//
-//                for (let i = 0; i < item_source.taxes.length; ++i) {
-//                    item.taxes[i] = item_source.taxes[i].value;
-//                }
-//
-//                if (item_source.hasOwnProperty('sale_unit')) {
-//                    item.sale_unit = item_source.sale_unit
-//                } else {
-//                    item.sale_unit = 'Unité'
-//                }
-//
-//                var row = '<tr>' +
-//                    '<td>' + item.name + '</td>' +
-//                    '<td>' + item.quantity + '</td>' +
-//                    '<td>' + item.sale_unit + '</td>' +
-//                    '<td>' + item.ht_price + '</td>' +
-//                    '<td>' + item.taxes.join('&nbsp;-&nbsp;') + '</td>' +
-//                    '<td>' + item.total_ht_price + '</td>' +
-//                    '<td>' + item.total_ttc_price + '</td>' +
-//                    '<td class="row-data" style="display:none;">' + JSON.stringify(item) + '</td>' +
-//                    '</tr>';
-//
-//                $('#' + target).append(row);
-//
-//                calculateTotal(target);
-//            }
-//
-//            function calculateTotal(target) {
-//
-//                let taxes = [];
-//                let total_ht = 0;
-//                let total_vat = 0;
-//                let total_ttc = 0;
-//
-//                $('#' + target + ' tr').each(function () {
-//                    let json = JSON.parse($(this).find("td.row-data").html());
-//
-//                    total_ht += json.total_ht_price;
-//                    total_ttc += json.total_ttc_price;
-//
-//                    for (let i = 0; i < json.taxes.length; ++i) {
-//                        let value = ((parseInt(json.taxes[i]) / 100) * json.total_ht_price);
-//                        taxes[json.taxes[i]] = (typeof taxes[json.taxes[i]] === 'undefined') ? value : taxes[json.taxes[i]] + value;
-//                        total_vat += value;
-//                    }
-//
-//                });
-//
-//
-//                $("#table-vat-single").html("");
-//                for (let key in taxes) {
-//                    if (taxes.hasOwnProperty(key)) {
-//                        $("#table-vat-single").append('<dt>Tva ' + key + '%</dt><dd><span>' + taxes[key] + '</span>€</dd>');
-//                    }
-//                }
-//
-//                $('#table-sub-total').text(parseFloat(total_ht).toFixed(2));
-//                $('#table-total').text(parseFloat(total_ttc).toFixed(2));
-//                $('#table-vat').text(parseFloat(total_vat).toFixed(2));
-//
-//            }
+            function calculateTotal(data) {
+
+                let taxes = [];
+                let total_ht = 0;
+                let total_vat = 0;
+                let total_ttc = 0;
+
+                data.forEach(function (item) {
+
+                    total_ht += (item.ht_price * item.quantity);
+                    total_ttc += (item.ttc_price * item.quantity);
+
+                    item.taxes.forEach(function (tax) {
+                        let value = ((parseFloat(tax.value) / 100) * (item.ht_price * item.quantity));
+                        taxes[tax.value] = (typeof taxes[tax.value] === 'undefined') ? value : taxes[tax.value] + value;
+                        total_vat += value;
+                    });
+
+                });
+
+                $("#table-vat-single").html("");
+
+                for (let key in taxes) {
+                    if (taxes.hasOwnProperty(key)) {
+                        $("#table-vat-single").append('<dt>Tva ' + key + '%</dt><dd><span>' + taxes[key] + '</span>€</dd>');
+                    }
+                }
+
+                $('#table-sub-total').text(parseFloat(total_ht).toFixed(2));
+                $('#table-total').text(parseFloat(total_ttc).toFixed(2));
+                $('#table-vat').text(parseFloat(total_vat).toFixed(2));
+
+            }
 
 
         });

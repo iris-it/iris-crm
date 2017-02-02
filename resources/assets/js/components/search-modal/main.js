@@ -4,6 +4,7 @@ require('datatables.net-bs');
 const $ = require('jquery');
 const _ = require('lodash');
 const axios = require("axios");
+const toastr = require('toastr');
 const EventClass = require('event-class').default;
 
 const modal_template = require('./templates/modal.js').default;
@@ -15,6 +16,10 @@ export default class {
 
     constructor(parameters) {
 
+        /*
+         * Used to create different identifiers in order to avoid
+         * conflicts when many instances are created
+         */
         let hash_id = uuid();
 
         let defaults = {
@@ -37,8 +42,15 @@ export default class {
             }
         };
 
+        /*
+         * Save the parameters in the current instance
+         */
         this.parameters = Object.assign({}, defaults, parameters);
 
+        /*
+         * The are registered on the object initialization
+         */
+        this.events = new EventClass();
         this._registerEvents();
 
         this._injectModal();
@@ -60,8 +72,6 @@ export default class {
      * @private
      */
     _registerEvents() {
-
-        this.events = new EventClass();
 
         /*
          * When the modal is injected in the page
@@ -91,9 +101,7 @@ export default class {
             console.group("irispass-error");
             console.error(error);
             console.groupEnd();
-
-            //TODO notify user
-            //TODO Send Error report
+            toastr.error(error);
         });
     }
 
@@ -116,15 +124,25 @@ export default class {
          */
         $(`#${this.parameters.modal.modal_validate_id}`).click(() => {
 
-            if (typeof this.parameters.onSubmit == 'function') {
-                this.parameters.onSubmit.call(this, this._getSelectedItems());
-            }
+            this.events.trigger("OnSubmit");
 
             let table = $(`#${this.parameters.table_id}`);
 
             table.find('tr').removeClass('active');
 
             $(`#${this.parameters.modal.modal_id}`).modal('hide');
+        });
+    }
+
+    /////////////////////////////////////////////////////////////////////////////////////////////
+    // CALLBACKS                                                                               //
+    /////////////////////////////////////////////////////////////////////////////////////////////
+
+    onSubmit(callback) {
+        this.events.on("OnSubmit", () => {
+            if (typeof callback == 'function') {
+                callback.call(this, this._getSelectedItems());
+            }
         });
     }
 
