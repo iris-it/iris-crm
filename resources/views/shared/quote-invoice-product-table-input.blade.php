@@ -183,7 +183,7 @@
                 $("#table-vat-single").html("");
                 for (let key in taxes) {
                     if (taxes.hasOwnProperty(key)) {
-                        $("#table-vat-single").append('<dt>Tva ' + key + '%</dt><dd><span>' + taxes[key] + '</span>€</dd>');
+                        $("#table-vat-single").append('<dt>Tva ' + key + '%</dt><dd><span>' + taxes[key].toFixed(2) + '</span>€</dd>');
                     }
                 }
 
