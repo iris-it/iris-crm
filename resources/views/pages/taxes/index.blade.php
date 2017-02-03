@@ -12,7 +12,7 @@
             @endif
         </h1>
         <h1 class="pull-right">
-            <a class="btn btn-app bg-blue create-button btn-flat pull-right"  href="{!! action('TaxController@create') !!}">
+            <a class="btn btn-app bg-blue create-button btn-flat pull-right" href="{!! action('TaxController@create') !!}">
                 <i class="fa fa-percent"></i> {{trans('app.general:create')}}
             </a>
         </h1>
@@ -24,10 +24,22 @@
 
         <div class="clearfix"></div>
 
-        @if($taxes->count() > 0)
+        @if($taxes->count() > 0 || $tva->count() > 0)
             <div class="box box-primary">
+                <div class="box-header">
+                    {{trans('app.general:taxes')}}
+                </div>
                 <div class="box-body">
-                    @include('pages.taxes.table')
+                    @include('pages.taxes.table',['taxes' => $taxes])
+                </div>
+            </div>
+
+            <div class="box box-primary">
+                <div class="box-header">
+                    {{trans('app.general:vat')}}
+                </div>
+                <div class="box-body">
+                    @include('pages.taxes.table',['taxes' => $tva])
                 </div>
             </div>
         @else
@@ -37,7 +49,7 @@
                 <div class="col-sm-12 text-center">
                     <br>
                     <a class="btn btn-app bg-blue btn-flat create-button animated pulse" href="{!! action('TaxController@create') !!}">
-                    <i class="fa fa-percent"></i> {{trans('app.general:create')}} </a>
+                        <i class="fa fa-percent"></i> {{trans('app.general:create')}} </a>
                 </div>
             </div>
         @endif

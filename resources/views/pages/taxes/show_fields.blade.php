@@ -22,5 +22,15 @@
             @endif
         </div>
 
+        <!-- Is Active Field -->
+        <div class="form-group col-sm-6">
+            {!! Form::label('is_vat', trans('app.tax:is-vat') . " :"  , ['class' => 'h4 text-purple']) !!}
+            @if($tax->is_vat)
+                <span class="h4 text-bold">{{trans('app.general:yes')}}</span>
+            @else
+                <span class="h4 text-bold">{{trans('app.general:no')}}</span>
+            @endif
+        </div>
+
     </div>
 </div>

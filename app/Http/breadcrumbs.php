@@ -15,6 +15,28 @@ Breadcrumbs::register('home', function ($breadcrumbs) {
 //  Accounts                                                             //
 ///////////////////////////////////////////////////////////////////////////
 
+//  >  Organization
+Breadcrumbs::register('organization', function ($breadcrumbs) {
+    $breadcrumbs->parent('home');
+    $breadcrumbs->push(trans('app.general:organization'), action('OrganizationController@index'));
+});
+
+//  >  Organization > New Account
+Breadcrumbs::register('new-organization', function ($breadcrumbs) {
+    $breadcrumbs->parent('organization');
+    $breadcrumbs->push(trans('app.organization:new'));
+});
+
+//  > Organization > Edit
+Breadcrumbs::register('edit-organization', function ($breadcrumbs, $organization) {
+    $breadcrumbs->parent('organization', $organization);
+    $breadcrumbs->push($organization->name . " : " . trans('app.breadcrumb:edit'));
+});
+
+///////////////////////////////////////////////////////////////////////////
+//  Accounts                                                             //
+///////////////////////////////////////////////////////////////////////////
+
 //  >  Accounts
 Breadcrumbs::register('accounts', function ($breadcrumbs) {
     $breadcrumbs->parent('home');

@@ -1,6 +1,8 @@
 @extends('layouts.app')
 
-@section('breadcrumbs', Breadcrumbs::render('organization_edit'))
+@section('breadcrumbs')
+    {!! Breadcrumbs::render('edit-organization', $organization) !!}
+@endsection
 
 @section('content')
 
@@ -13,6 +15,8 @@
                 @include('errors.list')
 
                 {!! Form::model($organization->toArray(), ['method' => 'PATCH','action' => 'OrganizationController@update']) !!}
+
+                <input type="hidden" name="id" value="{{$organization->id}}">
 
                 @include('pages.organization.partials.form')
 

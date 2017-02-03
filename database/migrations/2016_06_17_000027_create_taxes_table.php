@@ -16,7 +16,8 @@ class CreateTaxesTable extends Migration
             $table->increments('id');
             $table->string('name');
             $table->decimal('value');
-            $table->boolean('is_active');
+            $table->boolean('is_active')->default(true);
+            $table->boolean('is_vat')->default(false);
             $table->timestamps();
             $table->softDeletes();
         });

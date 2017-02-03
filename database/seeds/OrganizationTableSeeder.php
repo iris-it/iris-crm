@@ -33,7 +33,7 @@ class OrganizationTableSeeder extends Seeder
             'status' => $faker->companySuffix,
             'siret_number' => $faker->siret,
             'siren_number' => $faker->siren,
-            'tva_number' => 'FR00001002020',
+            'vat_number' => 'FR00001002020',
             'ape_number' => '1337D',
             'owner_id' => 1
         ]);

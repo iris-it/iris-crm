@@ -19,11 +19,9 @@ class OrganizationController extends Controller
 
         $organization = $this->organization;
 
-        $groups = $this->organization->groups()->get();
-
         $users = $this->organization->users()->get();
 
-        return view('pages.organization.index')->with(compact('organization', 'groups', 'users'));
+        return view('pages.organization.index')->with(compact('organization', 'users'));
 
     }
 

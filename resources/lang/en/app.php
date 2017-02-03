@@ -149,7 +149,7 @@ return  array(
 	'organization:siren-field'          => 'SIREN number',
 	'organization:siret-field'          => 'SIRET Number',
 	'organization:status-field'         => 'Status',
-	'organization:table-tva'            => 'VAT Number',
+	'organization:table-vat'            => 'VAT Number',
 	'organization:website-field'        => 'Website',
 	'product:active-taxes'              => 'Active taxes',
 	'product:avatar'                    => 'Product picture',

@@ -33,7 +33,7 @@ class Organization extends Model
         'status',
         'siret_number',
         'siren_number',
-        'tva_number',
+        'vat_number',
         'ape_number',
         'licence_id',
         'owner_id'
@@ -51,7 +51,7 @@ class Organization extends Model
         'status' => 'string',
         'siret_number' => 'string',
         'siren_number' => 'string',
-        'tva_number' => 'string',
+        'vat_number' => 'string',
         'ape_number' => 'string',
 
     ];

@@ -56,8 +56,8 @@
 </div>
 
 <div class="form-group">
-    {!! Form::label('tva_number', trans('app.organization:table-tva')) !!}
-    {!! Form::text('tva_number', null, ['class' => 'form-control']) !!}
+    {!! Form::label('vat_number', trans('app.organization:table-vat')) !!}
+    {!! Form::text('vat_number', null, ['class' => 'form-control']) !!}
 </div>
 
 <!---  Field --->
