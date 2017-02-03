@@ -17,6 +17,8 @@ class CreateTemplateTable extends Migration
             $table->increments('id');
             $table->string('name')->nullable();
             $table->longText('content')->nullable();
+            $table->longText('text_color')->nullable();
+            $table->longText('bg_color')->nullable();
             $table->timestamps();
             $table->softDeletes();
 

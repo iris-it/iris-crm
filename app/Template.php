@@ -22,7 +22,9 @@ class Template extends Model
 
     public $fillable = [
         'name',
-        'content'
+        'content',
+        'text_color',
+        'bg_color',
     ];
 
     /**
@@ -33,6 +35,8 @@ class Template extends Model
     protected $casts = [
         'name' => 'string',
         'content' => 'string',
+        'text_color' => 'string',
+        'bg_color' => 'string',
     ];
 
 

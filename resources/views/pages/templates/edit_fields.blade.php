@@ -11,15 +11,16 @@
             {!! Form::text('name', null, ['class' => 'form-control']) !!}
         </div>
 
+
         <div class="form-group col-sm-4">
-            <label for="text-color" class="h4 text-purple">{{trans('app.template:text-color')}} : </label>
+            <label for="text_color" class="h4 text-purple">{{trans('app.template:text-color')}} : </label>
             <br>
-            <input type='text' id="text-color"/>
+            <input type='text' name="text_color" value="{{$template->text_color}}" id="text_color"/>
         </div>
         <div class="form-group col-sm-4">
-            <label for="bg-color" class="h4 text-purple">{{trans('app.template:bg-color')}} : </label>
+            <label for="bg_color" class="h4 text-purple">{{trans('app.template:bg-color')}} : </label>
             <br>
-            <input type='text' id="bg-color"/>
+            <input type='text' name="bg_color"  value="{{$template->bg_color}}" id="bg_color"/>
         </div>
 
         <input type="hidden" id="content" name="content" value="{{$template->content}}"/>
@@ -92,7 +93,14 @@
 
             });
 
-            console.log($('#content').val());
+            let jsonTemplate = $('#content').val();
+
+            canvas.loadFromJSON(jsonTemplate, canvas.renderAll.bind(canvas), function (o, object) {
+
+            });
+
+            let arrayTemplate = JSON.parse(jsonTemplate);
+
 
             let itemsCanvas = new fabric.Canvas('items', {
                 imageSmoothingEnabled: false,
@@ -117,6 +125,8 @@
                     menu_left: 10,
                     menu_top: 20,
                     menu_fontSize: 20,
+                    menu_fontWeight: 'normal',
+                    menu_value: "Numéro d'identification",
                     fontFamily: 'Calibri',
                     fontWeight: 'normal',
                     hasRotatingPoint: false
@@ -134,6 +144,7 @@
                     menu_left: 10,
                     menu_top: 50,
                     menu_fontSize: 20,
+                    menu_value: "Nom de votre entreprise",
                     fontFamily: 'Calibri',
                     menu_fontWeight: 'normal',
                     hasRotatingPoint: false
@@ -151,6 +162,8 @@
                     menu_left: 10,
                     menu_top: 80,
                     menu_fontSize: 20,
+                    menu_fontWeight: 'normal',
+                    menu_value: "Statut : XXXX",
                     hasRotatingPoint: false
                 },
 
@@ -166,6 +179,8 @@
                     menu_left: 10,
                     menu_top: 110,
                     menu_fontSize: 20,
+                    menu_fontWeight: 'normal',
+                    menu_value: "N° SIRET de votre entreprise",
                     hasRotatingPoint: false
                 },
 
@@ -181,6 +196,8 @@
                     menu_left: 10,
                     menu_top: 140,
                     menu_fontSize: 20,
+                    menu_fontWeight: 'normal',
+                    menu_value: "N° APE de votre entreprise",
                     hasRotatingPoint: false
                 },
 
@@ -196,6 +213,8 @@
                     menu_left: 10,
                     menu_top: 170,
                     menu_fontSize: 20,
+                    menu_fontWeight: 'normal',
+                    menu_value: "Email : mail@domain.com",
                     hasRotatingPoint: false
                 },
 
@@ -212,6 +231,7 @@
                     menu_left: 10,
                     menu_top: 200,
                     menu_fontSize: 20,
+                    menu_fontWeight: 'normal',
                     hasRotatingPoint: false
                 },
 
@@ -227,6 +247,8 @@
                     menu_left: 10,
                     menu_top: 230,
                     menu_fontSize: 20,
+                    menu_fontWeight: 'normal',
+                    menu_value: "N° TVA : FRXX XXX XXX XXX",
                     hasRotatingPoint: false
                 },
 
@@ -242,6 +264,8 @@
                     menu_left: 10,
                     menu_top: 260,
                     menu_fontSize: 20,
+                    menu_fontWeight: 'normal',
+                    menu_value: "Nom du client",
                     hasRotatingPoint: false,
                     fontWeight: 'bold'
                 },
@@ -259,6 +283,8 @@
                     menu_left: 10,
                     menu_top: 290,
                     menu_fontSize: 20,
+                    menu_fontWeight: 'normal',
+                    menu_value: "Statut client : XXXX",
                     hasRotatingPoint: false
                 },
 
@@ -275,6 +301,8 @@
                     menu_left: 10,
                     menu_top: 320,
                     menu_fontSize: 20,
+                    menu_fontWeight: 'normal',
+
                 },
 
                 {
@@ -289,6 +317,9 @@
                     menu_left: 10,
                     menu_top: 350,
                     menu_fontSize: 20,
+                    menu_fontWeight: 'normal',
+                    menu_value: "N° APE client : XXXXX",
+
                 },
 
                 {
@@ -303,6 +334,9 @@
                     menu_left: 10,
                     menu_top: 380,
                     menu_fontSize: 20,
+                    menu_fontWeight: 'normal',
+                    menu_value: "Email client : mail@domain.com",
+
                 },
 
                 {
@@ -318,6 +352,8 @@
                     menu_left: 10,
                     menu_top: 410,
                     menu_fontSize: 20,
+                    menu_fontWeight: 'normal',
+
                 },
 
                 {
@@ -332,6 +368,9 @@
                     menu_left: 10,
                     menu_top: 440,
                     menu_fontSize: 20,
+                    menu_fontWeight: 'normal',
+                    menu_value: "N° TVA client : FRXX XXX XXX XXX",
+
                 },
 
                 {
@@ -347,6 +386,8 @@
                     menu_left: 10,
                     menu_top: 470,
                     menu_fontSize: 20,
+                    menu_fontWeight: 'normal',
+
                 },
 
             ];
@@ -387,28 +428,22 @@
 
             ];
 
-            texts.forEach(function (textObject) {
-                canvas.add(new fabric.Text(textObject.value, textObject));
-            });
 
-            images.forEach(function (imageObject) {
-                fabric.Image.fromURL(imageObject.value, function (image) {
+            let removedItems = _.differenceBy(texts, arrayTemplate.objects, "iris_identifier");
 
-                    let item = image.set({
-                        iris_type: imageObject.iris_type,
-                        iris_identifier: imageObject.iris_identifier,
-                        left: imageObject.left,
-                        top: imageObject.top,
-                        originX: imageObject.originX,
-                        originY: imageObject.originY,
-                        hasBorders: imageObject.hasBorders,
-                        hasControls: imageObject.hasControls,
-                        hasRotatingPoint: imageObject.hasRotatingPoint,
-                        selectable: imageObject.selectable
-                    });
+            removedItems.forEach(function (removedItem) {
 
-                    canvas.add(item);
-                });
+                itemsCanvas.add(new fabric.Text(removedItem.menu_value, {
+                    iris_type: removedItem.iris_type,
+                    iris_identifier: removedItem.iris_identifier,
+                    left: removedItem.menu_left,
+                    top: removedItem.menu_top,
+                    fontSize: removedItem.menu_fontSize,
+                    fill: removedItem.fill,
+                    fontFamily: removedItem.fontFamily,
+                    fontWeight: removedItem.menu_fontWeight,
+                    hasRotatingPoint: false,
+                }));
 
             });
 
@@ -539,11 +574,11 @@
                 reader.readAsDataURL(e.target.files[0]);
             });
 
-            $('#text-color').change(function (e) {
+            $('#text_color').change(function (e) {
 
-                canvas._objects.forEach(function(object) {
-                    if(object.iris_type == "label") {
-                        object.setColor($('#text-color').val());
+                canvas._objects.forEach(function (object) {
+                    if (object.iris_type == "label") {
+                        object.setColor($('#text_color').val());
                     }
 
                     canvas.renderAll();
@@ -551,12 +586,11 @@
 
             });
 
-            $('#bg-color').change(function (e) {
 
-                canvas.backgroundColor = $('#bg-color').val();
+            $('#bg_color').change(function (e) {
+
+                canvas.backgroundColor = $('#bg_color').val();
                 canvas.renderAll();
-                console.log(canvas);
-
 
             });
 
@@ -667,8 +701,9 @@
 
             // color pickers
 
-            $("#text-color").spectrum({
-                color: "black",
+
+            $("#text_color").spectrum({
+                color: $('#text_color').val(),
                 showInput: true,
                 showPalette: true,
                 palette: [],
@@ -677,8 +712,8 @@
 
             });
 
-            $("#bg-color").spectrum({
-                color: "white",
+            $("#bg_color").spectrum({
+                color:  $('#bg_color').val(),
                 showInput: true,
                 showPalette: true,
                 palette: [],
@@ -713,7 +748,6 @@
                     if (item.iris_type == "label") {
 
                         clone.set({fontSize: model.menu_fontSize, fontWeight: model.menu_fontWeight, fill: model.fill});
-                        console.log(clone);
                         if (model.menu_value) {
                             clone.setText(model.menu_value);
                         }
@@ -729,7 +763,7 @@
                     clone.set({left: model.left, top: model.top});
 
                     if (item.iris_type == "label") {
-                        clone.set({fontSize: model.fontSize, fontWeight: model.fontWeight, fill: $('#text-color').val()});
+                        clone.set({fontSize: model.fontSize, fontWeight: model.fontWeight, fill: $('#text_color').val()});
                         clone.setText(model.value);
                     }
                     else if (item.iris_type == "image") {
@@ -748,7 +782,8 @@
                 toastr.info(message);
             }
 
-        });
+        })
+        ;
 
 
     </script>

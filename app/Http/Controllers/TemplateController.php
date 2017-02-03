@@ -48,15 +48,13 @@ class TemplateController extends Controller
             $template->save();
 
             Flash::success(Lang::get('app.general:create-success'));
+            return redirect(action('TemplateController@index'));
 
-        } else {
+        }
 
             Flash::error(Lang::get('app.general:create-failed'));
             return redirect(action('TemplateController@create'));
 
-        }
-
-        return redirect(action('TemplateController@index'));
     }
 
     /**
@@ -85,10 +83,21 @@ class TemplateController extends Controller
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
 
-    public function update()
+    public function update($id, TemplateRequest $request)
     {
+        $template = Template::findOrFail($id);
+        $input = $request->all();
+
+        if ($template->update($input)) {
+            Flash::success(Lang::get('app.general:update-success'));
+            return redirect(action('TemplateController@index'));
+        }
+
+        Flash::error(Lang::get('app.general:create-failed'));
+        return redirect(action('TemplateController@edit', $id));
 
     }
+
 
     /**
      * Remove the specified Template from storage.

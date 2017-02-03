@@ -23,6 +23,7 @@
         </div>
 
         <input type="hidden" id="content" name="content"/>
+        
 
     </div>
 </div>
@@ -537,17 +538,20 @@
                 reader.readAsDataURL(e.target.files[0]);
             });
 
+            $('#text-color').val("#000000");
+
             $('#text-color').change(function (e) {
 
                 canvas._objects.forEach(function(object) {
                     if(object.iris_type == "label") {
                         object.setColor($('#text-color').val());
                     }
-
                     canvas.renderAll();
                 });
 
             });
+
+            $('#bg-color').val("#FFFFFF");
 
             $('#bg-color').change(function (e) {
 
