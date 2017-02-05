@@ -87,21 +87,21 @@
                 });
             });
 
-            let canvas = new fabric.Canvas('render', {
-                imageSmoothingEnabled: false,
-                enableRetinaScaling: true,
+//            let canvas = new fabric.Canvas('render', {
+//                imageSmoothingEnabled: false,
+//                enableRetinaScaling: true,
+//
+//            });
 
-            });
-
-            let itemsCanvas = new fabric.Canvas('items', {
-                imageSmoothingEnabled: false,
-                enableRetinaScaling: true,
-
-            });
+//            let itemsCanvas = new fabric.Canvas('items', {
+//                imageSmoothingEnabled: false,
+//                enableRetinaScaling: true,
+//
+//            });
 
 
-            // create grid
-            let grid_size = 15;
+//            // create grid
+//            let grid_size = 15;
 
             //create elements
             let texts = [
@@ -386,128 +386,110 @@
 
             ];
 
-            texts.forEach(function (textObject) {
-                canvas.add(new fabric.Text(textObject.value, textObject));
-            });
-
-            images.forEach(function (imageObject) {
-                fabric.Image.fromURL(imageObject.value, function (image) {
-
-                    let item = image.set({
-                        iris_type: imageObject.iris_type,
-                        iris_identifier: imageObject.iris_identifier,
-                        left: imageObject.left,
-                        top: imageObject.top,
-                        originX: imageObject.originX,
-                        originY: imageObject.originY,
-                        hasBorders: imageObject.hasBorders,
-                        hasControls: imageObject.hasControls,
-                        hasRotatingPoint: imageObject.hasRotatingPoint,
-                        selectable: imageObject.selectable
-                    });
-
-                    canvas.add(item);
-                });
-
-            });
-
-
-            canvas.on('object:selected', function (e) {
-                if (e.target.iris_identifier !== "content_ph" && !e.target._objects) {
-
-                    var container = e.target.canvas.contextContainer.canvas.offsetParent;
-                    addDeleteBtn(container, e.target.oCoords.tr.x, e.target.oCoords.tr.y);
-                    addZIndexButtons(container, e.target.oCoords.tr.x, e.target.oCoords.tr.y);
-
-                }
-            });
-
-            canvas.on('mouse:down', function (e) {
-                if (!canvas.getActiveObject()) {
-                    $(".deleteBtn").remove();
-                    $(".upBtn").remove();
-                    $(".downBtn").remove();
-                }
-            });
-
-            canvas.on('object:modified', function (e) {
-                if (e.target.iris_identifier !== "content_ph") {
-                    var container = e.target.canvas.contextContainer.canvas.offsetParent;
-                    addDeleteBtn(container, e.target.oCoords.tr.x, e.target.oCoords.tr.y);
-                    addZIndexButtons(container, e.target.oCoords.tr.x, e.target.oCoords.tr.y);
-
-                }
-            });
-
-            canvas.on('object:scaling', function (e) {
-                $(".deleteBtn").remove();
-                $(".upBtn").remove();
-                $(".downBtn").remove();
-            });
-            canvas.on('object:moving', function (e) {
-                $(".deleteBtn").remove();
-                $(".upBtn").remove();
-                $(".downBtn").remove();
-            });
-            canvas.on('object:rotating', function (e) {
-                $(".deleteBtn").remove();
-                $(".upBtn").remove();
-                $(".downBtn").remove();
-            });
-
-            $(document).on('click', ".deleteBtn", function () {
-
-                target = canvas.getActiveObject();
-
-                if (target) {
-
-                    if (target.iris_identifier != "custom") {
-                        cloneItem(target, itemsCanvas, "remove");
-                    }
-
-                    canvas.remove(target);
-                    $(".upBtn").remove();
-                    $(".downBtn").remove();
-                    $(".deleteBtn").remove();
-                }
-            });
-
-            $(document).on('click', ".upBtn", function () {
-
-                target = canvas.getActiveObject();
-                target.bringForward();
-                showToast('Élément élevé au plan n° ' + canvas.getObjects().indexOf(target));
+//            texts.forEach(function (textObject) {
+//                canvas.add(new fabric.Text(textObject.value, textObject));
+//            });
+//
+//            images.forEach(function (imageObject) {
+//                fabric.Image.fromURL(imageObject.value, function (image) {
+//
+//                    let item = image.set({
+//                        iris_type: imageObject.iris_type,
+//                        iris_identifier: imageObject.iris_identifier,
+//                        left: imageObject.left,
+//                        top: imageObject.top,
+//                        originX: imageObject.originX,
+//                        originY: imageObject.originY,
+//                        hasBorders: imageObject.hasBorders,
+//                        hasControls: imageObject.hasControls,
+//                        hasRotatingPoint: imageObject.hasRotatingPoint,
+//                        selectable: imageObject.selectable
+//                    });
+//
+//                    canvas.add(item);
+//                });
+//
+//            });
 
 
-            });
+//            canvas.on('object:selected', function (e) {
+//                if (e.target.iris_identifier !== "content_ph" && !e.target._objects) {
+//
+//                    var container = e.target.canvas.contextContainer.canvas.offsetParent;
+//                    addDeleteBtn(container, e.target.oCoords.tr.x, e.target.oCoords.tr.y);
+//                    addZIndexButtons(container, e.target.oCoords.tr.x, e.target.oCoords.tr.y);
+//
+//                }
+//            });
 
-            $(document).on('click', ".downBtn", function () {
+//            canvas.on('mouse:down', function (e) {
+//                if (!canvas.getActiveObject()) {
+//                    $(".deleteBtn").remove();
+//                    $(".upBtn").remove();
+//                    $(".downBtn").remove();
+//                }
+//            });
 
-                target = canvas.getActiveObject();
-                target.sendBackwards();
-                showToast('Élément ramené au plan n° ' + canvas.getObjects().indexOf(target));
+//            canvas.on('object:modified', function (e) {
+//                if (e.target.iris_identifier !== "content_ph") {
+//                    var container = e.target.canvas.contextContainer.canvas.offsetParent;
+//                    addDeleteBtn(container, e.target.oCoords.tr.x, e.target.oCoords.tr.y);
+//                    addZIndexButtons(container, e.target.oCoords.tr.x, e.target.oCoords.tr.y);
+//
+//                }
+//            });
 
-            });
+//            canvas.on('object:scaling', function (e) {
+//                $(".deleteBtn").remove();
+//                $(".upBtn").remove();
+//                $(".downBtn").remove();
+//            });
+//            canvas.on('object:moving', function (e) {
+//                $(".deleteBtn").remove();
+//                $(".upBtn").remove();
+//                $(".downBtn").remove();
+//            });
+//            canvas.on('object:rotating', function (e) {
+//                $(".deleteBtn").remove();
+//                $(".upBtn").remove();
+//                $(".downBtn").remove();
+//            });
 
-            $(document).on('click', "#custom-text-btn", function () {
+//            $(document).on('click', ".deleteBtn", function () {
+//
+//                target = canvas.getActiveObject();
+//
+//                if (target) {
+//
+//                    if (target.iris_identifier != "custom") {
+//                        cloneItem(target, itemsCanvas, "remove");
+//                    }
+//
+//                    canvas.remove(target);
+//                    $(".upBtn").remove();
+//                    $(".downBtn").remove();
+//                    $(".deleteBtn").remove();
+//                }
+//            });
+//
+//            $(document).on('click', ".upBtn", function () {
+//
+//                target = canvas.getActiveObject();
+//                target.bringForward();
+//                showToast('Élément élevé au plan n° ' + canvas.getObjects().indexOf(target));
+//
+//
+//            });
+//
+//            $(document).on('click', ".downBtn", function () {
+//
+//                target = canvas.getActiveObject();
+//                target.sendBackwards();
+//                showToast('Élément ramené au plan n° ' + canvas.getObjects().indexOf(target));
+//
+//            });
 
-                let value = $('#text-value').val();
 
-                canvas.add(new fabric.Text(value, {
-
-                    iris_type: "label",
-                    iris_identifier: "custom",
-                    left: 880,
-                    top: 70,
-                    originX: "center",
-                    originY: "center",
-                    fontSize: 19,
-                    fontFamily: 'Calibri',
-                }));
-
-                $("html, body").animate({scrollTop: 100}, "slow");
-
-            });
 
             $('#image-file').change(function (e) {
 
@@ -562,12 +544,12 @@
 
             });
 
-            itemsCanvas.on('object:selected', function (e) {
-
-                var container = e.target.canvas.contextContainer.canvas.offsetParent;
-                addAddBtn(container, e.target.oCoords.tr.x, e.target.oCoords.tr.y);
-
-            });
+//            itemsCanvas.on('object:selected', function (e) {
+//
+//                var container = e.target.canvas.contextContainer.canvas.offsetParent;
+//                addAddBtn(container, e.target.oCoords.tr.x, e.target.oCoords.tr.y);
+//
+//            });
 
             itemsCanvas.on('mouse:down', function (e) {
                 if (!itemsCanvas.getActiveObject()) {
@@ -600,17 +582,17 @@
             });
 
 
-            // snap to grid
+//            // snap to grid
+//
+//            canvas.on('object:moving', function (options) {
+//                options.target.set({
+//                    left: Math.round(options.target.left / grid_size) * grid_size,
+//                    top: Math.round(options.target.top / grid_size) * grid_size
+//                });
+//            });
 
-            canvas.on('object:moving', function (options) {
-                options.target.set({
-                    left: Math.round(options.target.left / grid_size) * grid_size,
-                    top: Math.round(options.target.top / grid_size) * grid_size
-                });
-            });
-
-            // JSON without default values
-            canvas.includeDefaultValues = false;
+//            // JSON without default values
+//            canvas.includeDefaultValues = false;
 
 
             $("#template-form").submit(function (e) {
@@ -630,42 +612,42 @@
             });
 
 
-            // add delete button
+            {{--// add delete button--}}
 
-            function addDeleteBtn(container, x, y) {
-                $(".deleteBtn").remove();
-                var btnLeft = x - 10;
-                var btnTop = y - 10;
-                var deleteBtn = '<img src="{{asset("img/close-button.png")}}" class="deleteBtn" style="position:absolute;top:' + btnTop + 'px;left:' + btnLeft + 'px;cursor:pointer;width:20px;height:20px;"/>';
-                $(container).append(deleteBtn);
-            }
+            {{--function addDeleteBtn(container, x, y) {--}}
+                {{--$(".deleteBtn").remove();--}}
+                {{--var btnLeft = x - 10;--}}
+                {{--var btnTop = y - 10;--}}
+                {{--var deleteBtn = '<img src="{{asset("img/close-button.png")}}" class="deleteBtn" style="position:absolute;top:' + btnTop + 'px;left:' + btnLeft + 'px;cursor:pointer;width:20px;height:20px;"/>';--}}
+                {{--$(container).append(deleteBtn);--}}
+            {{--}--}}
 
-            // add up and down button for z-index control
+            {{--// add up and down button for z-index control--}}
 
-            function addZIndexButtons(container, x, y) {
-                $(".upBtn").remove();
-                $(".downBtn").remove();
-                var upBtnLeft = x - 40;
-                var upBtnTop = y - 10;
-                var downBtnLeft = x - 60;
-                var downBtnTop = y - 10;
+            {{--function addZIndexButtons(container, x, y) {--}}
+                {{--$(".upBtn").remove();--}}
+                {{--$(".downBtn").remove();--}}
+                {{--var upBtnLeft = x - 40;--}}
+                {{--var upBtnTop = y - 10;--}}
+                {{--var downBtnLeft = x - 60;--}}
+                {{--var downBtnTop = y - 10;--}}
 
-                var upBtn = '<img src="{{asset("img/up-button.png")}}" class="upBtn" style="position:absolute;top:' + upBtnTop + 'px;left:' + upBtnLeft + 'px;cursor:pointer;width:20px;height:20px;"/>';
-                var downBtn = '<img src="{{asset("img/down-button.png")}}" class="downBtn" style="position:absolute;top:' + downBtnTop + 'px;left:' + downBtnLeft + 'px;cursor:pointer;width:20px;height:20px;"/>';
-                $(container).append(upBtn);
-                $(container).append(downBtn);
+                {{--var upBtn = '<img src="{{asset("img/up-button.png")}}" class="upBtn" style="position:absolute;top:' + upBtnTop + 'px;left:' + upBtnLeft + 'px;cursor:pointer;width:20px;height:20px;"/>';--}}
+                {{--var downBtn = '<img src="{{asset("img/down-button.png")}}" class="downBtn" style="position:absolute;top:' + downBtnTop + 'px;left:' + downBtnLeft + 'px;cursor:pointer;width:20px;height:20px;"/>';--}}
+                {{--$(container).append(upBtn);--}}
+                {{--$(container).append(downBtn);--}}
 
-            }
+            {{--}--}}
 
-            // add add button
+            {{--// add add button--}}
 
-            function addAddBtn(container, x, y) {
-                $(".addBtn").remove();
-                var btnLeft = x - 10;
-                var btnTop = y - 10;
-                var addBtn = '<img src="{{asset("img/add-button.png")}}" class="addBtn" style="position:absolute;top:' + btnTop + 'px;left:' + btnLeft + 'px;cursor:pointer;width:20px;height:20px;"/>';
-                $(container).append(addBtn);
-            }
+            {{--function addAddBtn(container, x, y) {--}}
+                {{--$(".addBtn").remove();--}}
+                {{--var btnLeft = x - 10;--}}
+                {{--var btnTop = y - 10;--}}
+                {{--var addBtn = '<img src="{{asset("img/add-button.png")}}" class="addBtn" style="position:absolute;top:' + btnTop + 'px;left:' + btnLeft + 'px;cursor:pointer;width:20px;height:20px;"/>';--}}
+                {{--$(container).append(addBtn);--}}
+            {{--}--}}
 
             // color pickers
 
@@ -691,64 +673,64 @@
             });
             // clone item to another canvas
 
-            function cloneItem(item, destCanvas, type) {
+//            function cloneItem(item, destCanvas, type) {
+//
+//                if (item.iris_type == "label") {
+//                    var result = texts.filter(function (obj) {
+//                        return obj.iris_identifier == item.iris_identifier;
+//                    });
+//                }
+//                else if (item.iris_type == "image") {
+//                    var result = images.filter(function (obj) {
+//                        return obj.iris_identifier == item.iris_identifier;
+//                    })
+//                }
+//
+//                let model = result[0];
+//
+//
+//                var clone = fabric.util.object.clone(item);
+//
+//                if (type === "remove") {
+//                    clone.set({left: model.menu_left, top: model.menu_top});
+//
+//                    if (item.iris_type == "label") {
+//
+//                        clone.set({fontSize: model.menu_fontSize, fontWeight: model.menu_fontWeight, fill: model.fill});
+//                        console.log(clone);
+//                        if (model.menu_value) {
+//                            clone.setText(model.menu_value);
+//                        }
+//                    }
+//
+//                    else if (item.iris_type == "image") {
+//                        clone.set({top: model.menu_top, left: model.menu_left});
+//                        clone.scaleToWidth(model.menu_width);
+//                        clone.scaleToHeight(model.menu_height);
+//                    }
+//                }
+//                else if (type === "add") {
+//                    clone.set({left: model.left, top: model.top});
+//
+//                    if (item.iris_type == "label") {
+//                        clone.set({fontSize: model.fontSize, fontWeight: model.fontWeight, fill: $('#text-color').val()});
+//                        clone.setText(model.value);
+//                    }
+//                    else if (item.iris_type == "image") {
+//                        clone.set({top: model.top, left: model.left});
+//                        clone.scaleToWidth(model.width);
+//                        clone.scaleToHeight(model.height);
+//                    }
+//                }
+//                destCanvas.add(clone);
+//
+//            }
 
-                if (item.iris_type == "label") {
-                    var result = texts.filter(function (obj) {
-                        return obj.iris_identifier == item.iris_identifier;
-                    });
-                }
-                else if (item.iris_type == "image") {
-                    var result = images.filter(function (obj) {
-                        return obj.iris_identifier == item.iris_identifier;
-                    })
-                }
-
-                let model = result[0];
-
-
-                var clone = fabric.util.object.clone(item);
-
-                if (type === "remove") {
-                    clone.set({left: model.menu_left, top: model.menu_top});
-
-                    if (item.iris_type == "label") {
-
-                        clone.set({fontSize: model.menu_fontSize, fontWeight: model.menu_fontWeight, fill: model.fill});
-                        console.log(clone);
-                        if (model.menu_value) {
-                            clone.setText(model.menu_value);
-                        }
-                    }
-
-                    else if (item.iris_type == "image") {
-                        clone.set({top: model.menu_top, left: model.menu_left});
-                        clone.scaleToWidth(model.menu_width);
-                        clone.scaleToHeight(model.menu_height);
-                    }
-                }
-                else if (type === "add") {
-                    clone.set({left: model.left, top: model.top});
-
-                    if (item.iris_type == "label") {
-                        clone.set({fontSize: model.fontSize, fontWeight: model.fontWeight, fill: $('#text-color').val()});
-                        clone.setText(model.value);
-                    }
-                    else if (item.iris_type == "image") {
-                        clone.set({top: model.top, left: model.left});
-                        clone.scaleToWidth(model.width);
-                        clone.scaleToHeight(model.height);
-                    }
-                }
-                destCanvas.add(clone);
-
-            }
-
-            function showToast(message) {
-                toastr.clear();
-                toastr.options = {timeOut: 2500, preventDuplicates: true, positionClass: "toast-bottom-full-width"};
-                toastr.info(message);
-            }
+//            function showToast(message) {
+//                toastr.clear();
+//                toastr.options = {timeOut: 2500, preventDuplicates: true, positionClass: "toast-bottom-full-width"};
+//                toastr.info(message);
+//            }
 
         });
 

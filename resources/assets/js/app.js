@@ -23,5 +23,8 @@ require('spectrum-colorpicker');
  * Application specific
  */
 window.IrisCrm = require('./crm');
+
+window.CanvasDocBuilder = require('./components/canvas-document-builder/main').default;
+
 require('./general');
 
