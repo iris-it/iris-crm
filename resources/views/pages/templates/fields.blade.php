@@ -491,58 +491,58 @@
 
 
 
-            $('#image-file').change(function (e) {
+//            $('#image-file').change(function (e) {
+//
+//                var reader = new FileReader();
+//                reader.onload = function (event) {
+//                    var imgObj = new Image();
+//                    imgObj.src = event.target.result;
+//                    imgObj.onload = function () {
+//                        var image = new fabric.Image(imgObj);
+//                        image.set({
+//                            iris_type: "image",
+//                            iris_identifier: "custom",
+//                            left: 610,
+//                            top: 350,
+//                            width: 240,
+//                            height: 160,
+//                            originX: "center",
+//                            originY: "center",
+//                            hasControls: true,
+//                            hasRotatingPoint: false,
+//                            selectable: true
+//                        });
+//
+//                        canvas.add(image);
+//                    }
+//                };
+//
+//                reader.readAsDataURL(e.target.files[0]);
+//            });
 
-                var reader = new FileReader();
-                reader.onload = function (event) {
-                    var imgObj = new Image();
-                    imgObj.src = event.target.result;
-                    imgObj.onload = function () {
-                        var image = new fabric.Image(imgObj);
-                        image.set({
-                            iris_type: "image",
-                            iris_identifier: "custom",
-                            left: 610,
-                            top: 350,
-                            width: 240,
-                            height: 160,
-                            originX: "center",
-                            originY: "center",
-                            hasControls: true,
-                            hasRotatingPoint: false,
-                            selectable: true
-                        });
-
-                        canvas.add(image);
-                    }
-                };
-
-                reader.readAsDataURL(e.target.files[0]);
-            });
-
-            $('#text-color').val("#000000");
-
-            $('#text-color').change(function (e) {
-
-                canvas._objects.forEach(function(object) {
-                    if(object.iris_type == "label") {
-                        object.setColor($('#text-color').val());
-                    }
-                    canvas.renderAll();
-                });
-
-            });
-
-            $('#bg-color').val("#FFFFFF");
-
-            $('#bg-color').change(function (e) {
-
-                canvas.backgroundColor = $('#bg-color').val();
-                canvas.renderAll();
-                console.log(canvas);
-
-
-            });
+//            $('#text-color').val("#000000");
+//
+//            $('#text-color').change(function (e) {
+//
+//                canvas._objects.forEach(function(object) {
+//                    if(object.iris_type == "label") {
+//                        object.setColor($('#text-color').val());
+//                    }
+//                    canvas.renderAll();
+//                });
+//
+//            });
+//
+//            $('#bg-color').val("#FFFFFF");
+//
+//            $('#bg-color').change(function (e) {
+//
+//                canvas.backgroundColor = $('#bg-color').val();
+//                canvas.renderAll();
+//                console.log(canvas);
+//
+//
+//            });
 
 //            itemsCanvas.on('object:selected', function (e) {
 //
@@ -551,35 +551,35 @@
 //
 //            });
 
-            itemsCanvas.on('mouse:down', function (e) {
-                if (!itemsCanvas.getActiveObject()) {
-                    $(".addBtn").remove();
-                }
-            });
-
-            itemsCanvas.on('object:modified', function (e) {
-                var container = e.target.canvas.contextContainer.canvas.offsetParent;
-                addAddBtn(container, e.target.oCoords.tr.x, e.target.oCoords.tr.y);
-            });
-
-            itemsCanvas.on('object:scaling', function (e) {
-                $(".addBtn").remove();
-            });
-            itemsCanvas.on('object:moving', function (e) {
-                $(".addBtn").remove();
-            });
-            itemsCanvas.on('object:rotating', function (e) {
-                $(".addBtn").remove();
-            });
-
-            $(document).on('click', ".addBtn", function () {
-                if (itemsCanvas.getActiveObject()) {
-
-                    cloneItem(itemsCanvas.getActiveObject(), canvas, "add");
-                    itemsCanvas.remove(itemsCanvas.getActiveObject());
-                    $(".addBtn").remove();
-                }
-            });
+//            itemsCanvas.on('mouse:down', function (e) {
+//                if (!itemsCanvas.getActiveObject()) {
+//                    $(".addBtn").remove();
+//                }
+//            });
+//
+//            itemsCanvas.on('object:modified', function (e) {
+//                var container = e.target.canvas.contextContainer.canvas.offsetParent;
+//                addAddBtn(container, e.target.oCoords.tr.x, e.target.oCoords.tr.y);
+//            });
+//
+//            itemsCanvas.on('object:scaling', function (e) {
+//                $(".addBtn").remove();
+//            });
+//            itemsCanvas.on('object:moving', function (e) {
+//                $(".addBtn").remove();
+//            });
+//            itemsCanvas.on('object:rotating', function (e) {
+//                $(".addBtn").remove();
+//            });
+//
+//            $(document).on('click', ".addBtn", function () {
+//                if (itemsCanvas.getActiveObject()) {
+//
+//                    cloneItem(itemsCanvas.getActiveObject(), canvas, "add");
+//                    itemsCanvas.remove(itemsCanvas.getActiveObject());
+//                    $(".addBtn").remove();
+//                }
+//            });
 
 
 //            // snap to grid
@@ -605,8 +605,8 @@
                     return false;
                 }
 
-                let json = canvas.toJSON(['iris_identifier', 'iris_type']);
-                $('#content').val(JSON.stringify(json));
+//                let json = canvas.toJSON(['iris_identifier', 'iris_type']);
+//                $('#content').val(JSON.stringify(json));
 
                 this.submit();
             });
@@ -650,27 +650,27 @@
             {{--}--}}
 
             // color pickers
-
-            $("#text-color").spectrum({
-                color: "black",
-                showInput: true,
-                showPalette: true,
-                palette: [],
-                showButtons: false,
-                preferredFormat: "hex",
-
-            });
-
-            $("#bg-color").spectrum({
-                color: "white",
-                showInput: true,
-                showPalette: true,
-                palette: [],
-                showButtons: false,
-                preferredFormat: "hex",
-
-
-            });
+//
+//            $("#text-color").spectrum({
+//                color: "black",
+//                showInput: true,
+//                showPalette: true,
+//                palette: [],
+//                showButtons: false,
+//                preferredFormat: "hex",
+//
+//            });
+//
+//            $("#bg-color").spectrum({
+//                color: "white",
+//                showInput: true,
+//                showPalette: true,
+//                palette: [],
+//                showButtons: false,
+//                preferredFormat: "hex",
+//
+//
+//            });
             // clone item to another canvas
 
 //            function cloneItem(item, destCanvas, type) {

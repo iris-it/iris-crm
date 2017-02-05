@@ -213,64 +213,135 @@ export default class {
         });
     }
 
-    setDocumentBehavior(idProperty, excludedId, canvasType, destCanvas) {
+    setMainContainerBehaviour(idProperty, typeProperty, excludedId, destCanvas) {
 
-        if(canvasType == "container") {
+        $(document).on('click', ".deleteBtn", function () {
 
-            $(document).on('click', ".deleteBtn", function () {
+            target = this.canvas.getActiveObject();
 
-                target = this.canvas.getActiveObject();
+            if (target) {
 
-                if (target) {
+                if (target[idProperty] != excludedId) {
+                    this._cloneItem(target, destCanvas, "remove");
+                }
 
-                    if (target[idProperty] != excludedId) {
-                        this._cloneItem(target, destCanvas, "remove");
+                this.canvas.remove(target);
+                $(".upBtn").remove();
+                $(".downBtn").remove();
+                $(".deleteBtn").remove();
+            }
+        });
+
+        $(document).on('click', ".upBtn", function () {
+
+            target = this.canvas.getActiveObject();
+            target.bringForward();
+            showToast('Élément élevé au plan n° ' + canvas.getObjects().indexOf(target));
+
+
+        });
+
+        $(document).on('click', ".downBtn", function () {
+
+            target = this.canvas.getActiveObject();
+            target.sendBackwards();
+            showToast('Élément ramené au plan n° ' + canvas.getObjects().indexOf(target));
+
+        });
+
+        $("#text-color").spectrum({
+            color: "black",
+            showInput: true,
+            showPalette: true,
+            palette: [],
+            showButtons: false,
+            preferredFormat: "hex",
+
+        });
+
+        $("#bg-color").spectrum({
+            color: "white",
+            showInput: true,
+            showPalette: true,
+            palette: [],
+            showButtons: false,
+            preferredFormat: "hex",
+
+        });
+
+        $('#text-color').val("#000000");
+
+        $('#text-color').change(function (e) {
+
+            this.canvas._objects.forEach(function (object) {
+                if (object[typeProperty] == "label") {
+                    object.setColor($('#text-color').val());
+                }
+                this.canvas.renderAll();
+            });
+
+        });
+
+        $('#bg-color').val("#FFFFFF");
+
+        $('#bg-color').change(function (e) {
+
+            this.canvas.backgroundColor = $('#bg-color').val();
+            this.canvas.renderAll();
+
+        });
+
+    }
+
+    setMenuContainerBehaviour(destCanvas) {
+        $(document).on('click', ".addBtn", function () {
+            if (this.canvas.getActiveObject()) {
+
+                cloneItem(this.canvas.getActiveObject(), destCanvas, "add");
+                this.canvas.remove(this.canvas.getActiveObject());
+                $(".addBtn").remove();
+            }
+        });
+    }
+
+    setCustomContainerBehaviour(customTextProperties, customImageProperties, destCanvas) {
+
+        $(document).on('click', "#custom-text-btn", function () {
+
+            let value = $('#text-value').val();
+
+            destCanvas.add(new fabric.Text(value, customTextProperties));
+
+            $("html, body").animate({scrollTop: 100}, "slow");
+
+        });
+
+        $('#image-file').change(function (e) {
+
+            var reader = new FileReader();
+            reader.onload = function (event) {
+                var imgObj = new Image();
+                imgObj.src = event.target.result;
+                imgObj.onload = function () {
+                    var image = new fabric.Image(imgObj);
+
+                    for (let [property, value] of entries(customImageProperties)) {
+                        image.set({
+                            property: value
+                        });
                     }
 
-                    this.canvas.remove(target);
-                    $(".upBtn").remove();
-                    $(".downBtn").remove();
-                    $(".deleteBtn").remove();
+                    destCanvas.add(image);
                 }
-            });
+            };
 
-            $(document).on('click', ".upBtn", function () {
+            reader.readAsDataURL(e.target.files[0]);
+        });
+    }
 
-                target = this.canvas.getActiveObject();
-                target.bringForward();
-                showToast('Élément élevé au plan n° ' + canvas.getObjects().indexOf(target));
-
-
-            });
-
-            $(document).on('click', ".downBtn", function () {
-
-                target = this.canvas.getActiveObject();
-                target.sendBackwards();
-                showToast('Élément ramené au plan n° ' + canvas.getObjects().indexOf(target));
-
-            });
-
-            $(document).on('click', "#custom-text-btn", function () {
-
-                let value = $('#text-value').val();
-
-                this.canvas.add(new fabric.Text(value, {
-
-                    iris_type: "label",
-                    iris_identifier: "custom",
-                    left: 880,
-                    top: 70,
-                    originX: "center",
-                    originY: "center",
-                    fontSize: 19,
-                    fontFamily: 'Calibri',
-                }));
-
-                $("html, body").animate({scrollTop: 100}, "slow");
-
-            });
-        }
+    saveToJSON(customPropertiesArray, domId) {
+        let json = this.canvas.toJSON(customPropertiesArray);
+        $(domId).val(JSON.stringify(json));
     }
 
     // DOM Interaction
