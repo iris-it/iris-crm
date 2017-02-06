@@ -6,6 +6,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\ServiceRequest;
 use App\Service;
 use App\Services\ImageService;
+use App\Tax;
 use Illuminate\Support\Facades\Lang;
 use Laracasts\Flash\Flash;
 
@@ -26,9 +27,10 @@ class ServiceController extends Controller
      */
     public function create()
     {
-        $taxes = $this->organization->taxes()->where('is_active', true)->get();
+        $tva = Tax::where('organization_id', $this->organization->id)->OnlyVat()->IsActive()->get();
+        $taxes = Tax::where('organization_id', $this->organization->id)->MixedTaxes()->IsActive()->get();
 
-        return view('pages.services.create')->with(compact('taxes'));
+        return view('pages.services.create')->with(compact('taxes', 'tva'));
     }
 
     /**
@@ -96,7 +98,9 @@ class ServiceController extends Controller
     public function edit($id)
     {
         $service = Service::findOrFail($id);
-        $taxes = $this->organization->taxes()->where('is_active', true)->get();
+
+        $tva = Tax::where('organization_id', $this->organization->id)->OnlyVat()->IsActive()->get();
+        $taxes = Tax::where('organization_id', $this->organization->id)->MixedTaxes()->IsActive()->get();
 
 
         if (empty($service)) {
@@ -105,7 +109,7 @@ class ServiceController extends Controller
             return redirect(action('ServiceController@index'));
         }
 
-        return view('pages.services.edit')->with(compact('service', 'taxes'));
+        return view('pages.services.edit')->with(compact('service', 'taxes', 'tva'));
     }
 
     /**

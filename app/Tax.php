@@ -52,6 +52,11 @@ class Tax extends Model
         return $query->where("is_vat", false);
     }
 
+    public function scopeIsActive($query)
+    {
+        return $query->where('is_active', true);
+    }
+
     public function organization()
     {
         return $this->belongsTo('App\Organization');

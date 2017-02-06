@@ -6,6 +6,7 @@ use App\Contact;
 use App\Http\Requests\ProductRequest;
 use App\Product;
 use App\Services\ImageService;
+use App\Tax;
 use Illuminate\Support\Facades\Lang;
 use Laracasts\Flash\Flash;
 
@@ -27,9 +28,10 @@ class ProductController extends Controller
     public function create()
     {
 
-        $taxes = $this->organization->taxes()->where('is_active', true)->get();
+        $tva = Tax::where('organization_id', $this->organization->id)->OnlyVat()->IsActive()->get();
+        $taxes = Tax::where('organization_id', $this->organization->id)->MixedTaxes()->IsActive()->get();
 
-        return view('pages.products.create')->with(compact('taxes'));
+        return view('pages.products.create')->with(compact('taxes', 'tva'));
     }
 
     /**
@@ -97,7 +99,9 @@ class ProductController extends Controller
     public function edit($id)
     {
         $product = Product::findOrFail($id);
-        $taxes = $this->organization->taxes()->where('is_active', true)->get();
+
+        $tva = Tax::where('organization_id', $this->organization->id)->OnlyVat()->IsActive()->get();
+        $taxes = Tax::where('organization_id', $this->organization->id)->MixedTaxes()->IsActive()->get();
 
         if (empty($product)) {
 
@@ -106,7 +110,7 @@ class ProductController extends Controller
             return redirect(action('ProductController@index'));
         }
 
-        return view('pages.products.edit')->with(compact('product', 'taxes'));
+        return view('pages.products.edit')->with(compact('product', 'taxes', 'tva'));
     }
 
     /**
