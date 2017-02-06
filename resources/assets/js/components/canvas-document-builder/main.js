@@ -4,14 +4,51 @@
 const $ = require('jquery');
 const _ = require('lodash');
 const toastr = require('toastr');
-
+const fabric = require("fabric").fabric;
 
 export default class {
 
-    constructor(domId, canvasOptions) {
+    constructor(domTarget, canvasOptions, parameters, models = {}) {
 
-        let canvas = new fabric.Canvas(domId, canvasOptions);
-        let model = {};
+
+        let defaults = {
+            buttons: {
+                add: ".addBtn",
+                delete: ".deleteBtn",
+                up: ".upBtn",
+                down: ".downBtn",
+                add_custom_text: "#custom-text-btn",
+            },
+
+            images: {
+                add_button: "/img/add-button.png",
+                delete_button: "/img/close-button.png",
+                up_button: "/img/up-button.png",
+                down_button: "/img/down-button.png",
+                content_placeholder: "/img/fr-content-ph.png",
+                logo_placeholder: "/img/logo-placeholder.png"
+            },
+
+            color_pickers: {
+                text: "#text-color",
+                background: "#bg-color",
+            },
+
+            custom_inputs: {
+                text: "#text-value",
+                image: "#image-file",
+            }
+
+        };
+
+        /*
+         * Save the parameters in the current instance
+         */
+        this.parameters = Object.assign({}, defaults, parameters);
+
+        this.canvas = new fabric.Canvas(domTarget, canvasOptions);
+
+        this.models = models;
 
     }
 
@@ -20,236 +57,186 @@ export default class {
         return this.canvas;
     }
 
-    createCanvas(domId, canvasOptions, gridSize) {
+    setGrid(gridSize) {
 
-        if (gridSize > 0) {
-            this.canvas.on('object:moving', function (options) {
-                options.target.set({
-                    left: Math.round(options.target.left / gridSize) * gridSize,
-                    top: Math.round(options.target.top / gridSize) * gridSize
-                });
+        this.canvas.on('object:moving', function (options) {
+            options.target.set({
+                left: Math.round(options.target.left / gridSize) * gridSize,
+                top: Math.round(options.target.top / gridSize) * gridSize
             });
-        }
+        });
 
-        canvasName.includeDefaultValues = false;
-
+        this.canvas.includeDefaultValues = false;
+        return this;
     }
 
     addTexts(textObjectsArray) {
-        this.model.texts = textObjectsArray;
-        textObjectsArray.forEach(function (textObject) {
+        textObjectsArray.forEach((textObject) => {
             this.canvas.add(new fabric.Text(textObject.value, textObject));
         });
+        return this;
     }
 
     addImages(imageObjectsArray) {
+        imageObjectsArray.forEach((imageObject) => {
+            fabric.Image.fromURL(imageObject.value, (image) => {
 
-        this.model.images = imageObjectsArray;
+                let imageProperties = {};
 
-        imageObjectsArray.forEach(function (imageObject) {
-            fabric.Image.fromURL(imageObject.value, function (image) {
+                _.forIn(imageObject, function (value, key) {
+                    imageProperties[key] = value;
+                });
 
-                for (let [property, value] of entries(imageObject)) {
-                    image.set({
-                        property: value
-                    });
-                }
+                image.set(imageProperties);
 
-                canvas.add(image);
+                this.canvas.add(image);
             });
-
         });
+        return this;
+    }
+
+    setModels(models) {
+        _.forIn(models, (value, key) => {
+            this.models[key] = value;
+        });
+        return this;
     }
 
 
     // clone item to another canvas
 
-    _cloneItem(item, typeProperty, idProperty, destCanvas, type) {
+    _cloneItem(options) {
 
-        if (item[typeProperty] == "label") {
-            var result = this.model.texts.filter(function (obj) {
-                return obj[idProperty] == item[idProperty];
-            });
-        }
-        else if (item[typeProperty] == "image") {
-            var result = this.model.images.filter(function (obj) {
-                return obj[idProperty] == item[idProperty];
-            })
-        }
+        let type = (options.item[options.typeProperty] === 'label') ? this.models.texts : this.models.images;
 
-        let model = result[0];
+        let result = type.filter(function (obj) {
+            return obj[options.idProperty] === options.item[options.idProperty];
+        });
 
-        var clone = fabric.util.object.clone(item);
 
-        if (type === "remove") {
+
+        let model = _.first(result);
+
+        let clone = fabric.util.object.clone(options.item);
+
+        if (options.type === "remove") {
             clone.set({left: model.menu_left, top: model.menu_top});
 
-            if (item[typeProperty] == "label") {
+            if (options.item[options.typeProperty] === "label") {
 
                 clone.set({fontSize: model.menu_fontSize, fontWeight: model.menu_fontWeight, fill: model.fill});
-                console.log(clone);
                 if (model.menu_value) {
                     clone.setText(model.menu_value);
                 }
             }
 
-            else if (item[typeProperty] == "image") {
+            else if (options.item[options.typeProperty] === "image") {
                 clone.set({top: model.menu_top, left: model.menu_left});
                 clone.scaleToWidth(model.menu_width);
                 clone.scaleToHeight(model.menu_height);
             }
         }
-        else if (type === "add") {
+        else if (options.type === "add") {
+
             clone.set({left: model.left, top: model.top});
 
-            if (item[typeProperty] == "label") {
-                clone.set({fontSize: model.fontSize, fontWeight: model.fontWeight, fill: $('#text-color').val()});
+            if (options.item[options.typeProperty] === "label") {
+                clone.set({fontSize: model.fontSize, fontWeight: model.fontWeight, fill: $(this.parameters.color_pickers.text).val()});
                 clone.setText(model.value);
             }
-            else if (item[typeProperty] == "image") {
+            else if (options.item[options.typeProperty] === "image") {
                 clone.set({top: model.top, left: model.left});
                 clone.scaleToWidth(model.width);
                 clone.scaleToHeight(model.height);
             }
         }
-        destCanvas.add(clone);
+        options.destCanvas.add(clone);
 
     }
 
     // canvas events and behaviour
     setObjectSelectionBehaviour(idProperty, excludedId, canvasType) {
-
-        this.canvas.on('object:selected', function (e) {
-
-            if (e.target[idProperty] !== excludedId && !e.target._objects) {
-
-                var container = e.target.canvas.contextContainer.canvas.offsetParent;
-
-                if (canvasType == "container") {
-                    this._addDeleteBtn(container, e.target.oCoords.tr.x, e.target.oCoords.tr.y);
-                    this._addZIndexButtons(container, e.target.oCoords.tr.x, e.target.oCoords.tr.y);
-                }
-
-                else if (canvasType == "menu") {
-                    this._addAddBtn(container, e.target.oCoords.tr.x, e.target.oCoords.tr.y);
-                }
-            }
-        });
-
-        this.canvas.on('mouse:down', function (e) {
-
-            if (canvasType == "container") {
-                if (!this.canvas.getActiveObject()) {
-                    $(".deleteBtn").remove();
-                    $(".upBtn").remove();
-                    $(".downBtn").remove();
-                }
-            }
-
-            else if (canvasType == "menu") {
-                if (!this.canvas.getActiveObject()) {
-                    $(".addBtn").remove();
-                }
-            }
-
-        });
-
-        this.canvas.on('object:modified', function (e) {
-
-            if (canvasType == "container") {
+        let addControls = (e) => {
+            if (canvasType === "container") {
                 if (e.target[idProperty] !== excludedId) {
-                    var container = e.target.canvas.contextContainer.canvas.offsetParent;
+                    let container = e.target.canvas.contextContainer.canvas.offsetParent;
                     this._addDeleteBtn(container, e.target.oCoords.tr.x, e.target.oCoords.tr.y);
                     this._addZIndexButtons(container, e.target.oCoords.tr.x, e.target.oCoords.tr.y);
                 }
             }
 
-            else if (canvasType == "menu") {
-                var container = e.target.canvas.contextContainer.canvas.offsetParent;
+            else if (canvasType === "menu") {
+                let container = e.target.canvas.contextContainer.canvas.offsetParent;
                 this._addAddBtn(container, e.target.oCoords.tr.x, e.target.oCoords.tr.y);
             }
+        };
 
+        let removeControls = () => {
+            if (canvasType === "container") {
+                $(this.parameters.buttons.delete).remove();
+                $(this.parameters.buttons.up).remove();
+                $(this.parameters.buttons.down).remove();
+            }
+
+            else if (canvasType === "menu") {
+                $(this.parameters.buttons.add).remove();
+            }
+        };
+
+        this.canvas.on({
+            'object:selected': addControls,
+            'object:modified': addControls,
+            'selection:cleared': removeControls,
+            'object:scaling': removeControls,
+            'object:moving': removeControls,
+            'object:rotating': removeControls
         });
-
-        this.canvas.on('object:scaling', function (e) {
-
-            if (canvasType == "container") {
-                $(".deleteBtn").remove();
-                $(".upBtn").remove();
-                $(".downBtn").remove();
-            }
-
-            else if (canvasType == "menu") {
-                $(".addBtn").remove();
-            }
-
-        });
-
-        this.canvas.on('object:moving', function (e) {
-
-            if (canvasType == "container") {
-                $(".deleteBtn").remove();
-                $(".upBtn").remove();
-                $(".downBtn").remove();
-            }
-
-            else if (canvasType == "menu") {
-                $(".addBtn").remove();
-            }
-
-        });
-
-        this.canvas.on('object:rotating', function (e) {
-
-            if (canvasType == "container") {
-                $(".deleteBtn").remove();
-                $(".upBtn").remove();
-                $(".downBtn").remove();
-            }
-
-            else if (canvasType == "menu") {
-                $(".addBtn").remove();
-            }
-        });
+        return this;
     }
 
-    setMainContainerBehaviour(idProperty, typeProperty, excludedId, destCanvas) {
+    setMainContainerBehaviour(options) {
 
-        $(document).on('click', ".deleteBtn", function () {
+        $(document).on('click', this.parameters.buttons.delete, () => {
 
-            target = this.canvas.getActiveObject();
+            let target = this.canvas.getActiveObject();
 
             if (target) {
 
-                if (target[idProperty] != excludedId) {
-                    this._cloneItem(target, destCanvas, "remove");
+                if (target[options.idProperty] !== options.excludedId) {
+                    this._cloneItem({
+                        item: target,
+                        idProperty: options.idProperty,
+                        typeProperty: options.typeProperty,
+                        destCanvas: options.destCanvas,
+                        type: "remove"
+                    });
                 }
 
                 this.canvas.remove(target);
-                $(".upBtn").remove();
-                $(".downBtn").remove();
-                $(".deleteBtn").remove();
+                $(this.parameters.buttons.up).remove();
+                $(this.parameters.buttons.down).remove();
+                $(this.parameters.buttons.delete).remove();
             }
         });
 
-        $(document).on('click', ".upBtn", function () {
+        $(document).on('click', this.parameters.buttons.up, () => {
 
-            target = this.canvas.getActiveObject();
+            let target = this.canvas.getActiveObject();
             target.bringForward();
-            showToast('Élément élevé au plan n° ' + canvas.getObjects().indexOf(target));
+            this._showToast(`Élément élevé au plan n° ${this.canvas.getObjects().indexOf(target)}`);
 
 
         });
 
-        $(document).on('click', ".downBtn", function () {
+        $(document).on('click', this.parameters.buttons.down, () => {
 
-            target = this.canvas.getActiveObject();
+            let target = this.canvas.getActiveObject();
             target.sendBackwards();
-            showToast('Élément ramené au plan n° ' + canvas.getObjects().indexOf(target));
+            this._showToast(`Élément ramené au plan n° ${this.canvas.getObjects().indexOf(target)}`);
 
         });
 
-        $("#text-color").spectrum({
+        $(this.parameters.color_pickers.text).spectrum({
             color: "black",
             showInput: true,
             showPalette: true,
@@ -259,7 +246,7 @@ export default class {
 
         });
 
-        $("#bg-color").spectrum({
+        $(this.parameters.color_pickers.background).spectrum({
             color: "white",
             showInput: true,
             showPalette: true,
@@ -269,79 +256,86 @@ export default class {
 
         });
 
-        $('#text-color').val("#000000");
 
-        $('#text-color').change(function (e) {
+        $(this.parameters.color_pickers.text).change(() => {
 
             this.canvas._objects.forEach(function (object) {
-                if (object[typeProperty] == "label") {
-                    object.setColor($('#text-color').val());
+                if (object[options.typeProperty] === "label") {
+                    object.setColor($(this.parameters.color_pickers.text).val());
                 }
                 this.canvas.renderAll();
             });
 
         });
 
-        $('#bg-color').val("#FFFFFF");
+        $(this.parameters.color_pickers.background).change(() => {
 
-        $('#bg-color').change(function (e) {
-
-            this.canvas.backgroundColor = $('#bg-color').val();
+            this.canvas.backgroundColor = $(this.parameters.color_pickers.background).val();
             this.canvas.renderAll();
 
         });
-
+        return this;
     }
 
     setMenuContainerBehaviour(destCanvas) {
-        $(document).on('click', ".addBtn", function () {
+        $(document).on('click', this.parameters.buttons.add, () => {
             if (this.canvas.getActiveObject()) {
-
-                cloneItem(this.canvas.getActiveObject(), destCanvas, "add");
+                this._cloneItem({
+                    item: this.canvas.getActiveObject(),
+                    idProperty: "iris_identifier",
+                    typeProperty: "iris_type",
+                    destCanvas: destCanvas,
+                    type: "add"
+                });
                 this.canvas.remove(this.canvas.getActiveObject());
-                $(".addBtn").remove();
+                $(this.parameters.buttons.add).remove();
             }
         });
+        return this;
     }
 
-    setCustomContainerBehaviour(customTextProperties, customImageProperties, destCanvas) {
+    setCustomContainerBehaviour(customTextProperties, customImageProperties) {
 
-        $(document).on('click', "#custom-text-btn", function () {
+        $(document).on('click', this.parameters.buttons.add_custom_text, () => {
 
-            let value = $('#text-value').val();
+            let value = $(this.parameters.custom_inputs.text).val();
 
-            destCanvas.add(new fabric.Text(value, customTextProperties));
+            this.canvas.add(new fabric.Text(value, customTextProperties));
 
             $("html, body").animate({scrollTop: 100}, "slow");
 
         });
 
-        $('#image-file').change(function (e) {
+        $(this.parameters.custom_inputs.image).change((e) => {
 
-            var reader = new FileReader();
+            let reader = new FileReader();
             reader.onload = function (event) {
-                var imgObj = new Image();
+                let imgObj = new Image();
                 imgObj.src = event.target.result;
                 imgObj.onload = function () {
-                    var image = new fabric.Image(imgObj);
+                    let image = new fabric.Image(imgObj);
 
-                    for (let [property, value] of entries(customImageProperties)) {
-                        image.set({
-                            property: value
-                        });
+                    for (let key in customImageProperties) {
+                        if (customImageProperties.hasOwnProperty(key)) {
+                            image.set({
+                                key: customImageProperties[key]
+                            });
+                        }
                     }
 
-                    destCanvas.add(image);
-                }
+                    this.canvas.add(image);
+                };
             };
 
             reader.readAsDataURL(e.target.files[0]);
         });
+        return this;
     }
 
     saveToJSON(customPropertiesArray, domId) {
         let json = this.canvas.toJSON(customPropertiesArray);
         $(domId).val(JSON.stringify(json));
+        return this;
     }
 
     // DOM Interaction
@@ -349,38 +343,66 @@ export default class {
     // add add button
 
     _addAddBtn(container, x, y) {
-        $(".addBtn").remove();
-        var btnLeft = x - 10;
-        var btnTop = y - 10;
-        var addBtn = '<img src="{{asset("img/add-button.png")}}" class="addBtn" style="position:absolute;top:' + btnTop + 'px;left:' + btnLeft + 'px;cursor:pointer;width:20px;height:20px;"/>';
+        $(this.parameters.buttons.add).remove();
+        let btnLeft = x - 10;
+        let btnTop = y - 10;
+        let addBtnEl = this._domAdapter(this.parameters.buttons.add);
+
+        let addBtn = `<img src="${this.parameters.images.add_button}" ${addBtnEl.attribute}="${addBtnEl.value}" style="position:absolute;top:${btnTop}px;left:${btnLeft}px;cursor:pointer;width:20px;height:20px;"/>`;
         $(container).append(addBtn);
     }
 
     // add delete button
 
     _addDeleteBtn(container, x, y) {
-        $(".deleteBtn").remove();
-        var btnLeft = x - 10;
-        var btnTop = y - 10;
-        var deleteBtn = '<img src="{{asset("img/close-button.png")}}" class="deleteBtn" style="position:absolute;top:' + btnTop + 'px;left:' + btnLeft + 'px;cursor:pointer;width:20px;height:20px;"/>';
+        $(this.parameters.buttons.delete).remove();
+        let btnLeft = x - 10;
+        let btnTop = y - 10;
+        let deleteBtnEl = this._domAdapter(this.parameters.buttons.delete);
+        let deleteBtn = `<img src="${this.parameters.images.delete_button}" ${deleteBtnEl.attribute}="${deleteBtnEl.value}" style="position:absolute; top:${btnTop}px; left:${btnLeft}px; cursor:pointer;width:20px;height:20px;"/>`;
+
         $(container).append(deleteBtn);
+
     }
 
     // add up and down button for z-index control
 
     _addZIndexButtons(container, x, y) {
-        $(".upBtn").remove();
-        $(".downBtn").remove();
-        var upBtnLeft = x - 40;
-        var upBtnTop = y - 10;
-        var downBtnLeft = x - 60;
-        var downBtnTop = y - 10;
+        $(this.parameters.buttons.up).remove();
+        $(this.parameters.buttons.down).remove();
+        let upBtnLeft = x - 40;
+        let upBtnTop = y - 10;
+        let downBtnLeft = x - 60;
+        let downBtnTop = y - 10;
+        let upBtnEl = this._domAdapter(this.parameters.buttons.up);
+        let downBtnEl = this._domAdapter(this.parameters.buttons.down);
+        let upBtn = `<img src="${this.parameters.images.up_button}" ${upBtnEl.attribute}="${upBtnEl.value}" style="position:absolute; top:${upBtnTop}px; left:${upBtnLeft}px; cursor:pointer;width:20px;height:20px;"/>`;
+        let downBtn = `<img src="${this.parameters.images.down_button}" ${downBtnEl.attribute}="${downBtnEl.value}" style="position:absolute; top:${downBtnTop}px; left:${downBtnLeft}px; cursor:pointer;width:20px;height:20px;"/>`;
 
-        var upBtn = '<img src="{{asset("img/up-button.png")}}" class="upBtn" style="position:absolute;top:' + upBtnTop + 'px;left:' + upBtnLeft + 'px;cursor:pointer;width:20px;height:20px;"/>';
-        var downBtn = '<img src="{{asset("img/down-button.png")}}" class="downBtn" style="position:absolute;top:' + downBtnTop + 'px;left:' + downBtnLeft + 'px;cursor:pointer;width:20px;height:20px;"/>';
         $(container).append(upBtn);
         $(container).append(downBtn);
 
+    }
+
+    _domAdapter(string) {
+
+        let isClass = new RegExp('^\.');
+        let isId = new RegExp('^#');
+        let result = {
+            attribute: "",
+            value: ""
+        };
+
+        if (isClass.test(string)) {
+            result.attribute = "class";
+        }
+        else if (isId.test(string)) {
+            result.attribute = "id";
+        }
+
+        result.value = (string).replace(".", "").replace("#", "");
+
+        return result;
     }
 
     _showToast(message) {
