@@ -31,8 +31,8 @@
     @parent
     <script type="text/javascript">
 
-        IrisCrm.initDatePicker('sale_datestart');
-        IrisCrm.initDatePicker('sale_dateend');
+        let datepicker_sale_datestart = new DatePicker('#sale_datestart');
+        let datepicker_sale_dateend = new DatePicker('#sale_dateend');
 
     </script>
 

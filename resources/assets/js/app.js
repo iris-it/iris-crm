@@ -16,9 +16,7 @@ require('cropper');
 /**
  * Application specific
  */
-
-// TODO discuss about structuring this !
-window.IrisCrm = require('./crm');
+window.DatePicker = require('./components/datepicker/main').default;
 
 window.SearchService = require('./components/remote-typeahead-search/main').default;
 
@@ -26,4 +24,14 @@ window.JsonTable = require('./components/json-table/main').default;
 
 window.SearchModal = require('./components/search-modal/main').default;
 
-require('./general');
+/**
+ * Self Executing Methods
+ */
+import {activeMenu, activeTab, ajaxCSRF, laravelLinksAsForm} from './general';
+
+window.$(function () {
+    activeMenu();
+    activeTab();
+    ajaxCSRF();
+    laravelLinksAsForm();
+});

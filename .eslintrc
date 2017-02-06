@@ -72,7 +72,8 @@
       "error",
       {
         "allow": [
-          "error"
+          "error",
+          "debug"
         ]
       }
     ]

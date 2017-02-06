@@ -2,11 +2,11 @@
  * Loading of legacy libraries which are needed for this application
  * (a legacy lib is a lib which cannot be loaded dynamically)
  */
+const $ = require('jquery');
 
 
-$(document).ready(function () {
-
-    // show active tab on reload
+// show active tab on reload
+export function activeTab() {
     if (location.hash !== '') {
         $(`a[href="${location.hash}"]`).tab('show');
     }
@@ -17,8 +17,10 @@ $(document).ready(function () {
             location.hash = `#${$(e.target).attr('href').substr(1)}`;
         }
     });
+}
 
-    // show active menu ( accept sub menu )
+// show active menu ( accept sub menu )
+export function activeMenu() {
     $(".sidebar-menu a").each(function () {
         let href = $(this).attr('href');
         if (window.location.href.substring(0, href.length) === href) {
@@ -27,12 +29,15 @@ $(document).ready(function () {
             $(this).closest('li').parent().closest('li').parent().closest('li').addClass('menu-open active');
         }
     });
+}
 
+export function ajaxCSRF() {
     $.ajaxSetup({
         headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')}
     });
+}
 
-
+export function laravelLinksAsForm() {
     let laravel = {
         initialize: function () {
             this.methodLinks = $('a[data-method]');
@@ -99,7 +104,6 @@ $(document).ready(function () {
     };
 
     laravel.initialize();
+}
 
-
-});
 
