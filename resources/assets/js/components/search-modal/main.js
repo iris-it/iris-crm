@@ -2,7 +2,6 @@ require('datatables.net');
 require('datatables.net-bs');
 
 const $ = require('jquery');
-const _ = require('lodash');
 const axios = require("axios");
 const toastr = require('toastr');
 const EventClass = require('event-class').default;
@@ -58,9 +57,9 @@ export default class {
     }
 
 
-    /////////////////////////////////////////////////////////////////////////////////////////////
-    // EVENTS                                                                                  //
-    /////////////////////////////////////////////////////////////////////////////////////////////
+    /*
+     * EVENTS
+     */
 
     /**
      * The events are registered here
@@ -84,7 +83,7 @@ export default class {
          * When the data is available
          */
         this.events.on("OnDataRetrieve", (data) => {
-            this._createDatatable(data)
+            this._createDatatable(data);
         });
 
         /*
@@ -98,9 +97,7 @@ export default class {
          * When a the user or an action closes the modal
          */
         this.events.on("OnError", (error) => {
-            console.group("irispass-error");
             console.error(error);
-            console.groupEnd();
             toastr.error(error);
         });
     }
@@ -134,21 +131,21 @@ export default class {
         });
     }
 
-    /////////////////////////////////////////////////////////////////////////////////////////////
-    // CALLBACKS                                                                               //
-    /////////////////////////////////////////////////////////////////////////////////////////////
+    /*
+     * CALLBACKS
+     */
 
     onSubmit(callback) {
         this.events.on("OnSubmit", () => {
-            if (typeof callback == 'function') {
+            if (typeof callback === 'function') {
                 callback.call(this, this._getSelectedItems());
             }
         });
     }
 
-    /////////////////////////////////////////////////////////////////////////////////////////////
-    // PRIVATE METHODS                                                                         //
-    /////////////////////////////////////////////////////////////////////////////////////////////
+    /*
+     * PRIVATE METHODS
+     */
 
 
     /**
@@ -181,9 +178,9 @@ export default class {
             'X-Requested-With': 'XMLHttpRequest'
         });
 
-        http.get(this.parameters.source).then(response => {
+        http.get(this.parameters.source).then((response) => {
             this.events.trigger("OnDataRetrieve", response.data);
-        }).catch(error => {
+        }).catch((error) => {
             this.events.trigger("OnError", error);
         });
 

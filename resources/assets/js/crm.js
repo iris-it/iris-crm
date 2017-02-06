@@ -5,7 +5,7 @@ const $ = require('jquery');
 
 export function initDatePicker(domId) {
 
-    $.fn.datepicker.dates['fr'] = {
+    $.fn.datepicker.dates.fr = {
         days: ["Dimanche", "Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi"],
         daysShort: ["Dim", "Lun", "Mar", "Mer", "Jeu", "Ven", "Sam"],
         daysMin: ["Di", "Lu", "Ma", "Me", "Je", "Ve", "Sa"],
@@ -18,11 +18,11 @@ export function initDatePicker(domId) {
         weekStart: 0
     };
 
-    $('#' + domId).datepicker({
+    $(`#${domId}`).datepicker({
         autoclose: true,
         format: 'dd/mm/yyyy',
         language: 'fr',
-        templates : {
+        templates: {
             leftArrow: '<i class="fa text-purple fa-arrow-circle-left"></i>',
             rightArrow: '<i class="fa text-purple fa-arrow-circle-right"></i>'
         },

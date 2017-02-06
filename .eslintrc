@@ -1,0 +1,80 @@
+{
+  "env": {
+    "commonjs": true,
+    "browser": true,
+    "jquery": true,
+    "es6": true
+  },
+  "extends": "eslint:recommended",
+  "parserOptions": {
+    "sourceType": "module"
+  },
+  "rules": {
+    "indent": [
+      "error",
+      4
+    ],
+    "linebreak-style": [
+      "error",
+      "windows"
+    ],
+    "no-var": [
+      "error"
+    ],
+    "prefer-template": [
+      "error"
+    ],
+    "quote-props": [
+      "error",
+      "consistent"
+    ],
+    "no-duplicate-imports": [
+      "error"
+    ],
+    "no-confusing-arrow": [
+      "error",
+      {
+        "allowParens": false
+      }
+    ],
+    "arrow-spacing": [
+      "error"
+    ],
+    "arrow-parens": [
+      "error",
+      "always"
+    ],
+    "template-curly-spacing": [
+      "error"
+    ],
+    "spaced-comment": [
+      "error",
+      "always"
+    ],
+    "no-trailing-spaces": [
+      "error"
+    ],
+    "curly": [
+      "error"
+    ],
+    "eqeqeq": [
+      "error",
+      "always"
+    ],
+    "global-require": [
+      "error"
+    ],
+    "semi": [
+      "error",
+      "always"
+    ],
+    "no-console": [
+      "error",
+      {
+        "allow": [
+          "error"
+        ]
+      }
+    ]
+  }
+}

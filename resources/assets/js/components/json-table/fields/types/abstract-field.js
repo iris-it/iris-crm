@@ -5,7 +5,7 @@ let AbstractField = function () {
      * in order to identify them when
      * whe need to retrieve data
      */
-    this.class_prefix = "__field_"
+    this.class_prefix = "__field_";
 };
 
 AbstractField.prototype.build = function () {

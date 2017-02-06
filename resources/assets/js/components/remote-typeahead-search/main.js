@@ -65,7 +65,7 @@ export default class {
                         return `<div>${data.name}</div>`;
                     },
                 }
-            }
+            };
         }
 
         /*
@@ -88,7 +88,7 @@ export default class {
      */
     handleSelect(callback) {
         $(this.parameters.target).bind('typeahead:select', function (ev, suggestion) {
-            if (typeof callback == 'function') {
+            if (typeof callback === 'function') {
                 callback.call(this, suggestion);
             }
         });

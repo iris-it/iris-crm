@@ -64,9 +64,9 @@ export default class {
     }
 
 
-    /////////////////////////////////////////////////////////////////////////////////////////////
-    // EVENTS                                                                                  //
-    /////////////////////////////////////////////////////////////////////////////////////////////
+    /*
+     * Events
+     */
 
     /**
      * The events are registered here
@@ -277,8 +277,6 @@ export default class {
     _registerClickRemoveEvent() {
         $(`.${this.style_classes.delete}`).off().on("click", (event) => {
 
-            console.log('gotcha!');
-
             /*
              * delete_button : Button for delete a row
              */
@@ -304,21 +302,21 @@ export default class {
         });
     }
 
-    /////////////////////////////////////////////////////////////////////////////////////////////
-    // CALLBACKS                                                                               //
-    /////////////////////////////////////////////////////////////////////////////////////////////
+    /*
+     * CALLBACKS
+     */
 
     onDataChange(callback) {
         this.events.on("OnBuild OnAddRow OnEditRow OnRemoveRow", () => {
-            if (typeof callback == 'function') {
+            if (typeof callback === 'function') {
                 callback.call(this, this.parameters.data);
             }
         });
     }
 
-    /////////////////////////////////////////////////////////////////////////////////////////////
-    // PUBLIC METHODS                                                                          //
-    /////////////////////////////////////////////////////////////////////////////////////////////
+    /*
+     * PUBLIC METHODS
+     */
 
     /**
      * Add a row at the end of the table
@@ -334,10 +332,9 @@ export default class {
         this.events.trigger("OnAddRow");
     }
 
-
-    /////////////////////////////////////////////////////////////////////////////////////////////
-    // PRIVATE METHODS                                                                         //
-    /////////////////////////////////////////////////////////////////////////////////////////////
+    /*
+     * PRIVATE METHODS
+     */
 
     /**
      * Builds the table
@@ -456,7 +453,7 @@ export default class {
          * by events
          */
         if (this.parameters.editable) {
-            //bind events (update) on click
+            // bind events (update) on click
             row.append($('<td class="row-edit">')
                 .append($('<div class="btn-group">')
                     .append($(`<button class="${this.style_classes.edit} btn btn-primary btn-flat">`).append('<i class="fa fa-pencil">'))
@@ -489,7 +486,7 @@ export default class {
         /*
          * we go trough every rows of the table 'in the order'
          */
-        $('tr', this.tbody).each(function (row) {
+        $('tr', this.tbody).each(function () {
             /*
              * We get the json data of each row
              */
@@ -530,7 +527,7 @@ export default class {
          */
         tr.find("input, select, textarea").each(function () {
             $(this).prop('disabled', false);
-        })
+        });
     }
 
 

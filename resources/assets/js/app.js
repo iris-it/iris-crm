@@ -17,7 +17,7 @@ require('cropper');
  * Application specific
  */
 
-//TODO discuss about structuring this !
+// TODO discuss about structuring this !
 window.IrisCrm = require('./crm');
 
 window.SearchService = require('./components/remote-typeahead-search/main').default;
