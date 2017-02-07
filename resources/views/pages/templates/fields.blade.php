@@ -14,12 +14,12 @@
         <div class="form-group col-sm-4">
             <label for="text-color" class="h4 text-purple">{{trans('app.template:text-color')}} : </label>
             <br>
-            <input type='text' id="text-color"/>
+            <input type='text' name="text_color" id="text-color"/>
         </div>
         <div class="form-group col-sm-4">
             <label for="bg-color" class="h4 text-purple">{{trans('app.template:bg-color')}} : </label>
             <br>
-            <input type='text' id="bg-color"/>
+            <input type='text' name="bg_color" id="bg-color"/>
         </div>
 
         <input type="hidden" id="content" name="content"/>
@@ -391,7 +391,7 @@
             contentCanvas.setMainContainerBehaviour({
                 idProperty: 'iris_identifier',
                 typeProperty: 'iris_type',
-                excludedId: 'content_ph',
+                excludedId: 'custom',
                 destCanvas: menuCanvas.getCanvas()
             });
 
@@ -411,12 +411,10 @@
                     iris_identifier: "custom",
                     left: 610,
                     top: 350,
-                    width: 240,
-                    height: 160,
                     originX: "center",
                     originY: "center",
                     hasControls: true,
-                    hasRotatingPoint: false,
+                    hasRotatingPoint: true,
                     selectable: true
                 });
 

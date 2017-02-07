@@ -114,7 +114,6 @@ export default class {
         });
 
 
-
         let model = _.first(result);
 
         let clone = fabric.util.object.clone(options.item);
@@ -201,7 +200,6 @@ export default class {
             let target = this.canvas.getActiveObject();
 
             if (target) {
-
                 if (target[options.idProperty] !== options.excludedId) {
                     this._cloneItem({
                         item: target,
@@ -256,10 +254,12 @@ export default class {
 
         });
 
+        $(this.parameters.color_pickers.text).val("black");
+        $(this.parameters.color_pickers.background).val("white");
 
         $(this.parameters.color_pickers.text).change(() => {
 
-            this.canvas._objects.forEach(function (object) {
+            this.canvas._objects.forEach((object) => {
                 if (object[options.typeProperty] === "label") {
                     object.setColor($(this.parameters.color_pickers.text).val());
                 }
@@ -299,9 +299,8 @@ export default class {
         $(document).on('click', this.parameters.buttons.add_custom_text, () => {
 
             let value = $(this.parameters.custom_inputs.text).val();
-
+            customTextProperties.fill = $(this.parameters.color_pickers.text).val();
             this.canvas.add(new fabric.Text(value, customTextProperties));
-
             $("html, body").animate({scrollTop: 100}, "slow");
 
         });
@@ -309,19 +308,19 @@ export default class {
         $(this.parameters.custom_inputs.image).change((e) => {
 
             let reader = new FileReader();
-            reader.onload = function (event) {
+            reader.onload = (event) => {
                 let imgObj = new Image();
                 imgObj.src = event.target.result;
-                imgObj.onload = function () {
+                imgObj.onload = () => {
                     let image = new fabric.Image(imgObj);
 
-                    for (let key in customImageProperties) {
-                        if (customImageProperties.hasOwnProperty(key)) {
-                            image.set({
-                                key: customImageProperties[key]
-                            });
-                        }
-                    }
+                    let imageProperties = {};
+
+                    _.forIn(customImageProperties, function (value, key) {
+                        imageProperties[key] = value;
+                    });
+
+                    image.set(imageProperties);
 
                     this.canvas.add(image);
                 };
