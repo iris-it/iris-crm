@@ -36,7 +36,19 @@
             @endforeach
         </select>
     </div>
+</div>
 
+<!-- Tva Field -->
+<div class="form-group col-sm-6">
+    {!! Form::label('vat', trans('app.product:active-vat') . " :", ['class' => 'h4 text-purple']) !!}
+    <div>
+        <select name="vat" id="vat" class="form-control">
+            <option value="" {{(isset($product->vat))?:'selected'}}>{{trans('app.tax:empty')}}</option>
+            @foreach($vat as $tva)
+                <option value="{{$tva->id}}" {{((isset($product->vat) && ($tva->id === $product->vat->id))?'selected': '')}}>{{$tva->name}} : {{$tva->value}} %</option>
+            @endforeach
+        </select>
+    </div>
 </div>
 
 <!-- Stock Disponibility Field -->

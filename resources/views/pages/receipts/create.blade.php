@@ -23,8 +23,13 @@
     </div>
 @endsection
 
-@section('js-app-scope')
+@section('scripts')
     @parent
-    IrisCrm.initDatePicker('order_date');
-    IrisCrm.initDatePicker('delivery_deadline');
+    <script type="text/javascript">
+
+        let datepicker_order_date = new DatePicker('#order_date');
+        let datepicker_delivery_deadline = new DatePicker('#delivery_deadline');
+
+    </script>
+
 @endsection

@@ -121,4 +121,9 @@ class Service extends Model
         return $this->belongsToMany('App\Tax', 'services_taxes_pivot', 'service_id', 'tax_id')->withTimestamps();
     }
 
+    public function vat()
+    {
+        return $this->belongsTo('App\Tax', 'vat_id');
+    }
+
 }

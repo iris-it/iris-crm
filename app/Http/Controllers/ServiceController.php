@@ -6,6 +6,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\ServiceRequest;
 use App\Service;
 use App\Services\ImageService;
+use App\Tax;
 use Illuminate\Support\Facades\Lang;
 use Laracasts\Flash\Flash;
 
@@ -26,9 +27,10 @@ class ServiceController extends Controller
      */
     public function create()
     {
-        $taxes = $this->organization->taxes()->where('is_active', true)->get();
+        $vat = Tax::where('organization_id', $this->organization->id)->OnlyVat()->IsActive()->get();
+        $taxes = Tax::where('organization_id', $this->organization->id)->MixedTaxes()->IsActive()->get();
 
-        return view('pages.services.create')->with(compact('taxes'));
+        return view('pages.services.create')->with(compact('taxes', 'vat'));
     }
 
     /**
@@ -47,10 +49,18 @@ class ServiceController extends Controller
 
             $totalTaxes = 0;
 
+            if ($input["vat"] !== "") {
+                $vat = Tax::findOrFail($input["vat"]);
+
+                $service->vat()->associate($vat);
+
+                $totalTaxes = $totalTaxes + ($service->ht_price * ($vat->value / 100));
+            } else {
+                $service->vat()->dissociate();
+            }
+
             $service->taxes()->sync($input["taxes"] ?: []);
-
             foreach ($service->taxes as $tax) {
-
                 if ($tax->is_active) {
                     $totalTaxes = $totalTaxes + ($service->ht_price * ($tax->value / 100));
                 }
@@ -96,7 +106,9 @@ class ServiceController extends Controller
     public function edit($id)
     {
         $service = Service::findOrFail($id);
-        $taxes = $this->organization->taxes()->where('is_active', true)->get();
+
+        $vat = Tax::where('organization_id', $this->organization->id)->OnlyVat()->IsActive()->get();
+        $taxes = Tax::where('organization_id', $this->organization->id)->MixedTaxes()->IsActive()->get();
 
 
         if (empty($service)) {
@@ -105,7 +117,7 @@ class ServiceController extends Controller
             return redirect(action('ServiceController@index'));
         }
 
-        return view('pages.services.edit')->with(compact('service', 'taxes'));
+        return view('pages.services.edit')->with(compact('service', 'taxes', 'vat'));
     }
 
     /**
@@ -129,6 +141,16 @@ class ServiceController extends Controller
         }
 
         if ($service->update($input) && $service->save()) {
+
+            if ($input["vat"] !== "") {
+                $vat = Tax::findOrFail($input["vat"]);
+
+                $service->vat()->associate($vat);
+
+                $totalTaxes = $totalTaxes + ($service->ht_price * ($vat->value / 100));
+            } else {
+                $service->vat()->dissociate();
+            }
 
             if (!$request->has('taxes')) {
                 $input["taxes"] = [];

@@ -36,11 +36,11 @@ RangeField.prototype.build = function (row, args) {
 
     args = Object.assign({}, defaults, args);
 
-    if (typeof args.min == 'function') {
+    if (typeof args.min === 'function') {
         args.min = args.min.call(null, row);
     }
 
-    if (typeof args.max == 'function') {
+    if (typeof args.max === 'function') {
         args.max = args.max.call(null, row);
     }
 

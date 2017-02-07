@@ -36,7 +36,7 @@
     @parent
     <script type="text/javascript">
 
-        IrisCrm.initDatePicker('deadline');
+        let datepicker = new DatePicker('#deadline');
 
     </script>
 @endsection

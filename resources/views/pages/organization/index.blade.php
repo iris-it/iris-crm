@@ -1,6 +1,8 @@
 @extends('layouts.app')
 
-@section('breadcrumbs', Breadcrumbs::render('organization'))
+@section('breadcrumbs')
+    {!! Breadcrumbs::render('organization') !!}
+@endsection
 
 @section('content')
 
@@ -23,12 +25,6 @@
                                 <div class="description-block">
                                     <h5 class="description-header">{{$users->count()}}</h5>
                                     <span class="description-text">{{ trans('usersmanagement.info-user-number') }}</span>
-                                </div>
-                            </div>
-                            <div class="col-sm-4 border-right">
-                                <div class="description-block">
-                                    <h5 class="description-header">{{$groups->count()}}</h5>
-                                    <span class="description-text">{{ trans('usersmanagement.info-group-number') }}</span>
                                 </div>
                             </div>
                             <div class="col-sm-4">

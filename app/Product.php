@@ -128,4 +128,9 @@ class Product extends Model
         return $this->belongsToMany('App\Tax', 'products_taxes_pivot', 'product_id', 'tax_id')->withTimestamps();
     }
 
+    public function vat()
+    {
+        return $this->belongsTo('App\Tax', 'vat_id');
+    }
+
 }

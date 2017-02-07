@@ -22,15 +22,15 @@ SelectField.prototype.build = function (row, args) {
     // IF 2D
     // <option value="KEY">VALUE</option>
 
-    //SELECTED if row.key = args.list[key]
+    // SELECTED if row.key = args.list[key]
 
     // args.list can be a callback ( row or outside scope )
 
-    //TODO Add disable property
+    // TODO Add disable property
 
-    //disable
+    // disable
 
-    return 'select';
+    return `select ${row} ${args}`;
 };
 
 module.exports = SelectField;

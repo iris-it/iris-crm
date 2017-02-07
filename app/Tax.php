@@ -23,6 +23,7 @@ class Tax extends Model
         'name',
         'value',
         'is_active',
+        'is_vat',
 
     ];
 
@@ -35,8 +36,26 @@ class Tax extends Model
         'name' => 'string',
         'value' => 'decimal',
         'is_active' => 'boolean',
+        'is_vat' => 'boolean',
 
     ];
+
+    // SCOPES
+    public function scopeOnlyVat($query)
+    {
+        return $query->where("is_vat", true);
+    }
+
+    // SCOPES
+    public function scopeMixedTaxes($query)
+    {
+        return $query->where("is_vat", false);
+    }
+
+    public function scopeIsActive($query)
+    {
+        return $query->where('is_active', true);
+    }
 
     public function organization()
     {

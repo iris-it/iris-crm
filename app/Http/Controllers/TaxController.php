@@ -17,9 +17,10 @@ class TaxController extends Controller
      */
     public function index()
     {
-      $taxes = $this->organization->taxes;
+        $tva = Tax::where('organization_id', $this->organization->id)->OnlyVat()->get();
+        $taxes = Tax::where('organization_id', $this->organization->id)->MixedTaxes()->get();
 
-        return view('pages.taxes.index')->with('taxes', $taxes);
+        return view('pages.taxes.index')->with(compact('tva', 'taxes'));
     }
 
     /**

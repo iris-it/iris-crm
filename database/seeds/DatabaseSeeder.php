@@ -14,7 +14,7 @@ class DatabaseSeeder extends Seeder
         $this->call(RoleTableSeeder::class);
         $this->call(LicenceTableSeeder::class);
 
-        if (env('APP_ENV' !== 'production')) {
+        if (env('APP_ENV') !== 'production') {
             $this->call(OrganizationTableSeeder::class);
             $this->call(AccountTableSeeder::class);
             $this->call(OfficeTableSeeder::class);

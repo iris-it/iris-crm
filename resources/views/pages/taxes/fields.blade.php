@@ -19,6 +19,15 @@
     </select>
 </div>
 
+<!-- Is Active Field -->
+<div class="form-group col-sm-6">
+    {!! Form::label('is_vat', trans('app.tax:is-vat') . ' :', ['class' => 'h4 text-purple']) !!}
+    <select class="form-control" id="is_vat" name="is_vat">
+        <option {{(!isset($tax)) ?: (!$tax->is_vat ?: "selected")}} value=1>{{trans('app.general:yes')}}</option>
+        <option {{(!isset($tax)) ?: ($tax->is_vat ?: "selected")}} value=0>{{trans('app.general:no')}}</option>
+    </select>
+</div>
+
 
 <!-- Submit Field -->
 <div class="form-group col-sm-12">

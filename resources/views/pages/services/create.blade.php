@@ -19,7 +19,7 @@
                 <div class="row">
                     {!! Form::open(['action' => 'ServiceController@store', 'method' => 'POST', 'files' => true]) !!}
 
-                        @include('pages.services.fields')
+                    @include('pages.services.fields')
 
                     {!! Form::close() !!}
                 </div>
@@ -32,8 +32,12 @@
     @parent
     <script type="text/javascript">
 
-        IrisCrm.initDatePicker('sale_datestart');
-        IrisCrm.initDatePicker('sale_dateend');
+        $("#taxes").select2({
+            theme: "bootstrap"
+        });
+
+        let datepicker_sale_datestart = new DatePicker('#sale_datestart');
+        let datepicker_sale_dateend = new DatePicker('#sale_dateend');
 
     </script>
 
