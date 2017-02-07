@@ -11,6 +11,13 @@ Breadcrumbs::register('home', function ($breadcrumbs) {
     $breadcrumbs->push(trans('app.general:dashboard'), action('HomeController@index'));
 });
 
+
+// Config
+Breadcrumbs::register('config', function ($breadcrumbs) {
+    $breadcrumbs->parent('home');
+    $breadcrumbs->push(trans('app.general:config'));
+});
+
 ///////////////////////////////////////////////////////////////////////////
 //  Accounts                                                             //
 ///////////////////////////////////////////////////////////////////////////

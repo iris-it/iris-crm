@@ -63,6 +63,7 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('organization/edit', array('uses' => 'OrganizationController@edit'));
         Route::patch('organization/edit', array('uses' => 'OrganizationController@update'));
 
+
         /*
          * General resources
          */
@@ -80,6 +81,8 @@ Route::group(['middleware' => 'auth'], function () {
         Route::resource('services', 'ServiceController');
 
         Route::resource('taxes', 'TaxController');
+
+        Route::resource('templates', 'TemplateController');
 
         /*
          * Office resources

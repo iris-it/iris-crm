@@ -13,6 +13,8 @@ require('leaflet');
 require('leaflet.markercluster');
 require('cropper');
 require('select2');
+require('fabric');
+require('spectrum-colorpicker');
 
 /**
  * Application specific
@@ -24,6 +26,8 @@ window.SearchService = require('./components/remote-typeahead-search/main').defa
 window.JsonTable = require('./components/json-table/main').default;
 
 window.SearchModal = require('./components/search-modal/main').default;
+
+window.CanvasDocBuilder = require('./components/canvas-document-builder/main').default;
 
 /**
  * Self Executing Methods
