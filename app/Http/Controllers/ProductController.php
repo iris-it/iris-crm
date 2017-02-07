@@ -28,10 +28,10 @@ class ProductController extends Controller
     public function create()
     {
 
-        $tva = Tax::where('organization_id', $this->organization->id)->OnlyVat()->IsActive()->get();
+        $vat = Tax::where('organization_id', $this->organization->id)->OnlyVat()->IsActive()->get();
         $taxes = Tax::where('organization_id', $this->organization->id)->MixedTaxes()->IsActive()->get();
 
-        return view('pages.products.create')->with(compact('taxes', 'tva'));
+        return view('pages.products.create')->with(compact('taxes', 'vat'));
     }
 
     /**
@@ -49,6 +49,16 @@ class ProductController extends Controller
         if ($product = Product::create($input)) {
 
             $totalTaxes = 0;
+
+            if ($input["vat"] !== "") {
+                $vat = Tax::findOrFail($input["vat"]);
+
+                $product->vat()->associate($vat);
+
+                $totalTaxes = $totalTaxes + ($product->ht_price * ($vat->value / 100));
+            } else {
+                $product->vat()->dissociate();
+            }
 
             $product->taxes()->sync($input["taxes"] ?: []);
 
@@ -100,7 +110,7 @@ class ProductController extends Controller
     {
         $product = Product::findOrFail($id);
 
-        $tva = Tax::where('organization_id', $this->organization->id)->OnlyVat()->IsActive()->get();
+        $vat = Tax::where('organization_id', $this->organization->id)->OnlyVat()->IsActive()->get();
         $taxes = Tax::where('organization_id', $this->organization->id)->MixedTaxes()->IsActive()->get();
 
         if (empty($product)) {
@@ -110,7 +120,7 @@ class ProductController extends Controller
             return redirect(action('ProductController@index'));
         }
 
-        return view('pages.products.edit')->with(compact('product', 'taxes', 'tva'));
+        return view('pages.products.edit')->with(compact('product', 'taxes', 'vat'));
     }
 
     /**
@@ -134,6 +144,17 @@ class ProductController extends Controller
         }
 
         if ($product->update($input) && $product->save()) {
+
+
+            if ($input["vat"] !== "") {
+                $vat = Tax::findOrFail($input["vat"]);
+
+                $product->vat()->associate($vat);
+
+                $totalTaxes = $totalTaxes + ($product->ht_price * ($vat->value / 100));
+            } else {
+                $product->vat()->dissociate();
+            }
 
             if (!$request->has('taxes')) {
                 $input["taxes"] = [];

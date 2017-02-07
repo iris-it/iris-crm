@@ -30,7 +30,9 @@
     @parent
     <script type="text/javascript">
 
-        IrisCrm.initDualListBox('taxes_list');
+        $("#taxes").select2({
+            theme: "bootstrap"
+        });
 
         let datepicker_sale_datestart = new DatePicker('#sale_datestart');
         let datepicker_sale_dateend = new DatePicker('#sale_dateend');

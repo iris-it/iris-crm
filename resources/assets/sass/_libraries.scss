@@ -4,6 +4,7 @@ $icon-font-path: "../fonts/";
 @import "node_modules/bootstrap-sass/assets/stylesheets/bootstrap";
 @import "node_modules/bootstrap-vertical-tabs/bootstrap.vertical-tabs";
 @import "node_modules/bootstrap-datepicker/dist/css/bootstrap-datepicker3.min";
+
 // Font Awesome
 @import "node_modules/font-awesome/scss/font-awesome.scss";
 
@@ -30,3 +31,7 @@ $icon-font-path: "../fonts/";
 
 // Toastr
 @import "node_modules/toastr/build/toastr";
+
+// Select2
+@import "node_modules/select2/dist/css/select2";
+@import "node_modules/select2-bootstrap-theme/dist/select2-bootstrap";

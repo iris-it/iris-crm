@@ -32,6 +32,10 @@
     @parent
     <script type="text/javascript">
 
+        $("#taxes").select2({
+            theme: "bootstrap"
+        });
+
         let datepicker_sale_datestart = new DatePicker('#sale_datestart');
         let datepicker_sale_dateend = new DatePicker('#sale_dateend');
 

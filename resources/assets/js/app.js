@@ -12,6 +12,7 @@ require('chart.js');
 require('leaflet');
 require('leaflet.markercluster');
 require('cropper');
+require('select2');
 
 /**
  * Application specific
