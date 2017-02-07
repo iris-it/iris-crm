@@ -21,8 +21,6 @@ require('spectrum-colorpicker');
  */
 window.DatePicker = require('./components/datepicker/main').default;
 
-window.SearchService = require('./components/remote-typeahead-search/main').default;
-
 window.JsonTable = require('./components/json-table/main').default;
 
 window.SearchModal = require('./components/search-modal/main').default;
