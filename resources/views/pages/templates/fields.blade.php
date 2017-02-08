@@ -336,7 +336,7 @@
 
             let images = [
                 {
-                    value: "{{asset("img/logo-placeholder.png")}}",
+                    value: "{{asset("build/css/images/logo-placeholder.png")}}",
                     iris_type: "image",
                     iris_identifier: "orga_logo",
                     left: 610,
@@ -355,7 +355,7 @@
                 },
 
                 {
-                    value: "{{asset("img/fr-content-ph.png")}}",
+                    value: "{{asset("build/css/images/fr-content-ph.png")}}",
                     iris_type: "content",
                     iris_identifier: "content_ph",
                     left: 610,

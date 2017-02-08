@@ -21,12 +21,12 @@ export default class {
             },
 
             images: {
-                add_button: "/img/add-button.png",
-                delete_button: "/img/close-button.png",
-                up_button: "/img/up-button.png",
-                down_button: "/img/down-button.png",
-                content_placeholder: "/img/fr-content-ph.png",
-                logo_placeholder: "/img/logo-placeholder.png"
+                add_button: "/build/css/images/add-button.png",
+                delete_button: "/build/css/images/close-button.png",
+                up_button: "/build/css/images/up-button.png",
+                down_button: "/build/css/images/down-button.png",
+                content_placeholder: "/build/css/images/fr-content-ph.png",
+                logo_placeholder: "/build/css/images/logo-placeholder.png"
             },
 
             color_pickers: {

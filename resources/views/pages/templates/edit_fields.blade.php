@@ -20,7 +20,7 @@
         <div class="form-group col-sm-4">
             <label for="bg_color" class="h4 text-purple">{{trans('app.template:bg-color')}} : </label>
             <br>
-            <input type='text' name="bg_color"  value="{{$template->bg_color}}" id="bg_color"/>
+            <input type='text' name="bg_color" value="{{$template->bg_color}}" id="bg_color"/>
         </div>
 
         <input type="hidden" id="content" name="content" value="{{$template->content}}"/>
@@ -394,7 +394,7 @@
 
             let images = [
                 {
-                    value: "{{asset("img/logo-placeholder.png")}}",
+                    value: "{{asset("build/css/images/logo-placeholder.png")}}",
                     iris_type: "image",
                     iris_identifier: "orga_logo",
                     left: 610,
@@ -413,7 +413,7 @@
                 },
 
                 {
-                    value: "{{asset("img/fr-content-ph.png")}}",
+                    value: "{{asset("build/css/images/fr-content-ph.png")}}",
                     iris_type: "content",
                     iris_identifier: "content_ph",
                     left: 610,
@@ -668,7 +668,7 @@
                 $(".deleteBtn").remove();
                 var btnLeft = x - 10;
                 var btnTop = y - 10;
-                var deleteBtn = '<img src="{{asset("img/close-button.png")}}" class="deleteBtn" style="position:absolute;top:' + btnTop + 'px;left:' + btnLeft + 'px;cursor:pointer;width:20px;height:20px;"/>';
+                var deleteBtn = '<img src="{{asset("build/css/images/close-button.png")}}" class="deleteBtn" style="position:absolute;top:' + btnTop + 'px;left:' + btnLeft + 'px;cursor:pointer;width:20px;height:20px;"/>';
                 $(container).append(deleteBtn);
             }
 
@@ -682,8 +682,8 @@
                 var downBtnLeft = x - 60;
                 var downBtnTop = y - 10;
 
-                var upBtn = '<img src="{{asset("img/up-button.png")}}" class="upBtn" style="position:absolute;top:' + upBtnTop + 'px;left:' + upBtnLeft + 'px;cursor:pointer;width:20px;height:20px;"/>';
-                var downBtn = '<img src="{{asset("img/down-button.png")}}" class="downBtn" style="position:absolute;top:' + downBtnTop + 'px;left:' + downBtnLeft + 'px;cursor:pointer;width:20px;height:20px;"/>';
+                var upBtn = '<img src="{{asset("build/css/images/up-button.png")}}" class="upBtn" style="position:absolute;top:' + upBtnTop + 'px;left:' + upBtnLeft + 'px;cursor:pointer;width:20px;height:20px;"/>';
+                var downBtn = '<img src="{{asset("build/css/images/down-button.png")}}" class="downBtn" style="position:absolute;top:' + downBtnTop + 'px;left:' + downBtnLeft + 'px;cursor:pointer;width:20px;height:20px;"/>';
                 $(container).append(upBtn);
                 $(container).append(downBtn);
 
@@ -695,7 +695,7 @@
                 $(".addBtn").remove();
                 var btnLeft = x - 10;
                 var btnTop = y - 10;
-                var addBtn = '<img src="{{asset("img/add-button.png")}}" class="addBtn" style="position:absolute;top:' + btnTop + 'px;left:' + btnLeft + 'px;cursor:pointer;width:20px;height:20px;"/>';
+                var addBtn = '<img src="{{asset("build/css/images/add-button.png")}}" class="addBtn" style="position:absolute;top:' + btnTop + 'px;left:' + btnLeft + 'px;cursor:pointer;width:20px;height:20px;"/>';
                 $(container).append(addBtn);
             }
 
@@ -713,7 +713,7 @@
             });
 
             $("#bg_color").spectrum({
-                color:  $('#bg_color').val(),
+                color: $('#bg_color').val(),
                 showInput: true,
                 showPalette: true,
                 palette: [],

@@ -12,7 +12,7 @@ const elixir = require('laravel-elixir');
  */
 
 let fonts = [
-    "./node_modules/bootstrap/assets/fonts/bootstrap/",
+    "./node_modules/bootstrap/fonts/",
     "./node_modules/font-awesome/fonts/",
     "./node_modules/ionicons/dist/fonts/"
 ];
@@ -21,12 +21,12 @@ elixir((mix) => {
 
     mix.copy(fonts, "public/build/fonts");
 
-    mix.copy("resources/assets/img", "public/build/css/images");
+    mix.copy("resources/assets/images", "public/build/css/images");
 
-    mix.sass('app.scss', 'public/build/css');
+    mix.sass('app.scss');
 
-    mix.webpack('app.js', 'public/build/js');
+    mix.webpack('app.js');
 
-    mix.version(['build/css/app.css', 'build/js/app.js']);
+    mix.version(['css/app.css', 'js/app.js']);
 
 });
