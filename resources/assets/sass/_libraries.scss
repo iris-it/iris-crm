@@ -1,39 +1,38 @@
 // Bootstrap
-/* override icon-font-path value and include scss */
-$icon-font-path: "../fonts/";
-@import "node_modules/bootstrap-sass/assets/stylesheets/bootstrap";
-@import "node_modules/bootstrap-vertical-tabs/bootstrap.vertical-tabs";
-@import "node_modules/bootstrap-datepicker/dist/css/bootstrap-datepicker3.min";
+@import "../../../node_modules/bootstrap/dist/css/bootstrap";
+@import "../../../node_modules/bootstrap-vertical-tabs/bootstrap.vertical-tabs";
+@import "../../../node_modules/bootstrap-datepicker/dist/css/bootstrap-datepicker3.min";
+
 // Font Awesome
-@import "node_modules/font-awesome/scss/font-awesome.scss";
+@import "../../../node_modules/font-awesome/css/font-awesome";
 
 //Ionicons
-@import "node_modules/ionicons/dist/scss/ionicons.scss";
+@import "../../../node_modules/ionicons/dist/css/ionicons";
 
 // Admin LTE
-@import "node_modules/admin-lte/dist/css/AdminLTE.min";
-@import "node_modules/admin-lte/dist/css/skins/skin-blue.min";
+@import "../../../node_modules/admin-lte/dist/css/AdminLTE.min";
+@import "../../../node_modules/admin-lte/dist/css/skins/skin-blue.min";
 
 //Animate
-@import "node_modules/animate.css/animate.min";
+@import "../../../node_modules/animate.css/animate.min";
 
 // LeafLet
-@import "node_modules/leaflet/dist/leaflet";
-@import "node_modules/leaflet.markercluster/dist/MarkerCluster";
-@import "node_modules/leaflet.markercluster/dist/MarkerCluster.Default";
+@import "../../../node_modules/leaflet/dist/leaflet";
+@import "../../../node_modules/leaflet.markercluster/dist/MarkerCluster";
+@import "../../../node_modules/leaflet.markercluster/dist/MarkerCluster.Default";
 
 // Cropper
-@import "node_modules/cropper/dist/cropper";
+@import "../../../node_modules/cropper/dist/cropper";
 
 // Datatables
-@import "node_modules/datatables.net-bs/css/dataTables.bootstrap";
+@import "../../../node_modules/datatables.net-bs/css/dataTables.bootstrap";
 
 // Toastr
-@import "node_modules/toastr/build/toastr";
+@import "../../../node_modules/toastr/build/toastr";
 
 // Select2
-@import "node_modules/select2/dist/css/select2";
-@import "node_modules/select2-bootstrap-theme/dist/select2-bootstrap";
+@import "../../../node_modules/select2/dist/css/select2";
+@import "../../../node_modules/select2-bootstrap-theme/dist/select2-bootstrap";
 
 //Spectrumjs (color picker)
-@import "node_modules/spectrum-colorpicker/spectrum";
+@import "../../../node_modules/spectrum-colorpicker/spectrum";
