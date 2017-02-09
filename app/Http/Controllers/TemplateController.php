@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 
 use App\Http\Requests\TemplateRequest;
+use App\Services\TemplateParserService;
 use App\Template;
 use Illuminate\Support\Facades\Lang;
 use Laracasts\Flash\Flash;
@@ -52,8 +53,8 @@ class TemplateController extends Controller
 
         }
 
-            Flash::error(Lang::get('app.general:create-failed'));
-            return redirect(action('TemplateController@create'));
+        Flash::error(Lang::get('app.general:create-failed'));
+        return redirect(action('TemplateController@create'));
 
     }
 
@@ -107,8 +108,39 @@ class TemplateController extends Controller
      * @return Response
      */
 
-    public function destroy()
+    public function destroy($id)
     {
+        $tax = Template::findOrFail($id);
+
+        if (empty($tax)) {
+            Flash::error(Lang::get('app.general:missing-model'));
+            return redirect(action('TemplateController@index'));
+        }
+
+        $tax->delete();
+
+        Flash::success(Lang::get('app.general:delete-success'));
+
+        return redirect(action('TemplateController@index'));
+    }
+
+
+    /**
+     * Generate a quote of invoice from template
+     *
+     * @param $type
+     * @param $id_entity
+     * @param $id_template
+     */
+    public function generateTemplate($type, $id_entity, $id_template)
+    {
+        if (!in_array($type, ['invoice', 'quote'])) {
+            abort(404);
+        }
+
+        $templateGenerator = New TemplateParserService($type, $id_entity, $id_template);
+
+        return $templateGenerator->toImage();
 
     }
 }

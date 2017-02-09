@@ -24,6 +24,8 @@
         </div>
 
         <input type="hidden" id="content" name="content" value="{{$template->content}}"/>
+        <input type="hidden" id="canvas_height" name="canvas_height"/>
+        <input type="hidden" id="canvas_width" name="canvas_width"/>
 
     </div>
 </div>
@@ -657,6 +659,8 @@
 
                 let json = canvas.toJSON(['iris_identifier', 'iris_type']);
                 $('#content').val(JSON.stringify(json));
+                $('#canvas_height').val($('#render').attr('height'));
+                $('#canvas_width').val($('#render').attr('width'));
 
                 this.submit();
             });

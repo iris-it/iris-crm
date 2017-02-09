@@ -83,6 +83,8 @@ Route::group(['middleware' => 'auth'], function () {
         Route::resource('taxes', 'TaxController');
 
         Route::resource('templates', 'TemplateController');
+        Route::get('templates/generate/{type}/{id_entity}/{id_template}', 'TemplateController@generateTemplate');
+
 
         /*
          * Office resources

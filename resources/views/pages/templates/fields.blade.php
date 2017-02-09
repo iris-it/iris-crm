@@ -23,7 +23,8 @@
         </div>
 
         <input type="hidden" id="content" name="content"/>
-
+        <input type="hidden" id="canvas_height" name="canvas_height"/>
+        <input type="hidden" id="canvas_width" name="canvas_width"/>
 
     </div>
 </div>
@@ -37,6 +38,8 @@
 
     <div class="box-body">
         <div class="col-md-9">
+
+
             <canvas id="render" width="1220" height="1237" style="border: 1px solid rgb(204, 204, 204); position: absolute; width: 1200px; height: 1237px; left: 0px; top: 0px; user-select: none;" class="lower-canvas"></canvas>
         </div>
         <div class="col-md-2" style="margin-left:3%">
@@ -431,6 +434,9 @@
                     $('#name-label').prepend('<p class="h5 text-red animated flash" id="name-warning"> Un nom doit être renseigné pour ce template</p>');
                     return false;
                 }
+
+                $('#canvas_height').val($('#render').attr('height'));
+                $('#canvas_width').val($('#render').attr('width'));
 
                 contentCanvas.saveToJSON(['iris_identifier', 'iris_type'], '#content');
                 this.submit();

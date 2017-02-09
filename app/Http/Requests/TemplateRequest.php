@@ -33,6 +33,8 @@ class TemplateRequest extends Request
                     'content' => 'string|required',
                     'text_color' => 'string|required',
                     'bg_color' => 'string|required',
+                    'canvas_height' => 'integer|required',
+                    'canvas_width' => 'integer|required',
 
                 ];
             }
@@ -43,6 +45,8 @@ class TemplateRequest extends Request
                     'content' => 'string|required',
                     'text_color' => 'string|required',
                     'bg_color' => 'string|required',
+                    'canvas_height' => 'integer|required',
+                    'canvas_width' => 'integer|required',
                 ];
             }
         }
