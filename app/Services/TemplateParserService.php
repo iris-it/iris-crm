@@ -9,6 +9,7 @@
 namespace App\Services;
 
 
+use App\Helpers\ColorHelper;
 use App\Invoice;
 use App\Quote;
 use App\Template;
@@ -76,7 +77,9 @@ class TemplateParserService
      */
     public function createCanvas()
     {
-        $this->canvas = Image::canvas($this->canvas_a4_width, $this->canvas_a4_height, $this->template->bg_color);
+        $bg_color = ColorHelper::stringToHex($this->template->bg_color);
+
+        $this->canvas = Image::canvas($this->canvas_a4_width, $this->canvas_a4_height, $bg_color);
     }
 
     /**
@@ -86,15 +89,37 @@ class TemplateParserService
     {
         $content = json_decode($this->template->content);
 
+
         foreach ($content->objects as $object) {
 
             if ($object->type == "text") {
 
-                $this->canvas->text($object->text, ($object->left * $this->scale_ratio), ($object->top * $this->scale_ratio), function ($font) use ($object) {
+
+                $scale_x = (isset($object->scaleX)) ? $object->scaleX : 1;
+                $scale_y = (isset($object->scaleY)) ? $object->scaleY : 1;
+
+                $width = intval(($object->width * $scale_x) * $this->scale_ratio);
+                $height = intval(($object->height * $scale_y) * $this->scale_ratio);
+
+                $left = intval($object->left * $this->scale_ratio);
+                $top = intval($object->top * $this->scale_ratio);
+
+
+                $img = $this->makeCanvasFormText($left, $top, $object->text, $object->fontSize);
+
+                $img->text($object->text, 20, 20, function ($font) use ($object) {
                     $font->size($object->fontSize);
-                    $font->color($object->fill);
+                    $font->color(ColorHelper::stringToHex($object->fill));
                     $font->file(resource_path('assets/fonts/calibri_bold.ttf'));
                 });
+
+                $img->resize($width, $height);
+
+                $this->canvas->insert($img, 'top-left',
+                    intval($left - (($width) / 2)),
+                    intval($top - (($height) / 2))
+                );
+
 
             }
 
@@ -103,16 +128,51 @@ class TemplateParserService
                 // create instance
                 $img = Image::make($object->src);
 
+                $scale_x = (isset($object->scaleX)) ? $object->scaleX : 1;
+                $scale_y = (isset($object->scaleY)) ? $object->scaleY : 1;
+
+                $width = intval(($object->width * $scale_x) * $this->scale_ratio);
+                $height = intval(($object->height * $scale_y) * $this->scale_ratio);
+
+                $left = intval($object->left * $this->scale_ratio);
+                $top = intval($object->top * $this->scale_ratio);
+
                 // resize image to fixed size
-                $img->resize(intval($object->width * $this->scale_ratio), intval($object->height * $this->scale_ratio));
+                $img->resize($width, $height);
 
-                $this->canvas->insert($img, 'top', intval($object->left * $this->scale_ratio), intval($object->top * $this->scale_ratio));
-
+                $this->canvas->insert($img, 'top-left',
+                    intval($left - (($width) / 2)),
+                    intval($top - (($height) / 2))
+                );
             }
 
         }
     }
 
+    public function makeCanvasFormText($x, $y, $text, $fontSize)
+    {
+        $box = imagettfbbox($fontSize, 0, resource_path('assets/fonts/calibri_bold.ttf'), trim($text));
+        $boxCheat = imagettfbbox($fontSize, 0, resource_path('assets/fonts/calibri_bold.ttf'), trim("qpgé5É"));
+
+        $topLeftX = $x - 10;
+        $topLeftY = $y + $box[7];
+        $botRightY = 0;
+        $botRightX = 0;
+
+        switch ($fontSize) {
+            case 25:
+                $botRightX = $x + (($box[2] / 1.30) - (log(strlen(trim($text))))) + 10;
+                $botRightY = $y + ($boxCheat[3] - 1);
+                break;
+            case 20:
+                $botRightX = $x + (($box[2] / 1.23) - (log(strlen(trim($text))))) + 5;
+                $botRightY = $y + ($boxCheat[3] - 1);
+                break;
+        }
+
+        return Image::canvas(abs(intval($topLeftX - $botRightX)), abs(intval($topLeftY - $botRightY)), '#ABCDEF');
+
+    }
 
     /**
      *  Export To Image
