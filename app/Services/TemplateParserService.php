@@ -18,15 +18,35 @@ use Intervention\Image\Facades\Image;
 class TemplateParserService
 {
 
+    // Quote or Invoice
     private $type;
-    private $entity;
+
+    // Elements of the canvas
+    private $entity_top;
+    private $entity_bottom;
+
+    // Json base structure
     private $template;
-    private $canvas;
+
+    // Translations
     private $texts;
+
+    // Each parts of the final image
+    private $canvas_top;
+    private $canvas_table;
+    private $canvas_bottom;
+
+    // Final image
+    private $master_canvas;
 
     // 200DPI A4 width and height
     private $canvas_a4_width = 1654;
     private $canvas_a4_height = 2339;
+
+    private $canvas_top_height = 750;
+    private $canvas_bottom_height = 300;
+
+    // Scale ratio for adjusting the position and size
     private $scale_ratio = 0;
 
 
@@ -49,9 +69,20 @@ class TemplateParserService
         $this->template = Template::findOrFail($id_template);
 
         $this->findScale();
+
         $this->mapTexts();
+
+        $this->mapObjectsToPosition();
+
         $this->createCanvas();
-        $this->parse();
+
+        $this->createCanvasTable();
+
+        $this->parse($this->entity_top, $this->canvas_top);
+
+        $this->parse($this->entity_bottom, $this->canvas_bottom);
+
+        $this->makeMasterCanvas();
     }
 
     /**
@@ -73,53 +104,97 @@ class TemplateParserService
     }
 
     /**
+     * We need to map the texts for the canvas because of placeholders / translations etc etc
+     */
+    public function mapObjectsToPosition()
+    {
+        $content = json_decode($this->template->content);
+
+        foreach ($content->objects as $object) {
+
+            $object->top = (isset($object->top)) ? $object->top : 0;
+
+            if ($object->top < ($this->template->canvas_height / 2)) {
+
+                // Ratio
+                $object->top = intval((($object->top * $this->canvas_top_height) / ($this->template->canvas_height / 2)) / $this->scale_ratio) + 50;
+
+                $this->entity_top[] = $object;
+            }
+
+            if ($object->top > ($this->template->canvas_height / 2)) {
+
+                // Cut in Half
+                $object->top = intval($object->top - ($this->template->canvas_height / 2));
+
+                // Ratio
+                $object->top = intval((($object->top * $this->canvas_bottom_height) / ($this->template->canvas_height / 2)) / $this->scale_ratio) - 30;
+
+                $this->entity_bottom[] = $object;
+            }
+        }
+    }
+
+    /**
      * We generate a canvas for our objects, this an object so we can resize it later
      */
     public function createCanvas()
     {
         $bg_color = ColorHelper::stringToHex($this->template->bg_color);
 
-        $this->canvas = Image::canvas($this->canvas_a4_width, $this->canvas_a4_height, $bg_color);
+        // To redefine ( fine adjusting )
+        $this->canvas_top = Image::canvas($this->canvas_a4_width, $this->canvas_top_height, $bg_color);
+
+        // To redefine ( fine adjusting )
+        $this->canvas_bottom = Image::canvas($this->canvas_a4_width, $this->canvas_bottom_height, $bg_color);
+    }
+
+    /**
+     * We generate a canvas for our objects, this an object so we can resize it later
+     */
+    public function createCanvasTable()
+    {
+        // Fetch image
+
+        // Get Height
+
+        // Create Canvas
+
+        // Insert Canvas
+
+        // https://github.com/spatie/browsershot
+
+        $this->canvas_table = Image::canvas($this->canvas_a4_width, 500, '#ABCDE');
     }
 
     /**
      * Parse the content to add element to the canvas
      */
-    private function parse()
+    private function parse($objects, $canvas)
     {
-        $content = json_decode($this->template->content);
 
+        foreach ($objects as $object) {
 
-        foreach ($content->objects as $object) {
+            if (isset($object->iris_identifier) && in_array($object->iris_identifier, ['content_ph'])) {
+                continue;
+            }
 
             if ($object->type == "text") {
 
+                $font_family = resource_path('assets/fonts/calibri.ttf');
 
-                $scale_x = (isset($object->scaleX)) ? $object->scaleX : 1;
-                $scale_y = (isset($object->scaleY)) ? $object->scaleY : 1;
-
-                $width = intval(($object->width * $scale_x) * $this->scale_ratio);
-                $height = intval(($object->height * $scale_y) * $this->scale_ratio);
-
-                $left = intval($object->left * $this->scale_ratio);
-                $top = intval($object->top * $this->scale_ratio);
+                if (isset($object->fontWeight) && $object->fontWeight === 'bold') {
+                    $font_family = resource_path('assets/fonts/calibri_bold.ttf');
+                }
 
 
-                $img = $this->makeCanvasFormText($left, $top, $object->text, $object->fontSize);
-
-                $img->text($object->text, 20, 20, function ($font) use ($object) {
+                $canvas->text($object->text, ($object->left * $this->scale_ratio), ($object->top * $this->scale_ratio), function ($font) use ($object, $font_family) {
                     $font->size($object->fontSize);
                     $font->color(ColorHelper::stringToHex($object->fill));
-                    $font->file(resource_path('assets/fonts/calibri_bold.ttf'));
+                    $font->file($font_family);
+                    $font->align('left');
+                    $font->valign('top');
                 });
-
-                $img->resize($width, $height);
-
-                $this->canvas->insert($img, 'top-left',
-                    intval($left - (($width) / 2)),
-                    intval($top - (($height) / 2))
-                );
-
 
             }
 
@@ -140,37 +215,48 @@ class TemplateParserService
                 // resize image to fixed size
                 $img->resize($width, $height);
 
-                $this->canvas->insert($img, 'top-left',
+                $canvas->insert($img, 'top-left',
                     intval($left - (($width) / 2)),
                     intval($top - (($height) / 2))
                 );
             }
-
         }
     }
 
-    public function makeCanvasFormText($x, $y, $text, $fontSize)
+    /**
+     *  Assemble the canvas
+     */
+    public function makeMasterCanvas()
     {
-        $box = imagettfbbox($fontSize, 0, resource_path('assets/fonts/calibri_bold.ttf'), trim($text));
-        $boxCheat = imagettfbbox($fontSize, 0, resource_path('assets/fonts/calibri_bold.ttf'), trim("qpgé5É"));
 
-        $topLeftX = $x - 10;
-        $topLeftY = $y + $box[7];
-        $botRightY = 0;
-        $botRightX = 0;
+        // space at top
+        $margin_top = 0;
 
-        switch ($fontSize) {
-            case 25:
-                $botRightX = $x + (($box[2] / 1.30) - (log(strlen(trim($text))))) + 10;
-                $botRightY = $y + ($boxCheat[3] - 1);
-                break;
-            case 20:
-                $botRightX = $x + (($box[2] / 1.23) - (log(strlen(trim($text))))) + 5;
-                $botRightY = $y + ($boxCheat[3] - 1);
-                break;
-        }
+        // space at bottom
+        $margin_bottom = 0;
 
-        return Image::canvas(abs(intval($topLeftX - $botRightX)), abs(intval($topLeftY - $botRightY)), '#ABCDEF');
+        // pixels to remove before the element ( pseudo margin )
+        $margin_canvas_top = 0;
+        $margin_canvas_table = 120;
+        $margin_canvas_bottom = 60;
+
+        $canvas_top = $this->canvas_top;
+        $canvas_top_height = $this->canvas_top->height();
+
+        $canvas_table = $this->canvas_table;
+        $canvas_table_height = $this->canvas_table->height();
+
+        $canvas_bottom = $this->canvas_bottom;
+        $canvas_bottom_height = $this->canvas_bottom->height();
+
+        $this->master_canvas = Image::canvas($this->canvas_a4_width, ($margin_top + $canvas_top_height + $canvas_table_height + $canvas_bottom_height + $margin_bottom));
+
+
+        $this->master_canvas->insert(Image::make($canvas_top), 'top-left', 0, ($margin_top) - $margin_canvas_top);
+
+        $this->master_canvas->insert(Image::make($canvas_table), 'top-left', 0, ($margin_top + $canvas_top_height) - $margin_canvas_table);
+
+        $this->master_canvas->insert(Image::make($canvas_bottom), 'top-left', 0, ($margin_top + $canvas_top_height + $canvas_table_height) - $margin_canvas_bottom);
 
     }
 
@@ -179,8 +265,6 @@ class TemplateParserService
      */
     public function toImage()
     {
-        //dd($this->template, $this->entity, $this->type);
-
-        return $this->canvas->response();
+        return $this->master_canvas->response();
     }
 }
