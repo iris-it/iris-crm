@@ -23,6 +23,8 @@ elixir((mix) => {
 
     mix.copy("resources/assets/images", "public/build/css/images");
 
+    mix.copy("resources/assets/json", "public/build/json");
+
     mix.sass('app.scss');
 
     mix.webpack('app.js');
