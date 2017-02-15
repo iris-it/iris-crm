@@ -17,6 +17,8 @@ export default class {
                 delete: ".deleteBtn",
                 up: ".upBtn",
                 down: ".downBtn",
+                font_up:".fontUpBtn",
+                font_down:".fontDownBtn",
                 add_custom_text: "#custom-text-btn",
             },
 
@@ -25,6 +27,8 @@ export default class {
                 delete_button: "/img/close-button.png",
                 up_button: "/img/up-button.png",
                 down_button: "/img/down-button.png",
+                font_up_button: "/img/font-up-button.png",
+                font_down_button: "/img/font-down-button.png",
                 content_placeholder: "/img/fr-content-ph.png",
                 logo_placeholder: "/img/logo-placeholder.png"
             },
@@ -154,13 +158,17 @@ export default class {
     }
 
     // canvas events and behaviour
-    setObjectSelectionBehaviour(idProperty, excludedId, canvasType) {
+    setObjectSelectionBehaviour(idProperty, typeProperty, textType, excludedId, canvasType) {
         let addControls = (e) => {
             if (canvasType === "container") {
                 if (e.target[idProperty] !== excludedId) {
                     let container = e.target.canvas.contextContainer.canvas.offsetParent;
                     this._addDeleteBtn(container, e.target.oCoords.tr.x, e.target.oCoords.tr.y);
                     this._addZIndexButtons(container, e.target.oCoords.tr.x, e.target.oCoords.tr.y);
+                    if(e.target[typeProperty] === textType) {
+                        this._addFontUpBtn(container, e.target.oCoords.tr.x, e.target.oCoords.tr.y);
+                        this._addFontDownBtn(container, e.target.oCoords.tr.x, e.target.oCoords.tr.y);
+                    }
                 }
             }
 
@@ -175,6 +183,8 @@ export default class {
                 $(this.parameters.buttons.delete).remove();
                 $(this.parameters.buttons.up).remove();
                 $(this.parameters.buttons.down).remove();
+                $(this.parameters.buttons.font_up).remove();
+                $(this.parameters.buttons.font_down).remove();
             }
 
             else if (canvasType === "menu") {
@@ -213,6 +223,8 @@ export default class {
                 this.canvas.remove(target);
                 $(this.parameters.buttons.up).remove();
                 $(this.parameters.buttons.down).remove();
+                $(this.parameters.buttons.font_up).remove();
+                $(this.parameters.buttons.font_down).remove();
                 $(this.parameters.buttons.delete).remove();
             }
         });
@@ -231,6 +243,22 @@ export default class {
             let target = this.canvas.getActiveObject();
             target.sendBackwards();
             this._showToast(`Élément ramené au plan n° ${this.canvas.getObjects().indexOf(target)}`);
+
+        });
+
+        $(document).on('click', this.parameters.buttons.font_up, () => {
+
+            let target = this.canvas.getActiveObject();
+            target.fontSize++;
+            this.canvas.renderAll();
+
+        });
+
+        $(document).on('click', this.parameters.buttons.font_down, () => {
+
+            let target = this.canvas.getActiveObject();
+            target.fontSize--;
+            this.canvas.renderAll();
 
         });
 
@@ -364,6 +392,29 @@ export default class {
 
     }
 
+    //  add font size up button
+
+    _addFontUpBtn(container,x,y) {
+        $(this.parameters.buttons.font_up).remove();
+        let btnLeft = x - 110;
+        let btnTop = y - 10;
+        let fontUpBtnEl = this._domAdapter(this.parameters.buttons.font_up);
+        let fontUpBtn = `<img src="${this.parameters.images.font_up_button}" ${fontUpBtnEl.attribute}="${fontUpBtnEl.value}" style="position:absolute; top:${btnTop}px; left:${btnLeft}px; cursor:pointer;width:20px;height:20px;"/>`;
+
+        $(container).append(fontUpBtn);
+    }
+
+    //  add font size down button
+
+    _addFontDownBtn(container,x,y) {
+        $(this.parameters.buttons.font_down).remove();
+        let btnLeft = x - 90;
+        let btnTop = y - 10;
+        let fontDownBtnEl = this._domAdapter(this.parameters.buttons.font_down);
+        let fontDownBtn = `<img src="${this.parameters.images.font_up_button}" ${fontDownBtnEl.attribute}="${fontDownBtnEl.value}" style="position:absolute; top:${btnTop}px; left:${btnLeft}px; cursor:pointer;width:20px;height:20px;"/>`;
+
+        $(container).append(fontDownBtn);
+    }
     // add up and down button for z-index control
 
     _addZIndexButtons(container, x, y) {
