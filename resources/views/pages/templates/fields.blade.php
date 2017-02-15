@@ -14,12 +14,12 @@
         <div class="form-group col-sm-4">
             <label for="text-color" class="h4 text-purple">{{trans('app.template:text-color')}} : </label>
             <br>
-            <input type='text' name="text_color" id="text-color"/>
+            <input type='text' name="text_color" value="#000000" id="text-color"/>
         </div>
         <div class="form-group col-sm-4">
             <label for="bg-color" class="h4 text-purple">{{trans('app.template:bg-color')}} : </label>
             <br>
-            <input type='text' name="bg_color" id="bg-color"/>
+            <input type='text' name="bg_color" value="#FFFFFF" id="bg-color"/>
         </div>
 
         <input type="hidden" id="content" name="content"/>
@@ -417,6 +417,7 @@
                 idProperty: 'iris_identifier',
                 typeProperty: 'iris_type',
                 excludedId: 'custom',
+                edit : false,
                 destCanvas: menuCanvas.getCanvas()
             });
 

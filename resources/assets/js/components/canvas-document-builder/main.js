@@ -17,8 +17,8 @@ export default class {
                 delete: ".deleteBtn",
                 up: ".upBtn",
                 down: ".downBtn",
-                font_up:".fontUpBtn",
-                font_down:".fontDownBtn",
+                font_up: ".fontUpBtn",
+                font_down: ".fontDownBtn",
                 add_custom_text: "#custom-text-btn",
             },
 
@@ -53,6 +53,8 @@ export default class {
         this.canvas = new fabric.Canvas(domTarget, canvasOptions);
 
         this.models = models;
+
+        console.log(this.models.texts);
 
     }
 
@@ -106,6 +108,55 @@ export default class {
         return this;
     }
 
+    loadJSON(jsonTemplate) {
+        this.canvas.loadFromJSON(jsonTemplate, this.canvas.renderAll.bind(this.canvas), function (o, object) {
+        });
+        return this;
+    }
+
+    loadRemovedTexts(removedItems, idProperty, excludedId, properties) {
+
+        removedItems.forEach((removedItem) => {
+
+            if (removedItem[idProperty] !== excludedId) {
+
+                let text = {};
+                _.forIn(properties, function (value, key) {
+                    text[key] = removedItem[value];
+                });
+
+                this.canvas.add(new fabric.Text(text.value, text));
+            }
+        });
+    }
+
+    loadRemovedImages(removedItems, idProperty, excludedId, properties) {
+
+        removedItems.forEach((removedItem) => {
+
+            if (removedItem[idProperty] !== excludedId) {
+
+                let imageProperties = {};
+
+                _.forIn(properties, function (value, key) {
+                    imageProperties[key] = removedItem[value];
+                });
+
+                fabric.Image.fromURL(imageProperties.value, (image) => {
+                    image.set({top: imageProperties.top, left: imageProperties.left});
+                    image.scaleToWidth(imageProperties.width);
+                    image.scaleToHeight(imageProperties.height);
+                    this.canvas.add(image);
+                });
+            }
+        });
+
+    }
+
+    getRemovedItems(jsonTemplate, modelName, idProperty) {
+        let arrayTemplate = JSON.parse(jsonTemplate);
+        return _.differenceBy(this.models[modelName], arrayTemplate.objects, idProperty);
+    }
 
     // clone item to another canvas
 
@@ -144,6 +195,7 @@ export default class {
             clone.set({left: model.left, top: model.top});
 
             if (options.item[options.typeProperty] === "label") {
+
                 clone.set({fontSize: model.fontSize, fontWeight: model.fontWeight, fill: $(this.parameters.color_pickers.text).val()});
                 clone.setText(model.value);
             }
@@ -165,7 +217,7 @@ export default class {
                     let container = e.target.canvas.contextContainer.canvas.offsetParent;
                     this._addDeleteBtn(container, e.target.oCoords.tr.x, e.target.oCoords.tr.y);
                     this._addZIndexButtons(container, e.target.oCoords.tr.x, e.target.oCoords.tr.y);
-                    if(e.target[typeProperty] === textType) {
+                    if (e.target[typeProperty] === textType) {
                         this._addFontUpBtn(container, e.target.oCoords.tr.x, e.target.oCoords.tr.y);
                         this._addFontDownBtn(container, e.target.oCoords.tr.x, e.target.oCoords.tr.y);
                     }
@@ -263,7 +315,6 @@ export default class {
         });
 
         $(this.parameters.color_pickers.text).spectrum({
-            color: "black",
             showInput: true,
             showPalette: true,
             palette: [],
@@ -273,7 +324,6 @@ export default class {
         });
 
         $(this.parameters.color_pickers.background).spectrum({
-            color: "white",
             showInput: true,
             showPalette: true,
             palette: [],
@@ -281,9 +331,6 @@ export default class {
             preferredFormat: "hex",
 
         });
-
-        $(this.parameters.color_pickers.text).val("black");
-        $(this.parameters.color_pickers.background).val("white");
 
         $(this.parameters.color_pickers.text).change(() => {
 
@@ -394,7 +441,7 @@ export default class {
 
     //  add font size up button
 
-    _addFontUpBtn(container,x,y) {
+    _addFontUpBtn(container, x, y) {
         $(this.parameters.buttons.font_up).remove();
         let btnLeft = x - 110;
         let btnTop = y - 10;
@@ -406,7 +453,7 @@ export default class {
 
     //  add font size down button
 
-    _addFontDownBtn(container,x,y) {
+    _addFontDownBtn(container, x, y) {
         $(this.parameters.buttons.font_down).remove();
         let btnLeft = x - 90;
         let btnTop = y - 10;
@@ -415,6 +462,7 @@ export default class {
 
         $(container).append(fontDownBtn);
     }
+
     // add up and down button for z-index control
 
     _addZIndexButtons(container, x, y) {

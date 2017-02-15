@@ -15,12 +15,12 @@
         <div class="form-group col-sm-4">
             <label for="text_color" class="h4 text-purple">{{trans('app.template:text-color')}} : </label>
             <br>
-            <input type='text' name="text_color" value="{{$template->text_color}}" id="text_color"/>
+            <input type='text' name="text_color" value="{{$template->text_color}}" id="text-color"/>
         </div>
         <div class="form-group col-sm-4">
-            <label for="bg_color" class="h4 text-purple">{{trans('app.template:bg-color')}} : </label>
+            <label for="bg-color" class="h4 text-purple">{{trans('app.template:bg-color')}} : </label>
             <br>
-            <input type='text' name="bg_color"  value="{{$template->bg_color}}" id="bg_color"/>
+            <input type='text' name="bg_color"  value="{{$template->bg_color}}" id="bg-color"/>
         </div>
 
         <input type="hidden" id="content" name="content" value="{{$template->content}}"/>
@@ -87,53 +87,30 @@
                 });
             });
 
-            let canvas = new fabric.Canvas('render', {
-                imageSmoothingEnabled: false,
-                enableRetinaScaling: true,
-
-            });
-
-            let jsonTemplate = $('#content').val();
-
-            canvas.loadFromJSON(jsonTemplate, canvas.renderAll.bind(canvas), function (o, object) {
-
-            });
-
-            let arrayTemplate = JSON.parse(jsonTemplate);
-
-
-            let itemsCanvas = new fabric.Canvas('items', {
-                imageSmoothingEnabled: false,
-                enableRetinaScaling: true,
-
-            });
-
-
-            // create grid
-            let grid_size = 15;
-
             //create elements
             let texts = [
                 {
                     value: "Numéro d'identification",
+                    menu_value: "Numéro d'identification",
                     iris_type: "label",
                     iris_identifier: "id_number",
                     left: 50,
                     top: 20,
-                    fontSize: 20,
+                    fontSize: 18,
                     fill: "black",
                     menu_left: 10,
                     menu_top: 20,
                     menu_fontSize: 20,
-                    menu_fontWeight: 'normal',
-                    menu_value: "Numéro d'identification",
                     fontFamily: 'Calibri',
                     fontWeight: 'normal',
-                    hasRotatingPoint: false
+                    hasRotatingPoint : false,
+                    hasControls: false,
+                    selectable: false,
                 },
 
                 {
                     value: "Nom de votre entreprise",
+                    menu_value: "Nom de votre entreprise",
                     iris_type: "label",
                     iris_identifier: "orga_name",
                     left: 50,
@@ -144,14 +121,15 @@
                     menu_left: 10,
                     menu_top: 50,
                     menu_fontSize: 20,
-                    menu_value: "Nom de votre entreprise",
                     fontFamily: 'Calibri',
                     menu_fontWeight: 'normal',
-                    hasRotatingPoint: false
+                    hasRotatingPoint : false,
+                    hasControls: false,
                 },
 
                 {
                     value: "Statut : XXXX",
+                    menu_value: "Statut : XXXX",
                     iris_type: "label",
                     iris_identifier: "orga_stat",
                     left: 50,
@@ -162,13 +140,13 @@
                     menu_left: 10,
                     menu_top: 80,
                     menu_fontSize: 20,
-                    menu_fontWeight: 'normal',
-                    menu_value: "Statut : XXXX",
-                    hasRotatingPoint: false
+                    hasRotatingPoint : false,
+                    hasControls: false,
                 },
 
                 {
                     value: "N° SIRET : XXX XXX XXX XXXXX",
+                    menu_value: "N° SIRET : XXX XXX XXX XXXXX",
                     iris_type: "label",
                     iris_identifier: "orga_siret",
                     left: 50,
@@ -179,13 +157,13 @@
                     menu_left: 10,
                     menu_top: 110,
                     menu_fontSize: 20,
-                    menu_fontWeight: 'normal',
-                    menu_value: "N° SIRET de votre entreprise",
-                    hasRotatingPoint: false
+                    hasRotatingPoint : false,
+                    hasControls: false,
                 },
 
                 {
                     value: "N° APE : XXXXX",
+                    menu_value: "N° APE : XXXXX",
                     iris_type: "label",
                     iris_identifier: "orga_ape",
                     left: 50,
@@ -196,13 +174,13 @@
                     menu_left: 10,
                     menu_top: 140,
                     menu_fontSize: 20,
-                    menu_fontWeight: 'normal',
-                    menu_value: "N° APE de votre entreprise",
-                    hasRotatingPoint: false
+                    hasRotatingPoint : false,
+                    hasControls: false,
                 },
 
                 {
                     value: "Email : mail@domain.com",
+                    menu_value: "Email : mail@domain.com",
                     iris_type: "label",
                     iris_identifier: "orga_email",
                     left: 50,
@@ -213,9 +191,8 @@
                     menu_left: 10,
                     menu_top: 170,
                     menu_fontSize: 20,
-                    menu_fontWeight: 'normal',
-                    menu_value: "Email : mail@domain.com",
-                    hasRotatingPoint: false
+                    hasRotatingPoint : false,
+                    hasControls: false,
                 },
 
                 {
@@ -231,12 +208,13 @@
                     menu_left: 10,
                     menu_top: 200,
                     menu_fontSize: 20,
-                    menu_fontWeight: 'normal',
-                    hasRotatingPoint: false
+                    hasRotatingPoint : false,
+                    hasControls: false,
                 },
 
                 {
                     value: "N° TVA : FRXX XXX XXX XXX",
+                    menu_value: "N° TVA : FRXX XXX XXX XXX",
                     iris_type: "label",
                     iris_identifier: "orga_tva",
                     left: 50,
@@ -247,13 +225,13 @@
                     menu_left: 10,
                     menu_top: 230,
                     menu_fontSize: 20,
-                    menu_fontWeight: 'normal',
-                    menu_value: "N° TVA : FRXX XXX XXX XXX",
-                    hasRotatingPoint: false
+                    hasRotatingPoint : false,
+                    hasControls: false,
                 },
 
                 {
                     value: "Nom du client",
+                    menu_value: "Nom du client",
                     iris_type: "label",
                     iris_identifier: "client_name",
                     left: 850,
@@ -264,15 +242,15 @@
                     menu_left: 10,
                     menu_top: 260,
                     menu_fontSize: 20,
-                    menu_fontWeight: 'normal',
-                    menu_value: "Nom du client",
-                    hasRotatingPoint: false,
+                    hasRotatingPoint : false,
+                    hasControls: false,
                     fontWeight: 'bold'
                 },
 
 
                 {
                     value: "Statut client : XXXX",
+                    menu_value: "Statut client : XXXX",
                     iris_type: "label",
                     iris_identifier: "client_stat",
                     left: 850,
@@ -283,9 +261,8 @@
                     menu_left: 10,
                     menu_top: 290,
                     menu_fontSize: 20,
-                    menu_fontWeight: 'normal',
-                    menu_value: "Statut client : XXXX",
-                    hasRotatingPoint: false
+                    hasRotatingPoint : false,
+                    hasControls: false,
                 },
 
                 {
@@ -301,12 +278,13 @@
                     menu_left: 10,
                     menu_top: 320,
                     menu_fontSize: 20,
-                    menu_fontWeight: 'normal',
-
+                    hasRotatingPoint : false,
+                    hasControls: false,
                 },
 
                 {
                     value: "N° APE client : XXXXX",
+                    menu_value: "N° APE client : XXXXX",
                     iris_type: "label",
                     iris_identifier: "client_ape",
                     left: 850,
@@ -317,13 +295,13 @@
                     menu_left: 10,
                     menu_top: 350,
                     menu_fontSize: 20,
-                    menu_fontWeight: 'normal',
-                    menu_value: "N° APE client : XXXXX",
-
+                    hasRotatingPoint : false,
+                    hasControls: false,
                 },
 
                 {
                     value: "Email client : mail@domain.com",
+                    menu_value: "Email client : mail@domain.com",
                     iris_type: "label",
                     iris_identifier: "client_email",
                     left: 850,
@@ -334,9 +312,8 @@
                     menu_left: 10,
                     menu_top: 380,
                     menu_fontSize: 20,
-                    menu_fontWeight: 'normal',
-                    menu_value: "Email client : mail@domain.com",
-
+                    hasRotatingPoint : false,
+                    hasControls: false,
                 },
 
                 {
@@ -352,12 +329,13 @@
                     menu_left: 10,
                     menu_top: 410,
                     menu_fontSize: 20,
-                    menu_fontWeight: 'normal',
-
+                    hasRotatingPoint : false,
+                    hasControls: false,
                 },
 
                 {
                     value: "N° TVA client : FRXX XXX XXX XXX",
+                    menu_value: "N° TVA client : FRXX XXX XXX XXX",
                     iris_type: "label",
                     iris_identifier: "client_tva",
                     left: 850,
@@ -368,9 +346,8 @@
                     menu_left: 10,
                     menu_top: 440,
                     menu_fontSize: 20,
-                    menu_fontWeight: 'normal',
-                    menu_value: "N° TVA client : FRXX XXX XXX XXX",
-
+                    hasRotatingPoint : false,
+                    hasControls: false,
                 },
 
                 {
@@ -378,15 +355,17 @@
                     iris_type: "label",
                     iris_identifier: "date",
                     left: 850,
-                    top: 1000,
-                    fontSize: 19,
+                    top: 20,
+                    fontSize: 18,
                     fill: "black",
                     fontFamily: 'Calibri',
                     menu_value: "Date et lieu du document",
                     menu_left: 10,
                     menu_top: 470,
                     menu_fontSize: 20,
-                    menu_fontWeight: 'normal',
+                    hasRotatingPoint : false,
+                    hasControls: false,
+                    selectable: false
 
                 },
 
@@ -428,108 +407,61 @@
 
             ];
 
+            let contentCanvas = new CanvasDocBuilder('render', {imageSmoothingEnabled: false, enableRetinaScaling: true}, {}, {
+                texts: texts,
+                images: images,
+            });
 
-            let removedItems = _.differenceBy(texts, arrayTemplate.objects, "iris_identifier");
+            let jsonTemplate = $('#content').val();
 
-            removedItems.forEach(function (removedItem) {
+            contentCanvas.setGrid(15)
+                .setObjectSelectionBehaviour("iris_identifier", "iris_type", "label", "content_ph", "container")
+                .loadJSON(jsonTemplate);
 
-                itemsCanvas.add(new fabric.Text(removedItem.menu_value, {
-                    iris_type: removedItem.iris_type,
-                    iris_identifier: removedItem.iris_identifier,
-                    left: removedItem.menu_left,
-                    top: removedItem.menu_top,
-                    fontSize: removedItem.menu_fontSize,
-                    fill: removedItem.fill,
-                    fontFamily: removedItem.fontFamily,
-                    fontWeight: removedItem.menu_fontWeight,
-                    hasRotatingPoint: false,
-                }));
+
+            let menuCanvas = new CanvasDocBuilder('items', {imageSmoothingEnabled: false, enableRetinaScaling: true}, {}, {
+                texts: texts,
+                images: images,
+            });
+
+            let removedTexts = menuCanvas.getRemovedItems(jsonTemplate, "texts", "iris_identifier");
+
+            let removedImages = menuCanvas.getRemovedItems(jsonTemplate, "images", "iris_identifier");
+
+            menuCanvas.loadRemovedTexts(removedTexts, "iris_identifier", "content_ph", {
+                value : "menu_value",
+                iris_type : "iris_type",
+                iris_identifier: "iris_identifier",
+                left : "menu_left",
+                top : "menu_top",
+                fontSize : "menu_fontSize",
+                fill : "fill",
+                fontFamily : "fontFamily",
+                fontWeight : "menu_fontWeight",
+                hasRotatingPoint : false,
+                hasControls : false,
+            });
+
+            menuCanvas.loadRemovedImages(removedImages, "iris_identifier", "content_ph", {
+                top : "menu_top",
+                left : "menu_left",
+                width : "menu_width",
+                height: "menu_height",
 
             });
 
 
-            canvas.on('object:selected', function (e) {
-                if (e.target.iris_identifier !== "content_ph" && !e.target._objects) {
+            menuCanvas.setObjectSelectionBehaviour("iris_identifier", "iris_type", "label", "content_ph", "menu");
 
-                    var container = e.target.canvas.contextContainer.canvas.offsetParent;
-                    addDeleteBtn(container, e.target.oCoords.tr.x, e.target.oCoords.tr.y);
-                    addZIndexButtons(container, e.target.oCoords.tr.x, e.target.oCoords.tr.y);
-
-                }
+            contentCanvas.setMainContainerBehaviour({
+                idProperty: 'iris_identifier',
+                typeProperty: 'iris_type',
+                excludedId: 'custom',
+                edit: true,
+                destCanvas: menuCanvas.getCanvas()
             });
 
-            canvas.on('mouse:down', function (e) {
-                if (!canvas.getActiveObject()) {
-                    $(".deleteBtn").remove();
-                    $(".upBtn").remove();
-                    $(".downBtn").remove();
-                }
-            });
-
-            canvas.on('object:modified', function (e) {
-                if (e.target.iris_identifier !== "content_ph") {
-                    var container = e.target.canvas.contextContainer.canvas.offsetParent;
-                    addDeleteBtn(container, e.target.oCoords.tr.x, e.target.oCoords.tr.y);
-                    addZIndexButtons(container, e.target.oCoords.tr.x, e.target.oCoords.tr.y);
-
-                }
-            });
-
-            canvas.on('object:scaling', function (e) {
-                $(".deleteBtn").remove();
-                $(".upBtn").remove();
-                $(".downBtn").remove();
-            });
-            canvas.on('object:moving', function (e) {
-                $(".deleteBtn").remove();
-                $(".upBtn").remove();
-                $(".downBtn").remove();
-            });
-            canvas.on('object:rotating', function (e) {
-                $(".deleteBtn").remove();
-                $(".upBtn").remove();
-                $(".downBtn").remove();
-            });
-
-            $(document).on('click', ".deleteBtn", function () {
-
-                target = canvas.getActiveObject();
-
-                if (target) {
-
-                    if (target.iris_identifier != "custom") {
-                        cloneItem(target, itemsCanvas, "remove");
-                    }
-
-                    canvas.remove(target);
-                    $(".upBtn").remove();
-                    $(".downBtn").remove();
-                    $(".deleteBtn").remove();
-                }
-            });
-
-            $(document).on('click', ".upBtn", function () {
-
-                target = canvas.getActiveObject();
-                target.bringForward();
-                showToast('Élément élevé au plan n° ' + canvas.getObjects().indexOf(target));
-
-
-            });
-
-            $(document).on('click', ".downBtn", function () {
-
-                target = canvas.getActiveObject();
-                target.sendBackwards();
-                showToast('Élément ramené au plan n° ' + canvas.getObjects().indexOf(target));
-
-            });
-
-            $(document).on('click', "#custom-text-btn", function () {
-
-                let value = $('#text-value').val();
-
-                canvas.add(new fabric.Text(value, {
+            contentCanvas.setCustomContainerBehaviour({
 
                     iris_type: "label",
                     iris_identifier: "custom",
@@ -539,110 +471,21 @@
                     originY: "center",
                     fontSize: 19,
                     fontFamily: 'Calibri',
-                }));
-
-                $("html, body").animate({scrollTop: 100}, "slow");
-
-            });
-
-            $('#image-file').change(function (e) {
-
-                var reader = new FileReader();
-                reader.onload = function (event) {
-                    var imgObj = new Image();
-                    imgObj.src = event.target.result;
-                    imgObj.onload = function () {
-                        var image = new fabric.Image(imgObj);
-                        image.set({
-                            iris_type: "image",
-                            iris_identifier: "custom",
-                            left: 610,
-                            top: 350,
-                            width: 240,
-                            height: 160,
-                            originX: "center",
-                            originY: "center",
-                            hasControls: true,
-                            hasRotatingPoint: false,
-                            selectable: true
-                        });
-
-                        canvas.add(image);
-                    }
-                };
-
-                reader.readAsDataURL(e.target.files[0]);
-            });
-
-            $('#text_color').change(function (e) {
-
-                canvas._objects.forEach(function (object) {
-                    if (object.iris_type == "label") {
-                        object.setColor($('#text_color').val());
-                    }
-
-                    canvas.renderAll();
+                },
+                {
+                    iris_type: "image",
+                    iris_identifier: "custom",
+                    left: 610,
+                    top: 350,
+                    originX: "center",
+                    originY: "center",
+                    hasControls: true,
+                    hasRotatingPoint: true,
+                    selectable: true
                 });
 
-            });
 
-
-            $('#bg_color').change(function (e) {
-
-                canvas.backgroundColor = $('#bg_color').val();
-                canvas.renderAll();
-
-            });
-
-            itemsCanvas.on('object:selected', function (e) {
-
-                var container = e.target.canvas.contextContainer.canvas.offsetParent;
-                addAddBtn(container, e.target.oCoords.tr.x, e.target.oCoords.tr.y);
-
-            });
-
-            itemsCanvas.on('mouse:down', function (e) {
-                if (!itemsCanvas.getActiveObject()) {
-                    $(".addBtn").remove();
-                }
-            });
-
-            itemsCanvas.on('object:modified', function (e) {
-                var container = e.target.canvas.contextContainer.canvas.offsetParent;
-                addAddBtn(container, e.target.oCoords.tr.x, e.target.oCoords.tr.y);
-            });
-
-            itemsCanvas.on('object:scaling', function (e) {
-                $(".addBtn").remove();
-            });
-            itemsCanvas.on('object:moving', function (e) {
-                $(".addBtn").remove();
-            });
-            itemsCanvas.on('object:rotating', function (e) {
-                $(".addBtn").remove();
-            });
-
-            $(document).on('click', ".addBtn", function () {
-                if (itemsCanvas.getActiveObject()) {
-
-                    cloneItem(itemsCanvas.getActiveObject(), canvas, "add");
-                    itemsCanvas.remove(itemsCanvas.getActiveObject());
-                    $(".addBtn").remove();
-                }
-            });
-
-
-            // snap to grid
-
-            canvas.on('object:moving', function (options) {
-                options.target.set({
-                    left: Math.round(options.target.left / grid_size) * grid_size,
-                    top: Math.round(options.target.top / grid_size) * grid_size
-                });
-            });
-
-            // JSON without default values
-            canvas.includeDefaultValues = false;
+            menuCanvas.setMenuContainerBehaviour(contentCanvas.getCanvas());
 
 
             $("#template-form").submit(function (e) {
@@ -655,135 +498,12 @@
                     return false;
                 }
 
-                let json = canvas.toJSON(['iris_identifier', 'iris_type']);
-                $('#content').val(JSON.stringify(json));
-
+                contentCanvas.saveToJSON(['iris_identifier', 'iris_type'], '#content');
                 this.submit();
             });
 
 
-            // add delete button
-
-            function addDeleteBtn(container, x, y) {
-                $(".deleteBtn").remove();
-                var btnLeft = x - 10;
-                var btnTop = y - 10;
-                var deleteBtn = '<img src="{{asset("img/close-button.png")}}" class="deleteBtn" style="position:absolute;top:' + btnTop + 'px;left:' + btnLeft + 'px;cursor:pointer;width:20px;height:20px;"/>';
-                $(container).append(deleteBtn);
-            }
-
-            // add up and down button for z-index control
-
-            function addZIndexButtons(container, x, y) {
-                $(".upBtn").remove();
-                $(".downBtn").remove();
-                var upBtnLeft = x - 40;
-                var upBtnTop = y - 10;
-                var downBtnLeft = x - 60;
-                var downBtnTop = y - 10;
-
-                var upBtn = '<img src="{{asset("img/up-button.png")}}" class="upBtn" style="position:absolute;top:' + upBtnTop + 'px;left:' + upBtnLeft + 'px;cursor:pointer;width:20px;height:20px;"/>';
-                var downBtn = '<img src="{{asset("img/down-button.png")}}" class="downBtn" style="position:absolute;top:' + downBtnTop + 'px;left:' + downBtnLeft + 'px;cursor:pointer;width:20px;height:20px;"/>';
-                $(container).append(upBtn);
-                $(container).append(downBtn);
-
-            }
-
-            // add add button
-
-            function addAddBtn(container, x, y) {
-                $(".addBtn").remove();
-                var btnLeft = x - 10;
-                var btnTop = y - 10;
-                var addBtn = '<img src="{{asset("img/add-button.png")}}" class="addBtn" style="position:absolute;top:' + btnTop + 'px;left:' + btnLeft + 'px;cursor:pointer;width:20px;height:20px;"/>';
-                $(container).append(addBtn);
-            }
-
-            // color pickers
-
-
-            $("#text_color").spectrum({
-                color: $('#text_color').val(),
-                showInput: true,
-                showPalette: true,
-                palette: [],
-                showButtons: false,
-                preferredFormat: "hex",
-
-            });
-
-            $("#bg_color").spectrum({
-                color:  $('#bg_color').val(),
-                showInput: true,
-                showPalette: true,
-                palette: [],
-                showButtons: false,
-                preferredFormat: "hex",
-
-
-            });
-            // clone item to another canvas
-
-            function cloneItem(item, destCanvas, type) {
-
-                if (item.iris_type == "label") {
-                    var result = texts.filter(function (obj) {
-                        return obj.iris_identifier == item.iris_identifier;
-                    });
-                }
-                else if (item.iris_type == "image") {
-                    var result = images.filter(function (obj) {
-                        return obj.iris_identifier == item.iris_identifier;
-                    })
-                }
-
-                let model = result[0];
-
-
-                var clone = fabric.util.object.clone(item);
-
-                if (type === "remove") {
-                    clone.set({left: model.menu_left, top: model.menu_top});
-
-                    if (item.iris_type == "label") {
-
-                        clone.set({fontSize: model.menu_fontSize, fontWeight: model.menu_fontWeight, fill: model.fill});
-                        if (model.menu_value) {
-                            clone.setText(model.menu_value);
-                        }
-                    }
-
-                    else if (item.iris_type == "image") {
-                        clone.set({top: model.menu_top, left: model.menu_left});
-                        clone.scaleToWidth(model.menu_width);
-                        clone.scaleToHeight(model.menu_height);
-                    }
-                }
-                else if (type === "add") {
-                    clone.set({left: model.left, top: model.top});
-
-                    if (item.iris_type == "label") {
-                        clone.set({fontSize: model.fontSize, fontWeight: model.fontWeight, fill: $('#text_color').val()});
-                        clone.setText(model.value);
-                    }
-                    else if (item.iris_type == "image") {
-                        clone.set({top: model.top, left: model.left});
-                        clone.scaleToWidth(model.width);
-                        clone.scaleToHeight(model.height);
-                    }
-                }
-                destCanvas.add(clone);
-
-            }
-
-            function showToast(message) {
-                toastr.clear();
-                toastr.options = {timeOut: 2500, preventDuplicates: true, positionClass: "toast-bottom-full-width"};
-                toastr.info(message);
-            }
-
-        })
-        ;
+        });
 
 
     </script>
