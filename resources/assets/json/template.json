@@ -6,14 +6,16 @@
       "iris_identifier": "id_number",
       "left": 50,
       "top": 20,
-      "fontSize": 20,
+      "fontSize": 18,
       "fill": "black",
       "menu_left": 10,
       "menu_top": 20,
       "menu_fontSize": 20,
       "fontFamily": "Calibri",
       "fontWeight": "normal",
-      "hasRotatingPoint": false
+      "hasRotatingPoint": false,
+      "hasControls": false,
+      "selectable": false
     },
     {
       "value": "Nom de votre entreprise",
@@ -29,7 +31,8 @@
       "menu_fontSize": 20,
       "fontFamily": "Calibri",
       "menu_fontWeight": "normal",
-      "hasRotatingPoint": false
+      "hasControls": false,
+      "selectable": false
     },
     {
       "value": "Statut : XXXX",
@@ -43,7 +46,8 @@
       "menu_left": 10,
       "menu_top": 80,
       "menu_fontSize": 20,
-      "hasRotatingPoint": false
+      "hasControls": false,
+      "selectable": false
     },
     {
       "value": "N° SIRET : XXX XXX XXX XXXXX",
@@ -57,7 +61,8 @@
       "menu_left": 10,
       "menu_top": 110,
       "menu_fontSize": 20,
-      "hasRotatingPoint": false
+      "hasControls": false,
+      "selectable": false
     },
     {
       "value": "N° APE : XXXXX",
@@ -71,7 +76,8 @@
       "menu_left": 10,
       "menu_top": 140,
       "menu_fontSize": 20,
-      "hasRotatingPoint": false
+      "hasControls": false,
+      "selectable": false
     },
     {
       "value": "Email : mail@domain.com",
@@ -85,7 +91,8 @@
       "menu_left": 10,
       "menu_top": 170,
       "menu_fontSize": 20,
-      "hasRotatingPoint": false
+      "hasControls": false,
+      "selectable": false
     },
     {
       "value": "Adresse : Ligne 1 + Ligne 2 + CP + Ville + Pays",
@@ -100,7 +107,8 @@
       "menu_left": 10,
       "menu_top": 200,
       "menu_fontSize": 20,
-      "hasRotatingPoint": false
+      "hasControls": false,
+      "selectable": false
     },
     {
       "value": "N° TVA : FRXX XXX XXX XXX",
@@ -114,7 +122,8 @@
       "menu_left": 10,
       "menu_top": 230,
       "menu_fontSize": 20,
-      "hasRotatingPoint": false
+      "hasControls": false,
+      "selectable": false
     },
     {
       "value": "Nom du client",
@@ -128,7 +137,8 @@
       "menu_left": 10,
       "menu_top": 260,
       "menu_fontSize": 20,
-      "hasRotatingPoint": false,
+      "hasControls": false,
+      "selectable": false,
       "fontWeight": "bold"
     },
     {
@@ -143,7 +153,8 @@
       "menu_left": 10,
       "menu_top": 290,
       "menu_fontSize": 20,
-      "hasRotatingPoint": false
+      "hasControls": false,
+      "selectable": false
     },
     {
       "value": "N° SIRET client : XXX XXX XXX XXXXX",
@@ -157,7 +168,9 @@
       "menu_value": "N° SIRET client",
       "menu_left": 10,
       "menu_top": 320,
-      "menu_fontSize": 20
+      "menu_fontSize": 20,
+      "hasControls": false,
+      "selectable": false
     },
     {
       "value": "N° APE client : XXXXX",
@@ -170,7 +183,9 @@
       "fontFamily": "Calibri",
       "menu_left": 10,
       "menu_top": 350,
-      "menu_fontSize": 20
+      "menu_fontSize": 20,
+      "hasControls": false,
+      "selectable": false
     },
     {
       "value": "Email client : mail@domain.com",
@@ -183,7 +198,9 @@
       "fontFamily": "Calibri",
       "menu_left": 10,
       "menu_top": 380,
-      "menu_fontSize": 20
+      "menu_fontSize": 20,
+      "hasControls": false,
+      "selectable": false
     },
     {
       "value": "Adresse client : Ligne 1 + Ligne 2 ...",
@@ -197,7 +214,9 @@
       "menu_value": "Adresse client",
       "menu_left": 10,
       "menu_top": 410,
-      "menu_fontSize": 20
+      "menu_fontSize": 20,
+      "hasControls": false,
+      "selectable": false
     },
     {
       "value": "N° TVA client : FRXX XXX XXX XXX",
@@ -210,21 +229,26 @@
       "fontFamily": "Calibri",
       "menu_left": 10,
       "menu_top": 440,
-      "menu_fontSize": 20
+      "menu_fontSize": 20,
+      "hasControls": false,
+      "selectable": false
     },
     {
       "value": "Date : Fait le JJ Mois AAAA à XXXXXXX",
       "iris_type": "label",
       "iris_identifier": "date",
       "left": 850,
-      "top": 1000,
-      "fontSize": 19,
+      "top": 20,
+      "fontSize": 18,
       "fill": "black",
       "fontFamily": "Calibri",
       "menu_value": "Date et lieu du document",
       "menu_left": 10,
       "menu_top": 470,
-      "menu_fontSize": 20
+      "menu_fontSize": 20,
+      "hasRotatingPoint": false,
+      "hasControls": false,
+      "selectable": false
     }
   ],
   "images": [

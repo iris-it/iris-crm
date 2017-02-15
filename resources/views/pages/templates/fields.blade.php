@@ -111,14 +111,14 @@
                 contentCanvas.setGrid(15)
                     .addTexts(texts)
                     .addImages(images)
-                    .setObjectSelectionBehaviour("iris_identifier", "content_ph", "container");
+                    .setObjectSelectionBehaviour("iris_identifier", "iris_type", "label", "content_ph", "container");
 
                 let menuCanvas = new CanvasDocBuilder('items', {imageSmoothingEnabled: false, enableRetinaScaling: true}, {}, {
                     texts: texts,
                     images: images,
                 });
 
-                menuCanvas.setObjectSelectionBehaviour("iris_identifier", "content_ph", "menu");
+                menuCanvas.setObjectSelectionBehaviour("iris_identifier", "iris_type", "label", "content_ph", "menu");
 
 
                 contentCanvas.setMainContainerBehaviour({
