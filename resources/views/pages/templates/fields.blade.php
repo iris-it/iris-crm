@@ -14,12 +14,12 @@
         <div class="form-group col-sm-4">
             <label for="text-color" class="h4 text-purple">{{trans('app.template:text-color')}} : </label>
             <br>
-            <input type='text' name="text_color" id="text-color"/>
+            <input type='text' name="text_color" value="#000000" id="text-color"/>
         </div>
         <div class="form-group col-sm-4">
             <label for="bg-color" class="h4 text-purple">{{trans('app.template:bg-color')}} : </label>
             <br>
-            <input type='text' name="bg_color" id="bg-color"/>
+            <input type='text' name="bg_color" value="#FFFFFF" id="bg-color"/>
         </div>
 
         <input type="hidden" id="content" name="content"/>
@@ -95,14 +95,16 @@
                     iris_identifier: "id_number",
                     left: 50,
                     top: 20,
-                    fontSize: 20,
+                    fontSize: 18,
                     fill: "black",
                     menu_left: 10,
                     menu_top: 20,
                     menu_fontSize: 20,
                     fontFamily: 'Calibri',
                     fontWeight: 'normal',
-                    hasRotatingPoint: false
+                    hasRotatingPoint : false,
+                    hasControls: false,
+                    selectable: false,
                 },
 
                 {
@@ -119,7 +121,8 @@
                     menu_fontSize: 20,
                     fontFamily: 'Calibri',
                     menu_fontWeight: 'normal',
-                    hasRotatingPoint: false
+                    hasRotatingPoint : false,
+                    hasControls: false,
                 },
 
                 {
@@ -134,7 +137,8 @@
                     menu_left: 10,
                     menu_top: 80,
                     menu_fontSize: 20,
-                    hasRotatingPoint: false
+                    hasRotatingPoint : false,
+                    hasControls: false,
                 },
 
                 {
@@ -149,7 +153,8 @@
                     menu_left: 10,
                     menu_top: 110,
                     menu_fontSize: 20,
-                    hasRotatingPoint: false
+                    hasRotatingPoint : false,
+                    hasControls: false,
                 },
 
                 {
@@ -164,7 +169,8 @@
                     menu_left: 10,
                     menu_top: 140,
                     menu_fontSize: 20,
-                    hasRotatingPoint: false
+                    hasRotatingPoint : false,
+                    hasControls: false,
                 },
 
                 {
@@ -179,7 +185,8 @@
                     menu_left: 10,
                     menu_top: 170,
                     menu_fontSize: 20,
-                    hasRotatingPoint: false
+                    hasRotatingPoint : false,
+                    hasControls: false,
                 },
 
                 {
@@ -195,7 +202,8 @@
                     menu_left: 10,
                     menu_top: 200,
                     menu_fontSize: 20,
-                    hasRotatingPoint: false
+                    hasRotatingPoint : false,
+                    hasControls: false,
                 },
 
                 {
@@ -210,7 +218,8 @@
                     menu_left: 10,
                     menu_top: 230,
                     menu_fontSize: 20,
-                    hasRotatingPoint: false
+                    hasRotatingPoint : false,
+                    hasControls: false,
                 },
 
                 {
@@ -225,7 +234,8 @@
                     menu_left: 10,
                     menu_top: 260,
                     menu_fontSize: 20,
-                    hasRotatingPoint: false,
+                    hasRotatingPoint : false,
+                    hasControls: false,
                     fontWeight: 'bold'
                 },
 
@@ -242,7 +252,8 @@
                     menu_left: 10,
                     menu_top: 290,
                     menu_fontSize: 20,
-                    hasRotatingPoint: false
+                    hasRotatingPoint : false,
+                    hasControls: false,
                 },
 
                 {
@@ -258,6 +269,8 @@
                     menu_left: 10,
                     menu_top: 320,
                     menu_fontSize: 20,
+                    hasRotatingPoint : false,
+                    hasControls: false,
                 },
 
                 {
@@ -272,6 +285,8 @@
                     menu_left: 10,
                     menu_top: 350,
                     menu_fontSize: 20,
+                    hasRotatingPoint : false,
+                    hasControls: false,
                 },
 
                 {
@@ -286,6 +301,8 @@
                     menu_left: 10,
                     menu_top: 380,
                     menu_fontSize: 20,
+                    hasRotatingPoint : false,
+                    hasControls: false,
                 },
 
                 {
@@ -301,6 +318,8 @@
                     menu_left: 10,
                     menu_top: 410,
                     menu_fontSize: 20,
+                    hasRotatingPoint : false,
+                    hasControls: false,
                 },
 
                 {
@@ -315,6 +334,8 @@
                     menu_left: 10,
                     menu_top: 440,
                     menu_fontSize: 20,
+                    hasRotatingPoint : false,
+                    hasControls: false,
                 },
 
                 {
@@ -322,14 +343,18 @@
                     iris_type: "label",
                     iris_identifier: "date",
                     left: 850,
-                    top: 1000,
-                    fontSize: 19,
+                    top: 20,
+                    fontSize: 18,
                     fill: "black",
                     fontFamily: 'Calibri',
                     menu_value: "Date et lieu du document",
                     menu_left: 10,
                     menu_top: 470,
                     menu_fontSize: 20,
+                    hasRotatingPoint : false,
+                    hasControls: false,
+                    selectable: false
+
                 },
 
             ];
@@ -378,20 +403,21 @@
             contentCanvas.setGrid(15)
                 .addTexts(texts)
                 .addImages(images)
-                .setObjectSelectionBehaviour("iris_identifier", "content_ph", "container");
+                .setObjectSelectionBehaviour("iris_identifier", "iris_type", "label", "content_ph", "container");
 
             let menuCanvas = new CanvasDocBuilder('items', {imageSmoothingEnabled: false, enableRetinaScaling: true}, {}, {
                 texts: texts,
                 images: images,
             });
 
-            menuCanvas.setObjectSelectionBehaviour("iris_identifier", "content_ph", "menu");
+            menuCanvas.setObjectSelectionBehaviour("iris_identifier", "iris_type", "label", "content_ph", "menu");
 
 
             contentCanvas.setMainContainerBehaviour({
                 idProperty: 'iris_identifier',
                 typeProperty: 'iris_type',
                 excludedId: 'custom',
+                edit : false,
                 destCanvas: menuCanvas.getCanvas()
             });
 
