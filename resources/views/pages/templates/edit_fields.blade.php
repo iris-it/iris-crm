@@ -20,7 +20,7 @@
         <div class="form-group col-sm-4">
             <label for="bg-color" class="h4 text-purple">{{trans('app.template:bg-color')}} : </label>
             <br>
-            <input type='text' name="bg_color"  value="{{$template->bg_color}}" id="bg-color"/>
+            <input type='text' name="bg_color" value="{{$template->bg_color}}" id="bg-color"/>
         </div>
 
         <input type="hidden" id="content" name="content" value="{{$template->content}}"/>

@@ -5,7 +5,7 @@
 window._ = require('lodash');
 window.$ = window.jQuery = require('jquery');
 
-require('bootstrap-sass');
+require('bootstrap');
 require('bootstrap-datepicker');
 require('admin-lte');
 require('chart.js');
