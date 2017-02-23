@@ -1,0 +1,7 @@
+
+Make a command to install all the FACK
+no just put the binaries ?
+or make a docker file for linux which include wkhtmltopdf !
+and for windows download the binary here ?
+
+//todo ADD DOCKER DIR IN HERE and make a docker file and docker compose to test locally

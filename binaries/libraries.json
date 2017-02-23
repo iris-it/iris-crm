@@ -1,0 +1,18 @@
+{
+  "name": "wkhtmltopdf",
+  "destination": "./wkhtmltopdf",
+  "binary": {
+    "linux": {
+      "0": "apt-get update && apt-get install -y libxrender1 libxext6 fonts-lato --no-install-recommends",
+      "1": "curl -L#o wk.tar.xz http://download.gna.org/wkhtmltopdf/0.12/0.12.4/wkhtmltox-0.12.4_linux-generic-amd64.tar.xz",
+      "2": "tar xf wk.tar.xz",
+      "3": "cp wkhtmltox/bin/wkhtmltopdf /usr/bin",
+      "4": "cp wkhtmltox/bin/wkhtmltoimage /usr/bin",
+      "5": "rm wk.tar.xz",
+      "6": "rm -r wkhtmltox"
+    },
+    "windows": {
+      "0": "http://download.gna.org/wkhtmltopdf/0.12/0.12.4/wkhtmltox-0.12.4_msvc2015-win64.exe"
+    }
+  }
+}

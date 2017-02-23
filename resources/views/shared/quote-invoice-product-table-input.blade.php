@@ -50,8 +50,10 @@
                 <dl class="dl-horizontal pull-right">
                     <dt>Sous Total</dt>
                     <dd><span id="table-sub-total">0.00</span>€</dd>
-                    <dt>Taxes / Tva</dt>
-                    <dd><span id="table-vat">0.00</span>€</dd>
+                    <dt>Taxes</dt>
+                    <dd><span id="table-taxes">0.00</span>€</dd>
+                    <dt>Tva</dt>
+                    <dd><span id="table-vat">0.00</span>€</dd>s
                     <dt>Total</dt>
                     <dd><span id="table-total">0.00</span>€</dd>
                 </dl>
@@ -96,6 +98,11 @@
                         return row.taxes.map(function (obj) {
                             return obj.value;
                         }).join('&nbsp;-&nbsp;');
+                    }
+                    },
+                    {
+                        name: 'TVA', type: 'custom', args: function (row) {
+                        return row.vat.value;
                     }
                     },
                     {
@@ -168,15 +175,19 @@
                 let taxes = [];
                 let total_ht = 0;
                 let total_vat = 0;
+                let total_taxes = 0;
                 let total_ttc = 0;
 
                 data.forEach(function (item) {
                     total_ht += (item.ht_price * item.quantity);
                     total_ttc += (item.ttc_price * item.quantity);
+
+                    total_vat += ((parseFloat(item.vat.value) / 100) * (item.ht_price * item.quantity));
+
                     item.taxes.forEach(function (tax) {
                         let value = ((parseFloat(tax.value) / 100) * (item.ht_price * item.quantity));
                         taxes[tax.value] = (typeof taxes[tax.value] === 'undefined') ? value : taxes[tax.value] + value;
-                        total_vat += value;
+                        total_taxes += value;
                     });
                 });
 
@@ -189,6 +200,7 @@
 
                 $('#table-sub-total').text(parseFloat(total_ht).toFixed(2));
                 $('#table-total').text(parseFloat(total_ttc).toFixed(2));
+                $('#table-taxes').text(parseFloat(total_taxes).toFixed(2));
                 $('#table-vat').text(parseFloat(total_vat).toFixed(2));
             }
 

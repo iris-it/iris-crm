@@ -25,6 +25,8 @@ class Template extends Model
         'content',
         'text_color',
         'bg_color',
+        'canvas_height',
+        'canvas_width',
     ];
 
     /**
@@ -37,6 +39,8 @@ class Template extends Model
         'content' => 'string',
         'text_color' => 'string',
         'bg_color' => 'string',
+        'canvas_height' => 'integer',
+        'canvas_width' => 'integer',
     ];
 
 
