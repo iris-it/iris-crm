@@ -22,11 +22,13 @@ class ItemSearchController extends Controller
             case 'products': {
                 return Product::where('organization_id', $this->organization->id)
                     ->with('taxes')
+                    ->with('vat')
                     ->get();
             }
             case 'services': {
                 return Service::where('organization_id', $this->organization->id)
                     ->with('taxes')
+                    ->with('vat')
                     ->get();
             }
             default : {

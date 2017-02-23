@@ -35,6 +35,9 @@ Route::get('keycloak/callback', "AuthController@handleCallback");
 |
 */
 
+Route::get('templates/table/{type}/{id_entity}', 'TemplateController@generateTable');
+
+
 Route::group(['middleware' => 'auth'], function () {
 
     /*
@@ -84,7 +87,7 @@ Route::group(['middleware' => 'auth'], function () {
 
         Route::resource('templates', 'TemplateController');
         Route::get('templates/generate/{type}/{id_entity}/{id_template}', 'TemplateController@generateTemplate');
-
+////////////
 
         /*
          * Office resources

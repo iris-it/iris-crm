@@ -16,7 +16,7 @@ use App\Template;
 use Intervention\Image\Facades\Image;
 use Spatie\Browsershot\Browsershot;
 
-class TemplateParserService
+class TemplateHtmlParserService
 {
 
     // Quote or Invoice
@@ -42,8 +42,7 @@ class TemplateParserService
     private $master_canvas;
 
     // 200DPI A4 width and height
-    private $canvas_a4_width = 1654;
-    private $canvas_a4_height = 2339;
+    private $canvas_a4_width = 1200;
 
     private $canvas_top_height = 750;
     private $canvas_bottom_height = 300;

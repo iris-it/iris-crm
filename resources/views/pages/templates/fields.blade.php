@@ -14,12 +14,12 @@
         <div class="form-group col-sm-4">
             <label for="text-color" class="h4 text-purple">{{trans('app.template:text-color')}} : </label>
             <br>
-            <input type='text' name="text_color" id="text-color"/>
+            <input type='text' name="text_color" value="#000000" id="text-color"/>
         </div>
         <div class="form-group col-sm-4">
             <label for="bg-color" class="h4 text-purple">{{trans('app.template:bg-color')}} : </label>
             <br>
-            <input type='text' name="bg_color" id="bg-color"/>
+            <input type='text' name="bg_color" value="#FFFFFF" id="bg-color"/>
         </div>
 
         <input type="hidden" id="content" name="content"/>
@@ -38,8 +38,6 @@
 
     <div class="box-body">
         <div class="col-md-9">
-
-
             <canvas id="render" width="1220" height="1237" style="border: 1px solid rgb(204, 204, 204); position: absolute; width: 1200px; height: 1237px; left: 0px; top: 0px; user-select: none;" class="lower-canvas"></canvas>
         </div>
         <div class="col-md-2" style="margin-left:3%">
@@ -80,11 +78,8 @@
 @section('scripts')
     @parent
     <script type="text/javascript">
-
         $(document).ready(function () {
-
             $("#name").focusin(function () {
-
                 $('#name-warning').fadeOut(800, function () {
                     $(this).remove();
                 });
@@ -93,6 +88,8 @@
             //create elements
             let texts = [];
             let images = [];
+            let contentCanvas = null;
+            let menuCanvas = null;
 
             $.getJSON("{{asset('build/json/template.json')}}", function (json) {
                 texts = json.texts;
@@ -102,8 +99,7 @@
 
             function init_canvas() {
 
-
-                let contentCanvas = new CanvasDocBuilder('render', {imageSmoothingEnabled: false, enableRetinaScaling: true}, {}, {
+                contentCanvas = new CanvasDocBuilder('render', {imageSmoothingEnabled: false, enableRetinaScaling: true}, {}, {
                     texts: texts,
                     images: images,
                 });
@@ -113,41 +109,42 @@
                     .addImages(images)
                     .setObjectSelectionBehaviour("iris_identifier", "iris_type", "label", "content_ph", "container");
 
-                let menuCanvas = new CanvasDocBuilder('items', {imageSmoothingEnabled: false, enableRetinaScaling: true}, {}, {
+                menuCanvas = new CanvasDocBuilder('items', {imageSmoothingEnabled: false, enableRetinaScaling: true}, {}, {
                     texts: texts,
                     images: images,
                 });
 
                 menuCanvas.setObjectSelectionBehaviour("iris_identifier", "iris_type", "label", "content_ph", "menu");
 
-
                 contentCanvas.setMainContainerBehaviour({
                     idProperty: 'iris_identifier',
                     typeProperty: 'iris_type',
                     excludedId: 'custom',
+                    edit: false,
                     destCanvas: menuCanvas.getCanvas()
                 });
 
                 contentCanvas.setCustomContainerBehaviour({
-                    iris_type: "label",
-                    iris_identifier: "custom",
-                    left: 880,
-                    top: 70,
-                    originX: "center",
-                    originY: "center",
-                    fontSize: 19,
-                    fontFamily: 'Calibri',
-                }, {
-                    iris_type: "image",
-                    iris_identifier: "custom",
-                    left: 610,
-                    top: 350,
-                    originX: "center",
-                    originY: "center",
-                    hasControls: true,
-                    hasRotatingPoint: true,
-                    selectable: true
-                });
+                        iris_type: "label",
+                        iris_identifier: "custom",
+                        left: 880,
+                        top: 70,
+                        originX: "center",
+                        originY: "center",
+                        fontSize: 19,
+                        fontFamily: 'Calibri',
+                    },
+                    {
+                        iris_type: "image",
+                        iris_identifier: "custom",
+                        left: 610,
+                        top: 350,
+                        originX: "center",
+                        originY: "center",
+                        hasControls: true,
+                        hasRotatingPoint: true,
+                        selectable: true
+                    });
 
                 menuCanvas.setMenuContainerBehaviour(contentCanvas.getCanvas());
 
