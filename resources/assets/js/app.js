@@ -28,6 +28,13 @@ window.SearchModal = require('./components/search-modal/main').default;
 window.CanvasDocBuilder = require('./components/canvas-document-builder/main').default;
 
 /**
+ * React components
+ */
+
+require('./react-components/mailbox/mailbox');
+
+
+/**
  * Self Executing Methods
  */
 import {activeMenu, activeTab, ajaxCSRF, laravelLinksAsForm} from './general';

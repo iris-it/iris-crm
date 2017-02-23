@@ -87,7 +87,6 @@ Route::group(['middleware' => 'auth'], function () {
 
         Route::resource('templates', 'TemplateController');
         Route::get('templates/generate/{type}/{id_entity}/{id_template}', 'TemplateController@generateTemplate');
-////////////
 
         /*
          * Office resources
@@ -137,6 +136,10 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('notes/{id}/edit', 'NoteController@edit');
         Route::put('notes/{id}/update', 'NoteController@update');
         Route::delete('notes/{id}/delete', 'NoteController@destroy');
+
+        Route::get('mails', function () {
+            return view('pages.mails.index');
+        });
 
     });
 });
