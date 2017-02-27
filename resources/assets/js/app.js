@@ -31,7 +31,7 @@ window.CanvasDocBuilder = require('./components/canvas-document-builder/main').d
  * React components
  */
 
-require('./react-components/mailbox/mailbox');
+require('./react-components/mailbox/App');
 
 
 /**
